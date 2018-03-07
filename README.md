@@ -1,4 +1,4 @@
-# flow-typer [ALPHA]
+# flow-typer
 
 Define Flow types with JavaScript
 
@@ -24,7 +24,7 @@ _flow-typer_ is special type of validator that  combines static and runtime type
 ## Installation
 
 ```shell
-npm install --save gmazovec/flow-typer#alpha
+npm install --save gmazovec/flow-typer
 ```
 
 
