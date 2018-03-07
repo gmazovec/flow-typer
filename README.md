@@ -2,7 +2,10 @@
 
 Composable static and runtime type checking with Flow.
 
-_flow-typer_ is a set of type validators that combines static and runtime type checking. By composing validators in JavaScript, we define a type schema that can be used to create inferred Flow type (static checking) and for validating values at runtime.
+_flow-typer_ is a set of type validators that combines static and runtime type
+checking. By composing validators in JavaScript, we define a type schema that
+can be used to create inferred Flow type (static checking) and for validating
+values at runtime.
 
 Features:
 
@@ -30,7 +33,10 @@ var typer = require('flow-typer') // ES5 with npm
 
 ## Usage
 
-_flow-typer_ is most useful in validating input values with unknown type like JSON data from HTTP messages and database. There's no need to validate function arguments because we can use static typechecking with Flow for that.
+_flow-typer_ is most useful in validating input values with unknown type like
+JSON data from HTTP messages and database. There's no need to validate function
+arguments or return values because we can use static type checking with Flow for
+that.
 
 This example shows how to use validation of JSON data in Express application.
 
@@ -104,7 +110,8 @@ app.post('/api/users', createUser)
 
 ### Type check
 
-These functions will check for specific JavaScript type with correct Flow type refinement.
+These functions will check for specific JavaScript type with correct Flow type
+refinement.
 
 - `typer.isNil`
 - `typer.isUndef`
@@ -138,7 +145,9 @@ These functions will check for specific JavaScript type with correct Flow type r
 
 ### unionOf Validators
 
-In `unionOf` schema function, different kind of validators has to be used. There validators never throw an error but returns either `null` or wrapped value as `[T]`. This way we can use `||` operator to defined union types.
+In `unionOf` schema function, different kind of validators have to be used.
+These validators never throw an error but returns either `null` or wrapped
+value as `[T]`. This way we can use `||` operator to defined union types.
 
 ```javascript
 const schema = unionOf(u => string_(u) || number_(u))
@@ -157,7 +166,8 @@ this could be solved with `$Tuple` utility type.
 
 ## TODO
 
-- Use less verbose API for `objectOf` argument. Currently this is not possible because of the  [bug](https://github.com/facebook/flow/issues/935) in Flow.
+- Use less verbose API for `objectOf` argument. Currently this is not possible
+because of the  [bug](https://github.com/facebook/flow/issues/935) in Flow.
 
 Example:
 
@@ -169,7 +179,9 @@ const schema = objectOf({
 })
 ```
 
-- Use _literalOf_ and _tupleOf_ without explicit Flow type annotations. Literal and tuple types can not be inferred by Flow type. This could be solved with new Flow utility types `$Literal` and `$Tuple`.
+- Use `literalOf` and `tupleOf` without explicit Flow type annotations. Literal
+and tuple types can not be inferred by Flow type. This could be solved with new
+Flow utility types `$Literal` and `$Tuple`.
 
 ## Limitations
 
