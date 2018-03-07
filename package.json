@@ -1,0 +1,25 @@
+{
+  "name": "flow-typer",
+  "version": "0.0.0",
+  "description": "Composable static and runtime type checking with Flow ",
+  "main": "dist/index.js",
+  "repository": "https://github.com/gmazovec/flow-typer",
+  "author": "Gregor Mazovec <gregor.mazovec@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "flow --show-all-errors && ava test",
+    "build": "flow-remove-types --out-dir dist src",
+    "postinstall": "npm run build"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "ava-spec": "^1.1.1",
+    "flow-bin": "0.66.0",
+    "flow-remove-types": "^1.2.3"
+  },
+  "ava": {
+    "require": [
+      "flow-remove-types/register"
+    ]
+	}
+}
