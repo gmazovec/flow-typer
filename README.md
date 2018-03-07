@@ -166,6 +166,10 @@ this could be solved with `$Tuple` utility type.
 
 ## TODO
 
+- Improve error messages for runtime validation.
+
+- Add _unionOf_ validators for compound types (`objectOf_`, `arrayOf_`, `tupleOf_`)
+
 - Use less verbose API for `objectOf` argument. Currently this is not possible
 because of the  [bug](https://github.com/facebook/flow/issues/935) in Flow.
 
