@@ -1,24 +1,16 @@
 # flow-typer
 
-Define Flow types with JavaScript
+Composable static and runtime type checking with Flow.
 
-_flow-typer_ is special type of validator that  combines static and runtime type checking. It can be used to define custom Flow types in JS and to construct type validators based on those types.
+_flow-typer_ is a set of type validators that combines static and runtime type checking. By composing validators in JavaScript, we define a type schema that can be used to create inferred Flow type (static checking) and for validating values at runtime.
 
+Features:
 
 - complete Flow type coverage
 - type validators are immutable
+- define Flow types with JavaScript
 - no transpilation required
 - works with Node 6.x +
-
-#### Index
-
-- [Installation](#nstallation)
-- [Importing](#importing)
-- [Usage](#usage)
-- [Use Case](#use-case)
-- [How It Works](#how-it-works)
-- [API](#api)
-- [Limitations](#limitations)
 
 
 ## Installation
@@ -38,89 +30,81 @@ var typer = require('flow-typer') // ES5 with npm
 
 ## Usage
 
-Define type schema in JS
+_flow-typer_ is most useful in validating input values with unknown type like JSON data from HTTP messages and database. There's no need to validate function arguments because we can use static typechecking with Flow for that.
+
+This example shows how to use validation of JSON data in Express application.
 
 ```javascript
-const { arrayOf, string } = typer
-const listOfStrings = arrayOf(string)
-```
+// @flow
+const typer = require('flow-typer')
 
-Create Flow type
+// type validators
+const {
+  objectOf, arrayOf, unionOf, literalOf,
+  maybe, string, number, boolean
+} = typer
 
-```javascript
-const listOfStringsT = typer.typeOf(listOfStrings)
-type ListOfStringsT = typeof listOfStringsT
-```
-
-Validate value
-
-```javascript
-const input = JSON.parse('An input string')
-const value = schema(input)
-```
-
-In previous example we construct a type by inferring.
-
-
-## Use Case
-
-```javascript
-// model/user.js
-
-type UserT = {
-  name: string,
-  email: string
+/*::
+type User = {
+  username: ?string,
+  email: string,
+  gender: 'male' | 'female',
+  active: boolean,
+  age: ?number
 }
+*/
 
-function create (attrs: UserT) {
-  ...
-}
+// Composing type schema with validators
 
-// routes/index.js
+const userSchema = objectOf(o => ({
+  username: maybe(string)(o.name),
+  email: string(o.email),
+  gender: unionOf(
+    literaOf(('male': 'male')),
+    literaOf(('female': 'female')),
+  )(o.gender),
+  active: boolean(o.active),
+  age: maybe(number)(o.age)
+}))
 
-app.post('/api/user', (req, res) => {
-  model.User.create(req.body.data)
-})
-```
-
-```javascript
-// model/user.js
-
-const { objectOf, string } = typer
-
-const userSchema = objectOf((o) => ({
-  name: string(v.name)(o.name),
-  email: string(v.email)(o.email)
-})
-
+// Define Flow type from Javascript value using `typer.typeOf` and
+// Flow `typeof` operator.
 const userSchemaT = typer.typeOf(userSchema)
+
+// This type that is inferred from Javascript value is the same the one
+// defined with Flow (type User).
 type UserT = typeof userSchemaT
 
-function create (attrs: UserT) {
-  ...
+function persist(user: UserT): Promise<UserT> {
+  return db.users.insert(user)
 }
 
-// routes/index.js
+function createUser (req, res) {
+  let user = null
+  try {
+// Here we validate the JSON data and cast it to Flow type inferred from
+// `userSchema`. This validator has 100% Flow coverage.
+    user: UserT = userSchema(req.body)
+  } catch (err) {
+    return res.status(400).json({ error: err.message })
+  }
+  user = await persist(user)
 
-app.post('/api/user', (req, res) => {
-  const user = model.User.userSchema(req.body.data)
-  model.User.create(user)
-})
+// Calling unknown user attribute will show Flow error.
+  debug(`new user created with name ${user.name}`)
+  res.status(201).json({ user })
+}
+
+app.post('/api/users', createUser)
 ```
-
-
-## How It Works
-
-type construction is based on Flow's inference.
-
-validation is based on Flow's refinement.
-
 
 ## API
 
 > **NOTICE! Basic implementation is still under development and the API might change.**
 
 ### Type check
+
+These functions will check for specific JavaScript type with correct Flow type refinement.
 
 - `typer.isNil`
 - `typer.isUndef`
@@ -136,20 +120,56 @@ validation is based on Flow's refinement.
 - `typer.boolean`
 - `typer.number`
 - `typer.string`
+- `typer.literalOf(type)` (requires Flow annotations \*)
 
-### Complex types
+### Mixed and maybe types
 
 - `typer.mixed`
-- `typer.maybe(type)`
-- `typer.literalOf(type)` (requires Flow annotations \*)
-- `typer.objectOf(type)`
-- `typer.arrayOf(type)`
-- `typer.tupleOf(type)` (requires Flow annotations \*)
-- `typer.unionOf(type)`
+- `typer.maybe(type|schema)`
 
-* Flow does not support to infer tuple type. It needs to be annotated. In future
+
+### Compound types
+
+- `typer.object`
+- `typer.objectOf(schema)`
+- `typer.arrayOf(type|schema)`
+- `typer.tupleOf([...types])` (requires Flow annotations \*)
+- `typer.unionOf(schema)`
+
+### unionOf Validators
+
+In `unionOf` schema function, different kind of validators has to be used. There validators never throw an error but returns either `null` or wrapped value as `[T]`. This way we can use `||` operator to defined union types.
+
+```javascript
+const schema = unionOf(u => string_(u) || number_(u))
+```
+
+- `typer.nil_`
+- `typer.undef_`
+- `typer.boolean_`
+- `typer.number_`
+- `typer.string_`
+- `typer.literalOf_(type)`
+
+
+\* Flow does not support to infer tuple type. It needs to be annotated. In future
 this could be solved with `$Tuple` utility type.
 
+## TODO
+
+- Use less verbose API for `objectOf` argument. Currently this is not possible because of the  [bug](https://github.com/facebook/flow/issues/935) in Flow.
+
+Example:
+
+```javascript
+const schema = objectOf({
+  name: string,
+  email: string,
+  age: number
+})
+```
+
+- Use _literalOf_ and _tupleOf_ without explicit Flow type annotations. Literal and tuple types can not be inferred by Flow type. This could be solved with new Flow utility types `$Literal` and `$Tuple`.
 
 ## Limitations
 
