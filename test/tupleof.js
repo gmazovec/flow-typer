@@ -48,9 +48,9 @@ test.group('compoud type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator([{ ...user, age: '33' }]) }, TypeError)
-    t.throws(() => { validator([{ ...user, email: true }]) }, TypeError)
-    t.throws(() => { validator([{ ...user, active: 1 }]) }, TypeError)
-    t.throws(() => { validator([{ ...user, roles: [{ admin: true }] }]) }, TypeError)
+    t.throws(() => { validator([{ user: Object.assign({}, user), age: '33' }]) }, TypeError)
+    t.throws(() => { validator([{ user: Object.assign({}, user), email: true }]) }, TypeError)
+    t.throws(() => { validator([{ user: Object.assign({}, user), active: 1 }]) }, TypeError)
+    t.throws(() => { validator([{ user: Object.assign({}, user), roles: [{ admin: true }] }]) }, TypeError)
   })
 })

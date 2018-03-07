@@ -125,7 +125,7 @@ const maybe = /*:: <T> */
 const object =
   (v: mixed): ObjectRecord => {
     if (isEmpty(v)) return {}
-    if (isObject(v)) return { ...v }
+    if (isObject(v)) return Object.assign({}, v)
     throw new TypeError(`invalid object type; got type '${typeof v}'`)
   }
 
