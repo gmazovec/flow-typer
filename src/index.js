@@ -156,23 +156,11 @@ const tupleOf = /*:: <T, F: (mixed[]) => T> */
 
 // union type
 
-// '*' is used because it's not possible to define annotations for union type
-// of variable number of possible types.
-
-const unionFn = Object.freeze({
-  nil: nil_,
-  undef: undef_,
-  boolean: boolean_,
-  number: number_,
-  string: string_,
-  literalOf: literalOf_
-})
-
-const unionOf = /*:: <T: *, F: (mixed, typeof unionFn) => T> */
-  (typeFn: F): TypeValidator<T> =>
-    (v: mixed): T => {
-      const typedV = typeFn(v, unionFn)
-      if (Array.isArray(typedV) && typedV.length === 1) return typedV[0]
+const unionOf = /*:: <T, F: (mixed) => T, L: F[]> */
+  (...typeFnList: L) =>
+    (v: mixed) => {
+      const typeFn = typeFnList.find(fn => isType(fn)(v))
+      if (typeFn) return typeFn(v)
       throw new TypeError('invalid union type')
     }
 
@@ -183,7 +171,19 @@ const typeOf = /*:: <T> */
   (schema: TypeValidator<T>): T =>
     schema(EMTPY_VALUE)
 
+const isType = /*:: <T, F: TypeValidator<T>> */
+  (typeFn: F): TypeValidator<boolean> =>
+    (v: mixed): boolean => {
+      try {
+        typeFn(v)
+        return true
+      } catch (_) {
+        return false
+      }
+    }
+
 //
+
 
 module.exports = Object.freeze({
   isNil,
@@ -205,5 +205,6 @@ module.exports = Object.freeze({
   arrayOf,
   tupleOf,
   unionOf,
-  typeOf
+  typeOf,
+  isType
 })

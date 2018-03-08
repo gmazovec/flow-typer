@@ -132,28 +132,16 @@ refinement.
 ### Mixed and maybe types
 
 - `typer.mixed`
-- `typer.maybe(type|schema)`
+- `typer.maybe(schema)`
 
 
 ### Compound types
 
 - `typer.object`
 - `typer.objectOf(schema)`
-- `typer.arrayOf(type|schema)`
-- `typer.tupleOf([...types])` (requires Flow annotations \*)
-- `typer.unionOf(schema)`
-
-### unionOf Validators
-
-In `unionOf` schema function, different kind of validators have to be used.
-These validators never throw an error but returns either `null` or wrapped
-value as `[T]`. This way we can use `||` operator to defined union types.
-
-The validators are passed as seconds argument to schema function.
-
-```javascript
-const schema = unionOf((u, t) => t.string(u) || t.number(u))
-```
+- `typer.arrayOf(schema)`
+- `typer.tupleOf(...schema[])` (requires Flow annotations \*)
+- `typer.unionOf(...schema[])`
 
 
 \* Flow does not support to infer tuple type. It needs to be annotated. In future
@@ -162,8 +150,6 @@ this could be solved with `$Tuple` utility type.
 ## TODO
 
 - Improve error messages for runtime validation.
-
-- Add _unionOf_ validators for compound types (`objectOf_`, `arrayOf_`, `tupleOf_`)
 
 - Use less verbose API for `objectOf` argument. Currently this is not possible
 because of the  [bug](https://github.com/facebook/flow/issues/935) in Flow.
