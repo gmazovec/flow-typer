@@ -156,7 +156,10 @@ const tupleOf = /*:: <T, F: (mixed[]) => T> */
 
 // union type
 
-const unionOf = /*:: <T, F: (mixed) => TypeValue<T>> */
+// '*' is used because it's not possible to define annotations for union type
+// of variable number of possible types.
+
+const unionOf = /*:: <T: *, F: (mixed) => T> */
   (typeFn: F): TypeValidator<T> =>
     (v: mixed): T => {
       const typedV = typeFn(v)
