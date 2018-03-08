@@ -2,11 +2,11 @@
 import test from 'ava-spec'
 import typer from '../src'
 
-const { unionOf, literalOf_ } = typer
+const { unionOf } = typer
 
 test.group('primitive types', test => {
-  const validator = unionOf((v) =>
-    literalOf_('foo')(v) || literalOf_(12345)(v)
+  const validator = unionOf((v, t) =>
+    t.literalOf('foo')(v) || t.literalOf(12345)(v)
   )
 
   test('should validate an union', t => {

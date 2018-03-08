@@ -149,16 +149,11 @@ In `unionOf` schema function, different kind of validators have to be used.
 These validators never throw an error but returns either `null` or wrapped
 value as `[T]`. This way we can use `||` operator to defined union types.
 
-```javascript
-const schema = unionOf(u => string_(u) || number_(u))
-```
+The validators are passed as seconds argument to schema function.
 
-- `typer.nil_`
-- `typer.undef_`
-- `typer.boolean_`
-- `typer.number_`
-- `typer.string_`
-- `typer.literalOf_(type)`
+```javascript
+const schema = unionOf((u, t) => t.string(u) || t.number(u))
+```
 
 
 \* Flow does not support to infer tuple type. It needs to be annotated. In future

@@ -159,10 +159,19 @@ const tupleOf = /*:: <T, F: (mixed[]) => T> */
 // '*' is used because it's not possible to define annotations for union type
 // of variable number of possible types.
 
-const unionOf = /*:: <T: *, F: (mixed) => T> */
+const unionFn = Object.freeze({
+  nil: nil_,
+  undef: undef_,
+  boolean: boolean_,
+  number: number_,
+  string: string_,
+  literalOf: literalOf_
+})
+
+const unionOf = /*:: <T: *, F: (mixed, typeof unionFn) => T> */
   (typeFn: F): TypeValidator<T> =>
     (v: mixed): T => {
-      const typedV = typeFn(v)
+      const typedV = typeFn(v, unionFn)
       if (Array.isArray(typedV) && typedV.length === 1) return typedV[0]
       throw new TypeError('invalid union type')
     }
@@ -183,17 +192,11 @@ module.exports = Object.freeze({
   isNumber,
   isString,
   isObject,
-  nil_,
   nil,
-  undef_,
   undef,
-  boolean_,
   boolean,
-  number_,
   number,
-  string_,
   string,
-  literalOf_,
   literalOf,
   mixed,
   maybe,
