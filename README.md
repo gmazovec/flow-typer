@@ -143,6 +143,10 @@ refinement.
 - `typer.tupleOf(...schema[])` (requires Flow annotations \*)
 - `typer.unionOf(...schema[])`
 
+### Utilities
+
+- `typer.isType(schema)`
+- `typer.typeOf(schema)`
 
 \* Flow does not support to infer tuple type. It needs to be annotated. In future
 this could be solved with `$Tuple` utility type.
