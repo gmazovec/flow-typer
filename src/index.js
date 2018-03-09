@@ -8,14 +8,6 @@ export type TypeValidator<T> = (mixed) => T
 export type TypeMaybeValidator<T> = (mixed) => ?T
 export type TypeArrayValidator<T> = (mixed) => T[]
 
-// This type is used for implement unionOf validator. The return value is wrapped
-// so that validators can be chained with OR operator. If the validator returns
-// null it means the validation failed and execution jumps to next validator. In
-// case where TypeValue type is returned we return and unwrap the value.
-
-export type TypeValue<T> = ?[T]
-export type TypeChecker<T> = (mixed) => TypeValue<T>
-
 // type helpers
 
 // This symbol can be passed to validators to indicate empty value. Validators
@@ -45,73 +37,54 @@ const isString = (v: mixed): boolean %checks =>
 const isObject = (v: mixed): boolean %checks =>
   !isNil(v) && typeof v === 'object'
 
-
-// wrapping helpers
-
-function wrap <T> (v: T): [T] {
-  return [v]
-}
-
-function unwrap <T> (typedV: TypeValue<T>): T {
-  if (typedV) return typedV[0]
-  throw new TypeError('invalid type')
-}
-
-
 // primitive types
 
-const nil = (v: mixed): null =>
-  unwrap(nil_(v))
+const nil =
+  (v: mixed): null => {
+    if (isEmpty(v) || isNil(v)) return null
+    throw new TypeError()
+  }
 
-const nil_ = (v: mixed): TypeValue<null> =>
-  isEmpty(v) || isNil(v) ? wrap(null) : undefined
+const undef =
+  (v: mixed): void => {
+    if (isEmpty(v) || isUndef(v)) return undefined
+    throw new TypeError()
+  }
 
-const undef = (v: mixed): void =>
-  unwrap(undef_(v))
+const boolean =
+  (v: mixed): boolean => {
+    if (isEmpty(v)) return false
+    if (isBoolean(v)) return v
+    throw new TypeError()
+  }
 
-const undef_ = (v: mixed): TypeValue<void> =>
-  isEmpty(v) || isUndef(v) ? wrap(undefined) : undefined
+const number =
+  (v: mixed): number => {
+    if (isEmpty(v)) return 0
+    if (isNumber(v)) return v
+    throw new TypeError()
+  }
 
-const boolean = (v: mixed): boolean =>
-  unwrap(boolean_(v))
-
-const boolean_ = (v: mixed): TypeValue<boolean> =>
-  !isEmpty(v)
-    ? isBoolean(v) ? wrap(v) : undefined
-    : wrap(false)
-
-const number = (v: mixed): number =>
-  unwrap(number_(v))
-
-const number_ = (v: mixed): TypeValue<number> =>
-  !isEmpty(v)
-    ? isNumber(v) ? wrap(v) : undefined
-    : wrap(0)
-
-const string = (v: mixed): string =>
-  unwrap(string_(v))
-
-const string_ = (v: mixed): TypeValue<string> =>
-    !isEmpty(v)
-      ? isString(v) ? wrap(v) : undefined
-      : wrap('')
-
+const string =
+  (v: mixed): string => {
+    if (isEmpty(v)) return ''
+    if (isString(v)) return v
+    throw new TypeError()
+  }
 
 // literal type
 
 const literalOf = /*:: <T: Literal> */
   (literal: T): TypeValidator<T> =>
-    (v: mixed) =>
-      unwrap(literalOf_(literal)(v))
-
-const literalOf_ = /*:: <T: Literal> */
-  (literal: T): TypeChecker<T> =>
-    (v: mixed): TypeValue<T> =>
-      isEmpty(v) || (v === literal) ? wrap(literal) : undefined
+    (v: mixed) => {
+      if (isEmpty(v) || (v === literal)) return literal
+      throw new TypeError()
+    }
 
 // mixed type
 
-const mixed = (v: mixed): * => v
+const mixed =
+  (v: mixed): * => v
 
 // maybe type
 
@@ -183,7 +156,6 @@ const isType = /*:: <T, F: TypeValidator<T>> */
     }
 
 //
-
 
 module.exports = Object.freeze({
   isNil,
