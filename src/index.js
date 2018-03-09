@@ -155,7 +155,7 @@ const arrayOf = exports.arrayOf = /*:: <T> */
 const tupleOf1 = exports.tupleOf1 = /*:: <T> */
   (...typeFuncs: [TypeValidator<T>]): TypeValidator<[T]> =>
     (v: mixed) => {
-      if (Array.isArray(v)) {
+      if (Array.isArray(v) && v.length === 1) {
         return [typeFuncs[0](v[0])]
       }
       throw new TypeError('invalid tuple type of cardinality of 1')
@@ -164,7 +164,7 @@ const tupleOf1 = exports.tupleOf1 = /*:: <T> */
 const tupleOf2 = exports.tupleOf2 = /*:: <T, U> */
   (...typeFuncs: TypeValidatorsOf2<T, U>): TypeValidator<[T, U]> =>
     (v: mixed) => {
-      if (Array.isArray(v)) {
+      if (Array.isArray(v) && v.length === 2) {
         return [
           typeFuncs[0](v[0]),
           typeFuncs[1](v[1])
@@ -176,43 +176,43 @@ const tupleOf2 = exports.tupleOf2 = /*:: <T, U> */
 const tupleOf3 = exports.tupleOf3 = /*:: <T, U, V> */
   (...typeFuncs: TypeValidatorsOf3<T, U, V>): TypeValidator<[T, U, V]> =>
     (v: mixed) => {
-      if (Array.isArray(v)) {
+      if (Array.isArray(v) && v.length === 3) {
         return [
           typeFuncs[0](v[0]),
           typeFuncs[1](v[1]),
           typeFuncs[2](v[2])
         ]
       }
-      throw new TypeError('invalid tuple type of cardinality of 2')
+      throw new TypeError('invalid tuple type of cardinality of 3')
     }
 
 const tupleOf4 = exports.tupleOf4 = /*:: <T, U, V, Z> */
   (...typeFuncs: TypeValidatorsOf4<T, U, V, Z>): TypeValidator<[T, U, V, Z]> =>
     (v: mixed) => {
-      if (Array.isArray(v)) {
+      if (Array.isArray(v) && v.length === 4) {
         return [
           typeFuncs[0](v[0]),
           typeFuncs[1](v[1]),
           typeFuncs[2](v[2]),
-          typeFuncs[3](v[4])
+          typeFuncs[3](v[3])
         ]
       }
-      throw new TypeError('invalid tuple type of cardinality of 2')
+      throw new TypeError('invalid tuple type of cardinality of 4')
     }
 
 const tupleOf5 = exports.tupleOf5 = /*:: <T, U, V, Z, X> */
   (...typeFuncs: TypeValidatorsOf5<T, U, V, Z, X>): TypeValidator<[T, U, V, Z, X]> =>
     (v: mixed) => {
-      if (Array.isArray(v)) {
+      if (Array.isArray(v) && v.length === 5) {
         return [
           typeFuncs[0](v[0]),
           typeFuncs[1](v[1]),
           typeFuncs[2](v[2]),
-          typeFuncs[3](v[4]),
-          typeFuncs[4](v[5])
+          typeFuncs[3](v[3]),
+          typeFuncs[4](v[4])
         ]
       }
-      throw new TypeError('invalid tuple type of cardinality of 2')
+      throw new TypeError('invalid tuple type of cardinality of 5')
     }
 
 // union type
@@ -222,6 +222,7 @@ const unionOf2 = exports.unionOf2 = /*:: <T, U> */
     (v: mixed) => {
       try { return typeFuncs[0](v) } catch (_) {}
       try { return typeFuncs[1](v) } catch (_) {}
+      throw new TypeError('invalid union type of cardinality of 2')
     }
 
 const unionOf3 = exports.unionOf3 = /*:: <T, U, V> */
@@ -230,6 +231,7 @@ const unionOf3 = exports.unionOf3 = /*:: <T, U, V> */
       try { return typeFuncs[0](v) } catch (_) {}
       try { return typeFuncs[1](v) } catch (_) {}
       try { return typeFuncs[2](v) } catch (_) {}
+      throw new TypeError('invalid union type of cardinality of 3')
     }
 
 const unionOf4 = exports.unionOf4 = /*:: <T, U, V, Z> */
@@ -239,6 +241,7 @@ const unionOf4 = exports.unionOf4 = /*:: <T, U, V, Z> */
       try { return typeFuncs[1](v) } catch (_) {}
       try { return typeFuncs[2](v) } catch (_) {}
       try { return typeFuncs[3](v) } catch (_) {}
+      throw new TypeError('invalid union type of cardinality of 4')
     }
 
 const unionOf5 = exports.unionOf5 = /*:: <T, U, V, Z, X> */
@@ -249,6 +252,7 @@ const unionOf5 = exports.unionOf5 = /*:: <T, U, V, Z, X> */
       try { return typeFuncs[2](v) } catch (_) {}
       try { return typeFuncs[3](v) } catch (_) {}
       try { return typeFuncs[4](v) } catch (_) {}
+      throw new TypeError('invalid union type of cardinality of 5')
     }
 
 // utilities
