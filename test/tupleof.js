@@ -2,13 +2,10 @@
 import test from 'ava-spec'
 import typer from '../src'
 
-const { tupleOf, boolean, number, string, objectOf, arrayOf } = typer
+const { tupleOf1, tupleOf3, boolean, number, string, objectOf, arrayOf } = typer
 
 test.group('primitive types', test => {
-  const validator = tupleOf(
-    ([name, age, active]) /*: [string, number, boolean] */ =>
-      [string(name), number(age), boolean(active)]
-  )
+  const validator = tupleOf3(string, number, boolean)
 
   test('should validate a tuple', t => {
     const input = ['foo', 12345, true]
@@ -36,9 +33,7 @@ test.group('compoud type', test => {
     active: boolean(o.active),
     roles: arrayOf(string)(o.roles)
   }))
-  const validator = tupleOf(
-    ([user, key]) /*: [*] */ => [userSchema(user)]
-  )
+  const validator = tupleOf1(userSchema)
   const user = { email: 'foo@example.org', age: 33, active: false, roles: ['admin'] }
 
   test('should validate a tuple', t => {

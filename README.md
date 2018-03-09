@@ -140,7 +140,11 @@ refinement.
 - `typer.object`
 - `typer.objectOf(schema)`
 - `typer.arrayOf(schema)`
-- `typer.tupleOf(...schema[])` (requires Flow annotations \*)
+- `typer.tupleOf(...schema[])`
+- `typer.tupleOf1(...schema[])`
+- `typer.tupleOf2(...schema[])`
+- `typer.tupleOf3(...schema[])`
+- `typer.tupleOf4(...schema[])`
 - `typer.unionOf2(...schema[])`
 - `typer.unionOf3(...schema[])`
 - `typer.unionOf4(...schema[])`
