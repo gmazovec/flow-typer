@@ -8,6 +8,32 @@ export type TypeValidator<T> = (mixed) => T
 export type TypeMaybeValidator<T> = (mixed) => ?T
 export type TypeArrayValidator<T> = (mixed) => T[]
 
+type TypeValidatorsOf2<T, U> = [
+  TypeValidator<T>,
+  TypeValidator<U>
+]
+
+type TypeValidatorsOf3<T, U, V> = [
+  TypeValidator<T>,
+  TypeValidator<U>,
+  TypeValidator<V>
+]
+
+type TypeValidatorsOf4<T, U, V, Z> = [
+  TypeValidator<T>,
+  TypeValidator<U>,
+  TypeValidator<V>,
+  TypeValidator<Z>,
+]
+
+type TypeValidatorsOf5<T, U, V, Z, X> = [
+  TypeValidator<T>,
+  TypeValidator<U>,
+  TypeValidator<V>,
+  TypeValidator<Z>,
+  TypeValidator<X>
+]
+
 // type helpers
 
 // This symbol can be passed to validators to indicate empty value. Validators
@@ -142,6 +168,50 @@ const unionOf = exports.unionOf = /*:: <T, F: (mixed) => T, L: F[]> */
       const typeFn = typeFnList.find(fn => isType(fn)(v))
       if (typeFn) return typeFn(v)
       throw new TypeError('invalid union type')
+    }
+
+const _unionOf =
+  (typeFuncs) =>
+    (v: mixed) => {
+      for (const typeFn of typeFuncs) {
+        try { return typeFn(v) }
+        catch (_) {}
+      }
+      throw new TypeError('invalid union type')
+    }
+
+const unionOf2 = exports.unionOf2 = /*:: <T, U> */
+  (...typeFuncs: TypeValidatorsOf2<T, U>): TypeValidator<T | U> =>
+    (v: mixed) => {
+      try { return typeFuncs[0](v) } catch (_) {}
+      try { return typeFuncs[1](v) } catch (_) {}
+    }
+
+const unionOf3 = exports.unionOf3 = /*:: <T, U, V> */
+  (...typeFuncs: TypeValidatorsOf3<T, U, V>): TypeValidator<T | U | V> =>
+    (v: mixed) => {
+      try { return typeFuncs[0](v) } catch (_) {}
+      try { return typeFuncs[1](v) } catch (_) {}
+      try { return typeFuncs[2](v) } catch (_) {}
+    }
+
+const unionOf4 = exports.unionOf4 = /*:: <T, U, V, Z> */
+  (...typeFuncs: TypeValidatorsOf4<T, U, V, Z>): TypeValidator<T | U | V | Z> =>
+    (v: mixed) => {
+      try { return typeFuncs[0](v) } catch (_) {}
+      try { return typeFuncs[1](v) } catch (_) {}
+      try { return typeFuncs[2](v) } catch (_) {}
+      try { return typeFuncs[3](v) } catch (_) {}
+    }
+
+const unionOf5 = exports.unionOf5 = /*:: <T, U, V, Z, X> */
+  (...typeFuncs: TypeValidatorsOf5<T, U, V, Z, X>): TypeValidator<T | U | V | Z | X> =>
+    (v: mixed) => {
+      try { return typeFuncs[0](v) } catch (_) {}
+      try { return typeFuncs[1](v) } catch (_) {}
+      try { return typeFuncs[2](v) } catch (_) {}
+      try { return typeFuncs[3](v) } catch (_) {}
+      try { return typeFuncs[4](v) } catch (_) {}
     }
 
 // utilities

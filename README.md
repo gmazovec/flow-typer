@@ -141,7 +141,10 @@ refinement.
 - `typer.objectOf(schema)`
 - `typer.arrayOf(schema)`
 - `typer.tupleOf(...schema[])` (requires Flow annotations \*)
-- `typer.unionOf(...schema[])`
+- `typer.unionOf2(...schema[])`
+- `typer.unionOf3(...schema[])`
+- `typer.unionOf4(...schema[])`
+- `typer.unionOf5(...schema[])`
 
 ### Utilities
 
