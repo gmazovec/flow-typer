@@ -140,23 +140,65 @@ refinement.
 - `typer.object`
 - `typer.objectOf(schema)`
 - `typer.arrayOf(schema)`
-- `typer.tupleOf(...schema[])`
+
+```javascript
+const schema = arrayOf(number) // => type T = number[]
+```
+
 - `typer.tupleOf1(...schema[])`
 - `typer.tupleOf2(...schema[])`
 - `typer.tupleOf3(...schema[])`
 - `typer.tupleOf4(...schema[])`
+
+```javascript
+const schema = tupleOf2(string, number) // => type T = [string, number]
+```
+
 - `typer.unionOf2(...schema[])`
 - `typer.unionOf3(...schema[])`
 - `typer.unionOf4(...schema[])`
 - `typer.unionOf5(...schema[])`
+
+```javascript
+const schema = unionOf2('week', 'month') // => type T = 'week' | 'month'
+```
+
+## Examples
+
+```javascript
+const schema = objectOf(o => ({
+  name: string(o.name),
+  age: maybe(number)(o.age)
+  roles: unionOf3(
+    literalOf('admin': 'admin'),
+    literalOf('editor': 'editor'),
+    literalOf('viewer': 'viewer')
+  )(o.roles),
+  teamIds: arrayOf(number)(o.teamIds),
+  active: boolean(o.active)
+}))
+
+// => type T = {
+//   name: string,
+//    age: ?number,
+//    roles: 'admin' | 'editor' | 'viewer',
+//    teamIds: number[],
+//    active: boolean
+// }
+```
 
 ### Utilities
 
 - `typer.isType(schema)`
 - `typer.typeOf(schema)`
 
-\* Flow does not support to infer tuple type. It needs to be annotated. In future
-this could be solved with `$Tuple` utility type.
+```javascript
+const schema = arrayOf(userSchema)
+const userListT = typeOf(schema)
+
+// flow
+type UserListT = typeof userListT
+```
 
 ## TODO
 
@@ -175,9 +217,13 @@ const schema = objectOf({
 })
 ```
 
+- Find ways to create generic `tupleOf` and `unionOf` validators with variable
+cardinality.
+
 - Use `literalOf` and `tupleOf` without explicit Flow type annotations. Literal
 and tuple types can not be inferred by Flow type. This could be solved with new
 Flow utility types `$Literal` and `$Tuple`.
+
 
 ## Limitations
 
