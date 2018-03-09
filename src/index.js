@@ -16,56 +16,63 @@ export type TypeArrayValidator<T> = (mixed) => T[]
 
 const EMTPY_VALUE = Symbol('@@empty')
 
-const isEmpty = (v: mixed): boolean %checks =>
-  v === EMTPY_VALUE
+const isEmpty =
+  (v: mixed): boolean %checks =>
+    v === EMTPY_VALUE
 
-const isNil = (v: mixed): boolean %checks =>
-  v === null
+const isNil = exports.isNil =
+  (v: mixed): boolean %checks =>
+    v === null
 
-const isUndef = (v: mixed): boolean %checks =>
-  typeof v === 'undefined'
+const isUndef = exports.isUndef =
+  (v: mixed): boolean %checks =>
+    typeof v === 'undefined'
 
-const isBoolean = (v: mixed): boolean %checks =>
-  typeof v === 'boolean'
+const isBoolean = exports.isBoolean =
+  (v: mixed): boolean %checks =>
+    typeof v === 'boolean'
 
-const isNumber = (v: mixed): boolean %checks =>
-  typeof v === 'number'
+const isNumber = exports.isNumber =
+  (v: mixed): boolean %checks =>
+    typeof v === 'number'
 
-const isString = (v: mixed): boolean %checks =>
-  typeof v === 'string'
+const isString = exports.isString =
+  (v: mixed): boolean %checks =>
+    typeof v === 'string'
 
-const isObject = (v: mixed): boolean %checks =>
-  !isNil(v) && typeof v === 'object'
+const isObject = exports.isObject =
+  (v: mixed): boolean %checks =>
+    !isNil(v) && typeof v === 'object'
 
 // primitive types
 
-const nil =
+const nil = exports.nil =
   (v: mixed): null => {
     if (isEmpty(v) || isNil(v)) return null
     throw new TypeError()
   }
 
-const undef =
+const undef = exports.undef =
   (v: mixed): void => {
     if (isEmpty(v) || isUndef(v)) return undefined
     throw new TypeError()
   }
 
-const boolean =
+const boolean = exports.boolean =
   (v: mixed): boolean => {
     if (isEmpty(v)) return false
     if (isBoolean(v)) return v
     throw new TypeError()
   }
 
-const number =
+const number = exports.number =
   (v: mixed): number => {
     if (isEmpty(v)) return 0
     if (isNumber(v)) return v
     throw new TypeError()
   }
 
-const string =
+const string = exports.string =
   (v: mixed): string => {
     if (isEmpty(v)) return ''
     if (isString(v)) return v
@@ -74,7 +81,7 @@ const string =
 
 // literal type
 
-const literalOf = /*:: <T: Literal> */
+const literalOf = exports.literalOf = /*:: <T: Literal> */
   (literal: T): TypeValidator<T> =>
     (v: mixed) => {
       if (isEmpty(v) || (v === literal)) return literal
@@ -83,33 +90,33 @@ const literalOf = /*:: <T: Literal> */
 
 // mixed type
 
-const mixed =
+const mixed = exports.mixed =
   (v: mixed): * => v
 
 // maybe type
 
-const maybe = /*:: <T> */
+const maybe = exports.maybe = /*:: <T> */
   (typeFn: TypeValidator<T>): TypeMaybeValidator<T> =>
     (v: mixed): ?T =>
       (isNil(v) || isUndef(v)) ? v : typeFn(v)
 
 // object type
 
-const object =
+const object = exports.object =
   (v: mixed): ObjectRecord => {
     if (isEmpty(v)) return {}
     if (isObject(v)) return Object.assign({}, v)
     throw new TypeError(`invalid object type; got type '${typeof v}'`)
   }
 
-const objectOf = /*:: <T, F: (ObjectRecord) => T> */
+const objectOf = exports.objectOf = /*:: <T, F: (ObjectRecord) => T> */
   (typeFn: F): TypeValidator<T> =>
     (v: mixed): T =>
       typeFn(object(v))
 
 // array type
 
-const arrayOf = /*:: <T> */
+const arrayOf = exports.arrayOf = /*:: <T> */
   (typeFn: TypeValidator<T>): TypeArrayValidator<T> =>
     (v: mixed): T[] => {
       if (isEmpty(v)) return [typeFn(v)]
@@ -119,7 +126,7 @@ const arrayOf = /*:: <T> */
 
 // tuple type
 
-const tupleOf = /*:: <T, F: (mixed[]) => T> */
+const tupleOf = exports.tupleOf = /*:: <T, F: (mixed[]) => T> */
   (typeFn: F): TypeValidator<T> =>
     (v: mixed): T => {
       if (isEmpty(v)) return typeFn([v])
@@ -129,7 +136,7 @@ const tupleOf = /*:: <T, F: (mixed[]) => T> */
 
 // union type
 
-const unionOf = /*:: <T, F: (mixed) => T, L: F[]> */
+const unionOf = exports.unionOf = /*:: <T, F: (mixed) => T, L: F[]> */
   (...typeFnList: L) =>
     (v: mixed) => {
       const typeFn = typeFnList.find(fn => isType(fn)(v))
@@ -137,14 +144,9 @@ const unionOf = /*:: <T, F: (mixed) => T, L: F[]> */
       throw new TypeError('invalid union type')
     }
 
-// This function will return value based on schema with inferred types. This
-// value can be used to define type in Flow with 'typeof' utility.
+// utilities
 
-const typeOf = /*:: <T> */
-  (schema: TypeValidator<T>): T =>
-    schema(EMTPY_VALUE)
-
-const isType = /*:: <T, F: TypeValidator<T>> */
+const isType = exports.isType = /*:: <T, F: TypeValidator<T>> */
   (typeFn: F): TypeValidator<boolean> =>
     (v: mixed): boolean => {
       try {
@@ -155,28 +157,9 @@ const isType = /*:: <T, F: TypeValidator<T>> */
       }
     }
 
-//
+// This function will return value based on schema with inferred types. This
+// value can be used to define type in Flow with 'typeof' utility.
 
-module.exports = Object.freeze({
-  isNil,
-  isUndef,
-  isBoolean,
-  isNumber,
-  isString,
-  isObject,
-  nil,
-  undef,
-  boolean,
-  number,
-  string,
-  literalOf,
-  mixed,
-  maybe,
-  object,
-  objectOf,
-  arrayOf,
-  tupleOf,
-  unionOf,
-  typeOf,
-  isType
-})
+exports.typeOf = /*:: <T> */
+  (schema: TypeValidator<T>): T =>
+    schema(EMTPY_VALUE)
