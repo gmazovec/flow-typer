@@ -3,6 +3,9 @@
 > Composable static and runtime type checking with Flow.
 
 [![Build Status](https://travis-ci.org/gmazovec/flow-typer.svg?branch=master)](https://travis-ci.org/gmazovec/flow-typer)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/test_coverage)](https://codeclimate.com/github/gmazovec/flow-typer/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/maintainability)](https://codeclimate.com/github/gmazovec/flow-typer/maintainability)
+
 
 _flow-typer_ is a set of type validators that combines static and runtime type
 checking. By composing validators in JavaScript, we define a type schema that
