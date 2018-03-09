@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "test": "flow --show-all-errors && ava test",
+    "test:coverage": "nyc --reporter=lcov ava test",
     "build": "flow-remove-types --out-dir dist src",
     "postinstall": "npm run build"
   },
@@ -17,7 +18,8 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "ava-spec": "^1.1.1",
-    "flow-bin": "0.66.0"
+    "flow-bin": "0.66.0",
+    "nyc": "^11.4.1"
   },
   "ava": {
     "require": [
