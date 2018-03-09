@@ -152,14 +152,6 @@ const arrayOf = exports.arrayOf = /*:: <T> */
 
 // tuple type
 
-const tupleOf = exports.tupleOf = /*:: <T, F: (mixed[]) => T> */
-  (typeFn: F): TypeValidator<T> =>
-    (v: mixed): T => {
-      if (isEmpty(v)) return typeFn([v])
-      if (Array.isArray(v)) return typeFn(v)
-      throw new TypeError(`invalid tuple type`)
-    }
-
 const tupleOf1 = exports.tupleOf1 = /*:: <T> */
   (...typeFuncs: [TypeValidator<T>]): TypeValidator<[T]> =>
     (v: mixed) => {
@@ -224,24 +216,6 @@ const tupleOf5 = exports.tupleOf5 = /*:: <T, U, V, Z, X> */
     }
 
 // union type
-
-const unionOf = exports.unionOf = /*:: <T, F: (mixed) => T, L: F[]> */
-  (...typeFnList: L) =>
-    (v: mixed) => {
-      const typeFn = typeFnList.find(fn => isType(fn)(v))
-      if (typeFn) return typeFn(v)
-      throw new TypeError('invalid union type')
-    }
-
-const _unionOf =
-  (typeFuncs) =>
-    (v: mixed) => {
-      for (const typeFn of typeFuncs) {
-        try { return typeFn(v) }
-        catch (_) {}
-      }
-      throw new TypeError('invalid union type')
-    }
 
 const unionOf2 = exports.unionOf2 = /*:: <T, U> */
   (...typeFuncs: TypeValidatorsOf2<T, U>): TypeValidator<T | U> =>
