@@ -1,22 +1,26 @@
 # flow-typer
 
-> Composable static and runtime type checking with Flow.
+> Declarative static and runtime type checking with Flow.
 
 [![Build Status](https://travis-ci.org/gmazovec/flow-typer.svg?branch=master)](https://travis-ci.org/gmazovec/flow-typer)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/test_coverage)](https://codeclimate.com/github/gmazovec/flow-typer/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/maintainability)](https://codeclimate.com/github/gmazovec/flow-typer/maintainability)
 
+So you are using _Flow_ to type check your code. That's great but how do you check
+types for data that is not known before running the code? Like _JSON_ input.
 
-_flow-typer_ is a set of type validators that combines static and runtime type
-checking. By composing validators in JavaScript, we define a type schema that
-can be used to create inferred Flow type (static checking) and for validating
-values at runtime.
+Sure, you can use your favorite validation library and do unsafe type casting. Or
+you write verbose, low-level type checking with _typeof_ operator to satisfy
+_Flow_'s refinement.
+
+_flow-typer_ is solving these problem by writing maintainable type schemas in
+_JavaScript_ with full interoperability with _Flow_.
 
 Features:
 
-- complete Flow type coverage
-- type validators are immutable
-- define Flow types with JavaScript
+- complete [Flow](https://flow.org) coverage
+- type functions are immutable
+- define _Flow_ types with JavaScript
 - no transpilation required
 - works with Node 6.x +
 
@@ -40,10 +44,15 @@ var typer = require('flow-typer') // ES5 with npm
 
 ## Usage
 
-_flow-typer_ is most useful in validating input values with unknown type like
-JSON data from HTTP messages and database. There's no need to validate function
-arguments or return values because we can use static type checking with Flow for
-that.
+_flow-typer_ is a set of functions for type checking at runtime. These functions
+are constructed in way that allows _Flow_ to infer types and to have a complete
+refinement of the code. By composing functions, we define a type schema that
+can be used to create inferred Flow types (static checking) and for validating
+values with unknown type at runtime.
+
+The most useful cases where _flow-typer_ can be used is to validate values
+received from IO with unknown type. For example JSON data from HTTP message
+and database queries.
 
 This example shows how to use validation of JSON data in Express application.
 
@@ -72,7 +81,7 @@ type User = {
 const userSchema = objectOf(o => ({
   username: maybe(string)(o.name),
   email: string(o.email),
-  gender: unionOf(
+  gender: unionOf2(
     literaOf(('male': 'male')),
     literaOf(('female': 'female')),
   )(o.gender),
@@ -115,7 +124,6 @@ app.post('/api/users', createUser)
 
 > **NOTICE! Basic implementation is still under development and the API might change.**
 
-### Type check
 
 These functions will check for specific JavaScript type with correct Flow type
 refinement.
@@ -136,15 +144,11 @@ refinement.
 - `typer.string`
 - `typer.literalOf(type)` (requires Flow annotations \*)
 
-### Mixed and maybe types
+### Complex types
 
 - `typer.mixed`
-- `typer.maybe(schema)`
-
-
-### Compound types
-
 - `typer.object`
+- `typer.maybe(schema)`
 - `typer.objectOf(schema)`
 - `typer.arrayOf(schema)`
 
@@ -170,29 +174,6 @@ const schema = tupleOf2(string, number) // => type T = [string, number]
 const schema = unionOf2('week', 'month') // => type T = 'week' | 'month'
 ```
 
-## Examples
-
-```javascript
-const schema = objectOf(o => ({
-  name: string(o.name),
-  age: maybe(number)(o.age)
-  roles: unionOf3(
-    literalOf('admin': 'admin'),
-    literalOf('editor': 'editor'),
-    literalOf('viewer': 'viewer')
-  )(o.roles),
-  teamIds: arrayOf(number)(o.teamIds),
-  active: boolean(o.active)
-}))
-
-// => type T = {
-//   name: string,
-//    age: ?number,
-//    roles: 'admin' | 'editor' | 'viewer',
-//    teamIds: number[],
-//    active: boolean
-// }
-```
 
 ### Utilities
 
@@ -228,7 +209,7 @@ const schema = objectOf({
 cardinality.
 
 - Use `literalOf` and `tupleOf` without explicit Flow type annotations. Literal
-and tuple types can not be inferred by Flow type. This could be solved with new
+and tuple types can not be inferred by Flow. This could be solved with new
 Flow utility types `$Literal` and `$Tuple`.
 
 
