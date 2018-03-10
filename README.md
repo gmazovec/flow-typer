@@ -44,9 +44,8 @@ var typer = require('flow-typer') // ES5 with npm
 
 ## Usage
 
-_flow-typer_ is a set of functions for type checking at runtime. These functions
-are constructed in way that allows _Flow_ to infer types and to have a complete
-refinement of the code. By composing functions, we define a type schema that
+_flow-typer_ exposes a set of functions for type checking at runtime. These functions
+are constructed in way that allows _Flow_ to infer types and keep refinement of the code. By composing functions, we define a type schema that
 can be used to create inferred Flow types (static checking) and for validating
 values with unknown type at runtime.
 
