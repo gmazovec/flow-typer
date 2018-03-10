@@ -20,6 +20,8 @@ Features:
 - no transpilation required
 - works with Node 6.x +
 
+![Flow Typer](./flow-typer.gif)
+
 
 ## Installation
 
