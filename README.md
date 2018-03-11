@@ -75,16 +75,16 @@ type User = {
 
 // Composing type schema with validators
 
-const userSchema = objectOf(o => ({
-  username: maybe(string)(o.name),
-  email: string(o.email),
+const userSchema = objectOf({
+  username: maybe(string),
+  email: string,
   gender: unionOf2(
     literaOf(('male': 'male')),
     literaOf(('female': 'female')),
-  )(o.gender),
-  active: boolean(o.active),
-  age: maybe(number)(o.age)
-}))
+  ),
+  active: boolean,
+  age: maybe(number)
+})
 
 // Define Flow type from Javascript value using `typer.typeOf` and
 // Flow `typeof` operator.
@@ -146,7 +146,7 @@ refinement.
 - `typer.mixed`
 - `typer.object`
 - `typer.maybe(schema)`
-- `typer.objectOf(schema)`
+- `typer.objectOf(schemaObject)`
 - `typer.arrayOf(schema)`
 
 ```javascript
@@ -188,19 +188,6 @@ type UserListT = typeof userListT
 ## TODO
 
 - Improve error messages for runtime validation.
-
-- Use less verbose API for `objectOf` argument. Currently this is not possible
-because of the  [bug](https://github.com/facebook/flow/issues/935) in Flow.
-
-Example:
-
-```javascript
-const schema = objectOf({
-  name: string,
-  email: string,
-  age: number
-})
-```
 
 - Find ways to create generic `tupleOf` and `unionOf` validators with variable
 cardinality.

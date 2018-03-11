@@ -93,14 +93,14 @@ test.group('primitive types - cardinality 5', test => {
 
 test.group('composable types', test => {
   const validator = unionOf3(
-    objectOf(o => ({
+    objectOf({
       type: unionOf2(
         literalOf(('text' /*: 'text' */)),
         literalOf(('image' /*: 'image' */))
-      )(o.type),
-      content: string(o.content),
-      enabled: boolean(o.enabled)
-    })),
+      ),
+      content: string,
+      enabled: boolean
+    }),
     arrayOf(string),
     tupleOf3(string, string, number)
   )

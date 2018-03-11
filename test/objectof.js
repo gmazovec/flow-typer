@@ -5,11 +5,11 @@ import typer from '../src'
 const { objectOf, boolean, number, string } = typer
 
 test.group('primitive types', test => {
-  const validator = (v) => objectOf((o) => ({
-    name: string(o.name),
-    age: number(o.age),
-    active: boolean(o.active)
-  }))(v)
+  const validator = objectOf({
+    name: string,
+    age: number,
+    active: boolean
+  })
 
   test('should validate an object', t => {
     const input = { name: 'foo', age: 33, active: true }
@@ -33,13 +33,13 @@ test.group('primitive types', test => {
 })
 
 test.group('object types', test => {
-  const validator = (v) => objectOf((o) => ({
-    roles: objectOf((r) => ({
-      admin: boolean(r.admin),
-      owner: boolean(r.owner),
-      user: boolean(r.user)
-    }))(o.roles)
-  }))(v)
+  const validator = objectOf({
+    roles: objectOf({
+      admin: boolean,
+      owner: boolean,
+      user: boolean
+    })
+  })
 
   test('should validate an object', t => {
     const input = { roles: { admin: true, owner: false, user: false } }

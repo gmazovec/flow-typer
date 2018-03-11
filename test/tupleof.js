@@ -126,12 +126,12 @@ test.group('primitive types - cardinality 5', test => {
 })
 
 test.group('compoud type', test => {
-  const userSchema = objectOf((o) => ({
-    email: string(o.email),
-    age: number(o.age),
-    active: boolean(o.active),
-    roles: arrayOf(string)(o.roles)
-  }))
+  const userSchema = objectOf({
+    email: string,
+    age: number,
+    active: boolean,
+    roles: arrayOf(string)
+  })
   const validator = tupleOf1(userSchema)
   const user = { email: 'foo@example.org', age: 33, active: false, roles: ['admin'] }
 
