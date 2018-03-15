@@ -8,7 +8,6 @@ export type TypeValidator<T> = (mixed) => T
 export type TypeMaybeValidator<T> = (mixed) => ?T
 export type TypeArrayValidator<T> = (mixed) => T[]
 export type TypeValidatorRecord<T> = ObjectRecord<TypeValidator<T>>
-export type ObjectOfMapFn = <T, U>(TypeValidator<T | U>) => T | U
 
 type TypeValidatorsOf2<T, U> = [
   TypeValidator<T>,
@@ -143,13 +142,13 @@ const object = exports.object =
     throw error('object', typeof v)
   }
 
-const objectOf = exports.objectOf = /*:: <T, U: TypeValidatorRecord<T>> */
-  (typeObj: U): TypeValidator<$ObjMap<U, ObjectOfMapFn>> =>
+const objectOf = exports.objectOf = /*:: <O: TypeValidatorRecord<*>> */
+  (typeObj: O) /*: TypeValidator<$ObjMap<O, <V>(TypeValidator<V>) => V>> */ =>
     (v: mixed) => {
       const o = object(v)
-      const reducer = (memo, key) =>
-        Object.assign(memo, { [key]: typeObj[key](o[key]) })
-      return Object.keys(typeObj).reduce(reducer, {});
+      const reducer = (acc, key) =>
+        Object.assign(acc, { [key]: typeObj[key](o[key]) })
+      return Object.keys(typeObj).reduce(reducer, {})
     }
 
 // array type
