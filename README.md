@@ -157,6 +157,7 @@ const schema = arrayOf(number) // => type T = number[]
 - `typer.tupleOf2(...schema[])`
 - `typer.tupleOf3(...schema[])`
 - `typer.tupleOf4(...schema[])`
+- `typer.tupleOf5(...schema[])`
 
 ```javascript
 const schema = tupleOf2(string, number) // => type T = [string, number]
