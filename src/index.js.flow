@@ -2,12 +2,13 @@
 
 // types
 
-export type Literal = null | void | boolean | number | string
+export type LiteralValue = boolean | number | string
 export type ObjectRecord<T> = { [key: string]: T }
 export type TypeValidator<T> = (mixed) => T
 export type TypeMaybeValidator<T> = (mixed) => ?T
 export type TypeArrayValidator<T> = (mixed) => T[]
 export type TypeValidatorRecord<T> = ObjectRecord<TypeValidator<T>>
+export type $Literal<T: LiteralValue> = TypeValidator<T>
 
 type TypeValidatorsOf2<T, U> = [
   TypeValidator<T>,
@@ -114,11 +115,11 @@ const string = exports.string =
 
 // literal type
 
-const literalOf = exports.literalOf = /*:: <T: Literal> */
-  (literal: T): TypeValidator<T> =>
-    (v: mixed) => {
-      if (isEmpty(v) || (v === literal)) return literal
-      throw error(`${typeof literal} literal`, typeof v)
+const literalOf = exports.literalOf = /*:: <T: LiteralValue> */
+  (primitive: T): TypeValidator<T> =>
+    (v: mixed): T => {
+      if (isEmpty(v) || (v === primitive)) return primitive
+      throw error(`${typeof primitive} primitive literal`, typeof v)
     }
 
 // mixed type

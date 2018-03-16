@@ -57,10 +57,12 @@ This example shows how to use validation of JSON data in Express application.
 // @flow
 const typer = require('flow-typer')
 
+import type { $Literal } from 'flow-typer'
+
 // type validators
 const {
-  objectOf, arrayOf, unionOf, literalOf,
-  maybe, string, number, boolean
+  typeOf, objectOf, arrayOf, unionOf,
+  literalOf, maybe, string, number, boolean
 } = typer
 
 /*::
@@ -75,20 +77,20 @@ type User = {
 
 // Composing type schema with validators
 
+const male$Literal = (literalOf('male'): $Literal<'male'>)
+const female$Literal = (literalOf('female'): $Literal<'female'>)
+
 const userSchema = objectOf({
   username: maybe(string),
   email: string,
-  gender: unionOf2(
-    literaOf(('male': 'male')),
-    literaOf(('female': 'female')),
-  ),
+  gender: unionOf2(male$Literal, female$Literal),
   active: boolean,
   age: maybe(number)
 })
 
 // Define Flow type from Javascript value using `typer.typeOf` and
 // Flow `typeof` operator.
-const userSchemaT = typer.typeOf(userSchema)
+const userSchemaT = typeOf(userSchema)
 
 // This type that is inferred from Javascript value is the same the one
 // defined with Flow (type User).
@@ -139,7 +141,11 @@ refinement.
 - `typer.boolean`
 - `typer.number`
 - `typer.string`
-- `typer.literalOf(type)` (requires Flow annotations \*)
+- `typer.literalOf(value)` (requires Flow annotations \*)
+
+```javascript
+const flow$Literal = (literalOf('flow'): $Literal<'flow'>) // => type T = 'flow'
+```
 
 ### Complex types
 

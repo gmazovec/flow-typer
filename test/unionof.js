@@ -2,6 +2,8 @@
 import test from 'ava-spec'
 import typer from '../src'
 
+/*:: import type { $Literal } from '../src' */
+
 const {
   unionOf2,
   unionOf3,
@@ -20,8 +22,8 @@ const {
 
 test.group('primitive types - cardinality 2', test => {
   const validator = unionOf2(
-    literalOf(('foo' /*: 'foo' */)),
-    literalOf((12345 /*: 12345 */))
+    (literalOf('foo') /*: $Literal<'foo'> */),
+    (literalOf(12345) /*: $Literal<12345> */)
   )
 
   test('should validate an union', t => {
@@ -42,16 +44,16 @@ test.group('primitive types - cardinality 2', test => {
 
 test.group('primitive types - cardinality 4', test => {
   const validator = unionOf4(
-    literalOf((false /*: false */)),
-    literalOf((0 /*: 0 */)),
-    literalOf((null /*: null */)),
-    literalOf(('' /*: '' */)),
+    (literalOf(false) /*: $Literal<false> */),
+    (literalOf(0) /*: $Literal<0> */),
+    (literalOf(12345) /*: $Literal<12345> */),
+    (literalOf('') /*: $Literal<''> */),
   )
 
   test('should validate an union', t => {
     t.is(validator(false), false)
     t.is(validator(0), 0)
-    t.is(validator(null), null)
+    t.is(validator(12345), 12345)
     t.is(validator(''), '')
   })
 
@@ -95,8 +97,8 @@ test.group('composable types', test => {
   const validator = unionOf3(
     objectOf({
       type: unionOf2(
-        literalOf(('text' /*: 'text' */)),
-        literalOf(('image' /*: 'image' */))
+        (literalOf('text') /*: $Literal<'text'> */),
+        (literalOf('image') /*: $Literal<'image'> */)
       ),
       content: string,
       enabled: boolean

@@ -2,6 +2,8 @@
 import test from 'ava-spec'
 import typer from '../src'
 
+/*:: import type { $Literal } from '../src' */
+
 const { nil, undef, boolean, number, string, literalOf } = typer
 
 test.group('nil type', test => {
@@ -91,42 +93,8 @@ test.group('string type', test => {
   })
 })
 
-test.group('literal null type', test => {
-  const validator = literalOf(null)
-
-  test(`should return a 'null' literal`, t => {
-    t.is(validator(null), null)
-  })
-
-  test('should throw an error', t => {
-    t.throws(() => { validator(undefined) }, TypeError)
-    t.throws(() => { validator(false) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
-  })
-})
-
-test.group('literal undefined type', test => {
-  const validator = literalOf(undefined)
-
-  test(`should return a 'undefined' literal`, t => {
-    t.is(validator(undefined), undefined)
-  })
-
-  test('should throw an error', t => {
-    t.throws(() => { validator(null) }, TypeError)
-    t.throws(() => { validator(false) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
-  })
-})
-
 test.group('literal boolean type', test => {
-  const validator = literalOf(true)
+  const validator = (literalOf(true) /*: $Literal<true> */)
 
   test(`should return a 'true' literal`, t => {
     t.is(validator(true), true)
@@ -144,7 +112,7 @@ test.group('literal boolean type', test => {
 })
 
 test.group('literal number type', test => {
-  const validator = literalOf(12345)
+  const validator = (literalOf(12345) /*: $Literal<12345> */)
 
   test('should return a number literal', t => {
     t.is(validator(12345), 12345)
@@ -162,7 +130,7 @@ test.group('literal number type', test => {
 })
 
 test.group('literal string type', test => {
-  const validator = literalOf(('foo' /*: 'foo' */))
+  const validator = (literalOf('foo') /*: $Literal<'foo'> */)
 
   test('should return a string literal', t => {
     t.is(validator('foo'), 'foo')
