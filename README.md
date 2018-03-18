@@ -16,11 +16,12 @@ _JavaScript_ with full _Flow_ interoperability.
 
 Features:
 
+- support for primitive and complex Flow types
 - complete [Flow](https://flow.org) coverage
 - type functions are immutable
 - define _Flow_ types with JavaScript
 - no transpilation required
-- works with Node 6.x +
+- works with ES6 JavaScript (modern browsers and Node 6+)
 
 ![Flow Typer](./flow-typer.png)
 
@@ -47,82 +48,62 @@ are constructed in way that allows _Flow_ to infer types and keep refinement of 
 can be used to create inferred Flow types (static checking) and for validating
 values with unknown type at runtime.
 
-The most useful cases where _flow-typer_ can be used is to validate values
-received from IO with unknown type. For example JSON data from HTTP message
-and database queries.
-
-This example shows how to use validation of JSON data in Express application.
-
 ```javascript
-// @flow
-const typer = require('flow-typer')
-
-import type { $Literal } from 'flow-typer'
-
-// type validators
-const {
-  typeOf, objectOf, arrayOf, unionOf,
-  literalOf, maybe, string, number, boolean
-} = typer
-
-/*::
-type User = {
-  username: ?string,
-  email: string,
-  gender: 'male' | 'female',
-  active: boolean,
-  age: ?number
-}
-*/
-
-// Composing type schema with validators
-
-const male$Literal = (literalOf('male'): $Literal<'male'>)
-const female$Literal = (literalOf('female'): $Literal<'female'>)
-
-const userSchema = objectOf({
-  username: maybe(string),
-  email: string,
-  gender: unionOf2(male$Literal, female$Literal),
-  active: boolean,
-  age: maybe(number)
-})
-
-// Define Flow type from Javascript value using `typer.typeOf` and
-// Flow `typeof` operator.
-const userSchemaT = typeOf(userSchema)
-
-// This type that is inferred from Javascript value is the same the one
-// defined with Flow (type User).
-type UserT = typeof userSchemaT
-
-function persist(user: UserT): Promise<UserT> {
-  return db.users.insert(user)
-}
-
-function createUser (req, res) {
-  let user = null
-  try {
-// Here we validate the JSON data and cast it to Flow type inferred from
-// `userSchema`. This validator has 100% Flow coverage.
-    user: UserT = userSchema(req.body)
-  } catch (err) {
-    return res.status(400).json({ error: err.message })
-  }
-  user = await persist(user)
-
-// Calling unknown user attribute will show Flow error.
-  debug(`new user created with name ${user.name}`)
-  res.status(201).json({ user })
-}
-
-app.post('/api/users', createUser)
+import {
+  objectOf,
+  arrayOf,
+  tupleOf2,
+  unionOf2,
+  string,
+  number,
+  boolean,
+  maybe
+} from 'flow-typer'
 ```
 
+```javascript
+// literal types require annotation
+const male$Literal = (literalOf('male'): $Literal<'male'>)
+const female$Literal = (literalOf('female'): $Literal<'female'>)
+```
+
+```javascript
+// define type schema
+const personSchema = objectOf({
+  name: string,
+  age: maybe(number),
+  active: boolean,
+  gender: unionOf2(male$Literal, female$Literal),
+  tags: arrayOf(string),
+  location: tupleOf2(number, number)
+})
+```
+
+```javascript
+// infer flow type to JS variable from schema
+const personType = typeOf(personSchema)
+```
+
+```javascript
+// define Flow type from JS variable
+type PersonType = typeof personType
+```
+
+```javascript
+// check value of unknown type against type schema
+const person = personSchema(unknownInput)
+```
+
+```javascript
+// type schema returns value of specific type
+person.name.toUpperCase() // No error
+person.email // Flow error (unknown attribute)
+person.active = 1 // Flow error (boolean value expected)
+
+```
+
+
 ## API
-
-> **NOTICE! Basic implementation is still under development and the API might change.**
-
 
 These functions will check for specific JavaScript type with correct Flow type
 refinement.
@@ -202,8 +183,3 @@ cardinality.
 - Use `literalOf` and `tupleOf` without explicit Flow type annotations. Literal
 and tuple types can not be inferred by Flow. This could be solved with new
 Flow utility types `$Literal` and `$Tuple`.
-
-
-## Limitations
-
-- no type errors for maybe types (flow type: `?string`, schema: `string`)
