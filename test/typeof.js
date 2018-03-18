@@ -5,10 +5,18 @@ import typer from '../src'
 const {
   objectOf,
   arrayOf,
+  tupleOf1,
+  tupleOf2,
+  tupleOf3,
+  tupleOf4,
+  tupleOf5,
   string,
   number,
   boolean,
   typeOf,
+  isBoolean,
+  isNumber,
+  isString
 } = typer
 
 /*::
@@ -26,7 +34,7 @@ type HtmlDOMElementT = {|
 |}
 */
 
-test('should return correct flow type', t => {
+test('should infer object type', t => {
   const DOMElement = objectOf({
     type: string,
     name: string,
@@ -42,4 +50,74 @@ test('should return correct flow type', t => {
   })
   const htmlDomElementT /*: HtmlDOMElementT */ = typeOf(schema)
   t.true(Array.isArray(htmlDomElementT.head))
+})
+
+/*::
+type TypeT = [string]
+*/
+
+test('shoud infer tuple type (cardinality 1)', t => {
+  const type = tupleOf1(string)
+  const typeT /*: TypeT */ = typeOf(type)
+  t.true(Array.isArray(typeT))
+  t.is(typeT.length, 1)
+  t.true(isString(typeT[0]))
+})
+
+/*::
+type CoordinateT = [number, number]
+*/
+
+test('should infer tuple type (cardinality 2)', t => {
+  const coordinate = tupleOf2(number, number)
+  const coordinateT /*: CoordinateT */ = typeOf(coordinate)
+  t.true(Array.isArray(coordinateT))
+  t.is(coordinateT.length, 2)
+  t.true(isNumber(coordinateT[0]))
+  t.true(isNumber(coordinateT[1]))
+})
+
+/*::
+type LocationT = [number, number, string]
+*/
+
+test('should infer tuple type (cardinality 3)', t => {
+  const location = tupleOf3(number, number, string)
+  const locationT /*: LocationT */ = typeOf(location)
+  t.true(Array.isArray(locationT))
+  t.is(locationT.length, 3)
+  t.true(isNumber(locationT[0]))
+  t.true(isNumber(locationT[1]))
+  t.true(isString(locationT[2]))
+})
+
+/*::
+type VectorT = [number, number, number, number]
+*/
+
+test('should infer tuple type (cardinality 4)', t => {
+  const vector = tupleOf4(number, number, number, number)
+  const vectorT /*: VectorT */ = typeOf(vector)
+  t.true(Array.isArray(vectorT))
+  t.is(vectorT.length, 4)
+  t.true(isNumber(vectorT[0]))
+  t.true(isNumber(vectorT[1]))
+  t.true(isNumber(vectorT[2]))
+  t.true(isNumber(vectorT[3]))
+})
+
+/*::
+type ListOfBoolT = [boolean, boolean, boolean, boolean, boolean]
+*/
+
+test('should infer tuple type (cardinality 5)', t => {
+  const listOfBool = tupleOf5(boolean, boolean, boolean, boolean, boolean)
+  const listOfBoolT /*: ListOfBoolT */ = typeOf(listOfBool)
+  t.true(Array.isArray(listOfBoolT))
+  t.is(listOfBoolT.length, 5)
+  t.true(isBoolean(listOfBoolT[0]))
+  t.true(isBoolean(listOfBoolT[1]))
+  t.true(isBoolean(listOfBoolT[2]))
+  t.true(isBoolean(listOfBoolT[3]))
+  t.true(isBoolean(listOfBoolT[4]))
 })

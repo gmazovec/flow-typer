@@ -148,7 +148,7 @@ const objectOf = exports.objectOf = /*:: <O: TypeValidatorRecord<*>> */
     (v: mixed) => {
       const o = object(v)
       const reducer = isEmpty(v)
-        ? (acc, key) => Object.assign(acc, { [key]: typeObj[key](EMTPY_VALUE) })
+        ? (acc, key) => Object.assign(acc, { [key]: typeObj[key](v) })
         : (acc, key) => Object.assign(acc, { [key]: typeObj[key](o[key]) })
       return Object.keys(typeObj).reduce(reducer, {})
     }
@@ -168,6 +168,7 @@ const arrayOf = exports.arrayOf = /*:: <T> */
 const tupleOf1 = exports.tupleOf1 = /*:: <T> */
   (...typeFuncs: [TypeValidator<T>]): TypeValidator<[T]> =>
     (v: mixed) => {
+      if (isEmpty(v)) return [typeFuncs[0](v)]
       if (Array.isArray(v) && v.length === 1) {
         return [typeFuncs[0](v[0])]
       }
@@ -177,6 +178,7 @@ const tupleOf1 = exports.tupleOf1 = /*:: <T> */
 const tupleOf2 = exports.tupleOf2 = /*:: <T, U> */
   (...typeFuncs: TypeValidatorsOf2<T, U>): TypeValidator<[T, U]> =>
     (v: mixed) => {
+      if (isEmpty(v)) return [typeFuncs[0](v), typeFuncs[1](v)]
       if (Array.isArray(v) && v.length === 2) {
         return [
           typeFuncs[0](v[0]),
@@ -189,6 +191,9 @@ const tupleOf2 = exports.tupleOf2 = /*:: <T, U> */
 const tupleOf3 = exports.tupleOf3 = /*:: <T, U, V> */
   (...typeFuncs: TypeValidatorsOf3<T, U, V>): TypeValidator<[T, U, V]> =>
     (v: mixed) => {
+      if (isEmpty(v)) {
+        return [typeFuncs[0](v), typeFuncs[1](v), typeFuncs[2](v)]
+      }
       if (Array.isArray(v) && v.length === 3) {
         return [
           typeFuncs[0](v[0]),
@@ -202,6 +207,14 @@ const tupleOf3 = exports.tupleOf3 = /*:: <T, U, V> */
 const tupleOf4 = exports.tupleOf4 = /*:: <T, U, V, Z> */
   (...typeFuncs: TypeValidatorsOf4<T, U, V, Z>): TypeValidator<[T, U, V, Z]> =>
     (v: mixed) => {
+      if (isEmpty(v)) {
+        return [
+          typeFuncs[0](v),
+          typeFuncs[1](v),
+          typeFuncs[2](v),
+          typeFuncs[3](v)
+        ]
+      }
       if (Array.isArray(v) && v.length === 4) {
         return [
           typeFuncs[0](v[0]),
@@ -216,6 +229,15 @@ const tupleOf4 = exports.tupleOf4 = /*:: <T, U, V, Z> */
 const tupleOf5 = exports.tupleOf5 = /*:: <T, U, V, Z, X> */
   (...typeFuncs: TypeValidatorsOf5<T, U, V, Z, X>): TypeValidator<[T, U, V, Z, X]> =>
     (v: mixed) => {
+      if (isEmpty(v)) {
+        return [
+          typeFuncs[0](v),
+          typeFuncs[1](v),
+          typeFuncs[2](v),
+          typeFuncs[3](v),
+          typeFuncs[4](v)
+        ]
+      }
       if (Array.isArray(v) && v.length === 5) {
         return [
           typeFuncs[0](v[0]),
