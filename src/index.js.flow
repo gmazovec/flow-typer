@@ -147,8 +147,9 @@ const objectOf = exports.objectOf = /*:: <O: TypeValidatorRecord<*>> */
   (typeObj: O) /*: TypeValidator<$ObjMap<O, <V>(TypeValidator<V>) => V>> */ =>
     (v: mixed) => {
       const o = object(v)
-      const reducer = (acc, key) =>
-        Object.assign(acc, { [key]: typeObj[key](o[key]) })
+      const reducer = isEmpty(v)
+        ? (acc, key) => Object.assign(acc, { [key]: typeObj[key](EMTPY_VALUE) })
+        : (acc, key) => Object.assign(acc, { [key]: typeObj[key](o[key]) })
       return Object.keys(typeObj).reduce(reducer, {})
     }
 
