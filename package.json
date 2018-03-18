@@ -16,13 +16,13 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "test": "yarn build && yarn test:type && yarn test:unit",
+    "test": "npm run build:dist && npm run test:type && npm run test:unit",
     "test:type": "flow --show-all-errors",
     "test:unit": "ava test",
-    "test:coverage": "yarn build && nyc --reporter=lcov --reporter=html --reporter=text yarn test:unit",
-    "build": "flow-remove-types --out-dir dist src && cp src/index.js dist/index.js.flow",
+    "test:coverage": "npm run build:dist && nyc --reporter=lcov --reporter=html --reporter=text npm run test:unit",
+    "build:dist": "flow-remove-types --out-dir dist src && cp src/index.js dist/index.js.flow",
     "clean": "rm -rf dist",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build:dist"
   },
   "dependencies": {
     "flow-remove-types": "^1.2.3"
