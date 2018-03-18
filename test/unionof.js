@@ -21,29 +21,29 @@ const {
 } = typer
 
 test.group('primitive types - cardinality 2', test => {
-  const validator = unionOf2(
+  const schema = unionOf2(
     (literalOf('foo') /*: $Literal<'foo'> */),
     (literalOf(12345) /*: $Literal<12345> */)
   )
 
   test('should validate an union', t => {
-    t.is(validator('foo'), 'foo')
-    t.is(validator(12345), 12345)
+    t.is(schema('foo'), 'foo')
+    t.is(schema(12345), 12345)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(null) }, TypeError),
-    t.throws(() => { validator(undefined) }, TypeError),
-    t.throws(() => { validator(true) }, TypeError),
-    t.throws(() => { validator(1234) }, TypeError),
-    t.throws(() => { validator('bar') }, TypeError),
-    t.throws(() => { validator({}) }, TypeError),
-    t.throws(() => { validator([]) }, TypeError)
+    t.throws(() => { schema(null) }, TypeError),
+    t.throws(() => { schema(undefined) }, TypeError),
+    t.throws(() => { schema(true) }, TypeError),
+    t.throws(() => { schema(1234) }, TypeError),
+    t.throws(() => { schema('bar') }, TypeError),
+    t.throws(() => { schema({}) }, TypeError),
+    t.throws(() => { schema([]) }, TypeError)
   })
 })
 
 test.group('primitive types - cardinality 4', test => {
-  const validator = unionOf4(
+  const schema = unionOf4(
     (literalOf(false) /*: $Literal<false> */),
     (literalOf(0) /*: $Literal<0> */),
     (literalOf(12345) /*: $Literal<12345> */),
@@ -51,24 +51,24 @@ test.group('primitive types - cardinality 4', test => {
   )
 
   test('should validate an union', t => {
-    t.is(validator(false), false)
-    t.is(validator(0), 0)
-    t.is(validator(12345), 12345)
-    t.is(validator(''), '')
+    t.is(schema(false), false)
+    t.is(schema(0), 0)
+    t.is(schema(12345), 12345)
+    t.is(schema(''), '')
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(undefined) }, TypeError),
-    t.throws(() => { validator(true) }, TypeError),
-    t.throws(() => { validator(1234) }, TypeError),
-    t.throws(() => { validator('bar') }, TypeError),
-    t.throws(() => { validator({}) }, TypeError),
-    t.throws(() => { validator([]) }, TypeError)
+    t.throws(() => { schema(undefined) }, TypeError),
+    t.throws(() => { schema(true) }, TypeError),
+    t.throws(() => { schema(1234) }, TypeError),
+    t.throws(() => { schema('bar') }, TypeError),
+    t.throws(() => { schema({}) }, TypeError),
+    t.throws(() => { schema([]) }, TypeError)
   })
 })
 
 test.group('primitive types - cardinality 5', test => {
-  const validator = unionOf5(
+  const schema = unionOf5(
     nil,
     undef,
     boolean,
@@ -77,24 +77,24 @@ test.group('primitive types - cardinality 5', test => {
   )
 
   test('should validate an union', t => {
-    t.is(validator(false), false)
-    t.is(validator(true), true)
-    t.is(validator(0), 0)
-    t.is(validator(9), 9)
-    t.is(validator(null), null)
-    t.is(validator(undefined), undefined)
-    t.is(validator(''), '')
-    t.is(validator('foo'), 'foo')
+    t.is(schema(false), false)
+    t.is(schema(true), true)
+    t.is(schema(0), 0)
+    t.is(schema(9), 9)
+    t.is(schema(null), null)
+    t.is(schema(undefined), undefined)
+    t.is(schema(''), '')
+    t.is(schema('foo'), 'foo')
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator({}) }, TypeError),
-    t.throws(() => { validator([]) }, TypeError)
+    t.throws(() => { schema({}) }, TypeError),
+    t.throws(() => { schema([]) }, TypeError)
   })
 })
 
 test.group('composable types', test => {
-  const validator = unionOf3(
+  const schema = unionOf3(
     objectOf({
       type: unionOf2(
         (literalOf('text') /*: $Literal<'text'> */),
@@ -109,31 +109,31 @@ test.group('composable types', test => {
 
   test('should validate an union #1', t => {
     const input = { type: 'text', content: 'Hello', enabled: true }
-    const value = validator(input)
+    const value = schema(input)
     t.deepEqual(value, input)
   })
 
   test('should validate an union #2', t => {
     const input = ['this', 'is', 'an', 'array', 'of', 'strings']
-    const value = validator(input)
+    const value = schema(input)
     t.deepEqual(value, input)
   })
 
   test('should validate an union #3', t => {
     const input = ['Bob', 'bob@example.net', 43]
-    const value = validator(input)
+    const value = schema(input)
     t.deepEqual(value, input)
   })
 
   test('shold throw an error', t => {
-    t.throws(() => { validator(null) }, TypeError)
-    t.throws(() => { validator(undefined) }, TypeError)
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({ type: 'widge', content: 'Hello', enabled: true }) }, TypeError)
-    t.throws(() => { validator({ type: 'widge', content: 'Hello', enabled: 1 }) }, TypeError)
-    t.throws(() => { validator(['this', 'is', 1, 'array', 'of', 'strings']) }, TypeError)
-    t.throws(() => { validator(['bob', 'bob@example.net', 36, true]) }, TypeError)
+    t.throws(() => { schema(null) }, TypeError)
+    t.throws(() => { schema(undefined) }, TypeError)
+    t.throws(() => { schema(true) }, TypeError)
+    t.throws(() => { schema(12345) }, TypeError)
+    t.throws(() => { schema('foo') }, TypeError)
+    t.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: true }) }, TypeError)
+    t.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: 1 }) }, TypeError)
+    t.throws(() => { schema(['this', 'is', 1, 'array', 'of', 'strings']) }, TypeError)
+    t.throws(() => { schema(['bob', 'bob@example.net', 36, true]) }, TypeError)
   })
 })

@@ -17,111 +17,111 @@ const {
 } = typer
 
 test.group('primitive types - cardinality 1', test => {
-  const validator = tupleOf1(boolean)
+  const tuple = tupleOf1(boolean)
 
   test('should validate a tuple', t => {
     const input = [true]
-    const value = validator(input)
+    const value = tuple(input)
     t.deepEqual(value, input)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(null) }, TypeError)
-    t.throws(() => { validator(undefined) }, TypeError)
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
-    t.throws(() => { validator([true, false]) }, TypeError)
+    t.throws(() => { tuple(null) }, TypeError)
+    t.throws(() => { tuple(undefined) }, TypeError)
+    t.throws(() => { tuple(true) }, TypeError)
+    t.throws(() => { tuple(12345) }, TypeError)
+    t.throws(() => { tuple('foo') }, TypeError)
+    t.throws(() => { tuple([]) }, TypeError)
+    t.throws(() => { tuple([true, false]) }, TypeError)
   })
 })
 
 test.group('primitive types - cardinality 2', test => {
-  const validator = tupleOf2(number, number)
+  const tuple = tupleOf2(number, number)
 
   test('should validate a tuple', t => {
     const input = [34, 65]
-    const value = validator(input)
+    const value = tuple(input)
     t.deepEqual(value, input)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(null) }, TypeError)
-    t.throws(() => { validator(undefined) }, TypeError)
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
-    t.throws(() => { validator(['234', '64']) }, TypeError)
-    t.throws(() => { validator([123, 54, 256]) }, TypeError)
+    t.throws(() => { tuple(null) }, TypeError)
+    t.throws(() => { tuple(undefined) }, TypeError)
+    t.throws(() => { tuple(true) }, TypeError)
+    t.throws(() => { tuple(12345) }, TypeError)
+    t.throws(() => { tuple('foo') }, TypeError)
+    t.throws(() => { tuple({}) }, TypeError)
+    t.throws(() => { tuple([]) }, TypeError)
+    t.throws(() => { tuple(['234', '64']) }, TypeError)
+    t.throws(() => { tuple([123, 54, 256]) }, TypeError)
   })
 })
 
 test.group('primitive types - cardinality 3', test => {
-  const validator = tupleOf3(string, number, boolean)
+  const tuple = tupleOf3(string, number, boolean)
 
   test('should validate a tuple', t => {
     const input = ['foo', 12345, true]
-    const value = validator(input)
+    const value = tuple(input)
     t.deepEqual(value, input)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(null) }, TypeError)
-    t.throws(() => { validator(undefined) }, TypeError)
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
-    t.throws(() => { validator(['foo', '12345', 'true']) }, TypeError)
-    t.throws(() => { validator(['foo', '12345', 'true', 0]) }, TypeError)
-    t.throws(() => { validator(['foo', 12345]) }, TypeError)
+    t.throws(() => { tuple(null) }, TypeError)
+    t.throws(() => { tuple(undefined) }, TypeError)
+    t.throws(() => { tuple(true) }, TypeError)
+    t.throws(() => { tuple(12345) }, TypeError)
+    t.throws(() => { tuple('foo') }, TypeError)
+    t.throws(() => { tuple({}) }, TypeError)
+    t.throws(() => { tuple([]) }, TypeError)
+    t.throws(() => { tuple(['foo', '12345', 'true']) }, TypeError)
+    t.throws(() => { tuple(['foo', '12345', 'true', 0]) }, TypeError)
+    t.throws(() => { tuple(['foo', 12345]) }, TypeError)
   })
 })
 
 test.group('primitive types - cardinality 4', test => {
-  const validator = tupleOf4(number, number, boolean, boolean)
+  const tuple = tupleOf4(number, number, boolean, boolean)
 
   test('should validate a tuple', t => {
     const input = [34, 65, true, false]
-    const value = validator(input)
+    const value = tuple(input)
     t.deepEqual(value, input)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(null) }, TypeError)
-    t.throws(() => { validator(undefined) }, TypeError)
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
-    t.throws(() => { validator(['234', '64', true, false]) }, TypeError)
-    t.throws(() => { validator([46, 34, true, true, true]) }, TypeError)
+    t.throws(() => { tuple(null) }, TypeError)
+    t.throws(() => { tuple(undefined) }, TypeError)
+    t.throws(() => { tuple(true) }, TypeError)
+    t.throws(() => { tuple(12345) }, TypeError)
+    t.throws(() => { tuple('foo') }, TypeError)
+    t.throws(() => { tuple({}) }, TypeError)
+    t.throws(() => { tuple([]) }, TypeError)
+    t.throws(() => { tuple(['234', '64', true, false]) }, TypeError)
+    t.throws(() => { tuple([46, 34, true, true, true]) }, TypeError)
   })
 })
 
 test.group('primitive types - cardinality 5', test => {
-  const validator = tupleOf5(string, string, string, string, string)
+  const tuple = tupleOf5(string, string, string, string, string)
 
   test('should validate a tuple', t => {
     const input = ['H', 'e', 'l', 'l', 'o']
-    const value = validator(input)
+    const value = tuple(input)
     t.deepEqual(value, input)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(null) }, TypeError)
-    t.throws(() => { validator(undefined) }, TypeError)
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
-    t.throws(() => { validator(['o', 'l', 'l', 'e', 'H', '.']) }, TypeError)
-    t.throws(() => { validator(['foo', 'bar', 0, 'kit', 'kat']) }, TypeError)
+    t.throws(() => { tuple(null) }, TypeError)
+    t.throws(() => { tuple(undefined) }, TypeError)
+    t.throws(() => { tuple(true) }, TypeError)
+    t.throws(() => { tuple(12345) }, TypeError)
+    t.throws(() => { tuple('foo') }, TypeError)
+    t.throws(() => { tuple({}) }, TypeError)
+    t.throws(() => { tuple([]) }, TypeError)
+    t.throws(() => { tuple(['o', 'l', 'l', 'e', 'H', '.']) }, TypeError)
+    t.throws(() => { tuple(['foo', 'bar', 0, 'kit', 'kat']) }, TypeError)
   })
 })
 
@@ -132,19 +132,19 @@ test.group('compoud type', test => {
     active: boolean,
     roles: arrayOf(string)
   })
-  const validator = tupleOf1(userSchema)
+  const tuple = tupleOf1(userSchema)
   const user = { email: 'foo@example.org', age: 33, active: false, roles: ['admin'] }
 
   test('should validate a tuple', t => {
     const input = [user]
-    const value = validator(input)
+    const value = tuple(input)
     t.deepEqual(value, input)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator([{ user: Object.assign({}, user), age: '33' }]) }, TypeError)
-    t.throws(() => { validator([{ user: Object.assign({}, user), email: true }]) }, TypeError)
-    t.throws(() => { validator([{ user: Object.assign({}, user), active: 1 }]) }, TypeError)
-    t.throws(() => { validator([{ user: Object.assign({}, user), roles: [{ admin: true }] }]) }, TypeError)
+    t.throws(() => { tuple([{ user: Object.assign({}, user), age: '33' }]) }, TypeError)
+    t.throws(() => { tuple([{ user: Object.assign({}, user), email: true }]) }, TypeError)
+    t.throws(() => { tuple([{ user: Object.assign({}, user), active: 1 }]) }, TypeError)
+    t.throws(() => { tuple([{ user: Object.assign({}, user), roles: [{ admin: true }] }]) }, TypeError)
   })
 })

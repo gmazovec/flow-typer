@@ -5,120 +5,120 @@ import typer from '../src'
 const { maybe, nil, undef, boolean, number, string, arrayOf } = typer
 
 test.group('null type', test => {
-  const validator = (v) => maybe(nil)(v)
+  const maybeNull = maybe(nil)
 
   test('should validate values', t => {
-    const valueA = validator(undefined)
-    const valueB = validator(null)
+    const valueA = maybeNull(undefined)
+    const valueB = maybeNull(null)
     t.is(valueA, undefined)
     t.is(valueB, null)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
+    t.throws(() => { maybeNull(true) }, TypeError)
+    t.throws(() => { maybeNull(12345) }, TypeError)
+    t.throws(() => { maybeNull('foo') }, TypeError)
+    t.throws(() => { maybeNull({}) }, TypeError)
+    t.throws(() => { maybeNull([]) }, TypeError)
   })
 })
 
 test.group('undefined type', test => {
-  const validator = (v) => maybe(undef)(v)
+  const maybeVoid = maybe(undef)
 
   test('should validate values', t => {
-    const valueA = validator(undefined)
-    const valueB = validator(null)
+    const valueA = maybeVoid(undefined)
+    const valueB = maybeVoid(null)
     t.is(valueA, undefined)
     t.is(valueB, null)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
+    t.throws(() => { maybeVoid(true) }, TypeError)
+    t.throws(() => { maybeVoid(12345) }, TypeError)
+    t.throws(() => { maybeVoid('foo') }, TypeError)
+    t.throws(() => { maybeVoid({}) }, TypeError)
+    t.throws(() => { maybeVoid([]) }, TypeError)
   })
 })
 
 test.group('boolean type', test => {
-  const validator = (v) => maybe(boolean)(v)
+  const maybeBool = maybe(boolean)
 
   test('should validate values', t => {
-    const valueA = validator(undefined)
-    const valueB = validator(null)
-    const valueC =  validator(true)
+    const valueA = maybeBool(undefined)
+    const valueB = maybeBool(null)
+    const valueC = maybeBool(true)
     t.is(valueA, undefined)
     t.is(valueB, null)
     t.is(valueC, true)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
+    t.throws(() => { maybeBool(12345) }, TypeError)
+    t.throws(() => { maybeBool('foo') }, TypeError)
+    t.throws(() => { maybeBool({}) }, TypeError)
+    t.throws(() => { maybeBool([]) }, TypeError)
   })
 })
 
 test.group('number type', test => {
-  const validator = (v) => maybe(number)(v)
+  const maybeNumber = maybe(number)
 
   test('should validate values', t => {
-    const valueA = validator(undefined)
-    const valueB = validator(null)
-    const valueC = validator(12345)
+    const valueA = maybeNumber(undefined)
+    const valueB = maybeNumber(null)
+    const valueC = maybeNumber(12345)
     t.is(valueA, undefined)
     t.is(valueB, null)
     t.is(valueC, 12345)
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
+    t.throws(() => { maybeNumber(true) }, TypeError)
+    t.throws(() => { maybeNumber('foo') }, TypeError)
+    t.throws(() => { maybeNumber({}) }, TypeError)
+    t.throws(() => { maybeNumber([]) }, TypeError)
   })
 })
 
 test.group('string type', test => {
-  const validator = (v) => maybe(string)(v)
+  const maybeString = maybe(string)
 
   test('should validate values', t => {
-    const valueA = validator(undefined)
-    const valueB = validator(null)
-    const valueC = validator('foo')
+    const valueA = maybeString(undefined)
+    const valueB = maybeString(null)
+    const valueC = maybeString('foo')
     t.is(valueA, undefined)
     t.is(valueB, null)
     t.is(valueC, 'foo')
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([]) }, TypeError)
+    t.throws(() => { maybeString(true) }, TypeError)
+    t.throws(() => { maybeString(12345) }, TypeError)
+    t.throws(() => { maybeString({}) }, TypeError)
+    t.throws(() => { maybeString([]) }, TypeError)
   })
 })
 
 test.group('array type', test => {
-  const validator = (v) => maybe(arrayOf(string))(v)
+  const maybeArrayOfString = maybe(arrayOf(string))
 
   test('should validate values', t => {
-    const valueA = validator(undefined)
-    const valueB = validator(null)
-    const valueC = validator(['foo', 'bar'])
+    const valueA = maybeArrayOfString(undefined)
+    const valueB = maybeArrayOfString(null)
+    const valueC = maybeArrayOfString(['foo', 'bar'])
     t.is(valueA, undefined)
     t.is(valueB, null)
     t.deepEqual(valueC, ['foo', 'bar'])
   })
 
   test('should throw an error', t => {
-    t.throws(() => { validator(true) }, TypeError)
-    t.throws(() => { validator(12345) }, TypeError)
-    t.throws(() => { validator('foo') }, TypeError)
-    t.throws(() => { validator({}) }, TypeError)
-    t.throws(() => { validator([12345]) }, TypeError)
+    t.throws(() => { maybeArrayOfString(true) }, TypeError)
+    t.throws(() => { maybeArrayOfString(12345) }, TypeError)
+    t.throws(() => { maybeArrayOfString('foo') }, TypeError)
+    t.throws(() => { maybeArrayOfString({}) }, TypeError)
+    t.throws(() => { maybeArrayOfString([12345]) }, TypeError)
   })
 })
