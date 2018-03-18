@@ -6,13 +6,14 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/test_coverage)](https://codeclimate.com/github/gmazovec/flow-typer/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/maintainability)](https://codeclimate.com/github/gmazovec/flow-typer/maintainability)
 
-So you are using _Flow_ to type check your code. That's great but how do you check
-types for data that is not known before running the code? Like _JSON_ input. Sure, you can use your favorite validation library and do unsafe type casting. Or
-you write verbose code and do low-level type checking with _typeof_ operator to satisfy
-_Flow_'s refinement.
+So you are using _Flow_ to type check your code. That's great but how do you
+check types for data that is not known before running the code? Like _JSON_ input.
+Sure, you can use your favorite validation library and do unsafe type casting. Or
+you write verbose code and do low-level type checking with _typeof_ operator to
+satisfy _Flow_'s refinement.
 
 _flow-typer_ is solving these problems by writing maintainable type schemas in
-_JavaScript_ with full _Flow_ interoperability.
+_JavaScript_ with _Flow_ interoperability.
 
 Features:
 
@@ -43,9 +44,10 @@ var typer = require('flow-typer') // ES5 with npm
 
 ## Usage
 
-_flow-typer_ exposes a set of functions for type checking at runtime. These functions
-are constructed in way that allows _Flow_ to infer types and keep refinement of the code. By composing functions, we define a type schema that
-can be used to create inferred Flow types (static checking) and for validating
+_flow-typer_ exposes a set of functions for type checking at runtime. These
+functions are constructed in way that allows _Flow_ to infer types and keep
+refinement of the code. By composing functions, we define a type schema that
+can be used to create inferred _Flow_ types (static checking) and for validating
 values with unknown type at runtime.
 
 ```javascript
@@ -80,7 +82,7 @@ const personSchema = objectOf({
 ```
 
 ```javascript
-// infer flow type to JS variable from schema
+// infer Flow type to JS variable from schema
 const personType = typeOf(personSchema)
 ```
 
@@ -105,7 +107,7 @@ person.active = 1 // Flow error (boolean value expected)
 
 ## API
 
-These functions will check for specific JavaScript type with correct Flow type
+These functions will check for specific JavaScript type with correct _Flow_ type
 refinement.
 
 - `typer.isNil`
@@ -122,7 +124,7 @@ refinement.
 - `typer.boolean`
 - `typer.number`
 - `typer.string`
-- `typer.literalOf(value)` (requires Flow annotations \*)
+- `typer.literalOf(value)` (requires _Flow_ annotations \*)
 
 ```javascript
 const flow$Literal = (literalOf('flow'): $Literal<'flow'>) // => type T = 'flow'
@@ -180,6 +182,6 @@ type UserListT = typeof userListT
 - Find ways to create generic `tupleOf` and `unionOf` validators with variable
 cardinality.
 
-- Use `literalOf` and `tupleOf` without explicit Flow type annotations. Literal
-and tuple types can not be inferred by Flow. This could be solved with new
+- Use `literalOf` and `tupleOf` without explicit _Flow_ type annotations. Literal
+and tuple types can not be inferred by _Flow_. This could be solved with new
 Flow utility types `$Literal` and `$Tuple`.
