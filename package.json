@@ -2,7 +2,7 @@
   "name": "flow-typer",
   "version": "0.0.0",
   "description": "Declarative static and runtime type checking with Flow ",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/gmazovec/flow-typer",
   "author": "Gregor Mazovec <gregor.mazovec@gmail.com>",
   "license": "MIT",
@@ -16,10 +16,12 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "test": "flow --show-all-errors && ava test",
-    "test:coverage": "nyc --reporter=lcov ava test",
-    "build": "flow-remove-types --out-file src/index.js src/index.js.flow",
-    "clean": "rm -rf src/index.js",
+    "test": "yarn build && yarn test:type && yarn test:unit",
+    "test:type": "flow --show-all-errors",
+    "test:unit": "ava test",
+    "test:coverage": "yarn build && nyc --reporter=lcov --reporter=html --reporter=text yarn test:unit",
+    "build": "flow-remove-types --out-dir dist src && cp src/index.js dist/index.js.flow",
+    "clean": "rm -rf dist",
     "postinstall": "npm run build"
   },
   "dependencies": {
