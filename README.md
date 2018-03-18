@@ -30,7 +30,7 @@ Features:
 ## Installation
 
 ```shell
-npm install --save gmazovec/flow-typer
+npm install --save @gmazovec/flow-typer
 ```
 
 

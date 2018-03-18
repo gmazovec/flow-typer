@@ -1,5 +1,5 @@
 {
-  "name": "flow-typer",
+  "name": "@gmazovec/flow-typer",
   "version": "0.1.0",
   "description": "Declarative static and runtime type checking with Flow ",
   "main": "dist/index.js",
