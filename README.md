@@ -52,6 +52,7 @@ values with unknown type at runtime.
 
 ```javascript
 import {
+  typeOf,
   objectOf,
   arrayOf,
   tupleOf2,
