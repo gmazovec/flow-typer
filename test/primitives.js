@@ -2,7 +2,7 @@
 import test from 'ava-spec'
 import typer from '../src'
 
-/*:: import type { $Literal } from '../src' */
+import type { $Literal } from '../src'
 
 const { nil, undef, boolean, number, string, literalOf } = typer
 
@@ -84,7 +84,7 @@ test.group('string type', test => {
 })
 
 test.group('literal boolean type', test => {
-  const bool$Literal = (literalOf(true) /*: $Literal<true> */)
+  const bool$Literal = (literalOf(true): $Literal<true>)
 
   test(`should return a 'true' literal`, t => {
     t.is(bool$Literal(true), true)
@@ -102,7 +102,7 @@ test.group('literal boolean type', test => {
 })
 
 test.group('literal number type', test => {
-  const number$Literal = (literalOf(12345) /*: $Literal<12345> */)
+  const number$Literal = (literalOf(12345): $Literal<12345>)
 
   test('should return a number literal', t => {
     t.is(number$Literal(12345), 12345)
@@ -120,7 +120,7 @@ test.group('literal number type', test => {
 })
 
 test.group('literal string type', test => {
-  const string$Literal = (literalOf('foo') /*: $Literal<'foo'> */)
+  const string$Literal = (literalOf('foo'): $Literal<'foo'>)
 
   test('should return a string literal', t => {
     t.is(string$Literal('foo'), 'foo')

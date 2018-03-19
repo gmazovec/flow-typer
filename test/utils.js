@@ -2,7 +2,7 @@
 import test from 'ava-spec'
 import typer from '../src'
 
-/*:: import type { $Literal } from '../src' */
+import type { $Literal } from '../src'
 
 const {
   objectOf,
