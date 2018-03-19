@@ -15,6 +15,9 @@
   "engines": {
     "node": ">=6.0.0"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dist": "flow-remove-types --out-dir dist src && cp src/index.js dist/index.js.flow",
     "test": "npm run test:type && npm run test:unit",
