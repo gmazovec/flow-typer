@@ -30,9 +30,9 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "ava-spec": "^1.1.1",
-    "flow-bin": "0.67.1",
+    "flow-bin": "0.68.0",
     "flow-remove-types": "^1.2.3",
-    "nyc": "^11.4.1"
+    "nyc": "^11.6.0"
   },
   "ava": {
     "require": [
