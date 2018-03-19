@@ -37,8 +37,8 @@ npm install --save @gmazovec/flow-typer
 ## Importing
 
 ```javascript
-import typer from 'flow-typer' // ES6
-var typer = require('flow-typer') // ES5 with npm
+import typer from '@gmazovec/flow-typer' // ES6
+var typer = require('@gmazovec/flow-typer') // ES5 with npm
 ```
 
 
@@ -61,7 +61,7 @@ import {
   number,
   boolean,
   maybe
-} from 'flow-typer'
+} from '@gmazovec/flow-typer'
 ```
 
 ```javascript
