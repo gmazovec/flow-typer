@@ -6,7 +6,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/test_coverage)](https://codeclimate.com/github/gmazovec/flow-typer/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/maintainability)](https://codeclimate.com/github/gmazovec/flow-typer/maintainability)
 
-So you are using _Flow_ to type check your code. That's great but how do you
+So you are using [Flow](https://flow.org) to type check your code. That's great but how do you
 check types for data that is not known before running the code? Like _JSON_ input.
 Sure, you can use your favorite validation library and do unsafe type casting. Or
 you write verbose code and do low-level type checking with _typeof_ operator to
@@ -15,16 +15,16 @@ satisfy _Flow_'s refinement.
 _flow-typer_ is solving these problems by writing maintainable type schemas in
 _JavaScript_ with _Flow_ interoperability.
 
-Features:
+![Flow Typer](./flow-typer.png)
+
+### Features
 
 - support for primitive and complex Flow types
-- complete [Flow](https://flow.org) coverage
+- complete _Flow_ coverage
 - type functions are immutable
 - define _Flow_ types with JavaScript
 - no transpilation required
 - works with ES6 JavaScript (modern browsers and Node 6+)
-
-![Flow Typer](./flow-typer.png)
 
 
 ## Installation
@@ -65,7 +65,7 @@ import {
 ```
 
 ```javascript
-// literal types require annotation
+// literal types require Flow annotation
 const male$Literal = (literalOf('male'): $Literal<'male'>)
 const female$Literal = (literalOf('female'): $Literal<'female'>)
 ```
