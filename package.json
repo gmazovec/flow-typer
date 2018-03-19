@@ -16,21 +16,19 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "test": "npm run build:dist && npm run test:type && npm run test:unit",
+    "dist": "flow-remove-types --out-dir dist src && cp src/index.js dist/index.js.flow",
+    "test": "npm run test:type && npm run test:unit",
     "test:type": "flow --show-all-errors",
     "test:unit": "ava test",
-    "test:coverage": "npm run build:dist && nyc --reporter=lcov --reporter=html --reporter=text npm run test:unit",
-    "build:dist": "flow-remove-types --out-dir dist src && cp src/index.js dist/index.js.flow",
-    "clean": "rm -rf dist",
-    "postinstall": "npm run build:dist"
-  },
-  "dependencies": {
-    "flow-remove-types": "^1.2.3"
+    "test:coverage": "npm run test:type && nyc --reporter=lcov --reporter=html --reporter=text npm run test:unit",
+    "prepublishOnly": "npm run test && npm run dist",
+    "clean": "rm -rf dist coverage"
   },
   "devDependencies": {
     "ava": "^0.25.0",
     "ava-spec": "^1.1.1",
     "flow-bin": "0.67.1",
+    "flow-remove-types": "^1.2.3",
     "nyc": "^11.4.1"
   },
   "ava": {
