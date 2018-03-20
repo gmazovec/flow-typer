@@ -34,15 +34,15 @@ export type TypeValidatorsOf5<T, U, V, Z, X> = [
   TypeValidator<X>
 ]
 
-module.exports = {
-  ...(require('./is')),
-  ...(require('./utils')),
-  ...(require('./types/primitives')),
-  ...(require('./types/literals')),
-  ...(require('./types/maybe')),
-  ...(require('./types/mixed')),
-  ...(require('./types/object')),
-  ...(require('./types/array')),
-  ...(require('./types/tuple')),
-  ...(require('./types/union'))
-}
+module.exports = Object.assign({},
+  require('./is'),
+  require('./utils'),
+  require('./types/primitives'),
+  require('./types/literals'),
+  require('./types/maybe'),
+  require('./types/mixed'),
+  require('./types/object'),
+  require('./types/array'),
+  require('./types/tuple'),
+  require('./types/union')
+)
