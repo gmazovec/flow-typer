@@ -35,32 +35,11 @@ function tupleOf_ (...typeFuncs) {
   return tuple
 }
 
-<<<<<<< HEAD
 // $FlowFixMe - $Tuple<(A, B, C, ...)[]>
 const tupleOf: TupleT = tupleOf_
 exports.tupleOf = tupleOf
 =======
-exports.tupleOf5 =
-  <T, U, V, Z, X>(...typeFuncs: TypeValidatorsOf5<T, U, V, Z, X>): TypeValidator<[T, U, V, Z, X]> =>
-    function tuple (v) {
-      if (isEmpty(v)) {
-        return [
-          typeFuncs[0](v),
-          typeFuncs[1](v),
-          typeFuncs[2](v),
-          typeFuncs[3](v),
-          typeFuncs[4](v)
-        ]
-      }
-      if (Array.isArray(v) && v.length === 5) {
-        return [
-          typeFuncs[0](v[0]),
-          typeFuncs[1](v[1]),
-          typeFuncs[2](v[2]),
-          typeFuncs[3](v[3]),
-          typeFuncs[4](v[4])
-        ]
-      }
-      throw error('tuple with cardinality of 5', typeof v)
-    }
->>>>>>> Remove redundant flow annotations for validators
+    tuple.type = () => `[${typeFuncs.map(getType).join(', ')}]`
+    return tuple
+  }
+>>>>>>> Add type resolvers to validators

@@ -25,3 +25,11 @@ exports.typeOf =
 exports.error = function error (expected: string, actual: string): TypeError {
   return new TypeError(`invalid '${actual}' value type; '${expected}' type expected`)
 }
+
+exports.getType = (
+  function getType (typeFn) {
+    if (typeof typeFn.type === 'function') return typeFn.type()
+    return typeFn.name || '?'
+  }
+  : <T>(TypeValidator<T>) => string
+)
