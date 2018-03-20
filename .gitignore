@@ -60,4 +60,3 @@ typings/
 dist
 test/snapshots
 yarn.lock
-src/*.js
