@@ -5,7 +5,7 @@ const { isEmpty, isObject } = require('../is')
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
 
 exports.object =
-  (v: mixed): ObjectRecord<mixed> => {
+  function object (v: mixed): ObjectRecord<mixed> {
     if (isEmpty(v)) return {}
     if (isObject(v)) return Object.assign({}, v)
     throw error('object', typeof v)
@@ -13,7 +13,7 @@ exports.object =
 
 exports.objectOf = <O: TypeValidatorRecord<*>>
   (typeObj: O): TypeValidator<$ObjMap<O, <V>(TypeValidator<V>) => V>> =>
-    (v: mixed) => {
+    function object (v: mixed) {
       const o = exports.object(v)
       const reducer = isEmpty(v)
         ? (acc, key) => Object.assign(acc, { [key]: typeObj[key](v) })

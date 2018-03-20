@@ -6,7 +6,7 @@ import type { LiteralValue, TypeValidator } from '..'
 
 exports.literalOf =
   <T: LiteralValue>(primitive: T): TypeValidator<T> =>
-    (v: mixed): T => {
+    function literal (v: mixed): T {
       if (isEmpty(v) || (v === primitive)) return primitive
       throw error(`${typeof primitive} primitive literal`, typeof v)
     }

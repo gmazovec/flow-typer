@@ -1,14 +1,9 @@
 // @flow
-const { error } = require('../utils')
+const { getType } = require('../utils')
+const { validatorError } = require('../error')
 const { isEmpty } = require('../is')
 
-import type {
-  TypeValidator,
-  TypeValidatorsOf2,
-  TypeValidatorsOf3,
-  TypeValidatorsOf4,
-  TypeValidatorsOf5
-} from '../'
+import type { TypeValidator } from '../'
 
 type V<T> = TypeValidator<T>
 type TupleT =
@@ -24,18 +19,20 @@ type TupleT =
   & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => TypeValidator<[A, B, C, D, E, F, G, H, I, J]>)
 
 function tupleOf_ (...typeFuncs) {
-  return (v: mixed) => {
+  function tuple (value: mixed, _scope = '') {
     const cardinality = typeFuncs.length
-    if (isEmpty(v)) return typeFuncs.map(fn => fn(v))
-    if (Array.isArray(v) && v.length === cardinality) {
-      const value = []
+    if (isEmpty(value)) return typeFuncs.map(fn => fn(value))
+    if (Array.isArray(value) && value.length === cardinality) {
+      const tupleValue = []
       for (let i = 0; i < cardinality; i += 1) {
-        value.push(typeFuncs[i](v[i]))
+        tupleValue.push(typeFuncs[i](value[i], _scope))
       }
-      return value
+      return tupleValue
     }
-    throw error(`tuple with cardinality of ${cardinality}`, typeof v)
+    throw validatorError(tuple, value, _scope)
   }
+  tuple.type = () => `[${typeFuncs.map(getType).join(', ')}]`
+  return tuple
 }
 
 // $FlowFixMe - $Tuple<(A, B, C, ...)[]>

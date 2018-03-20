@@ -1,9 +1,10 @@
 // @flow
-const { error } = require('../utils')
+const { getType } = require('../utils')
+const { validatorError } = require('../error')
 
 import type { TypeValidator } from '..'
 
-type V<T> = (mixed) => T
+type V<T> = TypeValidator<T>
 type UnionT =
     (<A>(V<A>) => TypeValidator<A>)
   & (<A, B>(V<A>, V<B>) => TypeValidator<A | B>)
@@ -17,14 +18,16 @@ type UnionT =
   & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => TypeValidator<A | B | C | D | E | F | G | H | I | J>)
 
 function unionOf_ (...typeFuncs) {
-  return function union (v: mixed) {
+  function union (value: mixed, _scope = '') {
     for (const typeFn of typeFuncs) {
       try {
-        return typeFn(v)
+        return typeFn(value, _scope)
       } catch (_) {}
     }
-    throw error('union', typeof v)
+    throw validatorError(union, value, _scope)
   }
+  union.type = () => `(${typeFuncs.map(getType).join(' | ')})`
+  return union
 }
 // $FlowFixMe
 const unionOf: UnionT = (unionOf_);

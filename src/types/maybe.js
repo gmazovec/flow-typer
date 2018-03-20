@@ -5,5 +5,6 @@ import type { TypeValidator, TypeMaybeValidator } from '..'
 
 exports.maybe =
   <T>(typeFn: TypeValidator<T>): TypeMaybeValidator<T> =>
-    (v: mixed): ?T =>
-      (isNil(v) || isUndef(v)) ? v : typeFn(v)
+    function maybe (v: mixed): ?T {
+      return (isNil(v) || isUndef(v)) ? v : typeFn(v)
+    }

@@ -1,4 +1,6 @@
 // @flow
 
 exports.mixed =
-  (v: mixed): * => v
+  function mixed (v: mixed): * {
+    return v
+  }
