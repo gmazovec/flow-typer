@@ -1,6 +1,6 @@
 {
   "name": "@gmazovec/flow-typer",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Declarative static and runtime type checking with Flow ",
   "main": "dist/index.js",
   "repository": "https://github.com/gmazovec/flow-typer",
