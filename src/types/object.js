@@ -11,10 +11,8 @@ exports.object =
     throw error('object', typeof v)
   }
 
-type TypeValidatorMap<M> = $ObjMap<M, <V>(TypeValidator<V>) => V>
-
-exports.objectOf =
-  <O: TypeValidatorRecord<*>>(typeObj: O): TypeValidator<TypeValidatorMap<O>> =>
+exports.objectOf = <O: TypeValidatorRecord<*>>
+  (typeObj: O): TypeValidator<$ObjMap<O, <V>(TypeValidator<V>) => V>> =>
     (v: mixed) => {
       const o = exports.object(v)
       const reducer = isEmpty(v)
