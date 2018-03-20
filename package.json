@@ -19,7 +19,9 @@
     "dist"
   ],
   "scripts": {
-    "dist": "flow-remove-types --out-dir dist src && cp src/index.js dist/index.js.flow",
+    "dist": "npm run clean && npm run dist:flow && npm run dist:remove-types",
+    "dist:flow": "cp -Rv src dist && find dist -type f -name '*.js' -exec mv -v {} {}.flow \\;",
+    "dist:remove-types": "flow-remove-types --out-dir dist src",
     "test": "npm run test:type && npm run test:unit",
     "test:type": "flow --show-all-errors",
     "test:unit": "ava test",
