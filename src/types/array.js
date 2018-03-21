@@ -11,6 +11,6 @@ exports.arrayOf =
       if (Array.isArray(v)) return v.map(typeFn)
       throw validatorError(array, v)
     }
-    array.type = () => `${getType(typeFn)}[]`
+    array.type = () => `Array<${getType(typeFn)}>`
     return array
   }

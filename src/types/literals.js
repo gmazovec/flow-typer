@@ -11,8 +11,8 @@ exports.literalOf =
       throw validatorError(literal, v)
     }
     literal.type = () => {
-      if (isBoolean(primitive)) return `'${primitive ? 'true': 'false'}'`
-      else return `'${primitive}'`
+      if (isBoolean(primitive)) return `${primitive ? 'true': 'false'}`
+      else return `"${primitive}"`
     }
     return literal
   }
