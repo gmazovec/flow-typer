@@ -22,10 +22,6 @@ exports.typeOf =
   <T>(schema: TypeValidator<T>): T =>
     schema(EMPTY_VALUE)
 
-exports.error = function error (expected: string, actual: string): TypeError {
-  return new TypeError(`invalid '${actual}' value type; '${expected}' type expected`)
-}
-
 exports.getType = (
   function getType (typeFn) {
     if (typeof typeFn.type === 'function') return typeFn.type()
@@ -33,3 +29,48 @@ exports.getType = (
   }
   : <T>(TypeValidator<T>) => string
 )
+
+class TypeValidatorError extends Error {
+  expectedType: string
+  valueType: string
+  typeScope: string
+
+  constructor (
+    expectedType: string,
+    valueType: string,
+    typeScope: string,
+    typeName: string
+  ) {
+    const message =
+      `invalid "${valueType}" value type; ${typeName || expectedType} type expected`
+    super(message)
+    this.expectedType = expectedType
+    this.valueType = valueType
+    this.typeScope = typeScope
+  }
+}
+
+TypeValidatorError.prototype.name = 'TypeValidatorError'
+exports.TypeValidatorError = TypeValidatorError
+
+exports.validatorError =
+  <T>(typeFn: TypeValidator<T>, value: mixed): TypeValidatorError => {
+    return new TypeValidatorError(
+      exports.getType(typeFn), typeof value, '', typeFn.name || ''
+    )
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

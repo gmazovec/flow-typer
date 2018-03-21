@@ -2,7 +2,7 @@
 import test from 'ava-spec'
 import typer from '../src'
 
-const { maybe, nil, undef, boolean, number, string, arrayOf } = typer
+const { maybe, nil, undef, boolean, number, string, arrayOf, TypeValidatorError } = typer
 
 test.group('null type', test => {
   const maybeNull = maybe(nil)
@@ -15,11 +15,11 @@ test.group('null type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeNull(true) }, TypeError)
-    t.throws(() => { maybeNull(12345) }, TypeError)
-    t.throws(() => { maybeNull('foo') }, TypeError)
-    t.throws(() => { maybeNull({}) }, TypeError)
-    t.throws(() => { maybeNull([]) }, TypeError)
+    t.throws(() => { maybeNull(true) }, TypeValidatorError)
+    t.throws(() => { maybeNull(12345) }, TypeValidatorError)
+    t.throws(() => { maybeNull('foo') }, TypeValidatorError)
+    t.throws(() => { maybeNull({}) }, TypeValidatorError)
+    t.throws(() => { maybeNull([]) }, TypeValidatorError)
   })
 })
 
@@ -34,11 +34,11 @@ test.group('undefined type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeVoid(true) }, TypeError)
-    t.throws(() => { maybeVoid(12345) }, TypeError)
-    t.throws(() => { maybeVoid('foo') }, TypeError)
-    t.throws(() => { maybeVoid({}) }, TypeError)
-    t.throws(() => { maybeVoid([]) }, TypeError)
+    t.throws(() => { maybeVoid(true) }, TypeValidatorError)
+    t.throws(() => { maybeVoid(12345) }, TypeValidatorError)
+    t.throws(() => { maybeVoid('foo') }, TypeValidatorError)
+    t.throws(() => { maybeVoid({}) }, TypeValidatorError)
+    t.throws(() => { maybeVoid([]) }, TypeValidatorError)
   })
 })
 
@@ -55,10 +55,10 @@ test.group('boolean type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeBool(12345) }, TypeError)
-    t.throws(() => { maybeBool('foo') }, TypeError)
-    t.throws(() => { maybeBool({}) }, TypeError)
-    t.throws(() => { maybeBool([]) }, TypeError)
+    t.throws(() => { maybeBool(12345) }, TypeValidatorError)
+    t.throws(() => { maybeBool('foo') }, TypeValidatorError)
+    t.throws(() => { maybeBool({}) }, TypeValidatorError)
+    t.throws(() => { maybeBool([]) }, TypeValidatorError)
   })
 })
 
@@ -75,10 +75,10 @@ test.group('number type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeNumber(true) }, TypeError)
-    t.throws(() => { maybeNumber('foo') }, TypeError)
-    t.throws(() => { maybeNumber({}) }, TypeError)
-    t.throws(() => { maybeNumber([]) }, TypeError)
+    t.throws(() => { maybeNumber(true) }, TypeValidatorError)
+    t.throws(() => { maybeNumber('foo') }, TypeValidatorError)
+    t.throws(() => { maybeNumber({}) }, TypeValidatorError)
+    t.throws(() => { maybeNumber([]) }, TypeValidatorError)
   })
 })
 
@@ -95,10 +95,10 @@ test.group('string type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeString(true) }, TypeError)
-    t.throws(() => { maybeString(12345) }, TypeError)
-    t.throws(() => { maybeString({}) }, TypeError)
-    t.throws(() => { maybeString([]) }, TypeError)
+    t.throws(() => { maybeString(true) }, TypeValidatorError)
+    t.throws(() => { maybeString(12345) }, TypeValidatorError)
+    t.throws(() => { maybeString({}) }, TypeValidatorError)
+    t.throws(() => { maybeString([]) }, TypeValidatorError)
   })
 })
 
@@ -115,10 +115,10 @@ test.group('array type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeArrayOfString(true) }, TypeError)
-    t.throws(() => { maybeArrayOfString(12345) }, TypeError)
-    t.throws(() => { maybeArrayOfString('foo') }, TypeError)
-    t.throws(() => { maybeArrayOfString({}) }, TypeError)
-    t.throws(() => { maybeArrayOfString([12345]) }, TypeError)
+    t.throws(() => { maybeArrayOfString(true) }, TypeValidatorError)
+    t.throws(() => { maybeArrayOfString(12345) }, TypeValidatorError)
+    t.throws(() => { maybeArrayOfString('foo') }, TypeValidatorError)
+    t.throws(() => { maybeArrayOfString({}) }, TypeValidatorError)
+    t.throws(() => { maybeArrayOfString([12345]) }, TypeValidatorError)
   })
 })

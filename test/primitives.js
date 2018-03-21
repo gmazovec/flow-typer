@@ -4,7 +4,7 @@ import typer from '../src'
 
 import type { $Literal } from '../src'
 
-const { nil, undef, boolean, number, string, literalOf } = typer
+const { nil, undef, boolean, number, string, literalOf, TypeValidatorError } = typer
 
 test.group('nil type', test => {
   test('should return an nil value', t => {
@@ -12,12 +12,12 @@ test.group('nil type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { nil(undefined) }, TypeError)
-    t.throws(() => { nil(true) }, TypeError)
-    t.throws(() => { nil(12345) }, TypeError)
-    t.throws(() => { nil('foo') }, TypeError)
-    t.throws(() => { nil({}) }, TypeError)
-    t.throws(() => { nil([]) }, TypeError)
+    t.throws(() => { nil(undefined) }, TypeValidatorError)
+    t.throws(() => { nil(true) }, TypeValidatorError)
+    t.throws(() => { nil(12345) }, TypeValidatorError)
+    t.throws(() => { nil('foo') }, TypeValidatorError)
+    t.throws(() => { nil({}) }, TypeValidatorError)
+    t.throws(() => { nil([]) }, TypeValidatorError)
   })
 })
 
@@ -27,12 +27,12 @@ test.group('void type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { undef(null) }, TypeError)
-    t.throws(() => { undef(true) }, TypeError)
-    t.throws(() => { undef(12345) }, TypeError)
-    t.throws(() => { undef('foo') }, TypeError)
-    t.throws(() => { undef({}) }, TypeError)
-    t.throws(() => { undef([]) }, TypeError)
+    t.throws(() => { undef(null) }, TypeValidatorError)
+    t.throws(() => { undef(true) }, TypeValidatorError)
+    t.throws(() => { undef(12345) }, TypeValidatorError)
+    t.throws(() => { undef('foo') }, TypeValidatorError)
+    t.throws(() => { undef({}) }, TypeValidatorError)
+    t.throws(() => { undef([]) }, TypeValidatorError)
   })
 })
 
@@ -43,12 +43,12 @@ test.group('boolean type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { boolean(null) }, TypeError)
-    t.throws(() => { boolean(undefined) }, TypeError)
-    t.throws(() => { boolean(12345) }, TypeError)
-    t.throws(() => { boolean('foo') }, TypeError)
-    t.throws(() => { boolean({}) }, TypeError)
-    t.throws(() => { boolean([]) }, TypeError)
+    t.throws(() => { boolean(null) }, TypeValidatorError)
+    t.throws(() => { boolean(undefined) }, TypeValidatorError)
+    t.throws(() => { boolean(12345) }, TypeValidatorError)
+    t.throws(() => { boolean('foo') }, TypeValidatorError)
+    t.throws(() => { boolean({}) }, TypeValidatorError)
+    t.throws(() => { boolean([]) }, TypeValidatorError)
   })
 })
 
@@ -59,12 +59,12 @@ test.group('number type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { number(null) }, TypeError)
-    t.throws(() => { number(undefined) }, TypeError)
-    t.throws(() => { number(true) }, TypeError)
-    t.throws(() => { number('foo') }, TypeError)
-    t.throws(() => { number({}) }, TypeError)
-    t.throws(() => { number([]) }, TypeError)
+    t.throws(() => { number(null) }, TypeValidatorError)
+    t.throws(() => { number(undefined) }, TypeValidatorError)
+    t.throws(() => { number(true) }, TypeValidatorError)
+    t.throws(() => { number('foo') }, TypeValidatorError)
+    t.throws(() => { number({}) }, TypeValidatorError)
+    t.throws(() => { number([]) }, TypeValidatorError)
   })
 })
 
@@ -74,12 +74,12 @@ test.group('string type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { string(null) }, TypeError)
-    t.throws(() => { string(undefined) }, TypeError)
-    t.throws(() => { string(false) }, TypeError)
-    t.throws(() => { string(12345) }, TypeError)
-    t.throws(() => { string({}) }, TypeError)
-    t.throws(() => { string([]) }, TypeError)
+    t.throws(() => { string(null) }, TypeValidatorError)
+    t.throws(() => { string(undefined) }, TypeValidatorError)
+    t.throws(() => { string(false) }, TypeValidatorError)
+    t.throws(() => { string(12345) }, TypeValidatorError)
+    t.throws(() => { string({}) }, TypeValidatorError)
+    t.throws(() => { string([]) }, TypeValidatorError)
   })
 })
 
@@ -91,13 +91,13 @@ test.group('literal boolean type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { bool$Literal(null) }, TypeError)
-    t.throws(() => { bool$Literal(undefined) }, TypeError)
-    t.throws(() => { bool$Literal(false) }, TypeError)
-    t.throws(() => { bool$Literal(12345) }, TypeError)
-    t.throws(() => { bool$Literal('foo') }, TypeError)
-    t.throws(() => { bool$Literal({}) }, TypeError)
-    t.throws(() => { bool$Literal([]) }, TypeError)
+    t.throws(() => { bool$Literal(null) }, TypeValidatorError)
+    t.throws(() => { bool$Literal(undefined) }, TypeValidatorError)
+    t.throws(() => { bool$Literal(false) }, TypeValidatorError)
+    t.throws(() => { bool$Literal(12345) }, TypeValidatorError)
+    t.throws(() => { bool$Literal('foo') }, TypeValidatorError)
+    t.throws(() => { bool$Literal({}) }, TypeValidatorError)
+    t.throws(() => { bool$Literal([]) }, TypeValidatorError)
   })
 })
 
@@ -109,13 +109,13 @@ test.group('literal number type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { number$Literal(null) }, TypeError)
-    t.throws(() => { number$Literal(undefined) }, TypeError)
-    t.throws(() => { number$Literal(false) }, TypeError)
-    t.throws(() => { number$Literal(123.45) }, TypeError)
-    t.throws(() => { number$Literal('foo') }, TypeError)
-    t.throws(() => { number$Literal({}) }, TypeError)
-    t.throws(() => { number$Literal([]) }, TypeError)
+    t.throws(() => { number$Literal(null) }, TypeValidatorError)
+    t.throws(() => { number$Literal(undefined) }, TypeValidatorError)
+    t.throws(() => { number$Literal(false) }, TypeValidatorError)
+    t.throws(() => { number$Literal(123.45) }, TypeValidatorError)
+    t.throws(() => { number$Literal('foo') }, TypeValidatorError)
+    t.throws(() => { number$Literal({}) }, TypeValidatorError)
+    t.throws(() => { number$Literal([]) }, TypeValidatorError)
   })
 })
 
@@ -127,12 +127,12 @@ test.group('literal string type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { string$Literal(null) }, TypeError)
-    t.throws(() => { string$Literal(undefined) }, TypeError)
-    t.throws(() => { string$Literal(false) }, TypeError)
-    t.throws(() => { string$Literal(12345) }, TypeError)
-    t.throws(() => { string$Literal('fooo') }, TypeError)
-    t.throws(() => { string$Literal({}) }, TypeError)
-    t.throws(() => { string$Literal([]) }, TypeError)
+    t.throws(() => { string$Literal(null) }, TypeValidatorError)
+    t.throws(() => { string$Literal(undefined) }, TypeValidatorError)
+    t.throws(() => { string$Literal(false) }, TypeValidatorError)
+    t.throws(() => { string$Literal(12345) }, TypeValidatorError)
+    t.throws(() => { string$Literal('fooo') }, TypeValidatorError)
+    t.throws(() => { string$Literal({}) }, TypeValidatorError)
+    t.throws(() => { string$Literal([]) }, TypeValidatorError)
   })
 })

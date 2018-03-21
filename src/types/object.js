@@ -1,5 +1,5 @@
 // @flow
-const { error, getType } = require('../utils')
+const { validatorError, getType } = require('../utils')
 const { isEmpty, isObject } = require('../is')
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
@@ -8,7 +8,7 @@ exports.object = (
   function object (v) {
     if (isEmpty(v)) return {}
     if (isObject(v)) return Object.assign({}, v)
-    throw error('object', typeof v)
+    throw validatorError(object, v)
   }
   : TypeValidator<ObjectRecord<mixed>>
 )
