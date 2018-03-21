@@ -2,7 +2,7 @@
 
 > Declarative static and runtime type checking with Flow.
 
-[![npm](https://img.shields.io/npm/v/@gmazovec/flow-typer.svg?colorB=brightgreen)](https://www.npmjs.com/package/@gmazovec/flow-typer)
+[![npm](https://img.shields.io/npm/v/flow-typer-js.svg?colorB=brightgreen)](https://www.npmjs.com/package/flow-typer-js)
 [![Build Status](https://travis-ci.org/gmazovec/flow-typer.svg?branch=master)](https://travis-ci.org/gmazovec/flow-typer)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/test_coverage)](https://codeclimate.com/github/gmazovec/flow-typer/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/maintainability)](https://codeclimate.com/github/gmazovec/flow-typer/maintainability)
