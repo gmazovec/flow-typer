@@ -31,15 +31,15 @@ _JavaScript_ with _Flow_ interoperability.
 ## Installation
 
 ```shell
-npm install --save @gmazovec/flow-typer
+npm install --save flow-typer-js
 ```
 
 
 ## Importing
 
 ```javascript
-import typer from '@gmazovec/flow-typer' // ES6
-var typer = require('@gmazovec/flow-typer') // ES5 with npm
+import typer from 'flow-typer-js' // ES6
+var typer = require('flow-typer-js') // ES5 with npm
 ```
 
 
@@ -62,7 +62,7 @@ import {
   number,
   boolean,
   maybe
-} from '@gmazovec/flow-typer'
+} from 'flow-typer-js'
 ```
 
 ```javascript
