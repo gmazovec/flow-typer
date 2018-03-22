@@ -209,6 +209,14 @@ getType(schema)
 // => { dependencies: Array<{ name: string, version: number, exact: boolean }> }
 ```
 
+### Errors
+
+- `TypeValidatorError`
+  - `expectedType: string`
+  - `valueType: string`
+  - `value: string`
+  - `typeScope: string`
+  - `sourceFile: string`
 
 ## TODO
 
