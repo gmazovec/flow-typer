@@ -2,9 +2,9 @@
 
 export type LiteralValue = boolean | number | string
 export type ObjectRecord<T> = { [key: string]: T }
-export type TypeValidator<T> = (mixed) => T
-export type TypeMaybeValidator<T> = (mixed) => ?T
-export type TypeArrayValidator<T> = (mixed) => T[]
+export type TypeValidator<T> = (mixed, _?:string) => T
+export type TypeMaybeValidator<T> = (mixed, _?:string) => ?T
+export type TypeArrayValidator<T> = (mixed, _?:string) => T[]
 export type TypeValidatorRecord<T> = ObjectRecord<TypeValidator<T>>
 export type $Literal<T: LiteralValue> = TypeValidator<T>
 
