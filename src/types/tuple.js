@@ -43,22 +43,22 @@ exports.tupleOf = tupleOf
 =======
 exports.tupleOf3 =
   <T, U, V>(...typeFuncs: TypeValidatorsOf3<T, U, V>): TypeValidator<[T, U, V]> => {
-    function tuple (v, _scope = '') {
-      if (isEmpty(v)) {
+    function tuple (value, _scope = '') {
+      if (isEmpty(value)) {
         return [
-          typeFuncs[0](v, _scope),
-          typeFuncs[1](v, _scope),
-          typeFuncs[2](v, _scope)
+          typeFuncs[0](value, _scope),
+          typeFuncs[1](value, _scope),
+          typeFuncs[2](value, _scope)
         ]
       }
-      if (Array.isArray(v) && v.length === 3) {
+      if (Array.isArray(value) && value.length === 3) {
         return [
-          typeFuncs[0](v[0], _scope),
-          typeFuncs[1](v[1], _scope),
-          typeFuncs[2](v[2], _scope)
+          typeFuncs[0](value[0], _scope),
+          typeFuncs[1](value[1], _scope),
+          typeFuncs[2](value[2], _scope)
         ]
       }
-      throw validatorError(tuple, v, _scope)
+      throw validatorError(tuple, value, _scope)
     }
     tuple.type = () => `[${typeFuncs.map(getType).join(', ')}]`
     return tuple
@@ -66,24 +66,24 @@ exports.tupleOf3 =
 
 exports.tupleOf4 =
   <T, U, V, Z>(...typeFuncs: TypeValidatorsOf4<T, U, V, Z>): TypeValidator<[T, U, V, Z]> => {
-    function tuple (v, _scope = '') {
-      if (isEmpty(v)) {
+    function tuple (value, _scope = '') {
+      if (isEmpty(value)) {
         return [
-          typeFuncs[0](v, _scope),
-          typeFuncs[1](v, _scope),
-          typeFuncs[2](v, _scope),
-          typeFuncs[3](v, _scope)
+          typeFuncs[0](value, _scope),
+          typeFuncs[1](value, _scope),
+          typeFuncs[2](value, _scope),
+          typeFuncs[3](value, _scope)
         ]
       }
-      if (Array.isArray(v) && v.length === 4) {
+      if (Array.isArray(value) && value.length === 4) {
         return [
-          typeFuncs[0](v[0], _scope),
-          typeFuncs[1](v[1], _scope),
-          typeFuncs[2](v[2], _scope),
-          typeFuncs[3](v[3], _scope)
+          typeFuncs[0](value[0], _scope),
+          typeFuncs[1](value[1], _scope),
+          typeFuncs[2](value[2], _scope),
+          typeFuncs[3](value[3], _scope)
         ]
       }
-      throw validatorError(tuple, v, _scope)
+      throw validatorError(tuple, value, _scope)
     }
     tuple.type = () => `[${typeFuncs.map(getType).join(', ')}]`
     return tuple
@@ -91,26 +91,26 @@ exports.tupleOf4 =
 
 exports.tupleOf5 =
   <T, U, V, Z, X>(...typeFuncs: TypeValidatorsOf5<T, U, V, Z, X>): TypeValidator<[T, U, V, Z, X]> => {
-    function tuple (v, _scope = '') {
-      if (isEmpty(v)) {
+    function tuple (value, _scope = '') {
+      if (isEmpty(value)) {
         return [
-          typeFuncs[0](v, _scope),
-          typeFuncs[1](v, _scope),
-          typeFuncs[2](v, _scope),
-          typeFuncs[3](v, _scope),
-          typeFuncs[4](v, _scope)
+          typeFuncs[0](value, _scope),
+          typeFuncs[1](value, _scope),
+          typeFuncs[2](value, _scope),
+          typeFuncs[3](value, _scope),
+          typeFuncs[4](value, _scope)
         ]
       }
-      if (Array.isArray(v) && v.length === 5) {
+      if (Array.isArray(value) && value.length === 5) {
         return [
-          typeFuncs[0](v[0], _scope),
-          typeFuncs[1](v[1], _scope),
-          typeFuncs[2](v[2], _scope),
-          typeFuncs[3](v[3], _scope),
-          typeFuncs[4](v[4], _scope)
+          typeFuncs[0](value[0], _scope),
+          typeFuncs[1](value[1], _scope),
+          typeFuncs[2](value[2], _scope),
+          typeFuncs[3](value[3], _scope),
+          typeFuncs[4](value[4], _scope)
         ]
       }
-      throw validatorError(tuple, v, _scope)
+      throw validatorError(tuple, value, _scope)
     }
 >>>>>>> Replace TypeError with TypeValidatorError
     tuple.type = () => `[${typeFuncs.map(getType).join(', ')}]`

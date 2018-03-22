@@ -13,44 +13,44 @@ const {
 import type { TypeValidator } from '..'
 
 exports.nil = (
-  function nil (v) {
-    if (isEmpty(v) || isNil(v)) return null
-    throw validatorError(nil, v)
+  function nil (value) {
+    if (isEmpty(value) || isNil(value)) return null
+    throw validatorError(nil, value)
   }
   : TypeValidator<null>
 )
 
 exports.undef = (
-  function undef (v, _scope = '') {
-    if (isEmpty(v) || isUndef(v)) return undefined
-    throw validatorError(undef, v, _scope)
+  function undef (value, _scope = '') {
+    if (isEmpty(value) || isUndef(value)) return undefined
+    throw validatorError(undef, value, _scope)
   }
   : TypeValidator<void>
 )
 
 exports.boolean = (
-  function boolean (v, _scope = '') {
-    if (isEmpty(v)) return false
-    if (isBoolean(v)) return v
-    throw validatorError(boolean, v, _scope)
+  function boolean (value, _scope = '') {
+    if (isEmpty(value)) return false
+    if (isBoolean(value)) return value
+    throw validatorError(boolean, value, _scope)
   }
   : TypeValidator<boolean>
 )
 
 exports.number = (
-  function number (v, _scope = '') {
-    if (isEmpty(v)) return 0
-    if (isNumber(v)) return v
-    throw validatorError(number, v, _scope)
+  function number (value, _scope = '') {
+    if (isEmpty(value)) return 0
+    if (isNumber(value)) return value
+    throw validatorError(number, value, _scope)
   }
   : TypeValidator<number>
 )
 
 exports.string = (
-  function string (v, _scope = '') {
-    if (isEmpty(v)) return ''
-    if (isString(v)) return v
-    throw validatorError(string, v, _scope)
+  function string (value, _scope = '') {
+    if (isEmpty(value)) return ''
+    if (isString(value)) return value
+    throw validatorError(string, value, _scope)
   }
   : TypeValidator<string>
 )

@@ -6,8 +6,8 @@ import type { TypeValidator, TypeMaybeValidator } from '..'
 
 exports.maybe =
   <T>(typeFn: TypeValidator<T>): TypeMaybeValidator<T> => {
-    function maybe (v, _scope = '') {
-      return (isNil(v) || isUndef(v)) ? v : typeFn(v, _scope)
+    function maybe (value, _scope = '') {
+      return (isNil(value) || isUndef(value)) ? value : typeFn(value, _scope)
     }
     maybe.type = () => `?(${getType(typeFn)})`
     return maybe

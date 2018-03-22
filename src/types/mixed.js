@@ -2,8 +2,8 @@
 import type { TypeValidator } from '..'
 
 exports.mixed = (
-  function mixed (v) {
-    return v
+  function mixed (value) {
+    return value
   }
   : TypeValidator<*>
 )

@@ -7,13 +7,13 @@ import type { TypeValidator, TypeArrayValidator } from '..'
 
 exports.arrayOf =
   <T>(typeFn: TypeValidator<T>, label?: string = 'Array'): TypeArrayValidator<T> => {
-    function array (v, _scope = label) {
-      if (isEmpty(v)) return [typeFn(v)]
-      if (Array.isArray(v)) {
+    function array (value, _scope = label) {
+      if (isEmpty(value)) return [typeFn(value)]
+      if (Array.isArray(value)) {
         let index = 0
-        return v.map(v => typeFn(v, `${_scope}[${index++}]`))
+        return value.map(v => typeFn(v, `${_scope}[${index++}]`))
       }
-      throw validatorError(array, v, _scope)
+      throw validatorError(array, value, _scope)
     }
     array.type = () => `Array<${getType(typeFn)}>`
     return array
