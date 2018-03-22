@@ -1,6 +1,5 @@
 // @flow
-
-const { validatorError } = require('../utils')
+const { validatorError } = require('../error')
 const {
   isEmpty,
   isNil,

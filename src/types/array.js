@@ -1,5 +1,6 @@
 // @flow
-const { validatorError, getType } = require('../utils')
+const { getType } = require('../utils')
+const { validatorError } = require('../error')
 const { isEmpty } = require('../is')
 
 import type { TypeValidator, TypeArrayValidator } from '..'

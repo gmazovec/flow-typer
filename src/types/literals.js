@@ -1,5 +1,5 @@
 // @flow
-const { validatorError } = require('../utils')
+const { validatorError } = require('../error')
 const { isEmpty, isBoolean, isNumber, isString } = require('../is')
 
 import type { LiteralValue, TypeValidator } from '..'

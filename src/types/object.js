@@ -1,5 +1,6 @@
 // @flow
-const { validatorError, getType } = require('../utils')
+const { getType } = require('../utils')
+const { validatorError } = require('../error')
 const { isEmpty, isObject } = require('../is')
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
