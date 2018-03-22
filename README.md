@@ -194,6 +194,22 @@ const userListT = typeOf(schema)
 type UserListT = typeof userListT
 ```
 
+- `typer.getType(schema)`
+
+```javascript
+const schema = objectOf({
+  dependencies: arrayOf(objectOf(
+    name: string,
+    version: number,
+    exact: boolean
+  ))
+})
+
+getType(schema)
+// => { dependencies: Array<{ name: string, version: number, exact: boolean }> }
+```
+
+
 ## TODO
 
 - Improve error messages for runtime validation.
