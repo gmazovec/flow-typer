@@ -107,6 +107,29 @@ person.active = 1 // Flow error (boolean value expected)
 
 ```
 
+## Errors
+
+Type validation throws `TypeValidatorError` which contains useful information
+about why validation failed and what kind of type is expected.
+
+```
+TypeValidatorError: invalid "string" value type; "array" type expected
+    ...
+
+    scope    PackageT.dependencies
+    expected Array<{"name":"string","version":"string"}>
+    type     string
+    value    "flow-typer"
+    file     .../flow-typer-examples/index.js:15:15
+
+```
+
+- _scope_ - level at which validation failed
+- _expected_ - the expected type of input value
+- _type_ - the actual type of input value
+- _value_ - input value in JSON format
+- _file_ - file with position where the validator was called
+
 
 ## API
 
