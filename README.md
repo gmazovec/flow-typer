@@ -57,7 +57,7 @@ import {
   objectOf,
   arrayOf,
   tupleOf,
-  unionOf2,
+  unionOf,
   literalOf,
   string,
   number,
@@ -78,9 +78,9 @@ const personSchema = objectOf({
   name: string,
   age: maybe(number),
   active: boolean,
-  gender: unionOf2(male$Literal, female$Literal),
+  gender: unionOf(male$Literal, female$Literal),
   tags: arrayOf(string),
-  location: tupleOf2(number, number)
+  location: tupleOf(number, number)
 })
 ```
 
@@ -151,13 +151,10 @@ const schema = arrayOf(number) // => type T = number[]
 const schema = tupleOf(string, number) // => type T = [string, number]
 ```
 
-- `typer.unionOf2(...schema[])`
-- `typer.unionOf3(...schema[])`
-- `typer.unionOf4(...schema[])`
-- `typer.unionOf5(...schema[])`
+- `typer.unionOf(...schema[])`
 
 ```javascript
-const schema = unionOf2('week', 'month') // => type T = 'week' | 'month'
+const schema = unionOf('week', 'month') // => type T = 'week' | 'month'
 ```
 
 
@@ -177,9 +174,6 @@ type UserListT = typeof userListT
 ## TODO
 
 - Improve error messages for runtime validation.
-
-- Find ways to create generic `tupleOf` and `unionOf` validators with variable
-cardinality.
 
 - Use `literalOf` and `tupleOf` without explicit _Flow_ type annotations. Literal
 and tuple types can not be inferred by _Flow_. This could be solved with new

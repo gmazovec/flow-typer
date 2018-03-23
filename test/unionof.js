@@ -5,10 +5,7 @@ import typer from '../src'
 import type { $Literal } from '../src'
 
 const {
-  unionOf2,
-  unionOf3,
-  unionOf4,
-  unionOf5,
+  unionOf,
   arrayOf,
   objectOf,
   string,
@@ -21,7 +18,7 @@ const {
 } = typer
 
 test.group('primitive types - cardinality 2', test => {
-  const schema = unionOf2(
+  const schema = unionOf(
     (literalOf('foo'): $Literal<'foo'>),
     (literalOf(12345): $Literal<12345>)
   )
@@ -43,7 +40,7 @@ test.group('primitive types - cardinality 2', test => {
 })
 
 test.group('primitive types - cardinality 4', test => {
-  const schema = unionOf4(
+  const schema = unionOf(
     (literalOf(false): $Literal<false>),
     (literalOf(0): $Literal<0>),
     (literalOf(12345): $Literal<12345>),
@@ -68,7 +65,7 @@ test.group('primitive types - cardinality 4', test => {
 })
 
 test.group('primitive types - cardinality 5', test => {
-  const schema = unionOf5(
+  const schema = unionOf(
     nil,
     undef,
     boolean,
@@ -94,9 +91,9 @@ test.group('primitive types - cardinality 5', test => {
 })
 
 test.group('composable types', test => {
-  const schema = unionOf3(
+  const schema = unionOf(
     objectOf({
-      type: unionOf2(
+      type: unionOf(
         (literalOf('text'): $Literal<'text'>),
         (literalOf('image'): $Literal<'image'>)
       ),
