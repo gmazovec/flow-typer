@@ -58,6 +58,7 @@ import {
   arrayOf,
   tupleOf2,
   unionOf2,
+  literalOf,
   string,
   number,
   boolean,
