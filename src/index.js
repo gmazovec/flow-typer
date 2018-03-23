@@ -37,6 +37,7 @@ export type TypeValidatorsOf5<T, U, V, Z, X> = [
 module.exports = Object.assign({},
   require('./is'),
   require('./utils'),
+  require('./error'),
   require('./types/primitives'),
   require('./types/literals'),
   require('./types/maybe'),
