@@ -16,7 +16,7 @@ const {
   boolean,
   nil,
   undef,
-  tupleOf3,
+  tupleOf,
   literalOf
 } = typer
 
@@ -104,7 +104,7 @@ test.group('composable types', test => {
       enabled: boolean
     }),
     arrayOf(string),
-    tupleOf3(string, string, number)
+    tupleOf(string, string, number)
   )
 
   test('should validate an union #1', t => {

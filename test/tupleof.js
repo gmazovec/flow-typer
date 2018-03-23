@@ -3,11 +3,7 @@ import test from 'ava-spec'
 import typer from '../src'
 
 const {
-  tupleOf1,
-  tupleOf2,
-  tupleOf3,
-  tupleOf4,
-  tupleOf5,
+  tupleOf,
   boolean,
   number,
   string,
@@ -17,7 +13,7 @@ const {
 } = typer
 
 test.group('primitive types - cardinality 1', test => {
-  const tuple = tupleOf1(boolean)
+  const tuple = tupleOf(boolean)
 
   test('should validate a tuple', t => {
     const input = [true]
@@ -37,7 +33,7 @@ test.group('primitive types - cardinality 1', test => {
 })
 
 test.group('primitive types - cardinality 2', test => {
-  const tuple = tupleOf2(number, number)
+  const tuple = tupleOf(number, number)
 
   test('should validate a tuple', t => {
     const input = [34, 65]
@@ -59,7 +55,7 @@ test.group('primitive types - cardinality 2', test => {
 })
 
 test.group('primitive types - cardinality 3', test => {
-  const tuple = tupleOf3(string, number, boolean)
+  const tuple = tupleOf(string, number, boolean)
 
   test('should validate a tuple', t => {
     const input = ['foo', 12345, true]
@@ -82,7 +78,7 @@ test.group('primitive types - cardinality 3', test => {
 })
 
 test.group('primitive types - cardinality 4', test => {
-  const tuple = tupleOf4(number, number, boolean, boolean)
+  const tuple = tupleOf(number, number, boolean, boolean)
 
   test('should validate a tuple', t => {
     const input = [34, 65, true, false]
@@ -104,7 +100,7 @@ test.group('primitive types - cardinality 4', test => {
 })
 
 test.group('primitive types - cardinality 5', test => {
-  const tuple = tupleOf5(string, string, string, string, string)
+  const tuple = tupleOf(string, string, string, string, string)
 
   test('should validate a tuple', t => {
     const input = ['H', 'e', 'l', 'l', 'o']
@@ -132,7 +128,7 @@ test.group('compoud type', test => {
     active: boolean,
     roles: arrayOf(string)
   })
-  const tuple = tupleOf1(userSchema)
+  const tuple = tupleOf(userSchema)
   const user = { email: 'foo@example.org', age: 33, active: false, roles: ['admin'] }
 
   test('should validate a tuple', t => {

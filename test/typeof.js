@@ -5,11 +5,7 @@ import typer from '../src'
 const {
   objectOf,
   arrayOf,
-  tupleOf1,
-  tupleOf2,
-  tupleOf3,
-  tupleOf4,
-  tupleOf5,
+  tupleOf,
   string,
   number,
   boolean,
@@ -53,7 +49,7 @@ test('should infer object type', t => {
 type TypeT = [string]
 
 test('shoud infer tuple type (cardinality 1)', t => {
-  const type = tupleOf1(string)
+  const type = tupleOf(string)
   const typeT: TypeT = typeOf(type)
   t.true(Array.isArray(typeT))
   t.is(typeT.length, 1)
@@ -63,7 +59,7 @@ test('shoud infer tuple type (cardinality 1)', t => {
 type CoordinateT = [number, number]
 
 test('should infer tuple type (cardinality 2)', t => {
-  const coordinate = tupleOf2(number, number)
+  const coordinate = tupleOf(number, number)
   const coordinateT: CoordinateT = typeOf(coordinate)
   t.true(Array.isArray(coordinateT))
   t.is(coordinateT.length, 2)
@@ -74,7 +70,7 @@ test('should infer tuple type (cardinality 2)', t => {
 type LocationT = [number, number, string]
 
 test('should infer tuple type (cardinality 3)', t => {
-  const location = tupleOf3(number, number, string)
+  const location = tupleOf(number, number, string)
   const locationT: LocationT = typeOf(location)
   t.true(Array.isArray(locationT))
   t.is(locationT.length, 3)
@@ -86,7 +82,7 @@ test('should infer tuple type (cardinality 3)', t => {
 type VectorT = [number, number, number, number]
 
 test('should infer tuple type (cardinality 4)', t => {
-  const vector = tupleOf4(number, number, number, number)
+  const vector = tupleOf(number, number, number, number)
   const vectorT: VectorT = typeOf(vector)
   t.true(Array.isArray(vectorT))
   t.is(vectorT.length, 4)
@@ -99,7 +95,7 @@ test('should infer tuple type (cardinality 4)', t => {
 type ListOfBoolT = [boolean, boolean, boolean, boolean, boolean]
 
 test('should infer tuple type (cardinality 5)', t => {
-  const listOfBool = tupleOf5(boolean, boolean, boolean, boolean, boolean)
+  const listOfBool = tupleOf(boolean, boolean, boolean, boolean, boolean)
   const listOfBoolT: ListOfBoolT = typeOf(listOfBool)
   t.true(Array.isArray(listOfBoolT))
   t.is(listOfBoolT.length, 5)

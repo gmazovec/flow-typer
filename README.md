@@ -56,7 +56,7 @@ import {
   typeOf,
   objectOf,
   arrayOf,
-  tupleOf2,
+  tupleOf,
   unionOf2,
   literalOf,
   string,
@@ -145,14 +145,10 @@ const flow$Literal = (literalOf('flow'): $Literal<'flow'>) // => type T = 'flow'
 const schema = arrayOf(number) // => type T = number[]
 ```
 
-- `typer.tupleOf1(...schema[])`
-- `typer.tupleOf2(...schema[])`
-- `typer.tupleOf3(...schema[])`
-- `typer.tupleOf4(...schema[])`
-- `typer.tupleOf5(...schema[])`
+- `typer.tupleOf(...schema[])`
 
 ```javascript
-const schema = tupleOf2(string, number) // => type T = [string, number]
+const schema = tupleOf(string, number) // => type T = [string, number]
 ```
 
 - `typer.unionOf2(...schema[])`
