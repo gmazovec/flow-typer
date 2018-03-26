@@ -161,8 +161,8 @@ const flow$Literal = (literalOf('flow'): $Literal<'flow'>) // => type T = 'flow'
 - `typer.mixed`
 - `typer.object`
 - `typer.maybe(schema)`
-- `typer.objectOf(schemaObject)`
-- `typer.arrayOf(schema)`
+- `typer.objectOf(schemaObject, label)`
+- `typer.arrayOf(schema, label)`
 
 ```javascript
 const schema = arrayOf(number) // => type T = number[]
