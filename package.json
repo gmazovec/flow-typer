@@ -9,6 +9,7 @@
   "keywords": [
     "flow",
     "flow-type",
+    "flowtyper",
     "type-checking",
     "runtime-validation"
   ],
