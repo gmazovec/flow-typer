@@ -219,8 +219,6 @@ getType(schema)
 
 ## TODO
 
-- Improve error messages for runtime validation.
-
 - Use `literalOf` and `tupleOf` without explicit _Flow_ type annotations. Literal
 and tuple types can not be inferred by _Flow_. This could be solved with new
 Flow utility types `$Literal` and `$Tuple`.
