@@ -5,7 +5,6 @@
 [![npm](https://img.shields.io/npm/v/flow-typer-js.svg?colorB=brightgreen)](https://www.npmjs.com/package/flow-typer-js)
 [![Build Status](https://travis-ci.org/gmazovec/flow-typer.svg?branch=master)](https://travis-ci.org/gmazovec/flow-typer)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/test_coverage)](https://codeclimate.com/github/gmazovec/flow-typer/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/0a7f801f54a49ffd63c7/maintainability)](https://codeclimate.com/github/gmazovec/flow-typer/maintainability)
 
 So you are using [Flow](https://flow.org) to type check your code. That's great but how do you
 check types for data that is not known before running the code? Like _JSON_ input.
