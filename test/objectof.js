@@ -29,6 +29,7 @@ test.group('primitive types', test => {
     t.throws(() => { schema({ name: 'foo', age: '22', active: false }) }, TypeValidatorError)
     t.throws(() => { schema({ name: null, age: 22, active: true }) }, TypeValidatorError)
     t.throws(() => { schema({ name: 'foo', age: 22, aktiv: true }) }, TypeValidatorError)
+    t.throws(() => { schema({ name: 'foo', age: 33, active: true, rating: 832 }) }, TypeValidatorError)
   })
 })
 

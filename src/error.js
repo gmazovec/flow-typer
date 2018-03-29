@@ -10,13 +10,15 @@ class TypeValidatorError extends Error {
   sourceFile: string
 
   constructor (
+    message: ?string,
     expectedType: string,
     valueType: string,
     value: string,
     typeName: string = '',
     typeScope: ?string = '',
   ) {
-    const message =
+    const errMessage =
+      message ||
       `invalid "${valueType}" value type; ${typeName || expectedType} type expected`
     super(message)
     this.expectedType = expectedType
@@ -48,8 +50,9 @@ TypeValidatorError.prototype.name = 'TypeValidatorError'
 exports.TypeValidatorError = TypeValidatorError
 
 exports.validatorError =
-  <T>(typeFn: TypeValidator<T>, value: mixed, scope: ?string): TypeValidatorError => {
+  <T>(typeFn: TypeValidator<T>, value: mixed, scope: ?string, message?: string): TypeValidatorError => {
     return new TypeValidatorError(
+      message,
       getType(typeFn),
       typeof value,
       JSON.stringify(value),
