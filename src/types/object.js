@@ -1,7 +1,9 @@
 // @flow
 const { getType } = require('../utils')
 const { validatorError } = require('../error')
-const { isEmpty, isObject } = require('../is')
+const { isEmpty, isUndef, isObject } = require('../is')
+const { undef } = require('./primitives')
+const { unionOf } = require('./union')
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
 
@@ -30,7 +32,14 @@ exports.objectOf = <O: TypeValidatorRecord<*>>
       }
       const reducer = isEmpty(value)
         ? (acc, key) => Object.assign(acc, { [key]: typeObj[key](value) })
-        : (acc, key) => Object.assign(acc, { [key]: typeObj[key](o[key], `${_scope}.${key}`) })
+        : (acc, key) => {
+          const typeFn = typeObj[key]
+          if (typeFn.name === 'optional' && isUndef(o[key])) {
+            return Object.assign(acc, {})
+          } else {
+            return Object.assign(acc, { [key]: typeFn(o[key], `${_scope}.${key}`) })
+          }
+        }
       return typeAttrs.reduce(reducer, {})
     }
     object.type = () => {
@@ -41,4 +50,14 @@ exports.objectOf = <O: TypeValidatorRecord<*>>
       )
     }
     return object
+  }
+
+exports.optional =
+  <T>(typeFn: TypeValidator<T>): TypeValidator<T | void> => {
+    const unionFn = unionOf(typeFn, undef)
+    function optional (v) {
+      return unionFn(v)
+    }
+    optional.type = () => getType(unionFn)
+    return optional
   }

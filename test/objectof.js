@@ -2,7 +2,15 @@
 import test from 'ava-spec'
 import typer from '../src'
 
-const { objectOf, boolean, number, string, TypeValidatorError } = typer
+const {
+  objectOf,
+  arrayOf,
+  optional,
+  boolean,
+  number,
+  string,
+  TypeValidatorError
+} = typer
 
 test.group('primitive types', test => {
   const schema = objectOf({
@@ -67,5 +75,23 @@ test.group('object types', test => {
     t.throws(() => { schema({ roles: { admin: false, owner: true, user: 'true' } }) }, TypeValidatorError)
     t.throws(() => { schema({ roles: { admin: false, owner: true, } }) }, TypeValidatorError)
     t.throws(() => { schema({ roles: { admin: false, ovner: true, user: false } }) }, TypeValidatorError)
+  })
+})
+
+test.group('optional properties', test => {
+  const schema = objectOf({
+    content: arrayOf(string),
+    context: optional(arrayOf(string))
+  })
+
+  test('should exclude optional object property', t => {
+    const input = { content: ['image'] }
+    const value = schema(input)
+    t.deepEqual(value, input)
+  })
+
+  test('should throw an error', t => {
+    t.throws(() => { schema({ context: ['data'] }) }, TypeValidatorError)
+    t.throws(() => { schema({ content: ['image'], context: null }) }, TypeValidatorError)
   })
 })
