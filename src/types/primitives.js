@@ -20,13 +20,12 @@ exports.nil = (
   : TypeValidator<null>
 )
 
-exports.undef = (
-  function undef (value, _scope = '') {
-    if (isEmpty(value) || isUndef(value)) return undefined
-    throw validatorError(undef, value, _scope)
-  }
-  : TypeValidator<void>
-)
+function undef (value, _scope = '') {
+  if (isEmpty(value) || isUndef(value)) return undefined
+  throw validatorError(undef, value, _scope)
+}
+undef.type = () => 'void'
+exports.undef = (undef: TypeValidator<void>)
 
 exports.boolean = (
   function boolean (value, _scope = '') {
