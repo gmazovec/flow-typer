@@ -48,7 +48,7 @@ exports.objectOf = <O: TypeValidatorRecord<*>>
       const props = Object.keys(typeObj).map(
         (key) => `${key}: ${getType(typeObj[key])}`
       )
-      return `{\n  ${props.join(',\n  ')}\n}`
+      return `{|\n  ${props.join(',\n  ')}\n|}`
     }
     return object
   }
