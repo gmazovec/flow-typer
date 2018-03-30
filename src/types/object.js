@@ -45,11 +45,10 @@ exports.objectOf = <O: TypeValidatorRecord<*>>
       return typeAttrs.reduce(reducer, {})
     }
     object.type = () => {
-      return JSON.stringify(
-        Object.keys(typeObj).reduce(
-          (acc, key) => Object.assign(acc, { [key]: getType(typeObj[key]) })
-        , {})
+      const props = Object.keys(typeObj).map(
+        (key) => `${key}: ${getType(typeObj[key])}`
       )
+      return `{\n  ${props.join(',\n  ')}\n}`
     }
     return object
   }
