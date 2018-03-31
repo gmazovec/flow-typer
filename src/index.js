@@ -45,5 +45,6 @@ module.exports = Object.assign({},
   require('./types/object'),
   require('./types/array'),
   require('./types/tuple'),
-  require('./types/union')
+  require('./types/union'),
+  require('./types/map')
 )

@@ -10,7 +10,9 @@ import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
 exports.object = (
   function object (value, _scope = '') {
     if (isEmpty(value)) return {}
-    if (isObject(value)) return Object.assign({}, value)
+    if (isObject(value) && !Array.isArray(value)) {
+      return Object.assign({}, value)
+    }
     throw validatorError(object, value, _scope)
   }
   : TypeValidator<ObjectRecord<mixed>>

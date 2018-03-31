@@ -189,6 +189,12 @@ const schema = tupleOf(string, number) // => type T = [string, number]
 const schema = unionOf('week', 'month') // => type T = 'week' | 'month'
 ```
 
+- `typer.mapOf(keySchema, valueSchema)`
+
+```javascript
+const schema = mapOf(string, boolean) // => type T = { [_string]: boolean }
+```
+
 
 ### Utilities
 
