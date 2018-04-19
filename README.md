@@ -36,7 +36,7 @@ npm install --save flow-typer-js
 
 ## Importing
 
-```javascript
+```js
 import typer from 'flow-typer-js' // ES6
 var typer = require('flow-typer-js') // ES5 with npm
 ```
@@ -50,7 +50,7 @@ refinement of the code. By composing functions, we define a type schema that
 can be used to create inferred _Flow_ types (static checking) and for validating
 values with unknown type at runtime.
 
-```javascript
+```js
 import {
   typeOf,
   objectOf,
@@ -63,15 +63,17 @@ import {
   boolean,
   maybe
 } from 'flow-typer-js'
+
+import type { $Literal } from 'flow-typer-js'
 ```
 
-```javascript
+```js
 // literal types require Flow annotation
 const male$Literal = (literalOf('male'): $Literal<'male'>)
 const female$Literal = (literalOf('female'): $Literal<'female'>)
 ```
 
-```javascript
+```js
 // define type schema
 const personSchema = objectOf({
   name: string,
@@ -83,22 +85,18 @@ const personSchema = objectOf({
 })
 ```
 
-```javascript
-// infer Flow type to JS variable from schema
-const personType = typeOf(personSchema)
+```js
+// define Flow type from JS type schema
+type PersonT = $Call<typeof personSchema>
 ```
 
-```javascript
-// define Flow type from JS variable
-type PersonType = typeof personType
-```
-
-```javascript
+```js
 // check value of unknown type against type schema
 const person = personSchema(unknownInput)
+// => person: PersonT
 ```
 
-```javascript
+```js
 // type schema returns value of specific type
 person.name.toUpperCase() // No error
 person.email // Flow error (unknown attribute)
@@ -129,6 +127,15 @@ TypeValidatorError: invalid "string" value type; "array" type expected
 - _value_ - input value in JSON format
 - _file_ - file with position where the validator was called
 
+```js
+type TypeValidatorError {
+  expectedType: string
+  valueType: string
+  value: string
+  typeScope: string
+  sourceFile: string
+}
+```
 
 ## API
 
@@ -151,7 +158,7 @@ refinement.
 - `typer.string`
 - `typer.literalOf(value)` (requires _Flow_ annotations \*)
 
-```javascript
+```js
 const flow$Literal = (literalOf('flow'): $Literal<'flow'>) // => type T = 'flow'
 ```
 
@@ -163,55 +170,45 @@ const flow$Literal = (literalOf('flow'): $Literal<'flow'>) // => type T = 'flow'
 - `typer.objectOf(schemaObject, label)`
 - `typer.optional(schema)`
 
-```javascript
+```js
 const schema = objectOf({
   username: string,
   nickname: optional(string)
 })
-// => type T = { username: string, nickname: (string | void) }
+// => type T = {| username: string, nickname: (string | void) |}
 ```
 
 - `typer.arrayOf(schema, label)`
 
-```javascript
+```js
 const schema = arrayOf(number) // => type T = number[]
 ```
 
 - `typer.tupleOf(...schema[])`
 
-```javascript
+```js
 const schema = tupleOf(string, number) // => type T = [string, number]
 ```
 
 - `typer.unionOf(...schema[])`
 
-```javascript
+```js
 const schema = unionOf('week', 'month') // => type T = 'week' | 'month'
 ```
 
 - `typer.mapOf(keySchema, valueSchema)`
 
-```javascript
+```js
 const schema = mapOf(string, boolean) // => type T = { [_string]: boolean }
 ```
 
 
 ### Utilities
 
-- `typer.isType(schema)`
-- `typer.typeOf(schema)`
+- `typer.isType(schema): boolean`
+- `typer.getType(schema): string`
 
-```javascript
-const schema = arrayOf(userSchema)
-const userListT = typeOf(schema)
-
-// flow
-type UserListT = typeof userListT
-```
-
-- `typer.getType(schema)`
-
-```javascript
+```js
 const schema = objectOf({
   dependencies: arrayOf(objectOf(
     name: string,
@@ -221,17 +218,9 @@ const schema = objectOf({
 })
 
 getType(schema)
-// => { dependencies: Array<{ name: string, version: number, exact: boolean }> }
+// => {| dependencies: Array<{| name: string, version: number, exact: boolean |}> |}
 ```
 
-### Errors
-
-- `TypeValidatorError`
-  - `expectedType: string`
-  - `valueType: string`
-  - `value: string`
-  - `typeScope: string`
-  - `sourceFile: string`
 
 ## TODO
 
