@@ -9,6 +9,7 @@ const {
   boolean,
   number,
   string,
+  maybe,
   TypeValidatorError
 } = typer
 
@@ -93,5 +94,22 @@ test.group('optional properties', test => {
   test('should throw an error', t => {
     t.throws(() => { schema({ context: ['data'] }) }, TypeValidatorError)
     t.throws(() => { schema({ content: ['image'], context: null }) }, TypeValidatorError)
+  })
+})
+
+test.group('maybe properties', test => {
+  const schema = objectOf({
+    content: arrayOf(string),
+    context: maybe(arrayOf(string))
+  })
+
+  test('should include maybe object property', t => {
+    const input = { content: ['image'], context: [''] }
+    const value = schema(input)
+    t.deepEqual(value, input)
+  })
+
+  test('should throw an error', t => {
+    t.throws(() => { schema({ context: ['data'] }) }, TypeValidatorError)
   })
 })

@@ -23,20 +23,33 @@ exports.objectOf = <O: TypeValidatorRecord<*>>
     function object (value, _scope = label) {
       const o = exports.object(value, _scope)
       const typeAttrs = Object.keys(typeObj)
-      const undefAttr = Object.keys(o).find(attr => !typeAttrs.includes(attr))
+      const unknownAttr = Object.keys(o).find(attr => !typeAttrs.includes(attr))
+      if (unknownAttr) {
+        throw validatorError(
+          object,
+          value,
+          _scope,
+          `missing object property '${unknownAttr}' in ${_scope} type`
+        )
+      }
+      const undefAttr = typeAttrs.find(property => {
+        const propertyTypeFn = typeObj[property]
+        return (propertyTypeFn.name === 'maybe' && !o.hasOwnProperty(property))
+      })
       if (undefAttr) {
         throw validatorError(
           object,
           value,
           _scope,
-          `missing object property '${undefAttr}' in ${_scope} type`
+          `empty object property '${undefAttr}' for ${_scope} type`
         )
       }
+
       const reducer = isEmpty(value)
         ? (acc, key) => Object.assign(acc, { [key]: typeObj[key](value) })
         : (acc, key) => {
           const typeFn = typeObj[key]
-          if (typeFn.name === 'optional' && isUndef(o[key])) {
+          if (typeFn.name === 'optional' && !o.hasOwnProperty(key)) {
             return Object.assign(acc, {})
           } else {
             return Object.assign(acc, { [key]: typeFn(o[key], `${_scope}.${key}`) })
