@@ -39,9 +39,11 @@ exports.objectOf = <O: TypeValidatorRecord<*>>
       if (undefAttr) {
         throw validatorError(
           object,
-          value,
-          _scope,
-          `empty object property '${undefAttr}' for ${_scope} type`
+          o[undefAttr],
+          `${_scope}.${undefAttr}`,
+          `empty object property '${undefAttr}' for ${_scope} type`,
+          `void | null | ${getType(typeObj[undefAttr]).substr(1)}`,
+          '-'
         )
       }
 

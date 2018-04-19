@@ -50,12 +50,18 @@ class TypeValidatorError extends Error {
 TypeValidatorError.prototype.name = 'TypeValidatorError'
 exports.TypeValidatorError = TypeValidatorError
 
-exports.validatorError =
-  <T>(typeFn: TypeValidator<T>, value: mixed, scope: ?string, message?: string): TypeValidatorError => {
+exports.validatorError = <T>(
+  typeFn: TypeValidator<T>,
+  value: mixed,
+  scope: ?string,
+  message?: string,
+  expectedType?: string,
+  valueType?: string
+): TypeValidatorError => {
     return new TypeValidatorError(
       message,
-      getType(typeFn),
-      typeof value,
+      expectedType || getType(typeFn),
+      valueType || typeof value,
       JSON.stringify(value),
       typeFn.name,
       scope
