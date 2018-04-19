@@ -2,7 +2,17 @@
 import test from 'ava-spec'
 import typer from '../src'
 
-const { maybe, nil, undef, boolean, number, string, arrayOf, TypeValidatorError } = typer
+const {
+  maybe,
+  nil,
+  undef,
+  boolean,
+  number,
+  string,
+  arrayOf,
+  objectOf,
+  TypeValidatorError
+} = typer
 
 test.group('null type', test => {
   const maybeNull = maybe(nil)
@@ -120,5 +130,25 @@ test.group('array type', test => {
     t.throws(() => { maybeArrayOfString('foo') }, TypeValidatorError)
     t.throws(() => { maybeArrayOfString({}) }, TypeValidatorError)
     t.throws(() => { maybeArrayOfString([12345]) }, TypeValidatorError)
+  })
+})
+
+test.group('object type', test => {
+  const maybeObjectOf = maybe(objectOf({ name: string }))
+
+  test('should validate values', t => {
+    const valueA = maybeObjectOf(undefined)
+    const valueB = maybeObjectOf(null)
+    const valueC = maybeObjectOf({ name: 'foo' })
+    t.is(valueA, undefined)
+    t.is(valueB, null)
+    t.deepEqual(valueC, { name: 'foo' })
+  })
+
+  test('should throw an error', t => {
+    t.throws(() => { maybeObjectOf(true) }, TypeValidatorError)
+    t.throws(() => { maybeObjectOf(12345) }, TypeValidatorError)
+    t.throws(() => { maybeObjectOf('foo') }, TypeValidatorError)
+    t.throws(() => { maybeObjectOf(['bar']) }, TypeValidatorError)
   })
 })
