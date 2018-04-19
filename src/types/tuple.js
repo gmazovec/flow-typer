@@ -31,7 +31,7 @@ function tupleOf_ (...typeFuncs) {
     }
     throw validatorError(tuple, value, _scope)
   }
-  tuple.type = () => `[${typeFuncs.map(getType).join(', ')}]`
+  tuple.type = () => `[${typeFuncs.map(fn => getType(fn)).join(', ')}]`
   return tuple
 }
 

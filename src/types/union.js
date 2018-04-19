@@ -26,7 +26,7 @@ function unionOf_ (...typeFuncs) {
     }
     throw validatorError(union, value, _scope)
   }
-  union.type = () => `(${typeFuncs.map(getType).join(' | ')})`
+  union.type = () => `(${typeFuncs.map(fn => getType(fn)).join(' | ')})`
   return union
 }
 // $FlowFixMe
