@@ -25,22 +25,24 @@ class TypeValidatorError extends Error {
     this.value = value
     this.typeScope = typeScope || ''
     this.sourceFile = this.getSourceFile()
+    this.message = `${errMessage}\n${this.getErrorInfo()}`
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, TypeValidatorError)
+    }
   }
 
   getSourceFile (): string {
     const fileNames = this.stack.match(/(\/[\w_\-.]+)+(\.\w+:\d+:\d+)/g) || []
-    return fileNames.find(fileName => fileName.indexOf('/dist') === -1) || ''
+    return fileNames.find(fileName => fileName.indexOf('/flow-typer-js/dist/') === -1) || ''
   }
 
-  toString (): string {
+  getErrorInfo (): string {
     return `
-${this.stack}
-
+    file     ${this.sourceFile}
     scope    ${this.typeScope}
-    expected ${this.expectedType}
+    expected ${this.expectedType.replace(/\n/g, '')}
     type     ${this.valueType}
     value    ${this.value}
-    file     ${this.sourceFile}
 `
   }
 }
