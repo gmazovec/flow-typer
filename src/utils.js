@@ -1,6 +1,6 @@
 // @flow
 const { EMPTY_VALUE } = require('./const')
-const { isEmpty } = require('./is')
+const { isEmpty, isFunction } = require('./is')
 
 import type { LiteralValue, TypeValidator } from './'
 
@@ -24,7 +24,7 @@ exports.typeOf =
 
 exports.getType = (
   function getType (typeFn) {
-    if (typeof typeFn.type === 'function') return typeFn.type()
+    if (isFunction(typeFn.type)) return typeFn.type()
     return typeFn.name || '?'
   }
   : <T>(TypeValidator<T>) => string

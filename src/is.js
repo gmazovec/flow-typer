@@ -28,3 +28,7 @@ exports.isString =
 exports.isObject =
   (v: mixed): boolean %checks =>
     !exports.isNil(v) && typeof v === 'object'
+
+exports.isFunction =
+  (v: mixed): boolean %checks =>
+    typeof v === 'function'
