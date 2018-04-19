@@ -23,9 +23,9 @@ exports.typeOf =
     schema(EMPTY_VALUE, '')
 
 exports.getType = (
-  function getType (typeFn) {
-    if (isFunction(typeFn.type)) return typeFn.type()
+  function getType (typeFn, _options) {
+    if (isFunction(typeFn.type)) return typeFn.type(_options)
     return typeFn.name || '?'
   }
-  : <T>(TypeValidator<T>) => string
+  : <T>(TypeValidator<T>, ?{ [string]: mixed }) => string
 )

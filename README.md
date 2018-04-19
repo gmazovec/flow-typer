@@ -148,6 +148,7 @@ refinement.
 - `typer.isNumber`
 - `typer.isString`
 - `typer.isObject`
+- `typer.isFunction`
 
 ### Primitive types
 

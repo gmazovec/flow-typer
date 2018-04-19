@@ -59,9 +59,11 @@ exports.objectOf = <O: TypeValidatorRecord<*>>
     }
     object.type = () => {
       const props = Object.keys(typeObj).map(
-        (key) => `${key}: ${getType(typeObj[key])}`
+        (key) => typeObj[key].name === 'optional'
+          ? `${key}?: ${getType(typeObj[key], { noVoid: true })}`
+          : `${key}: ${getType(typeObj[key])}`
       )
-      return `{|\n  ${props.join(',\n  ')}\n|}`
+      return `{|\n ${props.join(',\n  ')} \n|}`
     }
     return object
   }
@@ -72,6 +74,6 @@ exports.optional =
     function optional (v) {
       return unionFn(v)
     }
-    optional.type = () => getType(unionFn)
+    optional.type = ({ noVoid }) => !noVoid ? getType(unionFn) : getType(typeFn)
     return optional
   }
