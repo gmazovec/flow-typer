@@ -34,17 +34,66 @@ export type TypeValidatorsOf5<T, U, V, Z, X> = [
   TypeValidator<X>
 ]
 
-module.exports = Object.assign({},
-  require('./is'),
-  require('./utils'),
-  require('./error'),
-  require('./types/primitives'),
-  require('./types/literals'),
-  require('./types/maybe'),
-  require('./types/mixed'),
-  require('./types/object'),
-  require('./types/array'),
-  require('./types/tuple'),
-  require('./types/union'),
-  require('./types/map')
-)
+const is = require('./is')
+
+exports.isEmpty = is.isEmpty
+exports.isNil = is.isNil
+exports.isUndef = is.isUndef
+exports.isBoolean = is.isBoolean
+exports.isNumber = is.isNumber
+exports.isString = is.isString
+exports.isObject = is.isObject
+exports.isFunction = is.isFunction
+
+const utils = require('./utils')
+
+exports.isType = utils.isType
+exports.typeOf = utils.typeOf
+exports.getType = utils.getType
+
+const error = require('./error')
+
+exports.TypeValidatorError = error.TypeValidatorError
+exports.validatorError = error.validatorError
+
+const primitives = require('./types/primitives')
+
+exports.nil = primitives.nil
+exports.undef = primitives.undef
+exports.boolean = primitives.boolean
+exports.number = primitives.number
+exports.string = primitives.string
+
+const literals = require('./types/literals')
+
+exports.literalOf = literals.literalOf
+
+const maybe = require('./types/maybe')
+
+exports.maybe = maybe.maybe
+
+const mixed = require('./types/mixed')
+
+exports.mixed = mixed.mixed
+
+const object = require('./types/object')
+
+exports.object = object.object
+exports.objectOf = object.objectOf
+exports.optional = object.optional
+
+const array = require('./types/array')
+
+exports.arrayOf = array.arrayOf
+
+const tuple = require('./types/tuple')
+
+exports.tupleOf = tuple.tupleOf
+
+const union = require('./types/union')
+
+exports.unionOf = union.unionOf
+
+const map = require('./types/map')
+
+exports.mapOf = map.mapOf

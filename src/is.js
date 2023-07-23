@@ -5,9 +5,11 @@ exports.isEmpty =
   (v: mixed): boolean %checks =>
     v === EMPTY_VALUE
 
-exports.isNil =
+const isNil =
   (v: mixed): boolean %checks =>
     v === null
+
+exports.isNil = isNil
 
 exports.isUndef =
   (v: mixed): boolean %checks =>
@@ -27,7 +29,7 @@ exports.isString =
 
 exports.isObject =
   (v: mixed): boolean %checks =>
-    !exports.isNil(v) && typeof v === 'object'
+    !isNil(v) && typeof v === 'object'
 
 exports.isFunction =
   (v: mixed): boolean %checks =>
