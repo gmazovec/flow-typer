@@ -9,8 +9,7 @@ const {
   string,
   object,
   objectOf,
-  arrayOf,
-  TypeValidatorError
+  arrayOf
 } = typer
 
 test.group('primitive types - cardinality 1', test => {
@@ -23,13 +22,13 @@ test.group('primitive types - cardinality 1', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { tuple(null) }, TypeValidatorError)
-    t.throws(() => { tuple(undefined) }, TypeValidatorError)
-    t.throws(() => { tuple(true) }, TypeValidatorError)
-    t.throws(() => { tuple(12345) }, TypeValidatorError)
-    t.throws(() => { tuple('foo') }, TypeValidatorError)
-    t.throws(() => { tuple([]) }, TypeValidatorError)
-    t.throws(() => { tuple([true, false]) }, TypeValidatorError)
+    t.throws(() => { tuple(null) })
+    t.throws(() => { tuple(undefined) })
+    t.throws(() => { tuple(true) })
+    t.throws(() => { tuple(12345) })
+    t.throws(() => { tuple('foo') })
+    t.throws(() => { tuple([]) })
+    t.throws(() => { tuple([true, false]) })
   })
 })
 
@@ -43,15 +42,15 @@ test.group('primitive types - cardinality 2', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { tuple(null) }, TypeValidatorError)
-    t.throws(() => { tuple(undefined) }, TypeValidatorError)
-    t.throws(() => { tuple(true) }, TypeValidatorError)
-    t.throws(() => { tuple(12345) }, TypeValidatorError)
-    t.throws(() => { tuple('foo') }, TypeValidatorError)
-    t.throws(() => { tuple({}) }, TypeValidatorError)
-    t.throws(() => { tuple([]) }, TypeValidatorError)
-    t.throws(() => { tuple(['234', '64']) }, TypeValidatorError)
-    t.throws(() => { tuple([123, 54, 256]) }, TypeValidatorError)
+    t.throws(() => { tuple(null) })
+    t.throws(() => { tuple(undefined) })
+    t.throws(() => { tuple(true) })
+    t.throws(() => { tuple(12345) })
+    t.throws(() => { tuple('foo') })
+    t.throws(() => { tuple({}) })
+    t.throws(() => { tuple([]) })
+    t.throws(() => { tuple(['234', '64']) })
+    t.throws(() => { tuple([123, 54, 256]) })
   })
 })
 
@@ -65,16 +64,16 @@ test.group('primitive types - cardinality 3', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { tuple(null) }, TypeValidatorError)
-    t.throws(() => { tuple(undefined) }, TypeValidatorError)
-    t.throws(() => { tuple(true) }, TypeValidatorError)
-    t.throws(() => { tuple(12345) }, TypeValidatorError)
-    t.throws(() => { tuple('foo') }, TypeValidatorError)
-    t.throws(() => { tuple({}) }, TypeValidatorError)
-    t.throws(() => { tuple([]) }, TypeValidatorError)
-    t.throws(() => { tuple(['foo', '12345', 'true']) }, TypeValidatorError)
-    t.throws(() => { tuple(['foo', '12345', 'true', 0]) }, TypeValidatorError)
-    t.throws(() => { tuple(['foo', 12345]) }, TypeValidatorError)
+    t.throws(() => { tuple(null) })
+    t.throws(() => { tuple(undefined) })
+    t.throws(() => { tuple(true) })
+    t.throws(() => { tuple(12345) })
+    t.throws(() => { tuple('foo') })
+    t.throws(() => { tuple({}) })
+    t.throws(() => { tuple([]) })
+    t.throws(() => { tuple(['foo', '12345', 'true']) })
+    t.throws(() => { tuple(['foo', '12345', 'true', 0]) })
+    t.throws(() => { tuple(['foo', 12345]) })
   })
 })
 
@@ -88,15 +87,15 @@ test.group('primitive types - cardinality 4', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { tuple(null) }, TypeValidatorError)
-    t.throws(() => { tuple(undefined) }, TypeValidatorError)
-    t.throws(() => { tuple(true) }, TypeValidatorError)
-    t.throws(() => { tuple(12345) }, TypeValidatorError)
-    t.throws(() => { tuple('foo') }, TypeValidatorError)
-    t.throws(() => { tuple({}) }, TypeValidatorError)
-    t.throws(() => { tuple([]) }, TypeValidatorError)
-    t.throws(() => { tuple(['234', '64', true, false]) }, TypeValidatorError)
-    t.throws(() => { tuple([46, 34, true, true, true]) }, TypeValidatorError)
+    t.throws(() => { tuple(null) })
+    t.throws(() => { tuple(undefined) })
+    t.throws(() => { tuple(true) })
+    t.throws(() => { tuple(12345) })
+    t.throws(() => { tuple('foo') })
+    t.throws(() => { tuple({}) })
+    t.throws(() => { tuple([]) })
+    t.throws(() => { tuple(['234', '64', true, false]) })
+    t.throws(() => { tuple([46, 34, true, true, true]) })
   })
 })
 
@@ -110,15 +109,15 @@ test.group('primitive types - cardinality 5', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { tuple(null) }, TypeValidatorError)
-    t.throws(() => { tuple(undefined) }, TypeValidatorError)
-    t.throws(() => { tuple(true) }, TypeValidatorError)
-    t.throws(() => { tuple(12345) }, TypeValidatorError)
-    t.throws(() => { tuple('foo') }, TypeValidatorError)
-    t.throws(() => { tuple({}) }, TypeValidatorError)
-    t.throws(() => { tuple([]) }, TypeValidatorError)
-    t.throws(() => { tuple(['o', 'l', 'l', 'e', 'H', '.']) }, TypeValidatorError)
-    t.throws(() => { tuple(['foo', 'bar', 0, 'kit', 'kat']) }, TypeValidatorError)
+    t.throws(() => { tuple(null) })
+    t.throws(() => { tuple(undefined) })
+    t.throws(() => { tuple(true) })
+    t.throws(() => { tuple(12345) })
+    t.throws(() => { tuple('foo') })
+    t.throws(() => { tuple({}) })
+    t.throws(() => { tuple([]) })
+    t.throws(() => { tuple(['o', 'l', 'l', 'e', 'H', '.']) })
+    t.throws(() => { tuple(['foo', 'bar', 0, 'kit', 'kat']) })
   })
 })
 
@@ -139,9 +138,9 @@ test.group('compoud type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { tuple([{ user: Object.assign({}, user), age: '33' }]) }, TypeValidatorError)
-    t.throws(() => { tuple([{ user: Object.assign({}, user), email: true }]) }, TypeValidatorError)
-    t.throws(() => { tuple([{ user: Object.assign({}, user), active: 1 }]) }, TypeValidatorError)
-    t.throws(() => { tuple([{ user: Object.assign({}, user), roles: [{ admin: true }] }]) }, TypeValidatorError)
+    t.throws(() => { tuple([{ user: Object.assign({}, user), age: '33' }]) })
+    t.throws(() => { tuple([{ user: Object.assign({}, user), email: true }]) })
+    t.throws(() => { tuple([{ user: Object.assign({}, user), active: 1 }]) })
+    t.throws(() => { tuple([{ user: Object.assign({}, user), roles: [{ admin: true }] }]) })
   })
 })

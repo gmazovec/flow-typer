@@ -1,5 +1,5 @@
 // @flow
-import test from 'ava'
+import test from 'ava-spec'
 import typer from '../src'
 
 const { mixed } = typer

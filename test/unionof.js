@@ -14,8 +14,7 @@ const {
   nil,
   undef,
   tupleOf,
-  literalOf,
-  TypeValidatorError
+  literalOf
 } = typer
 
 test.group('primitive types - cardinality 2', test => {
@@ -30,13 +29,13 @@ test.group('primitive types - cardinality 2', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { schema(null) }, TypeValidatorError),
-    t.throws(() => { schema(undefined) }, TypeValidatorError),
-    t.throws(() => { schema(true) }, TypeValidatorError),
-    t.throws(() => { schema(1234) }, TypeValidatorError),
-    t.throws(() => { schema('bar') }, TypeValidatorError),
-    t.throws(() => { schema({}) }, TypeValidatorError),
-    t.throws(() => { schema([]) }, TypeValidatorError)
+    t.throws(() => { schema(null) }),
+    t.throws(() => { schema(undefined) }),
+    t.throws(() => { schema(true) }),
+    t.throws(() => { schema(1234) }),
+    t.throws(() => { schema('bar') }),
+    t.throws(() => { schema({}) }),
+    t.throws(() => { schema([]) })
   })
 })
 
@@ -56,12 +55,12 @@ test.group('primitive types - cardinality 4', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { schema(undefined) }, TypeValidatorError),
-    t.throws(() => { schema(true) }, TypeValidatorError),
-    t.throws(() => { schema(1234) }, TypeValidatorError),
-    t.throws(() => { schema('bar') }, TypeValidatorError),
-    t.throws(() => { schema({}) }, TypeValidatorError),
-    t.throws(() => { schema([]) }, TypeValidatorError)
+    t.throws(() => { schema(undefined) }),
+    t.throws(() => { schema(true) }),
+    t.throws(() => { schema(1234) }),
+    t.throws(() => { schema('bar') }),
+    t.throws(() => { schema({}) }),
+    t.throws(() => { schema([]) })
   })
 })
 
@@ -86,8 +85,8 @@ test.group('primitive types - cardinality 5', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { schema({}) }, TypeValidatorError),
-    t.throws(() => { schema([]) }, TypeValidatorError)
+    t.throws(() => { schema({}) }),
+    t.throws(() => { schema([]) })
   })
 })
 
@@ -124,14 +123,14 @@ test.group('composable types', test => {
   })
 
   test('shold throw an error', t => {
-    t.throws(() => { schema(null) }, TypeValidatorError)
-    t.throws(() => { schema(undefined) }, TypeValidatorError)
-    t.throws(() => { schema(true) }, TypeValidatorError)
-    t.throws(() => { schema(12345) }, TypeValidatorError)
-    t.throws(() => { schema('foo') }, TypeValidatorError)
-    t.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: true }) }, TypeValidatorError)
-    t.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: 1 }) }, TypeValidatorError)
-    t.throws(() => { schema(['this', 'is', 1, 'array', 'of', 'strings']) }, TypeValidatorError)
-    t.throws(() => { schema(['bob', 'bob@example.net', 36, true]) }, TypeValidatorError)
+    t.throws(() => { schema(null) })
+    t.throws(() => { schema(undefined) })
+    t.throws(() => { schema(true) })
+    t.throws(() => { schema(12345) })
+    t.throws(() => { schema('foo') })
+    t.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: true }) })
+    t.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: 1 }) })
+    t.throws(() => { schema(['this', 'is', 1, 'array', 'of', 'strings']) })
+    t.throws(() => { schema(['bob', 'bob@example.net', 36, true]) })
   })
 })

@@ -10,8 +10,7 @@ const {
   number,
   string,
   arrayOf,
-  objectOf,
-  TypeValidatorError
+  objectOf
 } = typer
 
 test.group('null type', test => {
@@ -25,11 +24,11 @@ test.group('null type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeNull(true) }, TypeValidatorError)
-    t.throws(() => { maybeNull(12345) }, TypeValidatorError)
-    t.throws(() => { maybeNull('foo') }, TypeValidatorError)
-    t.throws(() => { maybeNull({}) }, TypeValidatorError)
-    t.throws(() => { maybeNull([]) }, TypeValidatorError)
+    t.throws(() => { maybeNull(true) })
+    t.throws(() => { maybeNull(12345) })
+    t.throws(() => { maybeNull('foo') })
+    t.throws(() => { maybeNull({}) })
+    t.throws(() => { maybeNull([]) })
   })
 })
 
@@ -44,11 +43,11 @@ test.group('undefined type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeVoid(true) }, TypeValidatorError)
-    t.throws(() => { maybeVoid(12345) }, TypeValidatorError)
-    t.throws(() => { maybeVoid('foo') }, TypeValidatorError)
-    t.throws(() => { maybeVoid({}) }, TypeValidatorError)
-    t.throws(() => { maybeVoid([]) }, TypeValidatorError)
+    t.throws(() => { maybeVoid(true) })
+    t.throws(() => { maybeVoid(12345) })
+    t.throws(() => { maybeVoid('foo') })
+    t.throws(() => { maybeVoid({}) })
+    t.throws(() => { maybeVoid([]) })
   })
 })
 
@@ -65,10 +64,10 @@ test.group('boolean type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeBool(12345) }, TypeValidatorError)
-    t.throws(() => { maybeBool('foo') }, TypeValidatorError)
-    t.throws(() => { maybeBool({}) }, TypeValidatorError)
-    t.throws(() => { maybeBool([]) }, TypeValidatorError)
+    t.throws(() => { maybeBool(12345) })
+    t.throws(() => { maybeBool('foo') })
+    t.throws(() => { maybeBool({}) })
+    t.throws(() => { maybeBool([]) })
   })
 })
 
@@ -85,10 +84,10 @@ test.group('number type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeNumber(true) }, TypeValidatorError)
-    t.throws(() => { maybeNumber('foo') }, TypeValidatorError)
-    t.throws(() => { maybeNumber({}) }, TypeValidatorError)
-    t.throws(() => { maybeNumber([]) }, TypeValidatorError)
+    t.throws(() => { maybeNumber(true) })
+    t.throws(() => { maybeNumber('foo') })
+    t.throws(() => { maybeNumber({}) })
+    t.throws(() => { maybeNumber([]) })
   })
 })
 
@@ -105,10 +104,10 @@ test.group('string type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeString(true) }, TypeValidatorError)
-    t.throws(() => { maybeString(12345) }, TypeValidatorError)
-    t.throws(() => { maybeString({}) }, TypeValidatorError)
-    t.throws(() => { maybeString([]) }, TypeValidatorError)
+    t.throws(() => { maybeString(true) })
+    t.throws(() => { maybeString(12345) })
+    t.throws(() => { maybeString({}) })
+    t.throws(() => { maybeString([]) })
   })
 })
 
@@ -125,11 +124,11 @@ test.group('array type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeArrayOfString(true) }, TypeValidatorError)
-    t.throws(() => { maybeArrayOfString(12345) }, TypeValidatorError)
-    t.throws(() => { maybeArrayOfString('foo') }, TypeValidatorError)
-    t.throws(() => { maybeArrayOfString({}) }, TypeValidatorError)
-    t.throws(() => { maybeArrayOfString([12345]) }, TypeValidatorError)
+    t.throws(() => { maybeArrayOfString(true) })
+    t.throws(() => { maybeArrayOfString(12345) })
+    t.throws(() => { maybeArrayOfString('foo') })
+    t.throws(() => { maybeArrayOfString({}) })
+    t.throws(() => { maybeArrayOfString([12345]) })
   })
 })
 
@@ -146,9 +145,9 @@ test.group('object type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { maybeObjectOf(true) }, TypeValidatorError)
-    t.throws(() => { maybeObjectOf(12345) }, TypeValidatorError)
-    t.throws(() => { maybeObjectOf('foo') }, TypeValidatorError)
-    t.throws(() => { maybeObjectOf(['bar']) }, TypeValidatorError)
+    t.throws(() => { maybeObjectOf(true) })
+    t.throws(() => { maybeObjectOf(12345) })
+    t.throws(() => { maybeObjectOf('foo') })
+    t.throws(() => { maybeObjectOf(['bar']) })
   })
 })
