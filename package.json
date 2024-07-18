@@ -36,7 +36,7 @@
     "babel-preset-flow": "^6.23.0",
     "flow-bin": "^0.75.0",
     "flow-remove-types": "^1.2.3",
-    "nyc": "^11.7.1"
+    "nyc": "^17.0.0"
   },
   "ava": {
     "require": [
