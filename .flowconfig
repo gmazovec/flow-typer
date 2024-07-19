@@ -1,2 +1,4 @@
 [lints]
 all=warn
+[ignore]
+./node_modules/.*
