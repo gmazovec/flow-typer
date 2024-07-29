@@ -4,4 +4,4 @@
 // will return default value for specific type. The default values are used to
 // construct inferred types.
 
-exports.EMPTY_VALUE = Symbol('@@empty')
+exports.EMPTY_VALUE = (Symbol('@@empty'): symbol)

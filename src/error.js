@@ -62,7 +62,7 @@ exports.validatorError = <T>(
       message,
       expectedType || getType(typeFn),
       valueType || typeof value,
-      JSON.stringify(value),
+      typeof value === 'string' ? JSON.stringify(value) : '',
       typeFn.name,
       scope
     )

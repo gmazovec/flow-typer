@@ -5,5 +5,5 @@ exports.mixed = (
   function mixed (value) {
     return value
   }
-  : TypeValidator<*>
+  : TypeValidator<mixed>
 )

@@ -18,8 +18,8 @@ type TupleT =
   & (<A, B, C, D, E, F, G, H, I>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>) => TypeValidator<[A, B, C, D, E, F, G, H, I]>)
   & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => TypeValidator<[A, B, C, D, E, F, G, H, I, J]>)
 
-function tupleOf_ (...typeFuncs) {
-  function tuple (value: mixed, _scope = '') {
+const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
+  function tuple (value: mixed, _scope: string = '') {
     const cardinality = typeFuncs.length
     if (isEmpty(value)) return typeFuncs.map(fn => fn(value))
     if (Array.isArray(value) && value.length === cardinality) {
@@ -35,6 +35,4 @@ function tupleOf_ (...typeFuncs) {
   return tuple
 }
 
-// $FlowFixMe - $Tuple<(A, B, C, ...)[]>
-const tupleOf: TupleT = tupleOf_
 exports.tupleOf = tupleOf

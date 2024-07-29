@@ -13,10 +13,10 @@ exports.mapOf = <K, V>
     keyTypeFn: TypeValidator<K>,
     typeFn: TypeValidator<V>
   ): TypeValidator<{ [K]: V }> => {
-    function mapOf (value, _scope = 'Map') {
+    function mapOf (value: mixed, _scope: string = 'Map') {
       if (isEmpty(value)) return {}
       const o = object(value, _scope)
-      const reducer = (acc, key) =>
+      const reducer = (acc: Object, key: string) =>
         Object.assign(
           acc,
           {

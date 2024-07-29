@@ -6,7 +6,7 @@ import type { LiteralValue, TypeValidator } from '..'
 
 exports.literalOf =
   <T: LiteralValue>(primitive: T): TypeValidator<T> => {
-    function literal (value, _scope = '') {
+    function literal (value: mixed, _scope: string = ''): T {
       if (isEmpty(value) || (value === primitive)) return primitive
       throw validatorError(literal, value, _scope)
     }

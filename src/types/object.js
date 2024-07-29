@@ -7,8 +7,8 @@ const { unionOf } = require('./union')
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
 
-exports.object = (
-  function object (value, _scope = '') {
+const object = (
+  function object (value: mixed, _scope: string = ''): Object {
     if (isEmpty(value)) return {}
     if (isObject(value) && !Array.isArray(value)) {
       return Object.assign({}, value)
@@ -18,10 +18,12 @@ exports.object = (
   : TypeValidator<ObjectRecord<mixed>>
 )
 
+exports.object = object
+
 exports.objectOf = <O: TypeValidatorRecord<*>>
   (typeObj: O, label?: string =  'Object'): TypeValidator<$ObjMap<O, <V>(TypeValidator<V>) => V>> => {
-    function object (value, _scope = label) {
-      const o = exports.object(value, _scope)
+    function object_ (value: mixed, _scope: string = label): $ObjMap<O, <V>(TypeValidator<V>) => V> {
+      const o = object(value, _scope)
       const typeAttrs = Object.keys(typeObj)
       const unknownAttr = Object.keys(o).find(attr => !typeAttrs.includes(attr))
       if (unknownAttr) {
@@ -48,8 +50,8 @@ exports.objectOf = <O: TypeValidatorRecord<*>>
       }
 
       const reducer = isEmpty(value)
-        ? (acc, key) => Object.assign(acc, { [key]: typeObj[key](value) })
-        : (acc, key) => {
+        ? (acc: Object, key: string) => Object.assign(acc, { [key]: typeObj[key](value) })
+        : (acc: Object, key: string) => {
           const typeFn = typeObj[key]
           if (typeFn.name === 'optional' && !o.hasOwnProperty(key)) {
             return Object.assign(acc, {})
@@ -59,7 +61,7 @@ exports.objectOf = <O: TypeValidatorRecord<*>>
         }
       return typeAttrs.reduce(reducer, {})
     }
-    object.type = () => {
+    object_.type = () => {
       const props = Object.keys(typeObj).map(
         (key) => typeObj[key].name === 'optional'
           ? `${key}?: ${getType(typeObj[key], { noVoid: true })}`
@@ -67,15 +69,15 @@ exports.objectOf = <O: TypeValidatorRecord<*>>
       )
       return `{|\n ${props.join(',\n  ')} \n|}`
     }
-    return object
+    return object_
   }
 
 exports.optional =
   <T>(typeFn: TypeValidator<T>): TypeValidator<T | void> => {
     const unionFn = unionOf(typeFn, undef)
-    function optional (v) {
+    function optional (v: mixed) {
       return unionFn(v)
     }
-    optional.type = ({ noVoid }) => !noVoid ? getType(unionFn) : getType(typeFn)
+    optional.type = ({ noVoid }: { noVoid: boolean }) => !noVoid ? getType(unionFn) : getType(typeFn)
     return optional
   }

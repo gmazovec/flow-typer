@@ -138,9 +138,9 @@ test.group('compoud type', test => {
   })
 
   test('should throw an error', t => {
-    t.throws(() => { tuple([{ user: Object.assign({}, user), age: '33' }]) })
-    t.throws(() => { tuple([{ user: Object.assign({}, user), email: true }]) })
-    t.throws(() => { tuple([{ user: Object.assign({}, user), active: 1 }]) })
-    t.throws(() => { tuple([{ user: Object.assign({}, user), roles: [{ admin: true }] }]) })
+    t.throws(() => { tuple([{ user: { ...user }, age: '33' }]) })
+    t.throws(() => { tuple([{ user: { ...user }, email: true }]) })
+    t.throws(() => { tuple([{ user: { ...user }, active: 1 }]) })
+    t.throws(() => { tuple([{ user: { ...user }, roles: [{ admin: true }] }]) })
   })
 })

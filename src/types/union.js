@@ -17,8 +17,8 @@ type UnionT =
   & (<A, B, C, D, E, F, G, H, I>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>) => TypeValidator<A | B | C | D | E | F | G | H | I>)
   & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => TypeValidator<A | B | C | D | E | F | G | H | I | J>)
 
-function unionOf_ (...typeFuncs) {
-  function union (value: mixed, _scope = '') {
+const unionOf: UnionT = function unionOf_ (...typeFuncs) {
+  function union (value: mixed, _scope: string = '') {
     for (const typeFn of typeFuncs) {
       try {
         return typeFn(value, _scope)
@@ -29,6 +29,5 @@ function unionOf_ (...typeFuncs) {
   union.type = () => `(${typeFuncs.map(fn => getType(fn)).join(' | ')})`
   return union
 }
-// $FlowFixMe
-const unionOf: UnionT = (unionOf_);
+
 exports.unionOf = unionOf
