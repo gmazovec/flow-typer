@@ -55,7 +55,7 @@ test.group('boolean type', test => {
   const maybeBool = maybe(boolean)
 
   test('should validate values', t => {
-    const valueA = maybeBool(undefined)
+    const valueA: ?boolean = maybeBool(undefined)
     const valueB = maybeBool(null)
     const valueC = maybeBool(true)
     t.is(valueA, undefined)
@@ -75,7 +75,7 @@ test.group('number type', test => {
   const maybeNumber = maybe(number)
 
   test('should validate values', t => {
-    const valueA = maybeNumber(undefined)
+    const valueA: ?number = maybeNumber(undefined)
     const valueB = maybeNumber(null)
     const valueC = maybeNumber(12345)
     t.is(valueA, undefined)
@@ -95,7 +95,7 @@ test.group('string type', test => {
   const maybeString = maybe(string)
 
   test('should validate values', t => {
-    const valueA = maybeString(undefined)
+    const valueA: ?string = maybeString(undefined)
     const valueB = maybeString(null)
     const valueC = maybeString('foo')
     t.is(valueA, undefined)
@@ -115,7 +115,7 @@ test.group('array type', test => {
   const maybeArrayOfString = maybe(arrayOf(string))
 
   test('should validate values', t => {
-    const valueA = maybeArrayOfString(undefined)
+    const valueA: ?Array<string> = maybeArrayOfString(undefined)
     const valueB = maybeArrayOfString(null)
     const valueC = maybeArrayOfString(['foo', 'bar'])
     t.is(valueA, undefined)
@@ -136,7 +136,7 @@ test.group('object type', test => {
   const maybeObjectOf = maybe(objectOf({ name: string }))
 
   test('should validate values', t => {
-    const valueA = maybeObjectOf(undefined)
+    const valueA: ?{ name: string, ... } = maybeObjectOf(undefined)
     const valueB = maybeObjectOf(null)
     const valueC = maybeObjectOf({ name: 'foo' })
     t.is(valueA, undefined)

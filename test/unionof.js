@@ -74,7 +74,7 @@ test.group('primitive types - cardinality 5', test => {
   )
 
   test('should validate an union', t => {
-    t.is(schema(false), false)
+    t.is((schema(false): null | void | boolean | number | string), false)
     t.is(schema(true), true)
     t.is(schema(0), 0)
     t.is(schema(9), 9)
@@ -106,7 +106,8 @@ test.group('composable types', test => {
 
   test('should validate an union #1', t => {
     const input = { type: 'text', content: 'Hello', enabled: true }
-    const value = schema(input)
+    const value: { type: "text" | "image", content: string, enabled: boolean } | Array<string> | [string, string, number] =
+      schema(input)
     t.deepEqual(value, input)
   })
 

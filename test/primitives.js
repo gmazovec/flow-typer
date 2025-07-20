@@ -8,7 +8,7 @@ const { nil, undef, boolean, number, string, literalOf } = typer
 
 test.group('nil type', test => {
   test('should return an nil value', t => {
-    t.is(nil(null), null)
+    t.is((nil(null): null), null)
   })
 
   test('should throw an error', t => {
@@ -23,7 +23,7 @@ test.group('nil type', test => {
 
 test.group('void type', test => {
   test('should return an undefined value', t => {
-    t.is(undef(undefined), undefined)
+    t.is((undef(undefined): void), undefined)
   })
 
   test('should throw an error', t => {
@@ -38,7 +38,7 @@ test.group('void type', test => {
 
 test.group('boolean type', test => {
   test('should return a boolean value', t => {
-    t.is(boolean(true), true)
+    t.is((boolean(true): boolean), true)
     t.is(boolean(false), false)
   })
 
@@ -54,7 +54,7 @@ test.group('boolean type', test => {
 
 test.group('number type', test => {
   test('should return a number value', t => {
-    t.is(number(12345), 12345)
+    t.is((number(12345): number), 12345)
     t.is(number(123.45), 123.45)
   })
 
@@ -70,7 +70,7 @@ test.group('number type', test => {
 
 test.group('string type', test => {
   test('should returna a string value', t => {
-    t.is(string('foo'), 'foo')
+    t.is((string('foo'): string), 'foo')
   })
 
   test('should throw an error', t => {
@@ -87,7 +87,7 @@ test.group('literal boolean type', test => {
   const bool$Literal = (literalOf(true): $Literal<true>)
 
   test(`should return a 'true' literal`, t => {
-    t.is(bool$Literal(true), true)
+    t.is((bool$Literal(true): true), true)
   })
 
   test('should throw an error', t => {
@@ -105,7 +105,7 @@ test.group('literal number type', test => {
   const number$Literal = (literalOf(12345): $Literal<12345>)
 
   test('should return a number literal', t => {
-    t.is(number$Literal(12345), 12345)
+    t.is((number$Literal(12345): 12345), 12345)
   })
 
   test('should throw an error', t => {
@@ -123,7 +123,7 @@ test.group('literal string type', test => {
   const string$Literal = (literalOf('foo'): $Literal<'foo'>)
 
   test('should return a string literal', t => {
-    t.is(string$Literal('foo'), 'foo')
+    t.is((string$Literal('foo'): "foo"), 'foo')
   })
 
   test('should throw an error', t => {

@@ -9,7 +9,7 @@ test.group('null type', test => {
 
   test('should validate array of nulls', t => {
     const input = [null, null, null]
-    const valueA = arrayOfNull([])
+    const valueA: Array<null> = arrayOfNull([])
     const valueB = arrayOfNull(input)
     t.is(valueA.length, 0)
     t.is(valueB.length, 3)
@@ -38,7 +38,7 @@ test.group('void type - unit array', test => {
 
   test('should validate array of undefined values', t => {
     const input = [undefined, undefined]
-    const valueA = arrayOfVoid([])
+    const valueA: Array<void> = arrayOfVoid([])
     const valueB = arrayOfVoid(input)
     t.is(valueA.length, 0)
     t.is(valueB.length, 2)
@@ -66,7 +66,7 @@ test.group('boolean type', test => {
 
   test('should validate array of booleans', t => {
     const input = [true, true, false, true]
-    const valueA = arrayOfBool([])
+    const valueA: Array<boolean> = arrayOfBool([])
     const valueB = arrayOfBool(input)
     t.is(valueA.length, 0)
     t.is(valueB.length, 4)
@@ -95,7 +95,7 @@ test.group('number type', test => {
 
   test('should validate array of numbers', t => {
     const input = [12345, 67890, 123.45]
-    const valueA = arrayOfNumber([])
+    const valueA: Array<number> = arrayOfNumber([])
     const valueB = arrayOfNumber(input)
     t.is(valueA.length, 0)
     t.is(valueB.length, 3)
@@ -124,7 +124,7 @@ test.group('string type', test => {
 
   test('should validate array of strings', t => {
     const input = ['foo', 'bar']
-    const valueA = arrayOfString([])
+    const valueA: Array<string> = arrayOfString([])
     const valueB = arrayOfString(input)
     t.is(valueA.length, 0)
     t.is(valueB.length, 2)
@@ -153,7 +153,7 @@ test.group('array type', test => {
 
   test('should validate array of array of strings', t => {
     const input = [['foo'], ['bar']]
-    const valueA = arrayOfarrayOfString([])
+    const valueA: Array<Array<string>> = arrayOfarrayOfString([])
     const valueB = arrayOfarrayOfString(input)
     t.is(valueA.length, 0)
     t.is(valueB.length, 2)

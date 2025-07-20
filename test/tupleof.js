@@ -17,7 +17,7 @@ test.group('primitive types - cardinality 1', test => {
 
   test('should validate a tuple', t => {
     const input = [true]
-    const value = tuple(input)
+    const value: [boolean] = tuple(input)
     t.deepEqual(value, input)
   })
 
@@ -37,7 +37,7 @@ test.group('primitive types - cardinality 2', test => {
 
   test('should validate a tuple', t => {
     const input = [34, 65]
-    const value = tuple(input)
+    const value: [number, number] = tuple(input)
     t.deepEqual(value, input)
   })
 
@@ -59,7 +59,7 @@ test.group('primitive types - cardinality 3', test => {
 
   test('should validate a tuple', t => {
     const input = ['foo', 12345, true]
-    const value = tuple(input)
+    const value: [string, number, boolean] = tuple(input)
     t.deepEqual(value, input)
   })
 
@@ -82,7 +82,7 @@ test.group('primitive types - cardinality 4', test => {
 
   test('should validate a tuple', t => {
     const input = [34, 65, true, false]
-    const value = tuple(input)
+    const value: [number, number, boolean, boolean] = tuple(input)
     t.deepEqual(value, input)
   })
 
@@ -104,7 +104,7 @@ test.group('primitive types - cardinality 5', test => {
 
   test('should validate a tuple', t => {
     const input = ['H', 'e', 'l', 'l', 'o']
-    const value = tuple(input)
+    const value: [string, string, string, string, string] = tuple(input)
     t.deepEqual(value, input)
   })
 
@@ -133,7 +133,7 @@ test.group('compoud type', test => {
 
   test('should validate a tuple', t => {
     const input = [user]
-    const value = tuple(input)
+    const value: [{ email: string, age: number, active: boolean, roles: Array<string> }] = tuple(input)
     t.deepEqual(value, input)
   })
 

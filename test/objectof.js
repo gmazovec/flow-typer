@@ -22,7 +22,7 @@ test.group('primitive types', test => {
 
   test('should validate an object', t => {
     const input = { name: 'foo', age: 33, active: true }
-    const value = schema(input)
+    const value: { name: string, age: number, active: boolean, ...} = schema(input)
     t.deepEqual(value, input)
   })
 
@@ -53,7 +53,7 @@ test.group('object types', test => {
 
   test('should validate an object', t => {
     const input = { roles: { admin: true, owner: false, user: false } }
-    const value = schema(input)
+    const value: { roles: { admin: boolean, owner: boolean, user: boolean }, ... } = schema(input)
     t.deepEqual(value, input)
   })
 
@@ -87,7 +87,7 @@ test.group('optional properties', test => {
 
   test('should exclude optional object property', t => {
     const input = { content: ['image'] }
-    const value = schema(input)
+    const value: { content: Array<string>, ... } = schema(input)
     t.deepEqual(value, input)
   })
 
@@ -105,7 +105,7 @@ test.group('maybe properties', test => {
 
   test('should include maybe object property', t => {
     const input = { content: ['image'], context: [''] }
-    const value = schema(input)
+    const value: { content: Array<string>, context: ?Array<string> } = schema(input)
     t.deepEqual(value, input)
   })
 
