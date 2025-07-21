@@ -1,4 +1,9 @@
 [lints]
 all=warn
 [ignore]
-./node_modules/.*
+<PROJECT_ROOT>/node_modules
+!<PROJECT_ROOT>/node_modules/ava-spec
+<PROJECT_ROOT>/dist
+<PROJECT_ROOT>/.nyc_output
+<PROJECT_ROOT>/.flowconfig
+<PROJECT_ROOT>/.*.png
