@@ -2,10 +2,10 @@
 const { EMPTY_VALUE } = require('./const')
 const { isEmpty, isFunction } = require('./is')
 
-import type { LiteralValue, TypeValidator } from './'
+import type { LiteralValue, TypeValidator, TypeChecker } from './'
 
 exports.isType =
-  <T, F: TypeValidator<T>>(typeFn: F): TypeValidator<boolean> =>
+  <T, F: TypeValidator<T>>(typeFn: F): TypeChecker<boolean> =>
     (v: mixed, _scope? = ''): boolean => {
       try {
         typeFn(v, _scope)
@@ -27,5 +27,5 @@ exports.getType = (
     if (isFunction(typeFn.type)) return typeFn.type(_options)
     return typeFn.name || '?'
   }
-  : <T>(TypeValidator<T>, ?{ [string]: mixed }) => string
+  : <T>(TypeValidator<T>, ?{ noVoid: boolean }) => string
 )

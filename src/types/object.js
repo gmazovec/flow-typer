@@ -7,18 +7,16 @@ const { unionOf } = require('./union')
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
 
-const object = (
-  function object (value: mixed, _scope: string = ''): Object {
-    if (isEmpty(value)) return {}
-    if (isObject(value) && !Array.isArray(value)) {
-      return Object.assign({}, value)
-    }
-    throw validatorError(object, value, _scope)
+function object (value: mixed, _scope: string = ''): Object {
+  if (isEmpty(value)) return {}
+  if (isObject(value) && !Array.isArray(value)) {
+    return Object.assign({}, value)
   }
-  : TypeValidator<ObjectRecord<mixed>>
-)
+  throw validatorError(object, value, _scope)
+}
+object.type = () => 'Object';
 
-exports.object = object
+exports.object = (object: TypeValidator<ObjectRecord<mixed>>);
 
 exports.objectOf = <O: TypeValidatorRecord<*>>
   (typeObj: O, label?: string =  'Object'): TypeValidator<$ObjMap<O, <V>(TypeValidator<V>) => V>> => {
@@ -78,6 +76,6 @@ exports.optional =
     function optional (v: mixed) {
       return unionFn(v)
     }
-    optional.type = ({ noVoid }: { noVoid: boolean }) => !noVoid ? getType(unionFn) : getType(typeFn)
+    optional.type = (opts: ?{ noVoid: boolean }) => opts && !opts.noVoid ? getType(unionFn) : getType(typeFn)
     return optional
   }

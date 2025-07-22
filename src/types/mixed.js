@@ -1,9 +1,9 @@
 // @flow
 import type { TypeValidator } from '..'
 
-exports.mixed = (
-  function mixed (value) {
-    return value
-  }
-  : TypeValidator<mixed>
-)
+function mixed (value: mixed) {
+  return value;
+}
+mixed.type = () => 'mixed';
+
+exports.mixed = (mixed: TypeValidator<mixed>);
