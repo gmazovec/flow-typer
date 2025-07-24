@@ -2,6 +2,7 @@
 
 export type LiteralValue = boolean | number | string
 export type ObjectRecord<T> = { [key: string]: T }
+export type TypeValidatorMap<T> = { [key in keyof T]: $Call<T[key], mixed> }
 export type TypeChecker<T> = (mixed, _?:string) => T
 export type TypeValidator<T> = { (mixed, _?:string): T, type: (?{ noVoid: boolean }) => string, ... }
 export type TypeMaybeValidator<T> = { (mixed, _?:string): ?T, type: () => string, ... }
