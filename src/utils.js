@@ -1,6 +1,6 @@
 // @flow
 const { EMPTY_VALUE } = require('./const')
-const { isEmpty, isFunction } = require('./is')
+const { isEmpty } = require('./is')
 
 import type { LiteralValue, TypeValidator, TypeChecker } from './'
 
@@ -24,8 +24,11 @@ exports.typeOf =
 
 exports.getType = (
   function getType (typeFn, _options) {
-    if (isFunction(typeFn.type)) return typeFn.type(_options)
-    return typeFn.name || '?'
+    if (typeof typeFn.type === "function") {
+      return typeFn.type(_options)
+    } else {
+      return typeFn.name || '?'
+    }
   }
   : <T>(TypeValidator<T>, ?{ noVoid: boolean }) => string
 )

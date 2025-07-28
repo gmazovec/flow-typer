@@ -45,7 +45,6 @@ exports.isBoolean = is.isBoolean
 exports.isNumber = is.isNumber
 exports.isString = is.isString
 exports.isObject = is.isObject
-exports.isFunction = is.isFunction
 
 const utils = require('./utils')
 
