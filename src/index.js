@@ -38,7 +38,6 @@ export type TypeValidatorsOf5<T, U, V, Z, X> = [
 
 const is = require('./is')
 
-exports.isEmpty = is.isEmpty
 exports.isNil = is.isNil
 exports.isUndef = is.isUndef
 exports.isBoolean = is.isBoolean

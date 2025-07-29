@@ -1,14 +1,15 @@
 // @flow
 const { getType } = require('../utils')
 const { validatorError } = require('../error')
-const { isEmpty, isUndef, isObject } = require('../is')
+const { isUndef, isObject } = require('../is')
+const { EMPTY_VALUE } = require('../const')
 const { undef } = require('./primitives')
 const { unionOf } = require('./union')
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
 
 function object (value: mixed, _scope: string = ''): Object {
-  if (isEmpty(value)) return {}
+  if (value === EMPTY_VALUE) return {}
   if (isObject(value) && !Array.isArray(value)) {
     return Object.assign({}, value)
   }
@@ -46,7 +47,7 @@ exports.objectOf = function t_object <T: Object> (typeObj: T, label?: string =  
       )
     }
 
-    const reducer = isEmpty(value)
+    const reducer = value === EMPTY_VALUE
       ? (acc: Object, key: string) => Object.assign(acc, { [key]: typeObj[key](value) })
       : (acc: Object, key: string) => {
         const typeFn = typeObj[key]

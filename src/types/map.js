@@ -1,7 +1,7 @@
 // @flow
 const { getType } = require('../utils')
 const { validatorError } = require('../error')
-const { isEmpty } = require('../is')
+const { EMPTY_VALUE } = require('../const')
 const { undef } = require('./primitives')
 const { object } = require('./object')
 const { unionOf } = require('./union')
@@ -14,7 +14,7 @@ exports.mapOf = <K, V>
     typeFn: TypeValidator<V>
   ): TypeValidator<{ [K]: V }> => {
     function mapOf (value: mixed, _scope: string = 'Map') {
-      if (isEmpty(value)) return {}
+      if (value === EMPTY_VALUE) return {}
       const o = object(value, _scope)
       const reducer = (acc: Object, key: string) =>
         Object.assign(

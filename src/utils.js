@@ -1,6 +1,5 @@
 // @flow
 const { EMPTY_VALUE } = require('./const')
-const { isEmpty } = require('./is')
 
 import type { LiteralValue, TypeValidator, TypeChecker } from './'
 

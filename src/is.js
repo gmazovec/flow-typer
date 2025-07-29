@@ -1,9 +1,4 @@
 // @flow
-const { EMPTY_VALUE } = require('./const')
-
-exports.isEmpty =
-  (v: mixed): boolean %checks =>
-    v === EMPTY_VALUE
 
 const isNil =
   (v: mixed): boolean %checks =>

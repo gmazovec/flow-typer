@@ -1,7 +1,7 @@
 // @flow
 const { getType } = require('../utils')
 const { validatorError } = require('../error')
-const { isEmpty } = require('../is')
+const { EMPTY_VALUE } = require('../const')
 
 import type { TypeValidator } from '../'
 
@@ -21,7 +21,7 @@ type TupleT =
 const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
   function tuple (value: mixed, _scope: string = '') {
     const cardinality = typeFuncs.length
-    if (isEmpty(value)) return typeFuncs.map(fn => fn(value))
+    if (value === EMPTY_VALUE) return typeFuncs.map(fn => fn(value))
     if (Array.isArray(value) && value.length === cardinality) {
       const tupleValue = []
       for (let i = 0; i < cardinality; i += 1) {
