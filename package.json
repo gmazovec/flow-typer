@@ -26,7 +26,7 @@
     "test": "npm run test:type && npm run test:unit",
     "test:type": "flow --show-all-errors",
     "test:unit": "ava test",
-    "test:coverage": "npm run test:type && nyc --reporter=lcov --reporter=html --reporter=text npm run test:unit",
+    "test:coverage": "nyc --reporter=lcov --reporter=html --reporter=text npm run test:unit",
     "prepublishOnly": "npm run test && npm run dist",
     "clean": "rm -rf dist coverage"
   },
