@@ -109,7 +109,11 @@ test.group('maybe properties', test => {
     t.deepEqual(value, input)
   })
 
-  test('should throw an error', t => {
+  test('should throw an error for unknown attribute', t => {
     t.throws(() => { schema({ context: ['data'] }) })
+  })
+
+  test('should throw an error for undefined aatribute', t => {
+    t.throws(() => { schema({ content: ['data'] }) })
   })
 })
