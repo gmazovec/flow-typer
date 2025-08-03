@@ -3,6 +3,7 @@ import test from 'ava-spec'
 import typer from '../src'
 
 const {
+  object,
   objectOf,
   arrayOf,
   optional,
@@ -12,6 +13,17 @@ const {
   maybe,
   TypeValidatorError
 } = typer
+
+test.group('plain object', test => {
+  test('should validate an object', t => {
+    t.deepEqual(object({}), {});
+    t.deepEqual(object({ name: 'foo' }), { name: 'foo' });
+  });
+
+  test('should throw an error', t => {
+    t.throws(() => { object("") });
+  });
+});
 
 test.group('primitive types', test => {
   const schema = objectOf({
