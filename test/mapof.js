@@ -1,6 +1,7 @@
 // @flow
 import test from 'ava-spec'
 import typer from '../src'
+import { EMPTY_VALUE } from '../src/const'
 
 const {
   mapOf,
@@ -21,6 +22,11 @@ test.group('map type', test => {
     }
     const value: { [string]: boolean } = schema(input)
     t.deepEqual(value, input)
+  })
+
+  test('should return empty map', t => {
+    const value = schema(EMPTY_VALUE)
+    t.deepEqual(value, {});
   })
 
   test('should throw an error', t => {
