@@ -6,9 +6,13 @@ import type { $Literal } from '../src'
 
 const {
   objectOf,
+  tupleOf,
+  arrayOf,
+  number,
   string,
   boolean,
   isType,
+  getType,
 } = typer
 
 test.group('isType', test => {
@@ -36,3 +40,20 @@ test.group('isType', test => {
     t.false(hasTypeOfSchema([]))
   })
 })
+
+test.group("getType", test => {
+  test('should return type', t => {
+    t.deepEqual(getType(number), "number");
+    t.deepEqual(getType(string), "string");
+    t.deepEqual(getType(boolean), "boolean");
+    t.deepEqual(getType(tupleOf(number, number)), "[number, number]");
+    t.deepEqual(getType(arrayOf(string)), "Array<string>");
+    t.deepEqual(getType(objectOf({ name: string, age: number })), "{|\n name: string,\n  age: number \n|}");
+  });
+
+  test('should return type for user-defined validator', t => {
+    const personT = function personT () {}
+    t.deepEqual(getType(personT), "personT");
+  });
+})
+
