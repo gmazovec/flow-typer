@@ -20,7 +20,7 @@ test.group('map type', test => {
       featureA: true,
       featureB: false
     }
-    const value: { [string]: boolean } = schema(input)
+    const value: { [string]: boolean } = schema(input, 'FlagMap')
     t.deepEqual(value, input)
   })
 
