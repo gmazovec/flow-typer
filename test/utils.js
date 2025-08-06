@@ -8,6 +8,7 @@ const {
   objectOf,
   tupleOf,
   arrayOf,
+  mapOf,
   number,
   string,
   boolean,
@@ -49,6 +50,7 @@ test.group("getType", test => {
     t.deepEqual(getType(tupleOf(number, number)), "[number, number]");
     t.deepEqual(getType(arrayOf(string)), "Array<string>");
     t.deepEqual(getType(objectOf({ name: string, age: number })), "{|\n name: string,\n  age: number \n|}");
+    t.deepEqual(getType(mapOf(string, boolean)), "{ [_:string]: boolean }");
   });
 
   test('should return type for user-defined validator', t => {
