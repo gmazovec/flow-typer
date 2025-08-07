@@ -11,7 +11,8 @@ const {
   number,
   string,
   maybe,
-  TypeValidatorError
+  TypeValidatorError,
+  getType,
 } = typer
 
 test.group('plain object', test => {
@@ -102,6 +103,10 @@ test.group('optional properties', test => {
     const value: { content: Array<string>, ... } = schema(input)
     t.deepEqual(value, input)
   })
+
+  test('should return void', t => {
+    t.deepEqual(getType(optional(string), { noVoid: false }), "(string | void)")
+  });
 
   test('should throw an error', t => {
     t.throws(() => { schema({ context: ['data'] }) })
