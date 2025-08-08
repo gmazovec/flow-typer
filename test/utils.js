@@ -12,6 +12,7 @@ const {
   number,
   string,
   boolean,
+  maybe,
   optional,
   isType,
   getType,
@@ -48,6 +49,7 @@ test.group("getType", test => {
     t.deepEqual(getType(number), "number");
     t.deepEqual(getType(string), "string");
     t.deepEqual(getType(boolean), "boolean");
+    t.deepEqual(getType(maybe(number)), "?number");
     t.deepEqual(getType(tupleOf(number, number)), "[number, number]");
     t.deepEqual(getType(arrayOf(string)), "Array<string>");
     t.deepEqual(getType(objectOf({ name: string, age: number, active: optional(boolean) }, "personT")), "{|\n name: string,\n  age: number,\n  active?: boolean \n|}");
