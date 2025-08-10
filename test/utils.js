@@ -51,7 +51,7 @@ test.group("getType", test => {
     t.deepEqual(getType(boolean), "boolean");
     t.deepEqual(getType(maybe(number)), "?number");
     t.deepEqual(getType(tupleOf(number, number)), "[number, number]");
-    t.deepEqual(getType(arrayOf(string)), "Array<string>");
+    t.deepEqual(getType(arrayOf(string, "Id")), "Array<string>");
     t.deepEqual(getType(objectOf({ name: string, age: number, active: optional(boolean) }, "personT")), "{|\n name: string,\n  age: number,\n  active?: boolean \n|}");
     t.deepEqual(getType(mapOf(string, boolean)), "{ [_:string]: boolean }");
   });
