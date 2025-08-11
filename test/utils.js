@@ -41,6 +41,7 @@ test.group('isType', test => {
     t.false(hasTypeOfSchema('foo'))
     t.false(hasTypeOfSchema({}))
     t.false(hasTypeOfSchema([]))
+    t.false(hasTypeOfSchema([], 'personT'))
   })
 })
 
