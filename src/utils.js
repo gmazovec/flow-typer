@@ -23,11 +23,7 @@ exports.typeOf =
 
 exports.getType = (
   function getType (typeFn, _options) {
-    if (typeof typeFn.type === "function") {
-      return typeFn.type(_options)
-    } else {
-      return typeFn.name || '?'
-    }
+    return typeFn.type(_options)
   }
   : <T>(TypeValidator<T>, ?{ noVoid: boolean }) => string
 )

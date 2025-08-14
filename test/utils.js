@@ -57,16 +57,10 @@ test.group("getType", test => {
     t.deepEqual(getType(mapOf(string, boolean)), "{ [_:string]: boolean }");
   });
 
-  test('should return type for builtin validator', t => {
-    const personT = function personT () {}
-    t.deepEqual(getType(personT), "personT");
-  });
-
   test('should return type for user-defined validator', t => {
     function validator () {}
     validator.type = () => "personT";
     t.deepEqual(getType(validator), "personT");
-    t.deepEqual(getType(() => {}), "?");
   });
 })
 
