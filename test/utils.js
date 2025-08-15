@@ -12,6 +12,7 @@ const {
   number,
   string,
   boolean,
+  mixed,
   maybe,
   optional,
   isType,
@@ -50,6 +51,7 @@ test.group("getType", test => {
     t.deepEqual(getType(number), "number");
     t.deepEqual(getType(string), "string");
     t.deepEqual(getType(boolean), "boolean");
+    t.is(getType(mixed), "mixed");
     t.deepEqual(getType(maybe(number)), "?number");
     t.deepEqual(getType(tupleOf(number, number)), "[number, number]");
     t.deepEqual(getType(arrayOf(string, "Id")), "Array<string>");
