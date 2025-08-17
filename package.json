@@ -43,6 +43,14 @@
     "flow-remove-types": "^2.275.0",
     "nyc": "^17.0.0"
   },
+  "peerDependencies": {
+    "flow-bin": "^0.242.1"
+  },
+  "peerDependenciesMeta": {
+    "flow-bin": {
+      "optional": true
+    }
+  },
   "ava": {
     "babel": true,
     "require": [
