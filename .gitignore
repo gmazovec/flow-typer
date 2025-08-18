@@ -58,5 +58,6 @@ typings/
 .env
 
 dist
+dist-test
 test/snapshots
 yarn.lock

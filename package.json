@@ -23,12 +23,13 @@
     "dist": "npm run clean && npm run dist:flow && npm run dist:remove-types",
     "dist:flow": "cp -Rv src dist && find dist -type f -name '*.js' -exec mv -v {} {}.flow \\;",
     "dist:remove-types": "flow-remove-types --out-dir dist src",
-    "test": "npm run test:type && npm run test:unit",
+    "test": "npm run test:remove-types && npm run test:type && npm run test:unit",
     "test:type": "flow --show-all-errors",
     "test:unit": "ava test",
     "test:coverage": "nyc --reporter=lcov --reporter=html --reporter=text npm run test:unit",
+    "test:remove-types": "flow-remove-types --out-dir dist-test test",
     "prepublishOnly": "npm run test && npm run dist",
-    "clean": "rm -rf dist coverage"
+    "clean": "rm -rf dist dist-test coverage"
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^4.0.0",
