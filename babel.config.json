@@ -1,8 +1,6 @@
 {
   "presets": [
     "@babel/preset-env",
-    "@babel/preset-flow",
     "@ava/stage-4",
-    ["@ava/transform-test-files", { "powerAssert": false }]
   ]
 }
