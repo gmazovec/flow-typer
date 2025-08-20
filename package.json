@@ -25,7 +25,7 @@
     "dist:remove-types": "flow-remove-types --out-dir dist src",
     "test": "npm run test:remove-types && npm run test:type && npm run test:unit",
     "test:type": "flow --show-all-errors",
-    "test:unit": "ava test",
+    "test:unit": "ava dist-test/*",
     "test:coverage": "nyc --reporter=lcov --reporter=html --reporter=text npm run test:unit",
     "test:remove-types": "flow-remove-types --out-dir dist-test test && find dist-test -type f -name '*.js' -exec sed -i '' 's/..\\/src/..\\/dist/' {} \\;",
     "prepublishOnly": "npm run test && npm run dist",
