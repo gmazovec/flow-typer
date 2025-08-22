@@ -1,6 +1,6 @@
 // @flow
-const { getType } = require('../utils')
-const { validatorError } = require('../error')
+import { getType } from '../utils.js'
+import { validatorError } from '../error.js'
 
 import type { TypeValidator } from '..'
 
@@ -17,7 +17,7 @@ type UnionT =
   & (<A, B, C, D, E, F, G, H, I>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>) => TypeValidator<A | B | C | D | E | F | G | H | I>)
   & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => TypeValidator<A | B | C | D | E | F | G | H | I | J>)
 
-const unionOf: UnionT = function unionOf_ (...typeFuncs) {
+export const unionOf: UnionT = function unionOf_ (...typeFuncs) {
   function union (value: mixed, _scope: string = '') {
     for (const typeFn of typeFuncs) {
       try {
@@ -29,5 +29,3 @@ const unionOf: UnionT = function unionOf_ (...typeFuncs) {
   union.type = () => `(${typeFuncs.map(fn => getType(fn)).join(' | ')})`
   return union
 }
-
-exports.unionOf = unionOf

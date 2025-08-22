@@ -1,7 +1,7 @@
 // @flow
 import test from 'ava-spec'
-import typer from '../src'
-import { EMPTY_VALUE } from '../src/const'
+import * as typer from '../src/index.js'
+import { EMPTY_VALUE } from '../src/const.js'
 
 const {
   mapOf,

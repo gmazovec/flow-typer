@@ -1,57 +1,56 @@
 // @flow
-const { validatorError } = require('../error')
-const {
+import { validatorError } from '../error.js'
+import {
   isNil,
   isUndef,
   isBoolean,
   isNumber,
   isString,
   isObject
-} = require('../is')
-const { EMPTY_VALUE } = require('../const')
+} from '../is.js'
+import { EMPTY_VALUE } from '../const.js'
 
 import type { TypeValidator } from '..'
 
-function nil (value: mixed): null {
+function _nil (value: mixed): null {
   if (value === EMPTY_VALUE || isNil(value)) return null
   throw validatorError(nil, value)
 }
-nil.type = () => 'null';
+_nil.type = () => 'null';
 
-exports.nil = (nil: TypeValidator<null>);
+export const nil = (_nil: TypeValidator<null>);
 
-function undef (value: mixed, _scope: string = ''): void {
+function _undef (value: mixed, _scope: string = ''): void {
   if (value === EMPTY_VALUE || isUndef(value)) return undefined
   throw validatorError(undef, value, _scope)
 }
-undef.type = () => 'void'
+_undef.type = () => 'void'
 
-exports.undef = (undef: TypeValidator<void>)
+export const undef = (_undef: TypeValidator<void>)
 
-function boolean (value: mixed, _scope: string = ''): boolean {
+function _boolean (value: mixed, _scope: string = ''): boolean {
   if (value === EMPTY_VALUE) return false
   if (isBoolean(value)) return value
   throw validatorError(boolean, value, _scope)
 }
-boolean.type = () => 'boolean';
+_boolean.type = () => 'boolean';
 
-exports.boolean = (boolean: TypeValidator<boolean>);
+export const boolean = (_boolean: TypeValidator<boolean>);
 
-function number (value: mixed, _scope: string = ''): number {
+function _number (value: mixed, _scope: string = ''): number {
   if (value === EMPTY_VALUE) return 0
   if (isNumber(value)) return value
   throw validatorError(number, value, _scope)
 }
-number.type = () => 'number';
+_number.type = () => 'number';
 
-exports.number = (number: TypeValidator<number>);
+export const number = (_number: TypeValidator<number>);
 
-function string (value: mixed, _scope: string = ''): string {
+function _string (value: mixed, _scope: string = ''): string {
   if (value === EMPTY_VALUE) return ''
   if (isString(value)) return value
   throw validatorError(string, value, _scope)
 }
-string.type = () => 'string';
+_string.type = () => 'string';
 
-exports.string = (string: TypeValidator<string>);
-
+export const string = (_string: TypeValidator<string>);

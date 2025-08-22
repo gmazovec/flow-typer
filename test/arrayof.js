@@ -1,6 +1,6 @@
 // @flow
 import test from 'ava-spec'
-import typer from '../src'
+import * as typer from '../src/index.js'
 
 const { arrayOf, nil, undef, boolean, number, string } = typer
 

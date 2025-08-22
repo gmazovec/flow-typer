@@ -1,8 +1,8 @@
 // @flow
-const { getType } = require('./utils')
+import { getType } from './utils.js'
 import type { TypeValidator } from './'
 
-class TypeValidatorError extends Error {
+export class TypeValidatorError extends Error {
   expectedType: string
   valueType: string
   value: string
@@ -48,9 +48,8 @@ class TypeValidatorError extends Error {
 }
 
 TypeValidatorError.prototype.name = 'TypeValidatorError'
-exports.TypeValidatorError = TypeValidatorError
 
-exports.validatorError = <T>(
+export const validatorError = <T>(
   typeFn: TypeValidator<T>,
   value: mixed,
   scope: ?string,

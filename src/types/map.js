@@ -1,14 +1,14 @@
 // @flow
-const { getType } = require('../utils')
-const { validatorError } = require('../error')
-const { EMPTY_VALUE } = require('../const')
-const { undef } = require('./primitives')
-const { object } = require('./object')
-const { unionOf } = require('./union')
+import { getType } from '../utils.js'
+import { validatorError } from '../error.js'
+import { EMPTY_VALUE } from '../const.js'
+import { undef } from './primitives.js'
+import { object } from './object.js'
+import { unionOf } from './union.js'
 
 import type { TypeValidator } from '..'
 
-exports.mapOf = <K, V>
+export const mapOf = <K, V>
   (
     keyTypeFn: TypeValidator<K>,
     typeFn: TypeValidator<V>

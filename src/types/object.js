@@ -1,25 +1,25 @@
 // @flow
-const { getType } = require('../utils')
-const { validatorError } = require('../error')
-const { isUndef, isObject } = require('../is')
-const { EMPTY_VALUE } = require('../const')
-const { undef } = require('./primitives')
-const { unionOf } = require('./union')
+import { getType } from '../utils.js'
+import { validatorError } from '../error.js'
+import { isUndef, isObject } from '../is.js'
+import { EMPTY_VALUE } from '../const.js'
+import { undef } from './primitives.js'
+import { unionOf } from './union.js'
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
 
-function object (value: mixed, _scope: string = ''): Object {
+function _object (value: mixed, _scope: string = ''): Object {
   if (value === EMPTY_VALUE) return {}
   if (isObject(value) && !Array.isArray(value)) {
     return Object.assign({}, value)
   }
   throw validatorError(object, value, _scope)
 }
-object.type = () => 'Object';
+_object.type = () => 'Object';
 
-exports.object = (object: TypeValidator<ObjectRecord<mixed>>);
+export const object = (_object: TypeValidator<ObjectRecord<mixed>>);
 
-exports.objectOf = function t_object <T: Object> (typeObj: T, label?: string =  'Object') /*: TypeValidator<{ [key in keyof T]: $Call<T[key], mixed> }> */ {
+export const objectOf = function t_object <T: Object> (typeObj: T, label?: string =  'Object') /*: TypeValidator<{ [key in keyof T]: $Call<T[key], mixed> }> */ {
   function object_ (value: mixed, _scope: string = label) /*: { [key in keyof T]: $Call<T[key], mixed> } */ {
     const o = object(value, _scope)
     const typeAttrs = Object.keys(typeObj)
@@ -70,7 +70,7 @@ exports.objectOf = function t_object <T: Object> (typeObj: T, label?: string =  
   return object_
 }
 
-exports.optional =
+export const optional =
   <T>(typeFn: TypeValidator<T>): TypeValidator<T | void> => {
     const unionFn = unionOf(typeFn, undef)
     function optional (v: mixed) {

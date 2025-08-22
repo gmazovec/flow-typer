@@ -1,7 +1,7 @@
 // @flow
-const { getType } = require('../utils')
-const { validatorError } = require('../error')
-const { EMPTY_VALUE } = require('../const')
+import { getType } from '../utils.js'
+import { validatorError } from '../error.js'
+import { EMPTY_VALUE } from '../const.js'
 
 import type { TypeValidator } from '../'
 
@@ -18,7 +18,7 @@ type TupleT =
   & (<A, B, C, D, E, F, G, H, I>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>) => TypeValidator<[A, B, C, D, E, F, G, H, I]>)
   & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => TypeValidator<[A, B, C, D, E, F, G, H, I, J]>)
 
-const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
+export const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
   function tuple (value: mixed, _scope: string = '') {
     const cardinality = typeFuncs.length
     if (value === EMPTY_VALUE) return typeFuncs.map(fn => fn(value))
@@ -34,5 +34,3 @@ const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
   tuple.type = () => `[${typeFuncs.map(fn => getType(fn)).join(', ')}]`
   return tuple
 }
-
-exports.tupleOf = tupleOf

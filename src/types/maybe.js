@@ -1,13 +1,13 @@
 // @flow
-const { isNil, isUndef } = require('../is')
-const { getType } = require('../utils')
+import { isNil, isUndef } from '../is.js'
+import { getType } from '../utils.js'
 
 import type { TypeValidator, TypeMaybeValidator } from '..'
 
 const isPrimitiveFn = (typeName: string) =>
   ['undefined', 'null', 'boolean', 'number', 'string'].includes(typeName)
 
-exports.maybe =
+export const maybe =
   <T>(typeFn: TypeValidator<T>): TypeMaybeValidator<T> => {
     function maybe (value: mixed, _scope: string = '') {
       return (isNil(value) || isUndef(value)) ? value : typeFn(value, _scope)

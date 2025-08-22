@@ -1,5 +1,19 @@
 // @flow
 
+import * as error from './error.js'
+import * as is from './is.js'
+import * as utils from './utils.js'
+
+import * as array from './types/array.js'
+import * as literals from './types/literals.js'
+import * as map from './types/map.js'
+import * as _maybe from './types/maybe.js'
+import * as _mixed from './types/mixed.js'
+import * as _object from './types/object.js'
+import * as primitives from './types/primitives.js'
+import * as tuple from './types/tuple.js'
+import * as union from './types/union.js'
+
 export type LiteralValue = boolean | number | string
 export type ObjectRecord<T> = { [key: string]: T }
 /*:: export type TypeValidatorMap<T> = { [key in keyof T]: $Call<T[key], mixed> } */
@@ -36,64 +50,41 @@ export type TypeValidatorsOf5<T, U, V, Z, X> = [
   TypeValidator<X>
 ]
 
-const is = require('./is')
 
-exports.isNil = is.isNil
-exports.isUndef = is.isUndef
-exports.isBoolean = is.isBoolean
-exports.isNumber = is.isNumber
-exports.isString = is.isString
-exports.isObject = is.isObject
+export const isNil = is.isNil
+export const isUndef = is.isUndef
+export const isBoolean = is.isBoolean
+export const isNumber = is.isNumber
+export const isString = is.isString
+export const isObject = is.isObject
 
-const utils = require('./utils')
+export const isType = utils.isType
+export const typeOf = utils.typeOf
+export const getType = utils.getType
 
-exports.isType = utils.isType
-exports.typeOf = utils.typeOf
-exports.getType = utils.getType
+export const TypeValidatorError = error.TypeValidatorError
+export const validatorError = error.validatorError
 
-const error = require('./error')
+export const nil = primitives.nil
+export const undef = primitives.undef
+export const boolean = primitives.boolean
+export const number = primitives.number
+export const string = primitives.string
 
-exports.TypeValidatorError = error.TypeValidatorError
-exports.validatorError = error.validatorError
+export const literalOf = literals.literalOf
 
-const primitives = require('./types/primitives')
+export const maybe = _maybe.maybe
 
-exports.nil = primitives.nil
-exports.undef = primitives.undef
-exports.boolean = primitives.boolean
-exports.number = primitives.number
-exports.string = primitives.string
+export const mixed = _mixed.mixed
 
-const literals = require('./types/literals')
+export const object = _object.object
+export const objectOf = _object.objectOf
+export const optional = _object.optional
 
-exports.literalOf = literals.literalOf
+export const arrayOf = array.arrayOf
 
-const maybe = require('./types/maybe')
+export const tupleOf = tuple.tupleOf
 
-exports.maybe = maybe.maybe
+export const unionOf = union.unionOf
 
-const mixed = require('./types/mixed')
-
-exports.mixed = mixed.mixed
-
-const object = require('./types/object')
-
-exports.object = object.object
-exports.objectOf = object.objectOf
-exports.optional = object.optional
-
-const array = require('./types/array')
-
-exports.arrayOf = array.arrayOf
-
-const tuple = require('./types/tuple')
-
-exports.tupleOf = tuple.tupleOf
-
-const union = require('./types/union')
-
-exports.unionOf = union.unionOf
-
-const map = require('./types/map')
-
-exports.mapOf = map.mapOf
+export const mapOf = map.mapOf

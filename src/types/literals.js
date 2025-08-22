@@ -1,11 +1,11 @@
 // @flow
-const { validatorError } = require('../error')
-const { isBoolean, isNumber, isString } = require('../is')
-const { EMPTY_VALUE } = require('../const')
+import { validatorError } from '../error.js'
+import { isBoolean, isNumber, isString } from '../is.js'
+import { EMPTY_VALUE } from '../const.js'
 
 import type { LiteralValue, TypeValidator } from '..'
 
-exports.literalOf =
+export const literalOf =
   <T: LiteralValue>(primitive: T): TypeValidator<T> => {
     function literal (value: mixed, _scope: string = ''): T {
       if (value === EMPTY_VALUE || (value === primitive)) return primitive

@@ -1,6 +1,6 @@
 // @flow
 import test from 'ava-spec'
-import typer from '../src'
+import * as typer from '../src/index.js'
 
 import type { $Literal } from '../src'
 
@@ -52,7 +52,7 @@ test.group("getType", test => {
     t.deepEqual(getType(string), "string");
     t.deepEqual(getType(boolean), "boolean");
     t.is(getType(mixed), "mixed");
-    t.deepEqual(getType(maybe(number)), "?number");
+    t.deepEqual(getType(maybe(number)), "?(number)");
     t.deepEqual(getType(tupleOf(number, number)), "[number, number]");
     t.deepEqual(getType(arrayOf(string, "Id")), "Array<string>");
     t.deepEqual(getType(objectOf({ name: string, age: number, active: optional(boolean) }, "personT")), "{|\n name: string,\n  age: number,\n  active?: boolean \n|}");

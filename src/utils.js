@@ -1,9 +1,9 @@
 // @flow
-const { EMPTY_VALUE } = require('./const')
+import { EMPTY_VALUE } from './const.js'
 
 import type { LiteralValue, TypeValidator, TypeChecker } from './'
 
-exports.isType =
+export const isType =
   <T, F: TypeValidator<T>>(typeFn: F): TypeChecker<boolean> =>
     (v: mixed, _scope? = ''): boolean => {
       try {
@@ -17,11 +17,11 @@ exports.isType =
 // This function will return value based on schema with inferred types. This
 // value can be used to define type in Flow with 'typeof' utility.
 
-exports.typeOf =
+export const typeOf =
   <T>(schema: TypeValidator<T>): T =>
     schema(EMPTY_VALUE, '')
 
-exports.getType = (
+export const getType = (
   function getType (typeFn, _options) {
     return typeFn.type(_options)
   }
