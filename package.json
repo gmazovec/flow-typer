@@ -24,7 +24,7 @@
     "dist": "npm run clean && npm run dist:flow && npm run dist:remove-types",
     "dist:flow": "cp -Rv src dist && find dist -type f -name '*.js' -exec mv -v {} {}.flow \\;",
     "dist:remove-types": "flow-remove-types --out-dir dist src",
-    "test": "npm run test:remove-types && npm run test:type && npm run test:unit",
+    "test": "npm run dist && npm run test:remove-types && npm run test:unit && npm run test:type",
     "test:type": "flow --show-all-errors",
     "test:unit": "ava dist-test/*",
     "test:coverage": "nyc --reporter=lcov --reporter=html --reporter=text npm run test:unit",
