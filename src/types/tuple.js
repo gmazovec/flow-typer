@@ -19,6 +19,7 @@ type TupleT =
   & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => TypeValidator<[A, B, C, D, E, F, G, H, I, J]>)
 
 export const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
+  // $FlowIgnore
   function tuple (value: mixed, _scope: string = '') {
     const cardinality = typeFuncs.length
     if (value === EMPTY_VALUE) return typeFuncs.map(fn => fn(value))
