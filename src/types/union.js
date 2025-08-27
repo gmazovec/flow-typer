@@ -18,6 +18,7 @@ type UnionT =
   & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => TypeValidator<A | B | C | D | E | F | G | H | I | J>)
 
 export const unionOf: UnionT = function unionOf_ (...typeFuncs) {
+  // $FlowIgnore
   function union (value: mixed, _scope: string = '') {
     for (const typeFn of typeFuncs) {
       try {
