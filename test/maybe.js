@@ -1,5 +1,7 @@
 // @flow
-import test from 'ava-spec'
+import assert from 'assert'
+// $FlowExpectedError
+import { test } from 'node:test'
 import * as typer from '../src/index.js'
 
 const {
@@ -13,141 +15,141 @@ const {
   objectOf
 } = typer
 
-test.group('null type', test => {
+test('null type', async (t) => {
   const maybeNull = maybe(nil)
 
-  test('should validate values', t => {
+  await t.test('should validate values', () => {
     const valueA = maybeNull(undefined)
     const valueB = maybeNull(null)
-    t.is(valueA, undefined)
-    t.is(valueB, null)
+    assert.equal(valueA, undefined)
+    assert.equal(valueB, null)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { maybeNull(true) })
-    t.throws(() => { maybeNull(12345) })
-    t.throws(() => { maybeNull('foo') })
-    t.throws(() => { maybeNull({}) })
-    t.throws(() => { maybeNull([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { maybeNull(true) })
+    assert.throws(() => { maybeNull(12345) })
+    assert.throws(() => { maybeNull('foo') })
+    assert.throws(() => { maybeNull({}) })
+    assert.throws(() => { maybeNull([]) })
   })
 })
 
-test.group('undefined type', test => {
+test('undefined type', async (t) => {
   const maybeVoid = maybe(undef)
 
-  test('should validate values', t => {
+  await t.test('should validate values', () => {
     const valueA = maybeVoid(undefined)
     const valueB = maybeVoid(null)
-    t.is(valueA, undefined)
-    t.is(valueB, null)
+    assert.equal(valueA, undefined)
+    assert.equal(valueB, null)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { maybeVoid(true) })
-    t.throws(() => { maybeVoid(12345) })
-    t.throws(() => { maybeVoid('foo') })
-    t.throws(() => { maybeVoid({}) })
-    t.throws(() => { maybeVoid([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { maybeVoid(true) })
+    assert.throws(() => { maybeVoid(12345) })
+    assert.throws(() => { maybeVoid('foo') })
+    assert.throws(() => { maybeVoid({}) })
+    assert.throws(() => { maybeVoid([]) })
   })
 })
 
-test.group('boolean type', test => {
+test('boolean type', async (t) => {
   const maybeBool = maybe(boolean)
 
-  test('should validate values', t => {
+  await t.test('should validate values', t => {
     const valueA: ?boolean = maybeBool(undefined)
     const valueB = maybeBool(null)
     const valueC = maybeBool(true)
-    t.is(valueA, undefined)
-    t.is(valueB, null)
-    t.is(valueC, true)
+    assert.equal(valueA, undefined)
+    assert.equal(valueB, null)
+    assert.equal(valueC, true)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { maybeBool(12345) })
-    t.throws(() => { maybeBool('foo') })
-    t.throws(() => { maybeBool({}) })
-    t.throws(() => { maybeBool([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { maybeBool(12345) })
+    assert.throws(() => { maybeBool('foo') })
+    assert.throws(() => { maybeBool({}) })
+    assert.throws(() => { maybeBool([]) })
   })
 })
 
-test.group('number type', test => {
+test('number type', async (t) => {
   const maybeNumber = maybe(number)
 
-  test('should validate values', t => {
+  await t.test('should validate values', () => {
     const valueA: ?number = maybeNumber(undefined)
     const valueB = maybeNumber(null)
     const valueC = maybeNumber(12345)
-    t.is(valueA, undefined)
-    t.is(valueB, null)
-    t.is(valueC, 12345)
+    assert.equal(valueA, undefined)
+    assert.equal(valueB, null)
+    assert.equal(valueC, 12345)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { maybeNumber(true) })
-    t.throws(() => { maybeNumber('foo') })
-    t.throws(() => { maybeNumber({}) })
-    t.throws(() => { maybeNumber([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { maybeNumber(true) })
+    assert.throws(() => { maybeNumber('foo') })
+    assert.throws(() => { maybeNumber({}) })
+    assert.throws(() => { maybeNumber([]) })
   })
 })
 
-test.group('string type', test => {
+test('string type', async (t) => {
   const maybeString = maybe(string)
 
-  test('should validate values', t => {
+  await t.test('should validate values', () => {
     const valueA: ?string = maybeString(undefined)
     const valueB = maybeString(null)
     const valueC = maybeString('foo')
-    t.is(valueA, undefined)
-    t.is(valueB, null)
-    t.is(valueC, 'foo')
+    assert.equal(valueA, undefined)
+    assert.equal(valueB, null)
+    assert.equal(valueC, 'foo')
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { maybeString(true) })
-    t.throws(() => { maybeString(12345) })
-    t.throws(() => { maybeString({}) })
-    t.throws(() => { maybeString([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { maybeString(true) })
+    assert.throws(() => { maybeString(12345) })
+    assert.throws(() => { maybeString({}) })
+    assert.throws(() => { maybeString([]) })
   })
 })
 
-test.group('array type', test => {
+test('array type', async (t) => {
   const maybeArrayOfString = maybe(arrayOf(string))
 
-  test('should validate values', t => {
+  await t.test('should validate values', () => {
     const valueA: ?Array<string> = maybeArrayOfString(undefined)
     const valueB = maybeArrayOfString(null)
     const valueC = maybeArrayOfString(['foo', 'bar'])
-    t.is(valueA, undefined)
-    t.is(valueB, null)
-    t.deepEqual(valueC, ['foo', 'bar'])
+    assert.equal(valueA, undefined)
+    assert.equal(valueB, null)
+    assert.deepEqual(valueC, ['foo', 'bar'])
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { maybeArrayOfString(true) })
-    t.throws(() => { maybeArrayOfString(12345) })
-    t.throws(() => { maybeArrayOfString('foo') })
-    t.throws(() => { maybeArrayOfString({}) })
-    t.throws(() => { maybeArrayOfString([12345]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { maybeArrayOfString(true) })
+    assert.throws(() => { maybeArrayOfString(12345) })
+    assert.throws(() => { maybeArrayOfString('foo') })
+    assert.throws(() => { maybeArrayOfString({}) })
+    assert.throws(() => { maybeArrayOfString([12345]) })
   })
 })
 
-test.group('object type', test => {
+test('object type', async (t) => {
   const maybeObjectOf = maybe(objectOf({ name: string }))
 
-  test('should validate values', t => {
+  await t.test('should validate values', () => {
     const valueA: ?{ name: string, ... } = maybeObjectOf(undefined)
     const valueB = maybeObjectOf(null)
     const valueC = maybeObjectOf({ name: 'foo' })
-    t.is(valueA, undefined)
-    t.is(valueB, null)
-    t.deepEqual(valueC, { name: 'foo' })
+    assert.equal(valueA, undefined)
+    assert.equal(valueB, null)
+    assert.deepEqual(valueC, { name: 'foo' })
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { maybeObjectOf(true) })
-    t.throws(() => { maybeObjectOf(12345) })
-    t.throws(() => { maybeObjectOf('foo') })
-    t.throws(() => { maybeObjectOf(['bar']) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { maybeObjectOf(true) })
+    assert.throws(() => { maybeObjectOf(12345) })
+    assert.throws(() => { maybeObjectOf('foo') })
+    assert.throws(() => { maybeObjectOf(['bar']) })
   })
 })

@@ -1,178 +1,180 @@
 // @flow
-import test from 'ava-spec'
+import assert from 'assert'
+// $FlowExpectedError
+import { test } from 'node:test'
 import * as typer from '../src/index.js'
 
 const { arrayOf, nil, undef, boolean, number, string } = typer
 
-test.group('null type', test => {
+test('null type', async (t) => {
   const arrayOfNull = arrayOf(nil)
 
-  test('should validate array of nulls', t => {
+  await t.test('should validate array of nulls', () => {
     const input = [null, null, null]
     const valueA: Array<null> = arrayOfNull([])
     const valueB = arrayOfNull(input)
-    t.is(valueA.length, 0)
-    t.is(valueB.length, 3)
-    t.deepEqual(valueB, input)
+    assert.equal(valueA.length, 0)
+    assert.equal(valueB.length, 3)
+    assert.deepEqual(valueB, input)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { arrayOfNull(null) })
-    t.throws(() => { arrayOfNull(undefined) })
-    t.throws(() => { arrayOfNull(false) })
-    t.throws(() => { arrayOfNull(12345) })
-    t.throws(() => { arrayOfNull('foo') })
-    t.throws(() => { arrayOfNull({}) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { arrayOfNull(null) })
+    assert.throws(() => { arrayOfNull(undefined) })
+    assert.throws(() => { arrayOfNull(false) })
+    assert.throws(() => { arrayOfNull(12345) })
+    assert.throws(() => { arrayOfNull('foo') })
+    assert.throws(() => { arrayOfNull({}) })
 
-    t.throws(() => { arrayOfNull([undefined]) })
-    t.throws(() => { arrayOfNull([true]) })
-    t.throws(() => { arrayOfNull([12345]) })
-    t.throws(() => { arrayOfNull(['foo']) })
-    t.throws(() => { arrayOfNull([{}]) })
-    t.throws(() => { arrayOfNull([[]]) })
+    assert.throws(() => { arrayOfNull([undefined]) })
+    assert.throws(() => { arrayOfNull([true]) })
+    assert.throws(() => { arrayOfNull([12345]) })
+    assert.throws(() => { arrayOfNull(['foo']) })
+    assert.throws(() => { arrayOfNull([{}]) })
+    assert.throws(() => { arrayOfNull([[]]) })
   })
 })
 
-test.group('void type - unit array', test => {
+test('void type - unit array', async (t) => {
   const arrayOfVoid = arrayOf(undef)
 
-  test('should validate array of undefined values', t => {
+  await t.test('should validate array of undefined values', t => {
     const input = [undefined, undefined]
     const valueA: Array<void> = arrayOfVoid([])
     const valueB = arrayOfVoid(input)
-    t.is(valueA.length, 0)
-    t.is(valueB.length, 2)
-    t.deepEqual(valueB, input)
+    assert.equal(valueA.length, 0)
+    assert.equal(valueB.length, 2)
+    assert.deepEqual(valueB, input)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { arrayOfVoid(null) })
-    t.throws(() => { arrayOfVoid(false) })
-    t.throws(() => { arrayOfVoid(12345) })
-    t.throws(() => { arrayOfVoid('foo') })
-    t.throws(() => { arrayOfVoid({}) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { arrayOfVoid(null) })
+    assert.throws(() => { arrayOfVoid(false) })
+    assert.throws(() => { arrayOfVoid(12345) })
+    assert.throws(() => { arrayOfVoid('foo') })
+    assert.throws(() => { arrayOfVoid({}) })
 
-    t.throws(() => { arrayOfVoid([null]) })
-    t.throws(() => { arrayOfVoid([true]) })
-    t.throws(() => { arrayOfVoid([12345]) })
-    t.throws(() => { arrayOfVoid(['foo']) })
-    t.throws(() => { arrayOfVoid([{}]) })
-    t.throws(() => { arrayOfVoid([[]]) })
+    assert.throws(() => { arrayOfVoid([null]) })
+    assert.throws(() => { arrayOfVoid([true]) })
+    assert.throws(() => { arrayOfVoid([12345]) })
+    assert.throws(() => { arrayOfVoid(['foo']) })
+    assert.throws(() => { arrayOfVoid([{}]) })
+    assert.throws(() => { arrayOfVoid([[]]) })
   })
 })
 
-test.group('boolean type', test => {
+test('boolean type', async (t) => {
   const arrayOfBool = arrayOf(boolean)
 
-  test('should validate array of booleans', t => {
+  await t.test('should validate array of booleans', t => {
     const input = [true, true, false, true]
     const valueA: Array<boolean> = arrayOfBool([])
     const valueB = arrayOfBool(input)
-    t.is(valueA.length, 0)
-    t.is(valueB.length, 4)
-    t.deepEqual(valueB, input)
+    assert.equal(valueA.length, 0)
+    assert.equal(valueB.length, 4)
+    assert.deepEqual(valueB, input)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { arrayOfBool(null) })
-    t.throws(() => { arrayOfBool(undefined) })
-    t.throws(() => { arrayOfBool(false) })
-    t.throws(() => { arrayOfBool(12345) })
-    t.throws(() => { arrayOfBool('foo') })
-    t.throws(() => { arrayOfBool({}) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { arrayOfBool(null) })
+    assert.throws(() => { arrayOfBool(undefined) })
+    assert.throws(() => { arrayOfBool(false) })
+    assert.throws(() => { arrayOfBool(12345) })
+    assert.throws(() => { arrayOfBool('foo') })
+    assert.throws(() => { arrayOfBool({}) })
 
-    t.throws(() => { arrayOfBool([null]) })
-    t.throws(() => { arrayOfBool([undefined]) })
-    t.throws(() => { arrayOfBool([12345]) })
-    t.throws(() => { arrayOfBool(['foo']) })
-    t.throws(() => { arrayOfBool([{}]) })
-    t.throws(() => { arrayOfBool([[]]) })
+    assert.throws(() => { arrayOfBool([null]) })
+    assert.throws(() => { arrayOfBool([undefined]) })
+    assert.throws(() => { arrayOfBool([12345]) })
+    assert.throws(() => { arrayOfBool(['foo']) })
+    assert.throws(() => { arrayOfBool([{}]) })
+    assert.throws(() => { arrayOfBool([[]]) })
   })
 })
 
-test.group('number type', test => {
+test('number type', async (t) => {
   const arrayOfNumber = arrayOf(number)
 
-  test('should validate array of numbers', t => {
+  await t.test('should validate array of numbers', t => {
     const input = [12345, 67890, 123.45]
     const valueA: Array<number> = arrayOfNumber([])
     const valueB = arrayOfNumber(input)
-    t.is(valueA.length, 0)
-    t.is(valueB.length, 3)
-    t.deepEqual(valueB, input)
+    assert.equal(valueA.length, 0)
+    assert.equal(valueB.length, 3)
+    assert.deepEqual(valueB, input)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { arrayOfNumber(null) })
-    t.throws(() => { arrayOfNumber(undefined) })
-    t.throws(() => { arrayOfNumber(false) })
-    t.throws(() => { arrayOfNumber(12345) })
-    t.throws(() => { arrayOfNumber('foo') })
-    t.throws(() => { arrayOfNumber({}) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { arrayOfNumber(null) })
+    assert.throws(() => { arrayOfNumber(undefined) })
+    assert.throws(() => { arrayOfNumber(false) })
+    assert.throws(() => { arrayOfNumber(12345) })
+    assert.throws(() => { arrayOfNumber('foo') })
+    assert.throws(() => { arrayOfNumber({}) })
 
-    t.throws(() => { arrayOfNumber([null]) })
-    t.throws(() => { arrayOfNumber([undefined]) })
-    t.throws(() => { arrayOfNumber([false]) })
-    t.throws(() => { arrayOfNumber(['foo']) })
-    t.throws(() => { arrayOfNumber([{}]) })
-    t.throws(() => { arrayOfNumber([[]]) })
+    assert.throws(() => { arrayOfNumber([null]) })
+    assert.throws(() => { arrayOfNumber([undefined]) })
+    assert.throws(() => { arrayOfNumber([false]) })
+    assert.throws(() => { arrayOfNumber(['foo']) })
+    assert.throws(() => { arrayOfNumber([{}]) })
+    assert.throws(() => { arrayOfNumber([[]]) })
   })
 })
 
-test.group('string type', test => {
+test('string type', async (t) => {
   const arrayOfString = arrayOf(string)
 
-  test('should validate array of strings', t => {
+  await t.test('should validate array of strings', () => {
     const input = ['foo', 'bar']
     const valueA: Array<string> = arrayOfString([])
     const valueB = arrayOfString(input)
-    t.is(valueA.length, 0)
-    t.is(valueB.length, 2)
-    t.deepEqual(valueB, input)
+    assert.equal(valueA.length, 0)
+    assert.equal(valueB.length, 2)
+    assert.deepEqual(valueB, input)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { arrayOfString(null) })
-    t.throws(() => { arrayOfString(undefined) })
-    t.throws(() => { arrayOfString(false) })
-    t.throws(() => { arrayOfString(12345) })
-    t.throws(() => { arrayOfString('foo') })
-    t.throws(() => { arrayOfString({}) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { arrayOfString(null) })
+    assert.throws(() => { arrayOfString(undefined) })
+    assert.throws(() => { arrayOfString(false) })
+    assert.throws(() => { arrayOfString(12345) })
+    assert.throws(() => { arrayOfString('foo') })
+    assert.throws(() => { arrayOfString({}) })
 
-    t.throws(() => { arrayOfString([null]) })
-    t.throws(() => { arrayOfString([undefined]) })
-    t.throws(() => { arrayOfString([true]) })
-    t.throws(() => { arrayOfString([12345]) })
-    t.throws(() => { arrayOfString([{}]) })
-    t.throws(() => { arrayOfString([[]]) })
+    assert.throws(() => { arrayOfString([null]) })
+    assert.throws(() => { arrayOfString([undefined]) })
+    assert.throws(() => { arrayOfString([true]) })
+    assert.throws(() => { arrayOfString([12345]) })
+    assert.throws(() => { arrayOfString([{}]) })
+    assert.throws(() => { arrayOfString([[]]) })
   })
 })
 
-test.group('array type', test => {
+test('array type', async (t) => {
   const arrayOfarrayOfString = arrayOf(arrayOf(string))
 
-  test('should validate array of array of strings', t => {
+  await t.test('should validate array of array of strings', () => {
     const input = [['foo'], ['bar']]
     const valueA: Array<Array<string>> = arrayOfarrayOfString([])
     const valueB = arrayOfarrayOfString(input)
-    t.is(valueA.length, 0)
-    t.is(valueB.length, 2)
-    t.deepEqual(valueB, input)
+    assert.equal(valueA.length, 0)
+    assert.equal(valueB.length, 2)
+    assert.deepEqual(valueB, input)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { arrayOfarrayOfString(null) })
-    t.throws(() => { arrayOfarrayOfString(undefined) })
-    t.throws(() => { arrayOfarrayOfString(false) })
-    t.throws(() => { arrayOfarrayOfString(12345) })
-    t.throws(() => { arrayOfarrayOfString('foo') })
-    t.throws(() => { arrayOfarrayOfString({}) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { arrayOfarrayOfString(null) })
+    assert.throws(() => { arrayOfarrayOfString(undefined) })
+    assert.throws(() => { arrayOfarrayOfString(false) })
+    assert.throws(() => { arrayOfarrayOfString(12345) })
+    assert.throws(() => { arrayOfarrayOfString('foo') })
+    assert.throws(() => { arrayOfarrayOfString({}) })
 
-    t.throws(() => { arrayOfarrayOfString([null]) })
-    t.throws(() => { arrayOfarrayOfString([undefined]) })
-    t.throws(() => { arrayOfarrayOfString([true]) })
-    t.throws(() => { arrayOfarrayOfString([12345]) })
-    t.throws(() => { arrayOfarrayOfString([{}]) })
-    t.throws(() => { arrayOfarrayOfString([[12345]]) })
+    assert.throws(() => { arrayOfarrayOfString([null]) })
+    assert.throws(() => { arrayOfarrayOfString([undefined]) })
+    assert.throws(() => { arrayOfarrayOfString([true]) })
+    assert.throws(() => { arrayOfarrayOfString([12345]) })
+    assert.throws(() => { arrayOfarrayOfString([{}]) })
+    assert.throws(() => { arrayOfarrayOfString([[12345]]) })
   })
 })

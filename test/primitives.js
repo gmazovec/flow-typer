@@ -1,138 +1,140 @@
 // @flow
-import test from 'ava-spec'
+import assert from 'assert'
+// $FlowExpectedError
+import { test } from 'node:test'
 import * as typer from '../src/index.js'
 
 import type { $Literal } from '../src'
 
 const { nil, undef, boolean, number, string, literalOf } = typer
 
-test.group('nil type', test => {
-  test('should return an nil value', t => {
-    t.is((nil(null): null), null)
+test('nil type', async (t) => {
+  await t.test('should return an nil value', () => {
+    assert.equal((nil(null): null), null)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { nil(undefined) })
-    t.throws(() => { nil(true) })
-    t.throws(() => { nil(12345) })
-    t.throws(() => { nil('foo') })
-    t.throws(() => { nil({}) })
-    t.throws(() => { nil([]) })
-  })
-})
-
-test.group('void type', test => {
-  test('should return an undefined value', t => {
-    t.is((undef(undefined): void), undefined)
-  })
-
-  test('should throw an error', t => {
-    t.throws(() => { undef(null) })
-    t.throws(() => { undef(true) })
-    t.throws(() => { undef(12345) })
-    t.throws(() => { undef('foo') })
-    t.throws(() => { undef({}) })
-    t.throws(() => { undef([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { nil(undefined) })
+    assert.throws(() => { nil(true) })
+    assert.throws(() => { nil(12345) })
+    assert.throws(() => { nil('foo') })
+    assert.throws(() => { nil({}) })
+    assert.throws(() => { nil([]) })
   })
 })
 
-test.group('boolean type', test => {
-  test('should return a boolean value', t => {
-    t.is((boolean(true): boolean), true)
-    t.is(boolean(false), false)
+test('void type', async (t) => {
+  await t.test('should return an undefined value', () => {
+    assert.equal((undef(undefined): void), undefined)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { boolean(null) })
-    t.throws(() => { boolean(undefined) })
-    t.throws(() => { boolean(12345) })
-    t.throws(() => { boolean('foo') })
-    t.throws(() => { boolean({}) })
-    t.throws(() => { boolean([]) })
-  })
-})
-
-test.group('number type', test => {
-  test('should return a number value', t => {
-    t.is((number(12345): number), 12345)
-    t.is(number(123.45), 123.45)
-  })
-
-  test('should throw an error', t => {
-    t.throws(() => { number(null) })
-    t.throws(() => { number(undefined) })
-    t.throws(() => { number(true) })
-    t.throws(() => { number('foo') })
-    t.throws(() => { number({}) })
-    t.throws(() => { number([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { undef(null) })
+    assert.throws(() => { undef(true) })
+    assert.throws(() => { undef(12345) })
+    assert.throws(() => { undef('foo') })
+    assert.throws(() => { undef({}) })
+    assert.throws(() => { undef([]) })
   })
 })
 
-test.group('string type', test => {
-  test('should returna a string value', t => {
-    t.is((string('foo'): string), 'foo')
+test('boolean type', async (t) => {
+  await t.test('should return a boolean value', () => {
+    assert.equal((boolean(true): boolean), true)
+    assert.equal(boolean(false), false)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { string(null) })
-    t.throws(() => { string(undefined) })
-    t.throws(() => { string(false) })
-    t.throws(() => { string(12345) })
-    t.throws(() => { string({}) })
-    t.throws(() => { string([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { boolean(null) })
+    assert.throws(() => { boolean(undefined) })
+    assert.throws(() => { boolean(12345) })
+    assert.throws(() => { boolean('foo') })
+    assert.throws(() => { boolean({}) })
+    assert.throws(() => { boolean([]) })
   })
 })
 
-test.group('literal boolean type', test => {
+test('number type', async (t) => {
+  await t.test('should return a number value', () => {
+    assert.equal((number(12345): number), 12345)
+    assert.equal(number(123.45), 123.45)
+  })
+
+  await t.test('should throw an error', () => {
+    assert.throws(() => { number(null) })
+    assert.throws(() => { number(undefined) })
+    assert.throws(() => { number(true) })
+    assert.throws(() => { number('foo') })
+    assert.throws(() => { number({}) })
+    assert.throws(() => { number([]) })
+  })
+})
+
+test('string type', async (t) => {
+  await t.test('should returna a string value', () => {
+    assert.equal((string('foo'): string), 'foo')
+  })
+
+  await t.test('should throw an error', () => {
+    assert.throws(() => { string(null) })
+    assert.throws(() => { string(undefined) })
+    assert.throws(() => { string(false) })
+    assert.throws(() => { string(12345) })
+    assert.throws(() => { string({}) })
+    assert.throws(() => { string([]) })
+  })
+})
+
+test('literal boolean type', async (t) => {
   const bool$Literal = (literalOf(true): $Literal<true>)
 
-  test(`should return a 'true' literal`, t => {
-    t.is((bool$Literal(true): true), true)
+  await t.test(`should return a 'true' literal`, () => {
+    assert.equal((bool$Literal(true): true), true)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { bool$Literal(null) })
-    t.throws(() => { bool$Literal(undefined) })
-    t.throws(() => { bool$Literal(false) })
-    t.throws(() => { bool$Literal(12345) })
-    t.throws(() => { bool$Literal('foo') })
-    t.throws(() => { bool$Literal({}) })
-    t.throws(() => { bool$Literal([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { bool$Literal(null) })
+    assert.throws(() => { bool$Literal(undefined) })
+    assert.throws(() => { bool$Literal(false) })
+    assert.throws(() => { bool$Literal(12345) })
+    assert.throws(() => { bool$Literal('foo') })
+    assert.throws(() => { bool$Literal({}) })
+    assert.throws(() => { bool$Literal([]) })
   })
 })
 
-test.group('literal number type', test => {
+test('literal number type', async (t) => {
   const number$Literal = (literalOf(12345): $Literal<12345>)
 
-  test('should return a number literal', t => {
-    t.is((number$Literal(12345): 12345), 12345)
+  await t.test('should return a number literal', () => {
+    assert.equal((number$Literal(12345): 12345), 12345)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { number$Literal(null) })
-    t.throws(() => { number$Literal(undefined) })
-    t.throws(() => { number$Literal(false) })
-    t.throws(() => { number$Literal(123.45) })
-    t.throws(() => { number$Literal('foo') })
-    t.throws(() => { number$Literal({}) })
-    t.throws(() => { number$Literal([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { number$Literal(null) })
+    assert.throws(() => { number$Literal(undefined) })
+    assert.throws(() => { number$Literal(false) })
+    assert.throws(() => { number$Literal(123.45) })
+    assert.throws(() => { number$Literal('foo') })
+    assert.throws(() => { number$Literal({}) })
+    assert.throws(() => { number$Literal([]) })
   })
 })
 
-test.group('literal string type', test => {
+test('literal string type', async (t) => {
   const string$Literal = (literalOf('foo'): $Literal<'foo'>)
 
-  test('should return a string literal', t => {
-    t.is((string$Literal('foo'): "foo"), 'foo')
+  await t.test('should return a string literal', () => {
+    assert.equal((string$Literal('foo'): "foo"), 'foo')
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { string$Literal(null) })
-    t.throws(() => { string$Literal(undefined) })
-    t.throws(() => { string$Literal(false) })
-    t.throws(() => { string$Literal(12345) })
-    t.throws(() => { string$Literal('fooo') })
-    t.throws(() => { string$Literal({}) })
-    t.throws(() => { string$Literal([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { string$Literal(null) })
+    assert.throws(() => { string$Literal(undefined) })
+    assert.throws(() => { string$Literal(false) })
+    assert.throws(() => { string$Literal(12345) })
+    assert.throws(() => { string$Literal('fooo') })
+    assert.throws(() => { string$Literal({}) })
+    assert.throws(() => { string$Literal([]) })
   })
 })

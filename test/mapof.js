@@ -1,5 +1,7 @@
 // @flow
-import test from 'ava-spec'
+import assert from 'assert'
+// $FlowExpectedError
+import { test } from 'node:test'
 import * as typer from '../src/index.js'
 import { EMPTY_VALUE } from '../src/const.js'
 
@@ -9,33 +11,33 @@ const {
   string
 } = typer
 
-test.group('map type', test => {
+test('map type', async (t) => {
   const schema = mapOf(
     string,
     boolean
   )
 
-  test('should validate a map', t => {
+  await t.test('should validate a map', () => {
     const input = {
       featureA: true,
       featureB: false
     }
     const value: { [string]: boolean } = schema(input, 'FlagMap')
-    t.deepEqual(value, input)
+    assert.deepEqual(value, input)
   })
 
-  test('should return empty map', t => {
+  await t.test('should return empty map', () => {
     const value = schema(EMPTY_VALUE)
-    t.deepEqual(value, {});
+    assert.deepEqual(value, {});
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { schema(null) })
-    t.throws(() => { schema(undefined) })
-    t.throws(() => { schema(true) })
-    t.throws(() => { schema(12345) })
-    t.throws(() => { schema('foo') })
-    t.throws(() => { schema([]) })
-    t.throws(() => { schema({ featureA: 'true' }) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { schema(null) })
+    assert.throws(() => { schema(undefined) })
+    assert.throws(() => { schema(true) })
+    assert.throws(() => { schema(12345) })
+    assert.throws(() => { schema('foo') })
+    assert.throws(() => { schema([]) })
+    assert.throws(() => { schema({ featureA: 'true' }) })
   })
 })

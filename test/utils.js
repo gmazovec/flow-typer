@@ -1,5 +1,7 @@
 // @flow
-import test from 'ava-spec'
+import assert from 'assert'
+// $FlowExpectedError
+import { test } from 'node:test'
 import * as typer from '../src/index.js'
 
 import type { $Literal } from '../src'
@@ -19,14 +21,14 @@ const {
   getType,
 } = typer
 
-test.group('isType', test => {
+test('isType', async (t) => {
   const schema = objectOf({
     type: string,
     name: string,
     disabled: boolean
   })
 
-  test('should check for type', t => {
+  await t.test('should check for type', t => {
     const input = {
       type: 'text',
       name: 'username',
@@ -34,35 +36,35 @@ test.group('isType', test => {
     }
     const hasTypeOfSchema = isType(schema)
 
-    t.true(hasTypeOfSchema(input))
-    t.false(hasTypeOfSchema(undefined))
-    t.false(hasTypeOfSchema(null))
-    t.false(hasTypeOfSchema(false))
-    t.false(hasTypeOfSchema(12345))
-    t.false(hasTypeOfSchema('foo'))
-    t.false(hasTypeOfSchema({}))
-    t.false(hasTypeOfSchema([]))
-    t.false(hasTypeOfSchema([], 'personT'))
+    assert.ok(hasTypeOfSchema(input))
+    assert.ok(!hasTypeOfSchema(undefined))
+    assert.ok(!hasTypeOfSchema(null))
+    assert.ok(!hasTypeOfSchema(false))
+    assert.ok(!hasTypeOfSchema(12345))
+    assert.ok(!hasTypeOfSchema('foo'))
+    assert.ok(!hasTypeOfSchema({}))
+    assert.ok(!hasTypeOfSchema([]))
+    assert.ok(!hasTypeOfSchema([], 'personT'))
   })
 })
 
-test.group("getType", test => {
-  test('should return type', t => {
-    t.deepEqual(getType(number), "number");
-    t.deepEqual(getType(string), "string");
-    t.deepEqual(getType(boolean), "boolean");
-    t.is(getType(mixed), "mixed");
-    t.deepEqual(getType(maybe(number)), "?(number)");
-    t.deepEqual(getType(tupleOf(number, number)), "[number, number]");
-    t.deepEqual(getType(arrayOf(string, "Id")), "Array<string>");
-    t.deepEqual(getType(objectOf({ name: string, age: number, active: optional(boolean) }, "personT")), "{|\n name: string,\n  age: number,\n  active?: boolean \n|}");
-    t.deepEqual(getType(mapOf(string, boolean)), "{ [_:string]: boolean }");
+test("getType", async (t) => {
+  await t.test('should return type', t => {
+    assert.deepEqual(getType(number), "number");
+    assert.deepEqual(getType(string), "string");
+    assert.deepEqual(getType(boolean), "boolean");
+    assert.equal(getType(mixed), "mixed");
+    assert.deepEqual(getType(maybe(number)), "?(number)");
+    assert.deepEqual(getType(tupleOf(number, number)), "[number, number]");
+    assert.deepEqual(getType(arrayOf(string, "Id")), "Array<string>");
+    assert.deepEqual(getType(objectOf({ name: string, age: number, active: optional(boolean) }, "personT")), "{|\n name: string,\n  age: number,\n  active?: boolean \n|}");
+    assert.deepEqual(getType(mapOf(string, boolean)), "{ [_:string]: boolean }");
   });
 
-  test('should return type for user-defined validator', t => {
+  await t.test('should return type for user-defined validator', t => {
     function validator () {}
     validator.type = () => "personT";
-    t.deepEqual(getType(validator), "personT");
+    assert.deepEqual(getType(validator), "personT");
   });
 })
 

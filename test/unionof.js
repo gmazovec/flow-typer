@@ -1,5 +1,7 @@
 // @flow
-import test from 'ava-spec'
+import assert from 'assert'
+// $FlowExpectedError
+import { test } from 'node:test'
 import * as typer from '../src/index.js'
 
 import type { $Literal } from '../src'
@@ -17,29 +19,29 @@ const {
   literalOf
 } = typer
 
-test.group('primitive types - cardinality 2', test => {
+test('primitive types - cardinality 2', async (t) => {
   const schema = unionOf(
     (literalOf('foo'): $Literal<'foo'>),
     (literalOf(12345): $Literal<12345>)
   )
 
-  test('should validate an union', t => {
-    t.is(schema('foo'), 'foo')
-    t.is(schema(12345), 12345)
+  await t.test('should validate an union', () => {
+    assert.equal(schema('foo'), 'foo')
+    assert.equal(schema(12345), 12345)
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { schema(null) }),
-    t.throws(() => { schema(undefined) }),
-    t.throws(() => { schema(true) }),
-    t.throws(() => { schema(1234) }),
-    t.throws(() => { schema('bar') }),
-    t.throws(() => { schema({}) }),
-    t.throws(() => { schema([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { schema(null) }),
+    assert.throws(() => { schema(undefined) }),
+    assert.throws(() => { schema(true) }),
+    assert.throws(() => { schema(1234) }),
+    assert.throws(() => { schema('bar') }),
+    assert.throws(() => { schema({}) }),
+    assert.throws(() => { schema([]) })
   })
 })
 
-test.group('primitive types - cardinality 4', test => {
+test('primitive types - cardinality 4', async (t) => {
   const schema = unionOf(
     (literalOf(false): $Literal<false>),
     (literalOf(0): $Literal<0>),
@@ -47,24 +49,24 @@ test.group('primitive types - cardinality 4', test => {
     (literalOf(''): $Literal<''>),
   )
 
-  test('should validate an union', t => {
-    t.is(schema(false), false)
-    t.is(schema(0), 0)
-    t.is(schema(12345), 12345)
-    t.is(schema(''), '')
+  await t.test('should validate an union', () => {
+    assert.equal(schema(false), false)
+    assert.equal(schema(0), 0)
+    assert.equal(schema(12345), 12345)
+    assert.equal(schema(''), '')
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { schema(undefined) }),
-    t.throws(() => { schema(true) }),
-    t.throws(() => { schema(1234) }),
-    t.throws(() => { schema('bar') }),
-    t.throws(() => { schema({}) }),
-    t.throws(() => { schema([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { schema(undefined) }),
+    assert.throws(() => { schema(true) }),
+    assert.throws(() => { schema(1234) }),
+    assert.throws(() => { schema('bar') }),
+    assert.throws(() => { schema({}) }),
+    assert.throws(() => { schema([]) })
   })
 })
 
-test.group('primitive types - cardinality 5', test => {
+test('primitive types - cardinality 5', async (t) => {
   const schema = unionOf(
     nil,
     undef,
@@ -73,24 +75,24 @@ test.group('primitive types - cardinality 5', test => {
     string
   )
 
-  test('should validate an union', t => {
-    t.is((schema(false): null | void | boolean | number | string), false)
-    t.is(schema(true), true)
-    t.is(schema(0), 0)
-    t.is(schema(9), 9)
-    t.is(schema(null), null)
-    t.is(schema(undefined), undefined)
-    t.is(schema(''), '')
-    t.is(schema('foo'), 'foo')
+  await t.test('should validate an union', () => {
+    assert.equal((schema(false): null | void | boolean | number | string), false)
+    assert.equal(schema(true), true)
+    assert.equal(schema(0), 0)
+    assert.equal(schema(9), 9)
+    assert.equal(schema(null), null)
+    assert.equal(schema(undefined), undefined)
+    assert.equal(schema(''), '')
+    assert.equal(schema('foo'), 'foo')
   })
 
-  test('should throw an error', t => {
-    t.throws(() => { schema({}) }),
-    t.throws(() => { schema([]) })
+  await t.test('should throw an error', () => {
+    assert.throws(() => { schema({}) }),
+    assert.throws(() => { schema([]) })
   })
 })
 
-test.group('composable types', test => {
+test('composable types', async (t) => {
   const schema = unionOf(
     objectOf({
       type: unionOf(
@@ -104,34 +106,34 @@ test.group('composable types', test => {
     tupleOf(string, string, number)
   )
 
-  test('should validate an union #1', t => {
+  await t.test('should validate an union #1', () => {
     const input = { type: 'text', content: 'Hello', enabled: true }
     const value: { type: "text" | "image", content: string, enabled: boolean } | Array<string> | [string, string, number] =
       schema(input)
-    t.deepEqual(value, input)
+    assert.deepEqual(value, input)
   })
 
-  test('should validate an union #2', t => {
+  await t.test('should validate an union #2', () => {
     const input = ['this', 'is', 'an', 'array', 'of', 'strings']
     const value = schema(input)
-    t.deepEqual(value, input)
+    assert.deepEqual(value, input)
   })
 
-  test('should validate an union #3', t => {
+  await t.test('should validate an union #3', () => {
     const input = ['Bob', 'bob@example.net', 43]
     const value = schema(input)
-    t.deepEqual(value, input)
+    assert.deepEqual(value, input)
   })
 
-  test('shold throw an error', t => {
-    t.throws(() => { schema(null) })
-    t.throws(() => { schema(undefined) })
-    t.throws(() => { schema(true) })
-    t.throws(() => { schema(12345) })
-    t.throws(() => { schema('foo') })
-    t.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: true }) })
-    t.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: 1 }) })
-    t.throws(() => { schema(['this', 'is', 1, 'array', 'of', 'strings']) })
-    t.throws(() => { schema(['bob', 'bob@example.net', 36, true]) })
+  await t.test('shold throw an error', () => {
+    assert.throws(() => { schema(null) })
+    assert.throws(() => { schema(undefined) })
+    assert.throws(() => { schema(true) })
+    assert.throws(() => { schema(12345) })
+    assert.throws(() => { schema('foo') })
+    assert.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: true }) })
+    assert.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: 1 }) })
+    assert.throws(() => { schema(['this', 'is', 1, 'array', 'of', 'strings']) })
+    assert.throws(() => { schema(['bob', 'bob@example.net', 36, true]) })
   })
 })

@@ -1,5 +1,7 @@
 // @flow
-import test from 'ava-spec'
+import assert from 'assert'
+// $FlowExpectedError
+import { test } from 'node:test'
 import * as typer from '../src/index.js'
 
 const {
@@ -28,7 +30,7 @@ type HtmlDOMElementT = {|
   body: DOMElementT[]
 |}
 
-test('should infer object type', t => {
+test('should infer object type', () => {
   const DOMElement = objectOf({
     type: string,
     name: string,
@@ -43,65 +45,65 @@ test('should infer object type', t => {
     body: arrayOf(DOMElement)
   })
   const htmlDomElementT: HtmlDOMElementT = typeOf(schema)
-  t.true(Array.isArray(htmlDomElementT.head))
+  assert.ok(Array.isArray(htmlDomElementT.head))
 })
 
 type TypeT = [string]
 
-test('shoud infer tuple type (cardinality 1)', t => {
+test('shoud infer tuple type (cardinality 1)', () => {
   const type = tupleOf(string)
   const typeT: TypeT = typeOf(type)
-  t.true(Array.isArray(typeT))
-  t.is(typeT.length, 1)
-  t.true(isString(typeT[0]))
+  assert.ok(Array.isArray(typeT))
+  assert.equal(typeT.length, 1)
+  assert.ok(isString(typeT[0]))
 })
 
 type CoordinateT = [number, number]
 
-test('should infer tuple type (cardinality 2)', t => {
+test('should infer tuple type (cardinality 2)', () => {
   const coordinate = tupleOf(number, number)
   const coordinateT: CoordinateT = typeOf(coordinate)
-  t.true(Array.isArray(coordinateT))
-  t.is(coordinateT.length, 2)
-  t.true(isNumber(coordinateT[0]))
-  t.true(isNumber(coordinateT[1]))
+  assert.ok(Array.isArray(coordinateT))
+  assert.equal(coordinateT.length, 2)
+  assert.ok(isNumber(coordinateT[0]))
+  assert.ok(isNumber(coordinateT[1]))
 })
 
 type LocationT = [number, number, string]
 
-test('should infer tuple type (cardinality 3)', t => {
+test('should infer tuple type (cardinality 3)', () => {
   const location = tupleOf(number, number, string)
   const locationT: LocationT = typeOf(location)
-  t.true(Array.isArray(locationT))
-  t.is(locationT.length, 3)
-  t.true(isNumber(locationT[0]))
-  t.true(isNumber(locationT[1]))
-  t.true(isString(locationT[2]))
+  assert.ok(Array.isArray(locationT))
+  assert.equal(locationT.length, 3)
+  assert.ok(isNumber(locationT[0]))
+  assert.ok(isNumber(locationT[1]))
+  assert.ok(isString(locationT[2]))
 })
 
 type VectorT = [number, number, number, number]
 
-test('should infer tuple type (cardinality 4)', t => {
+test('should infer tuple type (cardinality 4)', () => {
   const vector = tupleOf(number, number, number, number)
   const vectorT: VectorT = typeOf(vector)
-  t.true(Array.isArray(vectorT))
-  t.is(vectorT.length, 4)
-  t.true(isNumber(vectorT[0]))
-  t.true(isNumber(vectorT[1]))
-  t.true(isNumber(vectorT[2]))
-  t.true(isNumber(vectorT[3]))
+  assert.ok(Array.isArray(vectorT))
+  assert.equal(vectorT.length, 4)
+  assert.ok(isNumber(vectorT[0]))
+  assert.ok(isNumber(vectorT[1]))
+  assert.ok(isNumber(vectorT[2]))
+  assert.ok(isNumber(vectorT[3]))
 })
 
 type ListOfBoolT = [boolean, boolean, boolean, boolean, boolean]
 
-test('should infer tuple type (cardinality 5)', t => {
+test('should infer tuple type (cardinality 5)', () => {
   const listOfBool = tupleOf(boolean, boolean, boolean, boolean, boolean)
   const listOfBoolT: ListOfBoolT = typeOf(listOfBool)
-  t.true(Array.isArray(listOfBoolT))
-  t.is(listOfBoolT.length, 5)
-  t.true(isBoolean(listOfBoolT[0]))
-  t.true(isBoolean(listOfBoolT[1]))
-  t.true(isBoolean(listOfBoolT[2]))
-  t.true(isBoolean(listOfBoolT[3]))
-  t.true(isBoolean(listOfBoolT[4]))
+  assert.ok(Array.isArray(listOfBoolT))
+  assert.equal(listOfBoolT.length, 5)
+  assert.ok(isBoolean(listOfBoolT[0]))
+  assert.ok(isBoolean(listOfBoolT[1]))
+  assert.ok(isBoolean(listOfBoolT[2]))
+  assert.ok(isBoolean(listOfBoolT[3]))
+  assert.ok(isBoolean(listOfBoolT[4]))
 })
