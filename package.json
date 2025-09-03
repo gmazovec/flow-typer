@@ -27,7 +27,7 @@
     "test": "npm run dist && npm run test:remove-types && npm run test:unit",
     "test:type": "flow --show-all-errors",
     "test:unit": "node --test dist-test",
-    "test:coverage": "nyc --reporter=lcov --reporter=html --reporter=text npm run test:unit",
+    "test:coverage": "node --experimental-test-coverage --test-coverage-exclude=dist --test dist-test",
     "test:all": "npm run test && npm run test:type && npm run test:coverage",
     "test:remove-types": "flow-remove-types --out-dir dist-test test && find dist-test -type f -name '*.js' -exec sed -i '' 's/..\\/src/..\\/dist/' {} \\;",
     "prepublishOnly": "npm run test",
