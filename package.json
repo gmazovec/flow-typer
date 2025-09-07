@@ -25,7 +25,7 @@
     "dist:flow": "cp -Rv src dist && find dist -type f -name '*.js' -exec mv -v {} {}.flow \\;",
     "dist:remove-types": "flow-remove-types --out-dir dist src",
     "test": "npm run dist && npm run test:remove-types && npm run test:unit",
-    "test:type": "flow --show-all-errors",
+    "test:type": "flow --show-all-errors --include-warnings",
     "test:unit": "node --test dist-test",
     "test:coverage": "node --experimental-test-coverage --test-coverage-exclude=dist --test dist-test",
     "test:all": "npm run dist && npm run test:remove-types && npm run test:type && npm run test:coverage",
