@@ -17,7 +17,7 @@ export class TypeValidatorError extends Error {
     typeName: string = '',
     typeScope: ?string = '',
   ) {
-    const errMessage = message ||
+    const errMessage = message !== null && message !== undefined ? message :
       `invalid "${valueType}" value type; ${typeName || expectedType} type expected`
     super(errMessage)
     this.expectedType = expectedType
