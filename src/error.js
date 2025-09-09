@@ -59,8 +59,8 @@ export const validatorError = <T>(
 ): TypeValidatorError => {
     return new TypeValidatorError(
       message,
-      expectedType || getType(typeFn),
-      valueType || typeof value,
+      expectedType !== null && expectedType !== undefined ? expectedType : getType(typeFn),
+      valueType !== null && valueType !== undefined ? valueType : typeof value,
       typeof value === 'string' ? JSON.stringify(value) : '',
       typeFn.name,
       scope
