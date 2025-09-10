@@ -1,6 +1,6 @@
 // @flow
 import assert from 'assert'
-// $FlowExpectedError
+// $FlowExpectedError[cannot-resolve-module]
 import { test } from 'node:test'
 import * as typer from '../src/index.js'
 import { EMPTY_VALUE } from '../src/const.js'

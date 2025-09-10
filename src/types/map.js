@@ -20,7 +20,7 @@ export const mapOf = <K, V>
         Object.assign(
           acc,
           {
-            // $FlowFixMe
+            // $FlowFixMe[invalid-computed-prop]
             [keyTypeFn(key, `${_scope}[_]`)]
               :typeFn(o[key], `${_scope}.${key}`)
           }
