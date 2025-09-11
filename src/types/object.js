@@ -8,7 +8,7 @@ import { unionOf } from './union.js'
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
 
-function _object (value: mixed, _scope: string = ''): Object {
+function _object (value: mixed, _scope: string = ''): {...} {
   if (value === EMPTY_VALUE) return {}
   if (isObject(value) && !Array.isArray(value)) {
     return Object.assign({}, value)
@@ -48,8 +48,8 @@ export const objectOf = function t_object <T: Object> (typeObj: T, label?: strin
     }
 
     const reducer = value === EMPTY_VALUE
-      ? (acc: Object, key: string) => Object.assign(acc, { [key]: typeObj[key](value) })
-      : (acc: Object, key: string) => {
+      ? (acc: {...}, key: string) => Object.assign(acc, { [key]: typeObj[key](value) })
+      : (acc: {...}, key: string) => {
         const typeFn = typeObj[key]
         if (typeFn.name === 'optional' && !o.hasOwnProperty(key)) {
           return Object.assign(acc, {})

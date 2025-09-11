@@ -16,7 +16,7 @@ export const mapOf = <K, V>
     function mapOf (value: mixed, _scope: string = 'Map') {
       if (value === EMPTY_VALUE) return {}
       const o = object(value, _scope)
-      const reducer = (acc: Object, key: string) =>
+      const reducer = (acc: $Exact<{...}>, key: string) =>
         Object.assign(
           acc,
           {
