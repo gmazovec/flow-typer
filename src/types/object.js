@@ -24,7 +24,7 @@ export const objectOf = function t_object <T: Object> (typeObj: T, label?: strin
     const o = object(value, _scope)
     const typeAttrs = Object.keys(typeObj)
     const unknownAttr = Object.keys(o).find(attr => !typeAttrs.includes(attr))
-    if (unknownAttr) {
+    if (typeof unknownAttr === "string") {
       throw validatorError(
         object,
         value,
@@ -36,7 +36,7 @@ export const objectOf = function t_object <T: Object> (typeObj: T, label?: strin
       const propertyTypeFn = typeObj[property]
       return (propertyTypeFn.name === 'maybe' && !o.hasOwnProperty(property))
     })
-    if (undefAttr) {
+    if (typeof undefAttr === "string") {
       throw validatorError(
         object,
         o[undefAttr],
