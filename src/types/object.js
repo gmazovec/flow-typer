@@ -19,8 +19,8 @@ _object.type = () => 'Object';
 
 export const object = (_object: TypeValidator<ObjectRecord<mixed>>);
 
-export const objectOf = function t_object <T: Object> (typeObj: T, label?: string =  'Object') /*: TypeValidator<{ [key in keyof T]: $Call<T[key], mixed> }> */ {
-  function object_ (value: mixed, _scope: string = label) /*: { [key in keyof T]: $Call<T[key], mixed> } */ {
+export const objectOf = function t_object <T: Object> (typeObj: T, label?: string =  'Object') /*: TypeValidator<{ [key in keyof T]: ReturnType<T[key]> }> */ {
+  function object_ (value: mixed, _scope: string = label) /*: { [key in keyof T]: ReturnType<T[key]> } */ {
     const o = object(value, _scope)
     const typeAttrs = Object.keys(typeObj)
     const unknownAttr = Object.keys(o).find(attr => !typeAttrs.includes(attr))
