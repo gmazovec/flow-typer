@@ -17,7 +17,7 @@ export class TypeValidatorError extends Error {
     typeName: string = '',
     typeScope: ?string = '',
   ) {
-    const errMessage = message !== null && message !== undefined ? message :
+    const errMessage = message !== null && message !== undefined && message !== '' ? message :
       `invalid "${valueType}" value type; ${typeName || expectedType} type expected`
     super(errMessage)
     this.expectedType = expectedType
@@ -59,8 +59,8 @@ export const validatorError = <T>(
 ): TypeValidatorError => {
     return new TypeValidatorError(
       message,
-      expectedType !== null && expectedType !== undefined ? expectedType : getType(typeFn),
-      valueType !== null && valueType !== undefined ? valueType : typeof value,
+      expectedType !== null && expectedType !== undefined && expectedType !== '' ? expectedType : getType(typeFn),
+      valueType !== null && valueType !== undefined && valueType !== '' ? valueType : typeof value,
       typeof value === 'string' ? JSON.stringify(value) : '',
       typeFn.name,
       scope
