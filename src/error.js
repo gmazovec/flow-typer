@@ -10,22 +10,20 @@ export class TypeValidatorError extends Error {
   sourceFile: string
 
   constructor (
-    message: ?string,
+    message: string,
     expectedType: string,
     valueType: string,
     value: string,
     typeName: string = '',
     typeScope: ?string = '',
   ) {
-    const errMessage = message !== null && message !== undefined && message !== '' ? message :
-      `invalid "${valueType}" value type; ${typeName || expectedType} type expected`
-    super(errMessage)
+    super(message)
     this.expectedType = expectedType
     this.valueType = valueType
     this.value = value
     this.typeScope = typeScope || ''
     this.sourceFile = this.getSourceFile()
-    this.message = `${errMessage}\n${this.getErrorInfo()}`
+    this.message = `${message}\n${this.getErrorInfo()}`
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, TypeValidatorError)
     }
@@ -57,10 +55,13 @@ export const validatorError = <T>(
   expectedType?: string,
   valueType?: string
 ): TypeValidatorError => {
+    valueType = valueType !== null && valueType !== undefined && valueType !== '' ? valueType : typeof value;
+    expectedType = expectedType !== null && expectedType !== undefined && expectedType !== '' ? expectedType : getType(typeFn);
+    message = message !== null && message !== undefined && message !== '' ? message : `invalid "${valueType}" value type; ${typeFn.name || expectedType} type expected`;
     return new TypeValidatorError(
       message,
-      expectedType !== null && expectedType !== undefined && expectedType !== '' ? expectedType : getType(typeFn),
-      valueType !== null && valueType !== undefined && valueType !== '' ? valueType : typeof value,
+      expectedType,
+      valueType,
       typeof value === 'string' ? JSON.stringify(value) : '',
       typeFn.name,
       scope
