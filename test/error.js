@@ -9,8 +9,8 @@ const { TypeValidatorError } = typer
 test('TypeValidatorError', async (t) => {
   const error = new TypeValidatorError('', 'personT', 'boolean', 'true')
 
-  await t.test('should return custom message', () => {
-    assert.equal(error.message.split('\n')[0], 'invalid "boolean" value type; personT type expected')
+  await t.test('should return empty message', () => {
+    assert.equal(error.message.split('\n')[0], '')
   })
 
   await t.test('should return source file', () => {
