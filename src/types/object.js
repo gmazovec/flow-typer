@@ -47,17 +47,26 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
       )
     }
 
-    const reducer = value === EMPTY_VALUE
-      ? (acc: {...}, key: string) => Object.assign(acc, { [key]: typeObj[key](value) })
-      : (acc: {...}, key: string) => {
-        const typeFn = typeObj[key]
-        if (typeFn.name === 'optional' && !o.hasOwnProperty(key)) {
-          return Object.assign(acc, {})
-        } else {
-          return Object.assign(acc, { [key]: typeFn(o[key], `${_scope}.${key}`) })
+    const obj = {...typeObj};
+
+    if (value === EMPTY_VALUE) {
+      for (const key of typeAttrs) {
+        if (typeof typeObj[key] === "function") {
+          obj[key] = typeObj[key](value)
         }
       }
-    return typeAttrs.reduce(reducer, {})
+    } else {
+      for (const key of typeAttrs) {
+        const typeFn = typeObj[key]
+        if (typeFn.name === 'optional' && !o.hasOwnProperty(key)) {
+          delete obj[key]
+        } else {
+          obj[key] = typeFn(o[key], `${_scope}.${key}`)
+        }
+      }
+    }
+
+    return obj;
   }
   object_.type = () => {
     const props = Object.keys(typeObj).map(
