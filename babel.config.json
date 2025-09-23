@@ -1,6 +1,5 @@
 {
   "presets": [
     "@babel/preset-env",
-    "@ava/stage-4",
   ]
 }
