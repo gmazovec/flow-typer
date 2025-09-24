@@ -34,9 +34,6 @@
     "clean": "rm -rf dist dist-test coverage"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.9",
-    "@babel/preset-env": "^7.24.8",
-    "@babel/register": "^7.24.6",
     "flow-bin": "^0.242.1",
     "flow-remove-types": "^2.275.0",
     "nyc": "^17.0.0"
