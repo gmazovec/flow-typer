@@ -35,8 +35,7 @@
   },
   "devDependencies": {
     "flow-bin": "^0.242.1",
-    "flow-remove-types": "^2.275.0",
-    "nyc": "^17.0.0"
+    "flow-remove-types": "^2.275.0"
   },
   "peerDependencies": {
     "flow-bin": "^0.242.1"
