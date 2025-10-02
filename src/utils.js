@@ -1,7 +1,8 @@
 // @flow
 import { EMPTY_VALUE } from './const.js'
+import { validatorError } from './error.js'
 
-import type { LiteralValue, TypeValidator, TypeChecker } from './'
+import type { LiteralValue, TypeValidator, TypeChecker, TypeCallbackValidator } from './'
 
 export const isType =
   <T, F: TypeValidator<T>>(typeFn: F): TypeChecker<boolean> =>
@@ -27,3 +28,16 @@ export const getType = (
   }
   : <T>(TypeValidator<T>, ?{ noVoid: boolean }) => string
 )
+
+export const type =
+  <V, T: (mixed) => V> (typeFn: T, name: string = ''): TypeCallbackValidator<T> => {
+    function type (value: mixed, _scope: string = '') {
+        try {
+          return typeFn(value)
+        } catch (err) {
+          throw validatorError(type, value, _scope)
+        }
+    }
+    type.type = () => name
+    return type
+}
