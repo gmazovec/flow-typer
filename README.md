@@ -217,6 +217,15 @@ getType(schema)
 // => {| dependencies: Array<{| name: string, version: number, exact: boolean |}> |}
 ```
 
+- `typer.typeOf(schema): T`
+- `typer.type(validator): schema`
+
+```js
+const date = type((value) => {
+  if (value instanceof Date) return value
+  throw new Error
+})
+````
 
 ## TODO
 
