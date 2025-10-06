@@ -31,6 +31,7 @@ export const getType = (
 
 export const type =
   <V, T: (mixed) => V> (typeFn: T, name: string = ''): TypeCallbackValidator<T> => {
+    // $FlowExpectedError[recursive-definition]
     function type (value: mixed, _scope: string = '') {
         try {
           return typeFn(value)
