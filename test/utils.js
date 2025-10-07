@@ -19,6 +19,7 @@ const {
   optional,
   isType,
   getType,
+  type,
 } = typer
 
 test('isType', async (t) => {
@@ -68,3 +69,17 @@ test("getType", async (t) => {
   });
 })
 
+test("type", async (t) => {
+  class Time {}
+
+  await t.test('should return validator', t => {
+    const validator = type((v: mixed) => {
+      if (v instanceof Time) return v;
+       throw new TypeError();
+    })
+    const v = new Time();
+
+    assert.equal(validator(v), v)
+    assert.throws(() => validator(0))
+  })
+})
