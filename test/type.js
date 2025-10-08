@@ -1,6 +1,6 @@
 // @flow
 
-const { objectOf, string, number, maybe, boolean, unionOf, arrayOf, tupleOf, literalOf } = require('../src/index.js');
+const { objectOf, string, number, maybe, boolean, unionOf, arrayOf, tupleOf, literalOf, type } = require('../src/index.js');
 
 /*:: import type { $Literal } from '../src/index.js'; */
 
@@ -37,5 +37,24 @@ const v = personSchema(JSON.parse(JSON.stringify(value)));
 	tags: Array<string>,
 	location: [number, number]
 });
+
+*/
+
+class Time {}
+
+const timeType = type((v /*: mixed */) => {
+	if (v instanceof Time) {
+		return v;
+	}
+	throw new TypeError();
+});
+
+const v2 = timeType(eval('new Time();'));
+
+/*::
+
+// $FlowExpectedError[incompatible-cast]
+(v2: Date);
+(v2: Time);
 
 */
