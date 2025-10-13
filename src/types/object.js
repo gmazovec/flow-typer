@@ -74,7 +74,7 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
         ? `${key}?: ${getType(typeObj[key], { noVoid: true })}`
         : `${key}: ${getType(typeObj[key])}`
     )
-    return `{|\n ${props.join(',\n  ')} \n|}`
+    return `{\n ${props.join(',\n  ')} \n}`
   }
   return object_
 }
