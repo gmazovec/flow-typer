@@ -171,7 +171,7 @@ const schema = objectOf({
   username: string,
   nickname: optional(string)
 })
-// => type T = {| username: string, nickname: (string | void) |}
+// => type T = { username: string, nickname: (string | void) }
 ```
 
 - `typer.arrayOf(schema, label)`
@@ -214,7 +214,7 @@ const schema = objectOf({
 })
 
 getType(schema)
-// => {| dependencies: Array<{| name: string, version: number, exact: boolean |}> |}
+// => { dependencies: Array<{ name: string, version: number, exact: boolean }> }
 ```
 
 - `typer.typeOf(schema): T`
