@@ -4,4 +4,3 @@ all=warn
 <PROJECT_ROOT>/node_modules
 <PROJECT_ROOT>/dist
 <PROJECT_ROOT>/.flowconfig
-<PROJECT_ROOT>/.*.png

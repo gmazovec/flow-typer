@@ -11,7 +11,17 @@ satisfy _Flow_'s refinement.
 _flow-typer_ is solving these problems by writing maintainable type schemas in
 _JavaScript_ with _Flow_ interoperability.
 
-![Flow Typer](./flow-typer.png)
+
+```js
+const personSchema = objectOf({
+  name: string,
+  age: maybe(number),
+  active: boolean,
+  gender: unionOf(male, female),
+  tags: arrayOf(string),
+  location: tupleOf(number, number)
+})
+```
 
 ### Features
 
