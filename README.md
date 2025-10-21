@@ -93,7 +93,7 @@ const personSchema = objectOf({
 
 ```js
 // define Flow type from JS type schema
-type PersonT = $Call<typeof personSchema>
+type PersonT = ReturnType<typeof personSchema>
 ```
 
 ```js
