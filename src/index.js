@@ -25,6 +25,13 @@ export type TypeCallbackValidator<T> = { (mixed, _?:string): ReturnType<T>, type
 export type TypeValidatorRecord<T> = ObjectRecord<TypeValidator<T>>
 export type $Literal<T: LiteralValue> = TypeValidator<T>
 
+export type NullValidator = TypeValidator<null>
+export type VoidValidator = TypeValidator<void>
+export type BooleanValidator = TypeValidator<boolean>
+export type NumberValidator = TypeValidator<number>
+export type StringValidator = TypeValidator<string>
+export type MixedValidator = TypeValidator<mixed>
+
 export type TypeValidatorsOf2<T, U> = [
   TypeValidator<T>,
   TypeValidator<U>
