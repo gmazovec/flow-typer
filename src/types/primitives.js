@@ -10,7 +10,7 @@ import {
 } from '../is.js'
 import { EMPTY_VALUE } from '../const.js'
 
-import type { TypeValidator } from '..'
+import type { NullValidator, VoidValidator, BooleanValidator, NumberValidator, StringValidator } from '..'
 
 function _nil (value: mixed): null {
   if (value === EMPTY_VALUE || isNil(value)) return null
@@ -18,7 +18,7 @@ function _nil (value: mixed): null {
 }
 _nil.type = () => 'null';
 
-export const nil = (_nil: TypeValidator<null>);
+export const nil = (_nil: NullValidator);
 
 function _undef (value: mixed, _scope: string = ''): void {
   if (value === EMPTY_VALUE || isUndef(value)) return undefined
@@ -26,7 +26,7 @@ function _undef (value: mixed, _scope: string = ''): void {
 }
 _undef.type = () => 'void'
 
-export const undef = (_undef: TypeValidator<void>)
+export const undef = (_undef: VoidValidator);
 
 function _boolean (value: mixed, _scope: string = ''): boolean {
   if (value === EMPTY_VALUE) return false
@@ -35,7 +35,7 @@ function _boolean (value: mixed, _scope: string = ''): boolean {
 }
 _boolean.type = () => 'boolean';
 
-export const boolean = (_boolean: TypeValidator<boolean>);
+export const boolean = (_boolean: BooleanValidator);
 
 function _number (value: mixed, _scope: string = ''): number {
   if (value === EMPTY_VALUE) return 0
@@ -44,7 +44,7 @@ function _number (value: mixed, _scope: string = ''): number {
 }
 _number.type = () => 'number';
 
-export const number = (_number: TypeValidator<number>);
+export const number = (_number: NumberValidator);
 
 function _string (value: mixed, _scope: string = ''): string {
   if (value === EMPTY_VALUE) return ''
@@ -53,4 +53,4 @@ function _string (value: mixed, _scope: string = ''): string {
 }
 _string.type = () => 'string';
 
-export const string = (_string: TypeValidator<string>);
+export const string = (_string: StringValidator);
