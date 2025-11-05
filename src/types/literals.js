@@ -1,6 +1,6 @@
 // @flow
 import { validatorError } from '../error.js'
-import { isBoolean, isNumber, isString } from '../is.js'
+import { isBoolean } from '../is.js'
 import { EMPTY_VALUE } from '../const.js'
 
 import type { LiteralValue, TypeValidator } from '..'
