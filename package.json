@@ -28,7 +28,6 @@
     "test:type": "flow --show-all-errors --include-warnings",
     "test:unit": "node --test dist-test",
     "test:coverage": "node --experimental-test-coverage --test-coverage-exclude=dist --test dist-test",
-    "test:type-coverage": "find src -type f -name '*.js' -print -exec npm exec -- flow coverage {} \\;",
     "test:all": "npm run dist && npm run test:remove-types && npm run test:type && npm run test:coverage && npm run test:type-coverage",
     "test:remove-types": "flow-remove-types --out-dir dist-test test && find dist-test -type f -name '*.js' -exec sed -i '' 's/..\\/src/..\\/dist/' {} \\;",
     "prepublishOnly": "npm run test",
