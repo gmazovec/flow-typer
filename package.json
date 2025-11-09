@@ -29,7 +29,7 @@
     "test:unit": "node --test dist-test",
     "test:remove-types": "flow-remove-types --out-dir dist-test test && find dist-test -type f -name '*.js' -exec sed -i '' 's/..\\/src/..\\/dist/' {} \\;",
     "prepublishOnly": "npm run test",
-    "clean": "rm -rf dist dist-test coverage"
+    "clean": "rm -rf dist dist-test"
   },
   "devDependencies": {
     "flow-bin": "^0.242.1",
