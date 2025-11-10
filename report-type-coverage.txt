@@ -1,7 +1,3 @@
-
-> flow-typer-js@0.8.1 test:type-coverage
-> find src -type f -name '*.js' -print -exec npm exec -- flow coverage {} \;
-
 src/is.js
 Covered: 100.00% (45 of 45 expressions)
 
@@ -9,7 +5,7 @@ src/types/primitives.js
 Covered: 100.00% (135 of 135 expressions)
 
 src/types/literals.js
-Covered: 100.00% (42 of 42 expressions)
+Covered: 100.00% (40 of 40 expressions)
 
 src/types/maybe.js
 Covered: 100.00% (56 of 56 expressions)
