@@ -1,6 +1,6 @@
 // @flow
 import { EMPTY_VALUE } from './const.js'
-import { validatorError } from './error.js'
+import { validatorTypeError } from './error.js'
 
 import type { LiteralValue, TypeValidator, TypeChecker, TypeCallbackValidator } from './'
 
@@ -31,12 +31,11 @@ export const getType = (
 
 export const type =
   <V, T: (mixed) => V> (typeFn: T, name: string = ''): TypeCallbackValidator<T> => {
-    // $FlowExpectedError[recursive-definition]
     function type (value: mixed, _scope: string = '') {
         try {
           return typeFn(value)
         } catch (err) {
-          throw validatorError(type, value, _scope)
+          throw validatorTypeError(typeFn.name, typeFn.name, value, _scope)
         }
     }
     type.type = () => name

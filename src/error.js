@@ -67,3 +67,26 @@ export const validatorError = <T>(
       scope
     )
   }
+
+export const validatorTypeError = <T>(
+  name: string,
+  type: string,
+  value: mixed,
+  scope: ?string,
+  message?: string,
+  expectedType?: string,
+  valueType?: string
+): TypeValidatorError => {
+    valueType = valueType !== null && valueType !== undefined && valueType !== '' ? valueType : typeof value;
+    expectedType = expectedType !== null && expectedType !== undefined && expectedType !== '' ? expectedType : type;
+    message = message !== null && message !== undefined && message !== '' ? message : `invalid "${valueType}" value type; ${name || expectedType} type expected`;
+    return new TypeValidatorError(
+      message,
+      expectedType,
+      valueType,
+      typeof value === 'string' ? JSON.stringify(value) : '',
+      name,
+      scope
+    )
+  }
+
