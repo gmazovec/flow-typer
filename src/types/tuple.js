@@ -7,16 +7,16 @@ import type { TypeValidator } from '../'
 
 type V<T> = TypeValidator<T>
 type TupleT =
-    (<A>(V<A>) => TypeValidator<[A]>)
-  & (<A, B>(V<A>, V<B>) => TypeValidator<[A, B]>)
-  & (<A, B, C>(V<A>, V<B>, V<C>) => TypeValidator<[A, B, C]>)
-  & (<A, B, C, D>(V<A>, V<B>, V<C>, V<D>) => TypeValidator<[A, B, C, D]>)
-  & (<A, B, C, D, E>(V<A>, V<B>, V<C>, V<D>, V<E>) => TypeValidator<[A, B, C, D, E]>)
-  & (<A, B, C, D, E, F>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>) => TypeValidator<[A, B, C, D, E, F]>)
-  & (<A, B, C, D, E, F, G>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>) => TypeValidator<[A, B, C, D, E, F, G]>)
-  & (<A, B, C, D, E, F, G, H>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>) => TypeValidator<[A, B, C, D, E, F, G, H]>)
-  & (<A, B, C, D, E, F, G, H, I>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>) => TypeValidator<[A, B, C, D, E, F, G, H, I]>)
-  & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => TypeValidator<[A, B, C, D, E, F, G, H, I, J]>)
+    (<A>(V<A>) => V<[A]>)
+  & (<A, B>(V<A>, V<B>) => V<[A, B]>)
+  & (<A, B, C>(V<A>, V<B>, V<C>) => V<[A, B, C]>)
+  & (<A, B, C, D>(V<A>, V<B>, V<C>, V<D>) => V<[A, B, C, D]>)
+  & (<A, B, C, D, E>(V<A>, V<B>, V<C>, V<D>, V<E>) => V<[A, B, C, D, E]>)
+  & (<A, B, C, D, E, F>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>) => V<[A, B, C, D, E, F]>)
+  & (<A, B, C, D, E, F, G>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>) => V<[A, B, C, D, E, F, G]>)
+  & (<A, B, C, D, E, F, G, H>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>) => V<[A, B, C, D, E, F, G, H]>)
+  & (<A, B, C, D, E, F, G, H, I>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>) => V<[A, B, C, D, E, F, G, H, I]>)
+  & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => V<[A, B, C, D, E, F, G, H, I, J]>)
 
 export const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
   // $FlowExpectedError[recursive-definition]
