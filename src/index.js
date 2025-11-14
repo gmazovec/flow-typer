@@ -95,5 +95,6 @@ export const arrayOf = array.arrayOf
 export const tupleOf = tuple.tupleOf
 
 export const unionOf = union.unionOf
+export const unionOf2 = union.union2
 
 export const mapOf = map.mapOf

@@ -30,3 +30,13 @@ export const unionOf: UnionT = function unionOf_ (...typeFuncs) {
   union.type = () => `(${typeFuncs.map(fn => getType(fn)).join(' | ')})`
   return union
 }
+
+type Union2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>) => TypeValidator<A | B>
+
+export const union2: Union2TypeValidator = function (va, vb) {
+  function union (value: mixed, _scope: string = '') {
+    return va(value, _scope) ?? vb(value, _scope);
+  }
+  union.type = () => `(${getType(va)} | ${getType(vb)})`
+  return union
+}
