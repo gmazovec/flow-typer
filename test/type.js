@@ -1,6 +1,9 @@
 // @flow
 
-const { objectOf, string, number, maybe, boolean, unionOf, arrayOf, tupleOf, literalOf, type } = require('../src/index.js');
+const t = require('../src/index.js');
+
+const { objectOf, string, number, maybe, boolean, arrayOf, tupleOf, literalOf, type } = t;
+const { unionOf, unionOf2 } = t;
 
 /*:: import type { $Literal } from '../src/index.js'; */
 
@@ -56,5 +59,21 @@ const v2 = timeType(eval('new Time();'));
 // $FlowExpectedError[incompatible-cast]
 (v2: Date);
 (v2: Time);
+
+*/
+
+const u2 = unionOf2(string, number)('');
+
+/*::
+
+(u2: string | number);
+
+*/
+
+const u2t = unionOf2(tupleOf(string, string), tupleOf(number, number))([0, 0]);
+
+/*::
+
+(u2t : [string, string] | [number, number]);
 
 */
