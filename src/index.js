@@ -93,6 +93,7 @@ export const optional = _object.optional
 export const arrayOf = array.arrayOf
 
 export const tupleOf = tuple.tupleOf
+export const tupleOf2 = tuple.tuple2
 
 export const unionOf = union.unionOf
 export const unionOf2 = union.union2

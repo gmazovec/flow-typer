@@ -1,6 +1,6 @@
 // @flow
 import { getType } from '../utils.js'
-import { validatorError } from '../error.js'
+import { validatorError, validatorTypeError } from '../error.js'
 import { EMPTY_VALUE } from '../const.js'
 
 import type { TypeValidator } from '../'
@@ -33,5 +33,19 @@ export const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
     throw validatorError(tuple, value, _scope)
   }
   tuple.type = () => `[${typeFuncs.map(fn => getType(fn)).join(', ')}]`
+  return tuple
+}
+
+type Tuple2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>) => TypeValidator<[A, B]>
+
+export const tuple2: Tuple2TypeValidator = function (va, vb) {
+  function tuple (value: mixed, _scope: string = '') {
+    if (value === EMPTY_VALUE) return [va(value, _scope), vb(value, _scope)]
+    if (Array.isArray(value) && value.length === 2) {
+      return [va(value[0], _scope), vb(value[1], _scope)]
+    }
+    throw validatorTypeError('tuple', `[${getType(va)}, ${getType(vb)}]`, value, _scope)
+  }
+  tuple.type = () => `[${getType(va)}, ${getType(vb)}]`
   return tuple
 }
