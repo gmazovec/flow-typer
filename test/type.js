@@ -3,7 +3,7 @@
 const t = require('../src/index.js');
 
 const { objectOf, string, number, maybe, boolean, arrayOf, literalOf, type } = t;
-const { tupleOf, tupleOf2 } = t;
+const { tupleOf, tupleOf2, tupleOf3 } = t;
 const { unionOf, unionOf2 } = t;
 
 /*:: import type { $Literal } from '../src/index.js'; */
@@ -84,6 +84,14 @@ const t2 = tupleOf2(number, string)(['1', '1']);
 /*::
 
 (t2 : [number, string]);
+
+*/
+
+const t3 = tupleOf3(number, number, number)(['0', '1', '1']);
+
+/*::
+
+(t3: [number, number, number]);
 
 */
 

@@ -94,6 +94,10 @@ export const arrayOf = array.arrayOf
 
 export const tupleOf = tuple.tupleOf
 export const tupleOf2 = tuple.tuple2
+export const tupleOf3 = tuple.tuple3
+export const tupleOf4 = tuple.tuple4
+export const tupleOf5 = tuple.tuple5
+export const tupleOf6 = tuple.tuple6
 
 export const unionOf = union.unionOf
 export const unionOf2 = union.union2
