@@ -40,3 +40,44 @@ export const union2: Union2TypeValidator = function (va, vb) {
   union.type = () => `(${getType(va)} | ${getType(vb)})`
   return union
 }
+
+type Union3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>) => TypeValidator<A | B | C>
+
+export const union3: Union3TypeValidator = function (va, vb, vc) {
+  function union (value: mixed, _scope: string = '') {
+    return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope)
+  }
+  union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)}`
+  return union
+}
+
+type Union4TypeValidator = <A, B, C, D> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>) => TypeValidator<A | B | C | D>
+
+export const union4: Union4TypeValidator = function (va, vb, vc, vd) {
+  function union (value: mixed, _scope: string = '') {
+    return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope) ?? vd(value, _scope)
+  }
+  union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)}`
+  return union
+}
+
+type Union5TypeValidator = <A, B, C, D, E> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>) => TypeValidator<A | B | C | D | E>
+
+export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve) {
+  function union (value: mixed, _scope: string = '') {
+    return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope) ?? vd(value, _scope) ?? ve(value, _scope);
+  }
+  union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)} | ${getType(ve)}`
+  return union
+}
+
+type Union6TypeValidator = <A, B, C, D, E, F> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, TypeValidator<F>) => TypeValidator<A | B | C | D | E | F>
+
+export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf) {
+  function union (value: mixed, _scope: string = '') {
+    return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope) ?? vd(value, _scope) ?? ve(value, _scope) ?? vf(value, _scope);
+  }
+  union.type = () => `(${getType(va)} | ${getType(vb)}) | ${getType(vc)} | ${getType(vd)} | ${getType(ve)} | ${getType(vf)}`
+  return union
+}
+
