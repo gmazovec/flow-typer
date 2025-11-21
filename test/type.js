@@ -91,4 +91,12 @@ const t6 = tupleOf6(string, number, number, number, number, boolean)(['1', '1', 
 /*:: (t5: [string, number, number, number, number]); */
 /*:: (t6: [string, number, number, number, number, boolean]); */
 
+const tt = tupleOf2(string, tupleOf2(number, number))(['']);
 
+/*::
+
+// $FlowExpectedError[incompatible-cast]
+(tt: [number, [number, number]]);
+(tt: [string, [number, number]]);
+
+*/
