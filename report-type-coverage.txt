@@ -11,7 +11,7 @@ src/types/maybe.js
 Covered: 100.00% (56 of 56 expressions)
 
 src/types/tuple.js
-Covered: 93.83% (76 of 81 expressions)
+Covered: 99.15% (582 of 587 expressions)
 
 src/types/object.js
 Covered: 81.95% (218 of 266 expressions)
@@ -20,7 +20,7 @@ src/types/array.js
 Covered: 100.00% (56 of 56 expressions)
 
 src/types/union.js
-Covered: 85.71% (36 of 42 expressions)
+Covered: 97.87% (276 of 282 expressions)
 
 src/types/mixed.js
 Covered: 100.00% (12 of 12 expressions)
@@ -29,14 +29,14 @@ src/types/map.js
 Covered: 100.00% (66 of 66 expressions)
 
 src/index.js
-Covered: 100.00% (113 of 113 expressions)
+Covered: 100.00% (143 of 143 expressions)
 
 src/error.js
-Covered: 100.00% (178 of 178 expressions)
+Covered: 100.00% (257 of 257 expressions)
 
 src/const.js
 Covered: 100.00% (5 of 5 expressions)
 
 src/utils.js
-Covered: 88.52% (54 of 61 expressions)
+Covered: 96.88% (62 of 64 expressions)
 
