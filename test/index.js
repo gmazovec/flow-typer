@@ -1,5 +1,7 @@
 // @flow
 
+export { assert, test } from './_test-util.js'
+
 import './arrayof.js'
 import './error.js'
 import './mapof.js'

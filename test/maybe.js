@@ -1,7 +1,5 @@
 // @flow
-import assert from 'assert'
-// $FlowExpectedError[cannot-resolve-module]
-import { test } from 'node:test'
+import { assert, test } from './index.js'
 import * as typer from '../src/index.js'
 
 const {
