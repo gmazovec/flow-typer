@@ -81,6 +81,7 @@ export const number = primitives.number
 export const string = primitives.string
 
 export const literalOf = literals.literalOf
+export const literal = literals.literal
 
 export const maybe = _maybe.maybe
 

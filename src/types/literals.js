@@ -17,3 +17,13 @@ export const literalOf =
     }
     return literal
   }
+
+export const literal =
+  <const T> (primitive: T): TypeValidator<T> => {
+    function literal (value: mixed, _scope: string = ''): T {
+      if (value === EMPTY_VALUE || (value === primitive)) return primitive
+      throw validatorError(literal, value, _scope)
+    }
+    literal.type = () => `"${String(primitive)}"`
+    return literal
+}
