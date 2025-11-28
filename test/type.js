@@ -2,20 +2,15 @@
 
 const t = require('../src/index.js');
 
-const { objectOf, string, number, maybe, boolean, arrayOf, literalOf, type } = t;
+const { objectOf, string, number, maybe, boolean, arrayOf, literal, type } = t;
 const { tupleOf, tupleOf2, tupleOf3, tupleOf4, tupleOf5, tupleOf6 } = t;
 const { unionOf, unionOf2, unionOf3, unionOf4, unionOf5, unionOf6 } = t;
-
-/*:: import type { $Literal } from '../src/index.js'; */
-
-const male = (literalOf('male')/*: $Literal<"male"> */);
-const female = (literalOf('female')/*: $Literal<"female"> */);
 
 const personSchema = objectOf({
 	name: string,
 	age: maybe(number),
 	active: boolean,
-	gender: unionOf(male, female),
+	gender: unionOf(literal("male"), literal("female")),
 	tags: arrayOf(string),
 	location: tupleOf(number, number)
 });
