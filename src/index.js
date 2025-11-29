@@ -108,3 +108,16 @@ export const unionOf5 = union.unionOf
 export const unionOf6 = union.unionOf
 
 export const mapOf = map.mapOf
+
+function DeprecationWarning (message, code) {
+  const err = new Error(message)
+  err.name = 'DeprecationWarning'
+  err.code = code
+  return err
+}
+
+export function deprwarn (message, code = 'DEP000') {
+  const warn = DeprecationWarning(message, code)
+  process.emitWarning(warn)
+}
+
