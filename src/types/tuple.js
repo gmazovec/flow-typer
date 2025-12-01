@@ -2,6 +2,7 @@
 import { getType } from '../utils.js'
 import { validatorError, validatorTypeError } from '../error.js'
 import { EMPTY_VALUE } from '../const.js'
+import { deprwarn } from '../index.js'
 
 import type { TypeValidator } from '../'
 
@@ -19,6 +20,7 @@ type TupleT =
   & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => V<[A, B, C, D, E, F, G, H, I, J]>)
 
 export const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
+  deprwarn('calling tupleOf is deprecated; use validators with arity, ex. tupleOf2, ... tupleOf6', 'DEP002')
   // $FlowExpectedError[recursive-definition]
   function tuple (value: mixed, _scope: string = '') {
     const cardinality = typeFuncs.length
