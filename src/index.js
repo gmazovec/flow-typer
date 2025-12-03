@@ -109,15 +109,17 @@ export const unionOf6 = union.unionOf
 
 export const mapOf = map.mapOf
 
-function DeprecationWarning (message, code) {
+function DeprecationWarning (message: string, code: string) {
   const err = new Error(message)
   err.name = 'DeprecationWarning'
+  // $FlowExpectedError[prop-missing]
   err.code = code
   return err
 }
 
-export function deprwarn (message, code = 'DEP000') {
+export function deprwarn (message: string, code: string = 'DEP000') {
   const warn = DeprecationWarning(message, code)
+  // $FlowExpectedError[cannot-resolve-name]
   process.emitWarning(warn)
 }
 
