@@ -17,9 +17,9 @@ const personSchema = objectOf({
   name: string,
   age: maybe(number),
   active: boolean,
-  gender: unionOf(male, female),
+  gender: unionOf2(literal("male"), literal("female")),
   tags: arrayOf(string),
-  location: tupleOf(number, number)
+  location: tupleOf2(number, number)
 })
 ```
 
@@ -61,22 +61,14 @@ import {
   typeOf,
   objectOf,
   arrayOf,
-  tupleOf,
-  unionOf,
-  literalOf,
+  tupleOf2,
+  unionOf2,
+  literal,
   string,
   number,
   boolean,
   maybe
 } from 'flow-typer-js'
-
-import type { $Literal } from 'flow-typer-js'
-```
-
-```js
-// literal types require Flow annotation
-const male$Literal = (literalOf('male'): $Literal<'male'>)
-const female$Literal = (literalOf('female'): $Literal<'female'>)
 ```
 
 ```js
@@ -85,9 +77,9 @@ const personSchema = objectOf({
   name: string,
   age: maybe(number),
   active: boolean,
-  gender: unionOf(male$Literal, female$Literal),
+  gender: unionOf2(literal('male'), literal('female')),
   tags: arrayOf(string),
-  location: tupleOf(number, number)
+  location: tupleOf2(number, number)
 })
 ```
 
@@ -162,11 +154,7 @@ refinement.
 - `typer.boolean`
 - `typer.number`
 - `typer.string`
-- `typer.literalOf(value)` (requires _Flow_ annotations \*)
-
-```js
-const flow$Literal = (literalOf('flow'): $Literal<'flow'>) // => type T = 'flow'
-```
+- `typer.literal`
 
 ### Complex types
 
@@ -190,16 +178,16 @@ const schema = objectOf({
 const schema = arrayOf(number) // => type T = number[]
 ```
 
-- `typer.tupleOf(...schema[])`
+- `typer.tupleOf2(...schema[]) ... tupleOf6`
 
 ```js
-const schema = tupleOf(string, number) // => type T = [string, number]
+const schema = tupleOf2(string, number) // => type T = [string, number]
 ```
 
-- `typer.unionOf(...schema[])`
+- `typer.unionOf2(...schema[]) ... unionOf6`
 
 ```js
-const schema = unionOf('week', 'month') // => type T = 'week' | 'month'
+const schema = unionOf2(string, number) // => type T = string | number
 ```
 
 - `typer.mapOf(keySchema, valueSchema)`
@@ -236,9 +224,3 @@ const date = type((value) => {
   throw new Error
 })
 ````
-
-## TODO
-
-- Use `literalOf` without explicit _Flow_ type annotations. Literal type
-can not be inferred by _Flow_. This could be solved with new Flow utility
-types `$Literal`.
