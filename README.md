@@ -8,34 +8,23 @@ Sure, you can use your favorite validation library and do unsafe type casting. O
 you write verbose code and do low-level type checking with _typeof_ operator to
 satisfy _Flow_'s refinement.
 
-_flow-typer_ is solving these problems by writing maintainable type schemas in
+_flow-typer_ is giving you collection of functions for writing maintainable type schemas in
 _JavaScript_ with _Flow_ interoperability.
 
 
-```js
-const personSchema = objectOf({
-  name: string,
-  age: maybe(number),
-  active: boolean,
-  gender: unionOf2(literal("male"), literal("female")),
-  tags: arrayOf(string),
-  location: tupleOf2(number, number)
-})
-```
-
 ### Features
 
-- support for primitive and complex Flow types
+- support for primitive and composable Flow types
 - complete _Flow_ coverage
-- type functions are immutable
+- type validation functions are pure
 - define _Flow_ types with JavaScript
 - no transpilation required
-- works with ES6 JavaScript (modern browsers and Node 6+)
+- works with ES6+ JavaScript
 
 
 ## Installation
 
-```shell
+```sh
 npm install --save flow-typer-js
 ```
 
@@ -43,8 +32,7 @@ npm install --save flow-typer-js
 ## Importing
 
 ```js
-import typer from 'flow-typer-js' // ES6
-var typer = require('flow-typer-js') // ES5 with npm
+import typer from 'flow-typer-js'
 ```
 
 
@@ -140,29 +128,29 @@ type TypeValidatorError {
 These functions will check for specific JavaScript type with correct _Flow_ type
 refinement.
 
-- `typer.isNil`
-- `typer.isUndef`
-- `typer.isBoolean`
-- `typer.isNumber`
-- `typer.isString`
-- `typer.isObject`
+- `isNil`
+- `isUndef`
+- `isBoolean`
+- `isNumber`
+- `isString`
+- `isObject`
 
 ### Primitive types
 
-- `typer.nil`
-- `typer.undef`
-- `typer.boolean`
-- `typer.number`
-- `typer.string`
-- `typer.literal`
+- `nil`
+- `undef`
+- `boolean`
+- `number`
+- `string`
+- `literal`
 
 ### Complex types
 
-- `typer.mixed`
-- `typer.object`
-- `typer.maybe(schema)`
-- `typer.objectOf(schemaObject, label)`
-- `typer.optional(schema)`
+- `mixed`
+- `object`
+- `maybe(schema)`
+- `objectOf(schemaObject, label)`
+- `optional(schema)`
 
 ```js
 const schema = objectOf({
@@ -172,35 +160,47 @@ const schema = objectOf({
 // => type T = { username: string, nickname: (string | void) }
 ```
 
-- `typer.arrayOf(schema, label)`
+- `arrayOf(schema, label)`
 
 ```js
 const schema = arrayOf(number) // => type T = number[]
 ```
 
-- `typer.tupleOf2(...schema[]) ... tupleOf6`
+- `tupleOf(...schema[]) [deprecated]`
+
+- `tupleOf2(...schema[]) ... tupleOf6`
 
 ```js
 const schema = tupleOf2(string, number) // => type T = [string, number]
 ```
 
-- `typer.unionOf2(...schema[]) ... unionOf6`
+- `unionOf(...schema[]) [deprecated]`
+
+- `unionOf2(...schema[]) ... unionOf6`
 
 ```js
 const schema = unionOf2(string, number) // => type T = string | number
 ```
 
-- `typer.mapOf(keySchema, valueSchema)`
+- `mapOf(keySchema, valueSchema)`
 
 ```js
 const schema = mapOf(string, boolean) // => type T = { [_string]: boolean }
 ```
 
+- `literalOf(...) [deprecated]`
+
+- `literal(...)`
+
+```js
+const schema = literal('male')
+```
+
 
 ### Utilities
 
-- `typer.isType(schema): boolean`
-- `typer.getType(schema): string`
+- `isType(schema): boolean`
+- `getType(schema): string`
 
 ```js
 const schema = objectOf({
@@ -215,8 +215,8 @@ getType(schema)
 // => { dependencies: Array<{ name: string, version: number, exact: boolean }> }
 ```
 
-- `typer.typeOf(schema): T`
-- `typer.type(validator): schema`
+- `typeOf(schema): T`
+- `type(validator): schema`
 
 ```js
 const date = type((value) => {
