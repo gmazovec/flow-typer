@@ -16,6 +16,7 @@ function _object (value: mixed, _scope: string = ''): {...} {
   throw validatorError(object, value, _scope)
 }
 _object.type = () => 'Object';
+_object.value = () => ({});
 
 export const object = (_object: TypeValidator<ObjectRecord<mixed>>);
 
@@ -76,6 +77,15 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
     )
     return `{\n ${props.join(',\n  ')} \n}`
   }
+  object_.value = () => {
+    const obj = {...typeObj};
+    for (const key of Object.keys(typeObj)) {
+      if (typeof typeObj[key] === "function") {
+        obj[key] = typeObj[key].value();
+      }
+    }
+    return obj;
+  };
   return object_
 }
 
@@ -86,5 +96,6 @@ export const optional =
       return unionFn(v)
     }
     optional.type = (opts: ?{ noVoid: boolean }) => opts && !opts.noVoid ? getType(unionFn) : getType(typeFn)
+    optional.value = (): T | void => unionFn.value();
     return optional
   }

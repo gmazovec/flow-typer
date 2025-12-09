@@ -20,7 +20,7 @@ export const isType =
 
 export const typeOf =
   <T>(schema: TypeValidator<T>): T =>
-    schema(EMPTY_VALUE, '')
+    schema.value()
 
 export const getType = (
   function getType (typeFn, _options) {

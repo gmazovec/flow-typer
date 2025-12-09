@@ -16,5 +16,6 @@ export const arrayOf =
       throw validatorError(array, value, _scope)
     }
     array.type = () => `Array<${getType(typeFn)}>`
+    array.value = () => [typeFn.value()]
     return array
   }

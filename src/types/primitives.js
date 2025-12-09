@@ -17,6 +17,7 @@ function _nil (value: mixed): null {
   throw validatorError(nil, value)
 }
 _nil.type = () => 'null';
+_nil.value = () => null;
 
 export const nil = (_nil: NullValidator);
 
@@ -25,6 +26,7 @@ function _undef (value: mixed, _scope: string = ''): void {
   throw validatorError(undef, value, _scope)
 }
 _undef.type = () => 'void'
+_undef.value = () => undefined;
 
 export const undef = (_undef: VoidValidator);
 
@@ -34,6 +36,7 @@ function _boolean (value: mixed, _scope: string = ''): boolean {
   throw validatorError(boolean, value, _scope)
 }
 _boolean.type = () => 'boolean';
+_boolean.value = () => false;
 
 export const boolean = (_boolean: BooleanValidator);
 
@@ -43,6 +46,7 @@ function _number (value: mixed, _scope: string = ''): number {
   throw validatorError(number, value, _scope)
 }
 _number.type = () => 'number';
+_number.value = () => 0;
 
 export const number = (_number: NumberValidator);
 
@@ -52,5 +56,6 @@ function _string (value: mixed, _scope: string = ''): string {
   throw validatorError(string, value, _scope)
 }
 _string.type = () => 'string';
+_string.value = () => '';
 
 export const string = (_string: StringValidator);

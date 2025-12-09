@@ -34,7 +34,9 @@ export const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
     }
     throw validatorError(tuple, value, _scope)
   }
+  // $FlowExpectedError[incompatible-call]
   tuple.type = () => `[${typeFuncs.map(fn => getType(fn)).join(', ')}]`
+  tuple.value = () => typeFuncs.map(fn => fn.value());
   return tuple
 }
 
@@ -49,6 +51,7 @@ export const tuple2: Tuple2TypeValidator = function (va, vb) {
     throw validatorTypeError('tuple', `[${getType(va)}, ${getType(vb)}]`, value, _scope)
   }
   tuple.type = () => `[${getType(va)}, ${getType(vb)}]`
+  tuple.value = () => [va.value(), vb.value()];
   return tuple
 }
 
@@ -63,6 +66,7 @@ export const tuple3: Tuple3TypeValidator = function (va, vb, vc) {
     throw validatorTypeError('tuple', `[${getType(va)}, ${getType(vb)}, ${getType(vc)}]`, value, _scope)
   }
   tuple.type = () => `[${getType(va)}, ${getType(vb)}, ${getType(vc)}]`
+  tuple.value = () => [va.value(), vb.value(), vc.value()];
   return tuple
 }
 
@@ -77,6 +81,7 @@ export const tuple4: Tuple4TypeValidator = function (va, vb, vc, vd) {
     throw validatorTypeError('tuple', `[${getType(va)}, ${getType(vb)}, ${getType(vc)}, ${getType(vd)}]`, value, _scope)
   }
   tuple.type = () => `[${getType(va)}, ${getType(vb)}, ${getType(vc)}, ${getType(vd)}]`
+  tuple.value = () => [va.value(), vb.value(), vc.value(), vd.value()];
   return tuple
 }
 
@@ -91,6 +96,7 @@ export const tuple5: Tuple5TypeValidator = function (va, vb, vc, vd, ve) {
     throw validatorTypeError('tuple', `[${getType(va)}, ${getType(vb)}, ${getType(vc)}, ${getType(vd)}, ${getType(ve)}]`, value, _scope)
   }
   tuple.type = () => `[${getType(va)}, ${getType(vb)}, ${getType(vc)}, ${getType(vd)}, ${getType(ve)}]`
+  tuple.value = () => [va.value(), vb.value(), vc.value(), vd.value(), ve.value()];
   return tuple
 }
 
@@ -105,5 +111,6 @@ export const tuple6: Tuple6TypeValidator = function (va, vb, vc, vd, ve, vf) {
     throw validatorTypeError('tuple', `[${getType(va)}, ${getType(vb)}, ${getType(vc)}, ${getType(vd)}, ${getType(ve)}, ${getType(vf)}]`, value, _scope)
   }
   tuple.type = () => `[${getType(va)}, ${getType(vb)}, ${getType(vc)}, ${getType(vd)}, ${getType(ve)}, ${getType(vf)}]`
+  tuple.value = () => [va.value(), vb.value(), vc.value(), vd.value(), ve.value(), vf.value()];
   return tuple
 }

@@ -63,6 +63,7 @@ test("getType", async (t) => {
   await t.test('should return type for user-defined validator', t => {
     function validator () {}
     validator.type = () => "personT";
+    validator.value = () => ({});
     assert.deepEqual(getType(validator), "personT");
   });
 })

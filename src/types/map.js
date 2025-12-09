@@ -28,5 +28,6 @@ export const mapOf = <K, V>
       return Object.keys(o).reduce(reducer, {})
     }
     mapOf.type = () => `{ [_:${getType(keyTypeFn)}]: ${getType(typeFn)} }`
+    mapOf.value = (): { [K]: V } => ({})
     return mapOf
   }

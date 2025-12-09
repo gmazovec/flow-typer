@@ -17,6 +17,7 @@ export const literalOf =
       if (isBoolean(primitive)) return `${primitive ? 'true': 'false'}`
       else return `"${primitive}"`
     }
+    literal.value = (): T => primitive;
     return literal
   }
 
@@ -27,5 +28,6 @@ export const literal =
       throw validatorError(literal, value, _scope)
     }
     literal.type = () => `"${String(primitive)}"`
+    literal.value = (): T => primitive;
     return literal
 }

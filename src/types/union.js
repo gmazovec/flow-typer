@@ -29,7 +29,9 @@ export const unionOf: UnionT = function unionOf_ (...typeFuncs) {
     }
     throw validatorError(union, value, _scope)
   }
+  // $FlowExpectedError[incompatible-call]
   union.type = () => `(${typeFuncs.map(fn => getType(fn)).join(' | ')})`
+  union.value = () => typeFuncs.map(fn => fn.value());
   return union
 }
 
@@ -40,6 +42,7 @@ export const union2: Union2TypeValidator = function (va, vb) {
     return va(value, _scope) ?? vb(value, _scope);
   }
   union.type = () => `(${getType(va)} | ${getType(vb)})`
+  union.value = () => va.value() ?? vb.value();
   return union
 }
 
@@ -50,6 +53,7 @@ export const union3: Union3TypeValidator = function (va, vb, vc) {
     return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope)
   }
   union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)}`
+  union.value = () => va.value() ?? vb.value() ?? vc.value();
   return union
 }
 
@@ -60,6 +64,7 @@ export const union4: Union4TypeValidator = function (va, vb, vc, vd) {
     return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope) ?? vd(value, _scope)
   }
   union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)}`
+  union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value();
   return union
 }
 
@@ -70,6 +75,7 @@ export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve) {
     return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope) ?? vd(value, _scope) ?? ve(value, _scope);
   }
   union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)} | ${getType(ve)}`
+  union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value();
   return union
 }
 
@@ -80,6 +86,7 @@ export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf) {
     return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope) ?? vd(value, _scope) ?? ve(value, _scope) ?? vf(value, _scope);
   }
   union.type = () => `(${getType(va)} | ${getType(vb)}) | ${getType(vc)} | ${getType(vd)} | ${getType(ve)} | ${getType(vf)}`
+  union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value() ?? vf.value();
   return union
 }
 
