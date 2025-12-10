@@ -2,14 +2,12 @@
 import { getType } from '../utils.js'
 import { validatorError } from '../error.js'
 import { isUndef, isObject } from '../is.js'
-import { EMPTY_VALUE } from '../const.js'
 import { undef } from './primitives.js'
 import { unionOf } from './union.js'
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
 
 function _object (value: mixed, _scope: string = ''): {...} {
-  if (value === EMPTY_VALUE) return {}
   if (isObject(value) && !Array.isArray(value)) {
     return Object.assign({}, value)
   }
@@ -50,20 +48,12 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
 
     const obj = {...typeObj};
 
-    if (value === EMPTY_VALUE) {
-      for (const key of typeAttrs) {
-        if (typeof typeObj[key] === "function") {
-          obj[key] = typeObj[key](value)
-        }
-      }
-    } else {
-      for (const key of typeAttrs) {
-        const typeFn = typeObj[key]
-        if (typeFn.name === 'optional' && !o.hasOwnProperty(key)) {
-          delete obj[key]
-        } else {
-          obj[key] = typeFn(o[key], `${_scope}.${key}`)
-        }
+    for (const key of typeAttrs) {
+      const typeFn = typeObj[key]
+      if (typeFn.name === 'optional' && !o.hasOwnProperty(key)) {
+        delete obj[key]
+      } else {
+        obj[key] = typeFn(o[key], `${_scope}.${key}`)
       }
     }
 

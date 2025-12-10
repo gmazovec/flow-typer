@@ -1,5 +1,5 @@
 // @flow
-import { EMPTY_VALUE } from './const.js'
+
 import { validatorTypeError } from './error.js'
 
 import type { LiteralValue, TypeValidator, TypeChecker, TypeCallbackValidator } from './'

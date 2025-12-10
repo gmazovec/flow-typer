@@ -1,7 +1,6 @@
 // @flow
 import { getType } from '../utils.js'
 import { validatorError, validatorTypeError } from '../error.js'
-import { EMPTY_VALUE } from '../const.js'
 import { deprwarn } from '../index.js'
 
 import type { TypeValidator } from '../'
@@ -24,7 +23,6 @@ export const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
   // $FlowExpectedError[recursive-definition]
   function tuple (value: mixed, _scope: string = '') {
     const cardinality = typeFuncs.length
-    if (value === EMPTY_VALUE) return typeFuncs.map(fn => fn(value))
     if (Array.isArray(value) && value.length === cardinality) {
       const tupleValue = []
       for (let i = 0; i < cardinality; i += 1) {
@@ -44,7 +42,6 @@ type Tuple2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>) => TypeVa
 
 export const tuple2: Tuple2TypeValidator = function (va, vb) {
   function tuple (value: mixed, _scope: string = '') {
-    if (value === EMPTY_VALUE) return [va(value, _scope), vb(value, _scope)]
     if (Array.isArray(value) && value.length === 2) {
       return [va(value[0], _scope), vb(value[1], _scope)]
     }
@@ -59,7 +56,6 @@ type Tuple3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeVa
 
 export const tuple3: Tuple3TypeValidator = function (va, vb, vc) {
   function tuple (value: mixed, _scope: string = '') {
-    if (value === EMPTY_VALUE) return [va(value, _scope), vb(value, _scope), vc(value, _scope)]
     if (Array.isArray(value) && value.length === 3) {
       return [va(value[0], _scope), vb(value[1], _scope), vc(value[2], _scope)]
     }
@@ -74,7 +70,6 @@ type Tuple4TypeValidator = <A, B, C, D> (TypeValidator<A>, TypeValidator<B>, Typ
 
 export const tuple4: Tuple4TypeValidator = function (va, vb, vc, vd) {
   function tuple (value: mixed, _scope: string = '') {
-    if (value === EMPTY_VALUE) return [va(value, _scope), vb(value, _scope), vc(value, _scope), vd(value, _scope)]
     if (Array.isArray(value) && value.length === 4) {
       return [va(value[0], _scope), vb(value[1], _scope), vc(value[2], _scope), vd(value[3], _scope)]
     }
@@ -89,7 +84,6 @@ type Tuple5TypeValidator = <A, B, C, D, E> (TypeValidator<A>, TypeValidator<B>, 
 
 export const tuple5: Tuple5TypeValidator = function (va, vb, vc, vd, ve) {
   function tuple (value: mixed, _scope: string = '') {
-    if (value === EMPTY_VALUE) return [va(value, _scope), vb(value, _scope), vc(value, _scope), vd(value, _scope), ve(value, _scope)]
     if (Array.isArray(value) && value.length === 5) {
       return [va(value[0], _scope), vb(value[1], _scope), vc(value[2], _scope), vd(value[3], _scope), ve(value[4], _scope)]
     }
@@ -104,7 +98,6 @@ type Tuple6TypeValidator = <A, B, C, D, E, F> (TypeValidator<A>, TypeValidator<B
 
 export const tuple6: Tuple6TypeValidator = function (va, vb, vc, vd, ve, vf) {
   function tuple (value: mixed, _scope: string = '') {
-    if (value === EMPTY_VALUE) return [va(value, _scope), vb(value, _scope), vc(value, _scope), vd(value, _scope), ve(value, _scope), vf(value, _scope)]
     if (Array.isArray(value) && value.length === 6) {
       return [va(value[0], _scope), vb(value[1], _scope), vc(value[2], _scope), vd(value[3], _scope), ve(value[4], _scope), vf(value[5], _scope)]
     }

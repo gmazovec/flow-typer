@@ -1,7 +1,6 @@
 // @flow
 import { assert, test } from './index.js'
 import * as typer from '../src/index.js'
-import { EMPTY_VALUE } from '../src/const.js'
 
 const {
   mapOf,
@@ -25,7 +24,7 @@ test('map type', async (t) => {
   })
 
   await t.test('should return empty map', () => {
-    const value = schema(EMPTY_VALUE)
+    const value = schema.value();
     assert.deepEqual(value, {});
   })
 
