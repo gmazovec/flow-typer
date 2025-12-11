@@ -60,6 +60,7 @@ export type TypeValidatorsOf5<T, U, V, Z, X> = [
 
 
 export const isNil = is.isNil
+export const isNull = is.isNull
 export const isUndef = is.isUndef
 export const isBoolean = is.isBoolean
 export const isNumber = is.isNumber

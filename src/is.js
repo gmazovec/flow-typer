@@ -4,6 +4,10 @@ export const isNil =
   (v: mixed) /*: v is null */ =>
     v === null
 
+export const isNull =
+  (v: mixed) /*: v is null */ =>
+    v === null
+
 export const isUndef =
   (v: mixed) /*: v is void */ =>
     typeof v === 'undefined'
