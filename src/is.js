@@ -1,8 +1,12 @@
 // @flow
 
+import { deprwarn } from './index.js'
+
 export const isNil =
-  (v: mixed) /*: v is null */ =>
-    v === null
+  (v: mixed) /*: v is null */ => {
+    deprwarn('use of isNil validator is deprecated; use isNull instead', 'DEP004')
+    return v === null
+  }
 
 export const isNull =
   (v: mixed) /*: v is null */ =>
