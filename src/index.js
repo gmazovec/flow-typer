@@ -76,7 +76,9 @@ export const TypeValidatorError = error.TypeValidatorError
 export const validatorError = error.validatorError
 
 export const nil = primitives.nil
+export const null_t = primitives.nil
 export const undef = primitives.undef
+export const undefined_t = primitives.undef
 export const boolean = primitives.boolean
 export const number = primitives.number
 export const string = primitives.string
