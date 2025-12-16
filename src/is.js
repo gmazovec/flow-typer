@@ -4,7 +4,7 @@ import { deprwarn } from './index.js'
 
 export const isNil =
   (v: mixed) /*: v is null */ => {
-    deprwarn('use of isNil validator is deprecated; use isNull instead', 'DEP004')
+    deprwarn('use of isNil validator is deprecated; use isNull instead', 'FT004')
     return v === null
   }
 

@@ -19,7 +19,7 @@ type UnionT =
   & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => V<A | B | C | D | E | F | G | H | I | J>)
 
 export const unionOf: UnionT = function unionOf_ (...typeFuncs) {
-  deprwarn('calling unionOf is deprecated; use validators with arity, ex. unionOf2, ... unionOf6', 'DEP003')
+  deprwarn('calling unionOf is deprecated; use validators with arity, ex. unionOf2, ... unionOf6', 'FT003')
   // $FlowExpectedError[recursive-definition]
   function union (value: mixed, _scope: string = '') {
     for (const typeFn of typeFuncs) {

@@ -120,7 +120,7 @@ function DeprecationWarning (message: string, code: string) {
   return err
 }
 
-export function deprwarn (message: string, code: string = 'DEP000') {
+export function deprwarn (message: string, code: string = 'FT000') {
   const warn = DeprecationWarning(message, code)
   // $FlowExpectedError[cannot-resolve-name]
   process.emitWarning(warn)
