@@ -48,7 +48,7 @@ test('should infer object type', () => {
 
 type TypeT = [string]
 
-test('shoud infer tuple type (cardinality 1)', () => {
+test('should infer tuple type (cardinality 1)', () => {
   const type = tupleOf(string)
   const typeT: TypeT = typeOf(type)
   assert.ok(Array.isArray(typeT))

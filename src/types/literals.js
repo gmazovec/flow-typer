@@ -1,6 +1,6 @@
 // @flow
 import { validatorError } from '../error.js'
-import { isBoolean } from '../is.js'
+import { isBoolean, isNull, isUndef, isObject, isString } from '../is.js'
 import { deprwarn } from '../index.js'
 
 import type { LiteralValue, TypeValidator } from '..'
@@ -13,8 +13,21 @@ export const literalOf =
       throw validatorError(literal, value, _scope)
     }
     literal.type = () => {
-      if (isBoolean(primitive)) return `${primitive ? 'true': 'false'}`
-      else return `"${primitive}"`
+      if (isString(primitive)) {
+        return `"${primitive}"`
+      } else if (isNull(primitive)) {
+        return 'null'
+      } else if (isUndef(primitive)) {
+        return 'void'
+      } else if (isObject(primitive)) {
+        if (primitive.constructor.name === 'Object' || primitive.constructor.name === 'Array') {
+          return JSON.stringify(primitive)
+        } else {
+          return primitive.constructor.name;
+        }
+      } else {
+        return primitive.toString()
+      }
     }
     literal.value = () => primitive;
     return literal
