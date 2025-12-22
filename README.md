@@ -128,7 +128,8 @@ type TypeValidatorError {
 These functions will check for specific JavaScript type with correct _Flow_ type
 refinement.
 
-- `isNil`
+- `isNil` [deprecated]
+- `isNull`
 - `isUndef`
 - `isBoolean`
 - `isNumber`
@@ -138,7 +139,9 @@ refinement.
 ### Primitive types
 
 - `nil`
+- `null_t`
 - `undef`
+- `undefined_t`
 - `boolean`
 - `number`
 - `string`
