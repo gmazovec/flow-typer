@@ -33,6 +33,7 @@ export type StringValidator = TypeValidator<string>
 export type MixedValidator = TypeValidator<mixed>
 
 export type TypeAssertError = { expected: string, actual: string, scope: string }
+export type AssertionContext = { assertion?: boolean }
 
 export type TypeValidatorsOf2<T, U> = [
   TypeValidator<T>,

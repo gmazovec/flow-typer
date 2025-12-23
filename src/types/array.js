@@ -2,27 +2,30 @@
 import { getType } from '../utils.js'
 import { validatorError } from '../error.js'
 
-import type { TypeValidator, TypeArrayValidator, TypeAssertError } from '..'
+import type { TypeValidator, TypeArrayValidator, TypeAssertError, AssertionContext } from '..'
 
 const toArray = (
-  function <T>(typeFn: TypeValidator<T>, value: mixed, _scope: string): Array<T> | void {
+  function <T>(typeFn: TypeValidator<T>, value: mixed, _scope: string, ctx: AssertionContext): Array<T> {
     if (Array.isArray(value)) {
       return value.map((v, i) => typeFn(v, `${_scope}[${i}]`))
     }
+    ctx.assertion = false
+    return Array()
   }
 )
 
 export const arrayOf =
   <T>(typeFn: TypeValidator<T>, label?: string = 'Array'): TypeArrayValidator<T> => {
-    function array (value: mixed, _scope: string = label, err: ?TypeAssertError[]): Array<T> {
-      const v = toArray(typeFn, value, _scope)
-      if (v !== undefined) {
-        return v;
+    function array (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}): Array<T> {
+      const v = toArray(typeFn, value, _scope, _ctx)
+      if (_ctx.assertion === false) {
+        if (err) {
+          err.push({ expected: array.type(), actual: typeof(value), scope: _scope })
+        } else {
+          throw validatorError(array, value, _scope)
+        }
       }
-      if (err) {
-        err.push({ expected: array.type(), actual: typeof(value), scope: _scope })
-      }
-      throw validatorError(array, value, _scope)
+      return v
     }
     array.type = () => `Array<${getType(typeFn)}>`
     array.value = () => [typeFn.value()]
