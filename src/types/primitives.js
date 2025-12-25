@@ -1,7 +1,7 @@
 // @flow
 import { validatorError } from '../error.js'
 import {
-  isNil,
+  isNull,
   isUndef,
   isBoolean,
   isNumber,
@@ -12,7 +12,7 @@ import {
 import type { NullValidator, VoidValidator, BooleanValidator, NumberValidator, StringValidator } from '..'
 
 function _nil (value: mixed): null {
-  if (isNil(value)) return null
+  if (isNull(value)) return null
   throw validatorError(nil, value)
 }
 _nil.type = () => 'null';
