@@ -9,7 +9,7 @@ import {
   isObject
 } from '../is.js'
 
-import type { NullValidator, VoidValidator, BooleanValidator, NumberValidator, StringValidator } from '..'
+import type { NullValidator, VoidValidator, BooleanValidator, NumberValidator, StringValidator, TypeAssertError, AssertionContext } from '..'
 
 function _nil (value: mixed): null {
   if (isNull(value)) return null
@@ -47,9 +47,24 @@ _number.value = () => 0;
 
 export const number = (_number: NumberValidator);
 
-function _string (value: mixed, _scope: string = ''): string {
-  if (isString(value)) return value
-  throw validatorError(string, value, _scope)
+function toString (value: mixed, ctx: AssertionContext) {
+  if (isString(value)) {
+    return value
+  }
+  ctx.assertion = false
+  return String()
+}
+
+function _string (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): string {
+  const v = toString(value, _ctx);
+  if (_ctx.assertion === false) {
+    if (err) {
+      err.push({ expected: 'string', actual: typeof value, scope: _scope }) 
+    } else {
+      throw validatorError(string, value, _scope)
+    }
+  }
+  return v
 }
 _string.type = () => 'string';
 _string.value = () => '';
