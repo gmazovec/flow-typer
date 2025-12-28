@@ -51,6 +51,9 @@ function toString (value: mixed, ctx: AssertionContext) {
   if (isString(value)) {
     return value
   }
+  if (isNumber(value)) {
+    return String(value)
+  }
   ctx.assertion = false
   return String()
 }
