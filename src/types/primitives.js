@@ -38,9 +38,24 @@ _boolean.value = () => false;
 
 export const boolean = (_boolean: BooleanValidator);
 
-function _number (value: mixed, _scope: string = ''): number {
-  if (isNumber(value)) return value
-  throw validatorError(number, value, _scope)
+function toNumber (value: mixed, ctx: AssertionContext): number {
+  if (isNumber(value)) {
+    return value
+  }
+  ctx.assertion = false
+  return Number()
+}
+
+function _number (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): number {
+  const v = toNumber(value, _ctx)
+  if (_ctx.assertion === false) {
+    if (err) {
+      err.push({ expected: 'number', actual: typeof value, scope: _scope })
+    } else {
+      throw validatorError(number, value, _scope)
+    }
+  }
+  return v
 }
 _number.type = () => 'number';
 _number.value = () => 0;
