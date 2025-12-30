@@ -42,6 +42,10 @@ function toNumber (value: mixed, ctx: AssertionContext): number {
   if (isNumber(value)) {
     return value
   }
+  const v = Number(value)
+  if (!Number.isNaN(v)) {
+    return v
+  }
   ctx.assertion = false
   return Number()
 }
