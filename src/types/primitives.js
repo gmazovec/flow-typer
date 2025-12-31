@@ -29,9 +29,24 @@ _undef.value = () => undefined;
 
 export const undef = (_undef: VoidValidator);
 
-function _boolean (value: mixed, _scope: string = ''): boolean {
-  if (isBoolean(value)) return value
-  throw validatorError(boolean, value, _scope)
+function toBoolean (value: mixed, ctx: AssertionContext): boolean {
+  if (isBoolean(value)) {
+    return value
+  }
+  ctx.assertion = false
+  return Boolean()
+}
+
+function _boolean (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): boolean {
+  const v = toBoolean(value, _ctx)
+  if (_ctx.assertion === false) {
+    if (err) {
+      err.push({ expected: 'boolean', actual: typeof value, scope: _scope })
+    } else {
+      throw validatorError(boolean, value, _scope)
+    }
+  }
+  return v
 }
 _boolean.type = () => 'boolean';
 _boolean.value = () => false;
