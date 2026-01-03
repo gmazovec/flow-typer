@@ -5,37 +5,9 @@ import { deprwarn } from '../index.js'
 
 import type { TypeValidator } from '../'
 
-type V<T> = TypeValidator<T>
-type TupleT =
-    (<A>(V<A>) => V<[A]>)
-  & (<A, B>(V<A>, V<B>) => V<[A, B]>)
-  & (<A, B, C>(V<A>, V<B>, V<C>) => V<[A, B, C]>)
-  & (<A, B, C, D>(V<A>, V<B>, V<C>, V<D>) => V<[A, B, C, D]>)
-  & (<A, B, C, D, E>(V<A>, V<B>, V<C>, V<D>, V<E>) => V<[A, B, C, D, E]>)
-  & (<A, B, C, D, E, F>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>) => V<[A, B, C, D, E, F]>)
-  & (<A, B, C, D, E, F, G>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>) => V<[A, B, C, D, E, F, G]>)
-  & (<A, B, C, D, E, F, G, H>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>) => V<[A, B, C, D, E, F, G, H]>)
-  & (<A, B, C, D, E, F, G, H, I>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>) => V<[A, B, C, D, E, F, G, H, I]>)
-  & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => V<[A, B, C, D, E, F, G, H, I, J]>)
-
-export const tupleOf: TupleT = function tupleOf_ (...typeFuncs) {
-  deprwarn('calling tupleOf is deprecated; use validators with arity, ex. tupleOf2, ... tupleOf6', 'FT002')
-  // $FlowExpectedError[recursive-definition]
-  function tuple (value: mixed, _scope: string = '') {
-    const cardinality = typeFuncs.length
-    if (Array.isArray(value) && value.length === cardinality) {
-      const tupleValue = []
-      for (let i = 0; i < cardinality; i += 1) {
-        tupleValue.push(typeFuncs[i](value[i], _scope))
-      }
-      return tupleValue
-    }
-    throw validatorError(tuple, value, _scope)
-  }
-  // $FlowExpectedError[incompatible-call]
-  tuple.type = () => `[${typeFuncs.map(fn => getType(fn)).join(', ')}]`
-  tuple.value = () => typeFuncs.map(fn => fn.value());
-  return tuple
+export const tupleOf: Tuple2TypeValidator = function tupleOf_ (va, vb) {
+  deprwarn('calling tupleOf is deprecated; fallback to tupleOf2; use validators with arity, ex. tupleOf2, ... tupleOf6', 'FT002')
+  return tuple2(va, vb)
 }
 
 type Tuple2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>) => TypeValidator<[A, B]>
