@@ -10,6 +10,20 @@ export const tupleOf: Tuple2TypeValidator = function tupleOf_ (va, vb) {
   return tuple2(va, vb)
 }
 
+type Tuple1TypeValidator = <A> (TypeValidator<A>) => TypeValidator<[A]>
+
+export const tuple1: Tuple1TypeValidator = function (va) {
+  function tuple (value: mixed, _scope: string = '') {
+    if (Array.isArray(value) && value.length === 1) {
+      return [va(value[0], _scope)]
+    }
+    throw validatorTypeError('tuple', `[${getType(va)}`, value, _scope)
+  }
+  tuple.type = () => `[${getType(va)}]`
+  tuple.value = () => [va.value()]
+  return tuple
+}
+
 type Tuple2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>) => TypeValidator<[A, B]>
 
 export const tuple2: Tuple2TypeValidator = function (va, vb) {

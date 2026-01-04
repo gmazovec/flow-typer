@@ -100,6 +100,7 @@ export const optional = _object.optional
 export const arrayOf = array.arrayOf
 
 export const tupleOf = tuple.tupleOf
+export const tupleOf1 = tuple.tuple1
 export const tupleOf2 = tuple.tuple2
 export const tupleOf3 = tuple.tuple3
 export const tupleOf4 = tuple.tuple4
