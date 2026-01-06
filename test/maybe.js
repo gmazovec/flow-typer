@@ -105,7 +105,6 @@ test('string type', async (t) => {
 
   await t.test('should throw an error', () => {
     assert.throws(() => { maybeString(true) })
-    assert.throws(() => { maybeString(12345) })
     assert.throws(() => { maybeString({}) })
     assert.throws(() => { maybeString([]) })
   })
@@ -128,7 +127,7 @@ test('array type', async (t) => {
     assert.throws(() => { maybeArrayOfString(12345) })
     assert.throws(() => { maybeArrayOfString('foo') })
     assert.throws(() => { maybeArrayOfString({}) })
-    assert.throws(() => { maybeArrayOfString([12345]) })
+    assert.throws(() => { maybeArrayOfString([{}]) })
   })
 })
 

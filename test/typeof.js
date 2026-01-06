@@ -5,7 +5,11 @@ import * as typer from '../src/index.js'
 const {
   objectOf,
   arrayOf,
-  tupleOf,
+  tupleOf1,
+  tupleOf2,
+  tupleOf3,
+  tupleOf4,
+  tupleOf5,
   string,
   number,
   boolean,
@@ -49,7 +53,7 @@ test('should infer object type', () => {
 type TypeT = [string]
 
 test('should infer tuple type (cardinality 1)', () => {
-  const type = tupleOf(string)
+  const type = tupleOf1(string)
   const typeT: TypeT = typeOf(type)
   assert.ok(Array.isArray(typeT))
   assert.equal(typeT.length, 1)
@@ -59,7 +63,7 @@ test('should infer tuple type (cardinality 1)', () => {
 type CoordinateT = [number, number]
 
 test('should infer tuple type (cardinality 2)', () => {
-  const coordinate = tupleOf(number, number)
+  const coordinate = tupleOf2(number, number)
   const coordinateT: CoordinateT = typeOf(coordinate)
   assert.ok(Array.isArray(coordinateT))
   assert.equal(coordinateT.length, 2)
@@ -70,7 +74,7 @@ test('should infer tuple type (cardinality 2)', () => {
 type LocationT = [number, number, string]
 
 test('should infer tuple type (cardinality 3)', () => {
-  const location = tupleOf(number, number, string)
+  const location = tupleOf3(number, number, string)
   const locationT: LocationT = typeOf(location)
   assert.ok(Array.isArray(locationT))
   assert.equal(locationT.length, 3)
@@ -82,7 +86,7 @@ test('should infer tuple type (cardinality 3)', () => {
 type VectorT = [number, number, number, number]
 
 test('should infer tuple type (cardinality 4)', () => {
-  const vector = tupleOf(number, number, number, number)
+  const vector = tupleOf4(number, number, number, number)
   const vectorT: VectorT = typeOf(vector)
   assert.ok(Array.isArray(vectorT))
   assert.equal(vectorT.length, 4)
@@ -95,7 +99,7 @@ test('should infer tuple type (cardinality 4)', () => {
 type ListOfBoolT = [boolean, boolean, boolean, boolean, boolean]
 
 test('should infer tuple type (cardinality 5)', () => {
-  const listOfBool = tupleOf(boolean, boolean, boolean, boolean, boolean)
+  const listOfBool = tupleOf5(boolean, boolean, boolean, boolean, boolean)
   const listOfBoolT: ListOfBoolT = typeOf(listOfBool)
   assert.ok(Array.isArray(listOfBoolT))
   assert.equal(listOfBoolT.length, 5)

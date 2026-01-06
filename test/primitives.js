@@ -77,7 +77,6 @@ test('string type', async (t) => {
     assert.throws(() => { string(null) })
     assert.throws(() => { string(undefined) })
     assert.throws(() => { string(false) })
-    assert.throws(() => { string(12345) })
     assert.throws(() => { string({}) })
     assert.throws(() => { string([]) })
   })

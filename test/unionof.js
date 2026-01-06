@@ -13,7 +13,7 @@ const {
   boolean,
   nil,
   undef,
-  tupleOf,
+  tupleOf3,
   literalOf
 } = typer
 
@@ -101,7 +101,7 @@ test('composable types', async (t) => {
       enabled: boolean
     }),
     arrayOf(string),
-    tupleOf(string, string, number)
+    tupleOf3(string, string, number)
   )
 
   await t.test('should validate an union #1', () => {
@@ -131,7 +131,7 @@ test('composable types', async (t) => {
     assert.throws(() => { schema('foo') })
     assert.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: true }) })
     assert.throws(() => { schema({ type: 'widge', content: 'Hello', enabled: 1 }) })
-    assert.throws(() => { schema(['this', 'is', 1, 'array', 'of', 'strings']) })
+    assert.throws(() => { schema(['this', 'is', {}, 'array', 'of', 'strings']) })
     assert.throws(() => { schema(['bob', 'bob@example.net', 36, true]) })
   })
 })

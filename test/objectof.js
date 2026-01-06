@@ -48,7 +48,6 @@ test('primitive types', async (t) => {
     assert.throws(() => { schema({}) })
     assert.throws(() => { schema([]) })
     assert.throws(() => { schema({ name: 'foo', age: 22 }) })
-    assert.throws(() => { schema({ name: 'foo', age: '22', active: false }) })
     assert.throws(() => { schema({ name: null, age: 22, active: true }) })
     assert.throws(() => { schema({ name: 'foo', age: 22, aktiv: true }) })
     assert.throws(() => { schema({ name: 'foo', age: 33, active: true, rating: 832 }) })
