@@ -1,7 +1,7 @@
 // @flow
 import { getType } from '../utils.js'
-import { validatorError } from '../error.js'
-import { deprwarn } from '../index.js'
+import { validatorError, validatorTypeError } from '../error.js'
+import { deprwarn, string, number } from '../index.js'
 
 import type { TypeValidator } from '..'
 
@@ -38,10 +38,19 @@ export const unionOf: UnionT = function unionOf_ (...typeFuncs) {
 type Union2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>) => TypeValidator<A | B>
 
 export const union2: Union2TypeValidator = function (va, vb) {
+  const type = () => `(${getType(va)} | ${getType(vb)})`;
   function union (value: mixed, _scope: string = '') {
-    return va(value, _scope) ?? vb(value, _scope);
+    try {
+      return va(value, _scope)
+    } catch (_) {
+      try {
+        return vb(value, _scope)
+      } catch (_) {
+        throw validatorTypeError('union', type(), value, _scope)
+      }
+    }
   }
-  union.type = () => `(${getType(va)} | ${getType(vb)})`
+  union.type = type;
   union.value = () => va.value() ?? vb.value();
   return union
 }
