@@ -5,34 +5,9 @@ import { deprwarn, string, number } from '../index.js'
 
 import type { TypeValidator } from '..'
 
-type V<T> = TypeValidator<T>
-type UnionT =
-    (<A>(V<A>) => V<A>)
-  & (<A, B>(V<A>, V<B>) => V<A | B>)
-  & (<A, B, C>(V<A>, V<B>, V<C>) => V<A | B | C>)
-  & (<A, B, C, D>(V<A>, V<B>, V<C>, V<D>) => V<A | B | C | D>)
-  & (<A, B, C, D, E>(V<A>, V<B>, V<C>, V<D>, V<E>) => V<A | B | C | D | E>)
-  & (<A, B, C, D, E, F>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>) => V<A | B | C | D | E | F>)
-  & (<A, B, C, D, E, F, G>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>) => V<A | B | C | D | E | F | G>)
-  & (<A, B, C, D, E, F, G, H>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>) => V<A | B | C | D | E | F | G | H>)
-  & (<A, B, C, D, E, F, G, H, I>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>) => V<A | B | C | D | E | F | G | H | I>)
-  & (<A, B, C, D, E, F, G, H, I, J>(V<A>, V<B>, V<C>, V<D>, V<E>, V<F>, V<G>, V<H>, V<I>, V<J>) => V<A | B | C | D | E | F | G | H | I | J>)
-
-export const unionOf: UnionT = function unionOf_ (...typeFuncs) {
-  deprwarn('calling unionOf is deprecated; use validators with arity, ex. unionOf2, ... unionOf6', 'FT003')
-  // $FlowExpectedError[recursive-definition]
-  function union (value: mixed, _scope: string = '') {
-    for (const typeFn of typeFuncs) {
-      try {
-        return typeFn(value, _scope)
-      } catch (_) {}
-    }
-    throw validatorError(union, value, _scope)
-  }
-  // $FlowExpectedError[incompatible-call]
-  union.type = () => `(${typeFuncs.map(fn => getType(fn)).join(' | ')})`
-  union.value = () => typeFuncs.map(fn => fn.value());
-  return union
+export const unionOf: Union2TypeValidator = function unionOf_ (va, vb) {
+  deprwarn('calling unionOf is deprecated; fallback to unionOf2; use validators with arity, ex. unionOf2, ... unionOf6', 'FT003')
+  return union2(va, vb)
 }
 
 type Union2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>) => TypeValidator<A | B>
