@@ -57,7 +57,7 @@ function toNumber (value: mixed, ctx: AssertionContext): number {
   if (isNumber(value)) {
     return value
   }
-  const v = Number.parseInt(value)
+  const v = Number.parseInt(String(value))
   if (!Number.isNaN(v)) {
     return v
   }
