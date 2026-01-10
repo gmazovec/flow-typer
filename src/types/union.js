@@ -34,7 +34,19 @@ type Union3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeVa
 
 export const union3: Union3TypeValidator = function (va, vb, vc) {
   function union (value: mixed, _scope: string = '') {
-    return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope)
+    try {
+      return va(value, _scope)
+    } catch (_) {
+      try {
+        return vb(value, _scope)
+      } catch (_) {
+        try {
+          return vc(value, _scope)
+        } catch (_) {
+          throw validatorTypeError('union', type(), value, _scope)
+        }
+      }
+    }
   }
   union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)}`
   union.value = () => va.value() ?? vb.value() ?? vc.value();
@@ -45,7 +57,23 @@ type Union4TypeValidator = <A, B, C, D> (TypeValidator<A>, TypeValidator<B>, Typ
 
 export const union4: Union4TypeValidator = function (va, vb, vc, vd) {
   function union (value: mixed, _scope: string = '') {
-    return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope) ?? vd(value, _scope)
+    try {
+      return va(value, _scope)
+    } catch (_) {
+      try {
+        return vb(value, _scope)
+      } catch (_) {
+        try {
+          return vc(value, _scope)
+        } catch (_) {
+          try {
+            return vd(value, _scope)
+          } catch (_) {
+            throw validatorTypeError('union', type(), value, _scope)
+          }
+        }
+      }
+    }
   }
   union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)}`
   union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value();
@@ -56,7 +84,27 @@ type Union5TypeValidator = <A, B, C, D, E> (TypeValidator<A>, TypeValidator<B>, 
 
 export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve) {
   function union (value: mixed, _scope: string = '') {
-    return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope) ?? vd(value, _scope) ?? ve(value, _scope);
+    try {
+      return va(value, _scope)
+    } catch (_) {
+      try {
+        return vb(value, _scope)
+      } catch (_) {
+        try {
+          return vc(value, _scope)
+        } catch (_) {
+          try {
+            return vd(value, _scope)
+          } catch (_) {
+            try {
+              return ve(value, _scope)
+            } catch (_) {
+              throw validatorTypeError('union', type(), value, _scope)
+            }
+          }
+        }
+      }
+    }
   }
   union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)} | ${getType(ve)}`
   union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value();
@@ -67,7 +115,31 @@ type Union6TypeValidator = <A, B, C, D, E, F> (TypeValidator<A>, TypeValidator<B
 
 export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf) {
   function union (value: mixed, _scope: string = '') {
-    return va(value, _scope) ?? vb(value, _scope) ?? vc(value, _scope) ?? vd(value, _scope) ?? ve(value, _scope) ?? vf(value, _scope);
+    try {
+      return va(value, _scope)
+    } catch (_) {
+      try {
+        return vb(value, _scope)
+      } catch (_) {
+        try {
+          return vc(value, _scope)
+        } catch (_) {
+          try {
+            return vd(value, _scope)
+          } catch (_) {
+            try {
+              return ve(value, _scope)
+            } catch (_) {
+              try {
+                return vf(value, _scope)
+              } catch (_) {
+                throw validatorTypeError('union', type(), value, _scope)
+              }
+            }
+          }
+        }
+      }
+    }
   }
   union.type = () => `(${getType(va)} | ${getType(vb)}) | ${getType(vc)} | ${getType(vd)} | ${getType(ve)} | ${getType(vf)}`
   union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value() ?? vf.value();
