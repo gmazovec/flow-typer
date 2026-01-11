@@ -33,6 +33,7 @@ export const union2: Union2TypeValidator = function (va, vb) {
 type Union3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>) => TypeValidator<A | B | C>
 
 export const union3: Union3TypeValidator = function (va, vb, vc) {
+  const type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)}`
   function union (value: mixed, _scope: string = '') {
     try {
       return va(value, _scope)
@@ -48,7 +49,7 @@ export const union3: Union3TypeValidator = function (va, vb, vc) {
       }
     }
   }
-  union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)}`
+  union.type = type
   union.value = () => va.value() ?? vb.value() ?? vc.value();
   return union
 }
@@ -56,6 +57,7 @@ export const union3: Union3TypeValidator = function (va, vb, vc) {
 type Union4TypeValidator = <A, B, C, D> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>) => TypeValidator<A | B | C | D>
 
 export const union4: Union4TypeValidator = function (va, vb, vc, vd) {
+  const type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)}`
   function union (value: mixed, _scope: string = '') {
     try {
       return va(value, _scope)
@@ -75,7 +77,7 @@ export const union4: Union4TypeValidator = function (va, vb, vc, vd) {
       }
     }
   }
-  union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)}`
+  union.type = type
   union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value();
   return union
 }
@@ -83,6 +85,7 @@ export const union4: Union4TypeValidator = function (va, vb, vc, vd) {
 type Union5TypeValidator = <A, B, C, D, E> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>) => TypeValidator<A | B | C | D | E>
 
 export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve) {
+  const type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)} | ${getType(ve)}`
   function union (value: mixed, _scope: string = '') {
     try {
       return va(value, _scope)
@@ -106,7 +109,7 @@ export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve) {
       }
     }
   }
-  union.type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)} | ${getType(ve)}`
+  union.type = type
   union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value();
   return union
 }
@@ -114,6 +117,7 @@ export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve) {
 type Union6TypeValidator = <A, B, C, D, E, F> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, TypeValidator<F>) => TypeValidator<A | B | C | D | E | F>
 
 export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf) {
+  const type = () => `(${getType(va)} | ${getType(vb)}) | ${getType(vc)} | ${getType(vd)} | ${getType(ve)} | ${getType(vf)}`
   function union (value: mixed, _scope: string = '') {
     try {
       return va(value, _scope)
@@ -141,7 +145,7 @@ export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf) {
       }
     }
   }
-  union.type = () => `(${getType(va)} | ${getType(vb)}) | ${getType(vc)} | ${getType(vd)} | ${getType(ve)} | ${getType(vf)}`
+  union.type = type
   union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value() ?? vf.value();
   return union
 }

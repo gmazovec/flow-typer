@@ -6,6 +6,10 @@ import type { $Literal } from '../src'
 
 const {
   unionOf,
+  unionOf2,
+  unionOf3,
+  unionOf4,
+  unionOf5,
   arrayOf,
   objectOf,
   string,
@@ -18,7 +22,7 @@ const {
 } = typer
 
 test('primitive types - cardinality 2', async (t) => {
-  const schema = unionOf(
+  const schema = unionOf2(
     (literalOf('foo'): $Literal<'foo'>),
     (literalOf(12345): $Literal<12345>)
   )
@@ -40,7 +44,7 @@ test('primitive types - cardinality 2', async (t) => {
 })
 
 test('primitive types - cardinality 4', async (t) => {
-  const schema = unionOf(
+  const schema = unionOf4(
     (literalOf(false): $Literal<false>),
     (literalOf(0): $Literal<0>),
     (literalOf(12345): $Literal<12345>),
@@ -65,7 +69,7 @@ test('primitive types - cardinality 4', async (t) => {
 })
 
 test('primitive types - cardinality 5', async (t) => {
-  const schema = unionOf(
+  const schema = unionOf5(
     nil,
     undef,
     boolean,
@@ -91,9 +95,9 @@ test('primitive types - cardinality 5', async (t) => {
 })
 
 test('composable types', async (t) => {
-  const schema = unionOf(
+  const schema = unionOf3(
     objectOf({
-      type: unionOf(
+      type: unionOf2(
         (literalOf('text'): $Literal<'text'>),
         (literalOf('image'): $Literal<'image'>)
       ),
