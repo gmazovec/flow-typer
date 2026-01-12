@@ -109,10 +109,10 @@ export const tupleOf6 = tuple.tuple6
 
 export const unionOf = union.unionOf
 export const unionOf2 = union.union2
-export const unionOf3 = union.unionOf
-export const unionOf4 = union.unionOf
-export const unionOf5 = union.unionOf
-export const unionOf6 = union.unionOf
+export const unionOf3 = union.union3
+export const unionOf4 = union.union4
+export const unionOf5 = union.union5
+export const unionOf6 = union.union6
 
 export const mapOf = map.mapOf
 
