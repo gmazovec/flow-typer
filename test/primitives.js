@@ -2,9 +2,7 @@
 import { assert, test } from './index.js'
 import * as typer from '../src/index.js'
 
-import type { $Literal } from '../src'
-
-const { nil, undef, boolean, number, string, literalOf } = typer
+const { nil, undef, boolean, number, string, literal } = typer
 
 test('nil type', async (t) => {
   await t.test('should return an nil value', () => {
@@ -83,7 +81,7 @@ test('string type', async (t) => {
 })
 
 test('literal boolean type', async (t) => {
-  const bool$Literal = (literalOf(true): $Literal<true>)
+  const bool$Literal = literal(true)
 
   await t.test(`should return a 'true' literal`, () => {
     assert.equal((bool$Literal(true): true), true)
@@ -101,7 +99,7 @@ test('literal boolean type', async (t) => {
 })
 
 test('literal number type', async (t) => {
-  const number$Literal = (literalOf(12345): $Literal<12345>)
+  const number$Literal = literal(12345)
 
   await t.test('should return a number literal', () => {
     assert.equal((number$Literal(12345): 12345), 12345)
@@ -119,7 +117,7 @@ test('literal number type', async (t) => {
 })
 
 test('literal string type', async (t) => {
-  const string$Literal = (literalOf('foo'): $Literal<'foo'>)
+  const string$Literal = literal('foo')
 
   await t.test('should return a string literal', () => {
     assert.equal((string$Literal('foo'): "foo"), 'foo')

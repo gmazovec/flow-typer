@@ -2,8 +2,6 @@
 import { assert, test } from './index.js'
 import * as typer from '../src/index.js'
 
-import type { $Literal } from '../src'
-
 const {
   unionOf,
   unionOf2,
@@ -18,13 +16,13 @@ const {
   nil,
   undef,
   tupleOf3,
-  literalOf
+  literal,
 } = typer
 
 test('primitive types - cardinality 2', async (t) => {
   const schema = unionOf2(
-    (literalOf('foo'): $Literal<'foo'>),
-    (literalOf(12345): $Literal<12345>)
+    literal('foo'),
+    literal(12345)
   )
 
   await t.test('should validate an union', () => {
@@ -45,10 +43,10 @@ test('primitive types - cardinality 2', async (t) => {
 
 test('primitive types - cardinality 4', async (t) => {
   const schema = unionOf4(
-    (literalOf(false): $Literal<false>),
-    (literalOf(0): $Literal<0>),
-    (literalOf(12345): $Literal<12345>),
-    (literalOf(''): $Literal<''>),
+    literal(false),
+    literal(0),
+    literal(12345),
+    literal(''),
   )
 
   await t.test('should validate an union', () => {
@@ -98,8 +96,8 @@ test('composable types', async (t) => {
   const schema = unionOf3(
     objectOf({
       type: unionOf2(
-        (literalOf('text'): $Literal<'text'>),
-        (literalOf('image'): $Literal<'image'>)
+        literal('text'),
+        literal('image')
       ),
       content: string,
       enabled: boolean

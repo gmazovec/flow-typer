@@ -2,8 +2,6 @@
 import { assert, test } from './index.js'
 import * as typer from '../src/index.js'
 
-import type { $Literal } from '../src'
-
 const {
   objectOf,
   tupleOf,
