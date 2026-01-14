@@ -4,7 +4,7 @@ import * as typer from '../src/index.js'
 
 const {
   objectOf,
-  tupleOf,
+  tupleOf2,
   arrayOf,
   mapOf,
   number,
@@ -52,7 +52,7 @@ test("getType", async (t) => {
     assert.deepEqual(getType(boolean), "boolean");
     assert.equal(getType(mixed), "mixed");
     assert.deepEqual(getType(maybe(number)), "?(number)");
-    assert.deepEqual(getType(tupleOf(number, number)), "[number, number]");
+    assert.deepEqual(getType(tupleOf2(number, number)), "[number, number]");
     assert.deepEqual(getType(arrayOf(string, "Id")), "Array<string>");
     assert.deepEqual(getType(objectOf({ name: string, age: number, active: optional(boolean) }, "personT")), "{\n name: string,\n  age: number,\n  active?: boolean \n}");
     assert.deepEqual(getType(mapOf(string, boolean)), "{ [_:string]: boolean }");

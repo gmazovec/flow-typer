@@ -3,7 +3,7 @@
 const t = require('../src/index.js');
 
 const { objectOf, string, number, maybe, boolean, arrayOf, literal, type } = t;
-const { tupleOf, tupleOf2, tupleOf3, tupleOf4, tupleOf5, tupleOf6 } = t;
+const { tupleOf2, tupleOf3, tupleOf4, tupleOf5, tupleOf6 } = t;
 const { unionOf, unionOf2, unionOf3, unionOf4, unionOf5, unionOf6 } = t;
 
 const personSchema = objectOf({
@@ -12,7 +12,7 @@ const personSchema = objectOf({
 	active: boolean,
 	gender: unionOf(literal("male"), literal("female")),
 	tags: arrayOf(string),
-	location: tupleOf(number, number)
+	location: tupleOf2(number, number)
 });
 
 const value = {
@@ -70,7 +70,7 @@ const u6 = unionOf6(string, number, boolean, arrayOf(string), arrayOf(number), a
 /*:: (u5: string | number | boolean | string[] | number[]); */
 /*:: (u6: string | number | boolean | string[] | number[] | boolean[]); */
 
-const u2t = unionOf2(tupleOf(string, string), tupleOf(number, number))([0, 0]);
+const u2t = unionOf2(tupleOf2(string, string), tupleOf2(number, number))([0, 0]);
 
 /*:: (u2t : [string, string] | [number, number]); */
 
