@@ -4,13 +4,13 @@ const t = require('../src/index.js');
 
 const { objectOf, string, number, maybe, boolean, arrayOf, literal, type } = t;
 const { tupleOf2, tupleOf3, tupleOf4, tupleOf5, tupleOf6 } = t;
-const { unionOf, unionOf2, unionOf3, unionOf4, unionOf5, unionOf6 } = t;
+const { unionOf2, unionOf3, unionOf4, unionOf5, unionOf6 } = t;
 
 const personSchema = objectOf({
 	name: string,
 	age: maybe(number),
 	active: boolean,
-	gender: unionOf(literal("male"), literal("female")),
+	gender: unionOf2(literal("male"), literal("female")),
 	tags: arrayOf(string),
 	location: tupleOf2(number, number)
 });

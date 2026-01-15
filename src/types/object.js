@@ -3,7 +3,7 @@ import { getType } from '../utils.js'
 import { validatorError } from '../error.js'
 import { isUndef, isObject } from '../is.js'
 import { undef } from './primitives.js'
-import { unionOf } from './union.js'
+import { union2 } from './union.js'
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
 
@@ -81,7 +81,7 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
 
 export const optional =
   <T>(typeFn: TypeValidator<T>): TypeValidator<T | void> => {
-    const unionFn = unionOf(typeFn, undef)
+    const unionFn = union2(typeFn, undef)
     function optional (v: mixed) {
       return unionFn(v)
     }
