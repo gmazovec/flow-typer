@@ -7,30 +7,8 @@ import type { LiteralValue, TypeValidator } from '..'
 
 export const literalOf =
   <T: LiteralValue>(primitive: T): TypeValidator<T> => {
-    deprwarn('calling literalOf is deprecated; use validator literal instead', 'FT001')
-    function literal (value: mixed, _scope: string = ''): T {
-      if (value === primitive) return primitive
-      throw validatorError(literal, value, _scope)
-    }
-    literal.type = () => {
-      if (isString(primitive)) {
-        return `"${primitive}"`
-      } else if (isNull(primitive)) {
-        return 'null'
-      } else if (isUndef(primitive)) {
-        return 'void'
-      } else if (isObject(primitive)) {
-        if (primitive.constructor.name === 'Object' || primitive.constructor.name === 'Array') {
-          return JSON.stringify(primitive)
-        } else {
-          return primitive.constructor.name;
-        }
-      } else {
-        return primitive.toString()
-      }
-    }
-    literal.value = () => primitive;
-    return literal
+    deprwarn('calling literalOf is deprecated; fallback to literal; replace with literal validator instead; $Literal casting is not required', 'FT001')
+    return literal(primitive)
   }
 
 export const literal =
