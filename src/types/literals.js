@@ -17,7 +17,12 @@ export const literal =
       if (value === primitive) return primitive
       throw validatorError(literal, value, _scope)
     }
-    literal.type = () => `"${String(primitive)}"`
+    literal.type = () => {
+      if (isUndef(primitive)) {
+        return 'void'
+      }
+      return JSON.stringify(primitive) || ""
+    }
     literal.value = (): T => primitive;
     return literal
 }
