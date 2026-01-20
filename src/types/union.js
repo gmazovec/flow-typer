@@ -17,10 +17,10 @@ export const union2: Union2TypeValidator = function (va, vb) {
   function union (value: mixed, _scope: string = '') {
     try {
       return va(value, _scope)
-    } finally {
+    } catch (_) {
       try {
         return vb(value, _scope)
-      } finally {
+      } catch (_) {
         throw validatorTypeError('union', type(), value, _scope)
       }
     }
@@ -37,13 +37,13 @@ export const union3: Union3TypeValidator = function (va, vb, vc) {
   function union (value: mixed, _scope: string = '') {
     try {
       return va(value, _scope)
-    } finally {
+    } catch (_) {
       try {
         return vb(value, _scope)
-      } finally {
+      } catch (_) {
         try {
           return vc(value, _scope)
-        } finally {
+        } catch (_) {
           throw validatorTypeError('union', type(), value, _scope)
         }
       }
@@ -61,16 +61,16 @@ export const union4: Union4TypeValidator = function (va, vb, vc, vd) {
   function union (value: mixed, _scope: string = '') {
     try {
       return va(value, _scope)
-    } finally {
+    } catch (_) {
       try {
         return vb(value, _scope)
-      } finally {
+      } catch (_) {
         try {
           return vc(value, _scope)
-        } finally {
+        } catch (_) {
           try {
             return vd(value, _scope)
-          } finally {
+          } catch (_) {
             throw validatorTypeError('union', type(), value, _scope)
           }
         }
@@ -89,19 +89,19 @@ export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve) {
   function union (value: mixed, _scope: string = '') {
     try {
       return va(value, _scope)
-    } finally {
+    } catch (_) {
       try {
         return vb(value, _scope)
-      } finally {
+      } catch (_) {
         try {
           return vc(value, _scope)
-        } finally {
+        } catch (_) {
           try {
             return vd(value, _scope)
-          } finally {
+          } catch (_) {
             try {
               return ve(value, _scope)
-            } finally {
+            } catch (_) {
               throw validatorTypeError('union', type(), value, _scope)
             }
           }
@@ -121,22 +121,22 @@ export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf) {
   function union (value: mixed, _scope: string = '') {
     try {
       return va(value, _scope)
-    } finally {
+    } catch (_) {
       try {
         return vb(value, _scope)
-      } finally {
+      } catch (_) {
         try {
           return vc(value, _scope)
-        } finally {
+        } catch (_) {
           try {
             return vd(value, _scope)
-          } finally {
+          } catch (_) {
             try {
               return ve(value, _scope)
-            } finally {
+            } catch (_) {
               try {
                 return vf(value, _scope)
-              } finally {
+              } catch (_) {
                 throw validatorTypeError('union', type(), value, _scope)
               }
             }
