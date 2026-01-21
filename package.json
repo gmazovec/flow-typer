@@ -1,6 +1,6 @@
 {
   "name": "flow-typer-js",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "type": "module",
   "description": "Declarative static and runtime type checking with Flow",
   "main": "dist/index.js",
