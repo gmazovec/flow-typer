@@ -40,7 +40,7 @@
   },
   "peerDependenciesMeta": {
     "flow-bin": {
-      "optional": true
+      "optional": false
     }
   }
 }
