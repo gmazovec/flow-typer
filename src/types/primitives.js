@@ -93,7 +93,9 @@ function toString (value: mixed, ctx: AssertionContext) {
 }
 
 function _string (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): string {
-  const v = toString(value, _ctx);
+  const v = Array.isArray(value) && value.length === 1
+    ? toString(value[0], _ctx)
+    : toString(value, _ctx);
   if (_ctx.assertion === false) {
     if (err) {
       err.push({ expected: 'string', actual: typeof value, scope: _scope }) 

@@ -67,8 +67,9 @@ test('number type', async (t) => {
 })
 
 test('string type', async (t) => {
-  await t.test('should returna a string value', () => {
+  await t.test('should return a string value', () => {
     assert.equal((string('foo'): string), 'foo')
+    assert.equal(string(['foo']), 'foo')
   })
 
   await t.test('should throw an error', () => {
@@ -77,6 +78,7 @@ test('string type', async (t) => {
     assert.throws(() => { string(false) })
     assert.throws(() => { string({}) })
     assert.throws(() => { string([]) })
+    assert.throws(() => { string(['f', 'o', 'o']) })
   })
 })
 
