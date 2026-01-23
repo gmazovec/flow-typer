@@ -54,6 +54,8 @@ test('number type', async (t) => {
   await t.test('should return a number value', () => {
     assert.equal((number(12345): number), 12345)
     assert.equal(number(123.45), 123.45)
+    assert.equal(number('123.45'), 123.45)
+    assert.equal(number('12345'), 12345)
   })
 
   await t.test('should throw an error', () => {
@@ -63,6 +65,7 @@ test('number type', async (t) => {
     assert.throws(() => { number('foo') })
     assert.throws(() => { number({}) })
     assert.throws(() => { number([]) })
+
   })
 })
 
