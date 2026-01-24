@@ -68,7 +68,9 @@ function toNumber (value: mixed, ctx: AssertionContext): number {
 }
 
 function _number (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): number {
-  const v = toNumber(value, _ctx)
+  const v = Array.isArray(value) && value.length === 1
+    ? toNumber(value[0], _ctx)
+    : toNumber(value, _ctx);
   if (_ctx.assertion === false) {
     if (err) {
       err.push({ expected: 'number', actual: typeof value, scope: _scope })
