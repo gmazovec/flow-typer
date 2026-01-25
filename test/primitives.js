@@ -56,10 +56,11 @@ test('number type', async (t) => {
     assert.equal(number(123.45), 123.45)
     assert.equal(number('123.45'), 123.45)
     assert.equal(number('12345'), 12345)
+    assert.equal(number(null), NaN)
   })
 
   await t.test('should throw an error', () => {
-    assert.throws(() => { number(null) })
+    // assert.throws(() => { number(null) })
     assert.throws(() => { number(undefined) })
     assert.throws(() => { number(true) })
     assert.throws(() => { number('foo') })

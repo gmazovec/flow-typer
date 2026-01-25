@@ -63,6 +63,9 @@ function toNumber (value: mixed, ctx: AssertionContext): number {
       return v
     }
   }
+  if (isNull(value)) {
+    return NaN
+  }
   ctx.assertion = false
   return Number()
 }
