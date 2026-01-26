@@ -11,6 +11,18 @@ import {
 
 import type { NullValidator, VoidValidator, BooleanValidator, NumberValidator, StringValidator, TypeAssertError, AssertionContext } from '..'
 
+function convertValue <T> (typeFn: (mixed, AssertionContext) => T, value: mixed, ctx: AssertionContext): T {
+  const v = typeFn(value, ctx);
+  if (ctx.assertion === false) {
+    ctx.assertion = true;
+    if (Array.isArray(value) && value.length === 1) {
+      return typeFn(value[0], ctx);
+    }
+    ctx.assertion = false;
+  }
+  return v;
+}
+
 function _nil (value: mixed): null {
   if (isNull(value)) return null
   throw validatorError(nil, value)
@@ -38,7 +50,7 @@ function toBoolean (value: mixed, ctx: AssertionContext): boolean {
 }
 
 function _boolean (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): boolean {
-  const v = toBoolean(value, _ctx)
+  const v = convertValue(toBoolean, value, _ctx)
   if (_ctx.assertion === false) {
     if (err) {
       err.push({ expected: 'boolean', actual: typeof value, scope: _scope })
@@ -71,9 +83,7 @@ function toNumber (value: mixed, ctx: AssertionContext): number {
 }
 
 function _number (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): number {
-  const v = Array.isArray(value) && value.length === 1
-    ? toNumber(value[0], _ctx)
-    : toNumber(value, _ctx);
+  const v = convertValue(toNumber, value, _ctx);
   if (_ctx.assertion === false) {
     if (err) {
       err.push({ expected: 'number', actual: typeof value, scope: _scope })
@@ -100,9 +110,7 @@ function toString (value: mixed, ctx: AssertionContext) {
 }
 
 function _string (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): string {
-  const v = Array.isArray(value) && value.length === 1
-    ? toString(value[0], _ctx)
-    : toString(value, _ctx);
+  const v = convertValue(toString, value, _ctx);
   if (_ctx.assertion === false) {
     if (err) {
       err.push({ expected: 'string', actual: typeof value, scope: _scope }) 
