@@ -18,6 +18,12 @@ function convertValue <T> (typeFn: (mixed, AssertionContext) => T, value: mixed,
     if (Array.isArray(value) && value.length === 1) {
       return typeFn(value[0], ctx);
     }
+    if (isObject(value)) {
+      const keys = Object.keys(value);
+      if (keys.length === 1) {
+        return typeFn(value[keys[0]], ctx);
+      }
+    }
     ctx.assertion = false;
   }
   return v;

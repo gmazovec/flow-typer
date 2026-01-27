@@ -38,6 +38,8 @@ test('boolean type', async (t) => {
   await t.test('should return a boolean value', () => {
     assert.equal((boolean(true): boolean), true)
     assert.equal(boolean(false), false)
+    assert.equal(boolean([true]), true)
+    assert.equal(boolean({ flag: false }), false)
   })
 
   await t.test('should throw an error', () => {
@@ -47,6 +49,8 @@ test('boolean type', async (t) => {
     assert.throws(() => { boolean('foo') })
     assert.throws(() => { boolean({}) })
     assert.throws(() => { boolean([]) })
+    assert.throws(() => { boolean([true, false]) })
+    assert.throws(() => { boolean({ flagA: true, flagB: false }) })
   })
 })
 
@@ -57,6 +61,8 @@ test('number type', async (t) => {
     assert.equal(number('123.45'), 123.45)
     assert.equal(number('12345'), 12345)
     assert.equal(number(null), NaN)
+    assert.equal(number([232]), 232)
+    assert.equal(number({ total: 561 }), 561)
   })
 
   await t.test('should throw an error', () => {
@@ -66,14 +72,17 @@ test('number type', async (t) => {
     assert.throws(() => { number('foo') })
     assert.throws(() => { number({}) })
     assert.throws(() => { number([]) })
-
+    assert.throws(() => { number([123, 456]) })
+    assert.throws(() => { number({ numA: 123, numb: 456 }) })
   })
 })
 
 test('string type', async (t) => {
   await t.test('should return a string value', () => {
     assert.equal((string('foo'): string), 'foo')
+    assert.equal(string(163), '163')
     assert.equal(string(['foo']), 'foo')
+    assert.equal(string({ label: 'foo' }), 'foo')
   })
 
   await t.test('should throw an error', () => {
@@ -83,6 +92,7 @@ test('string type', async (t) => {
     assert.throws(() => { string({}) })
     assert.throws(() => { string([]) })
     assert.throws(() => { string(['f', 'o', 'o']) })
+    assert.throws(() => { string({ labelA: 'f', labelB: 'o' }) })
   })
 })
 
