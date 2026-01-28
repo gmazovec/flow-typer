@@ -38,9 +38,21 @@ _nil.value = () => null;
 
 export const nil = (_nil: NullValidator);
 
-function _undef (value: mixed, _scope: string = ''): void {
-  if (isUndef(value)) return undefined
-  throw validatorError(undef, value, _scope)
+function toUndef (value: mixed, ctx: AssertionContext): void {
+  if (!isUndef(value)) {
+    ctx.assertion = false
+  }
+}
+
+function _undef (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): void {
+  convertValue(toUndef, value, _ctx);
+  if (_ctx.assertion === false) {
+    if (err) {
+      err.push({ expected: 'void', actual: typeof value, scope: _scope })
+    } else {
+      throw validatorError(undef, value, _scope)
+    }
+  }
 }
 _undef.type = () => 'void'
 _undef.value = () => undefined;
