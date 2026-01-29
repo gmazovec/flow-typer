@@ -29,9 +29,24 @@ function convertValue <T> (typeFn: (mixed, AssertionContext) => T, value: mixed,
   return v;
 }
 
-function _nil (value: mixed): null {
-  if (isNull(value)) return null
-  throw validatorError(nil, value)
+function toNil (value: mixed, ctx: AssertionContext): null {
+  if (isNull(value)) {
+    return null
+  }
+  ctx.assertion = false
+  return null
+}
+
+function _nil (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): null {
+  const v = convertValue(toNil, value, _ctx)
+  if (_ctx.assertion === false) {
+    if (err) {
+      err.push({ expected: 'null', actual: typeof value, scope: _scope })
+    } else {
+      throw validatorError(undef, value, _scope)
+    }
+  }
+  return v
 }
 _nil.type = () => 'null';
 _nil.value = () => null;
