@@ -1,5 +1,6 @@
 // @flow
-import { validatorError } from '../error.js'
+import { validatorError, validatorTypeError } from '../error.js'
+import { getType } from '../utils.js'
 import {
   isNull,
   isUndef,
@@ -29,6 +30,16 @@ function convertValue <T> (typeFn: (mixed, AssertionContext) => T, value: mixed,
   return v;
 }
 
+function assertContext (name: string, type: string, value: mixed, scope: string, err: ?TypeAssertError[], ctx: AssertionContext): void {
+  if (ctx.assertion === false) {
+    if (err) {
+      err.push({ expected: type, actual: typeof value, scope: scope })
+    } else {
+      throw validatorTypeError(name, type, value, scope)
+    }
+  }
+}
+
 function toNil (value: mixed, ctx: AssertionContext): null {
   if (isNull(value)) {
     return null
@@ -39,13 +50,7 @@ function toNil (value: mixed, ctx: AssertionContext): null {
 
 function _nil (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): null {
   const v = convertValue(toNil, value, _ctx)
-  if (_ctx.assertion === false) {
-    if (err) {
-      err.push({ expected: 'null', actual: typeof value, scope: _scope })
-    } else {
-      throw validatorError(undef, value, _scope)
-    }
-  }
+  assertContext(nil.name, getType(nil), value, _scope, err, _ctx);
   return v
 }
 _nil.type = () => 'null';
@@ -61,13 +66,7 @@ function toUndef (value: mixed, ctx: AssertionContext): void {
 
 function _undef (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): void {
   convertValue(toUndef, value, _ctx);
-  if (_ctx.assertion === false) {
-    if (err) {
-      err.push({ expected: 'void', actual: typeof value, scope: _scope })
-    } else {
-      throw validatorError(undef, value, _scope)
-    }
-  }
+  assertContext(undef.name, getType(undef), value, _scope, err, _ctx);
 }
 _undef.type = () => 'void'
 _undef.value = () => undefined;
@@ -84,13 +83,7 @@ function toBoolean (value: mixed, ctx: AssertionContext): boolean {
 
 function _boolean (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): boolean {
   const v = convertValue(toBoolean, value, _ctx)
-  if (_ctx.assertion === false) {
-    if (err) {
-      err.push({ expected: 'boolean', actual: typeof value, scope: _scope })
-    } else {
-      throw validatorError(boolean, value, _scope)
-    }
-  }
+  assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx);
   return v
 }
 _boolean.type = () => 'boolean';
@@ -117,13 +110,7 @@ function toNumber (value: mixed, ctx: AssertionContext): number {
 
 function _number (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): number {
   const v = convertValue(toNumber, value, _ctx);
-  if (_ctx.assertion === false) {
-    if (err) {
-      err.push({ expected: 'number', actual: typeof value, scope: _scope })
-    } else {
-      throw validatorError(number, value, _scope)
-    }
-  }
+  assertContext(number.name, getType(number), value, _scope, err, _ctx);
   return v
 }
 _number.type = () => 'number';
@@ -144,13 +131,7 @@ function toString (value: mixed, ctx: AssertionContext) {
 
 function _string (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): string {
   const v = convertValue(toString, value, _ctx);
-  if (_ctx.assertion === false) {
-    if (err) {
-      err.push({ expected: 'string', actual: typeof value, scope: _scope }) 
-    } else {
-      throw validatorError(string, value, _scope)
-    }
-  }
+  assertContext(string.name, getType(string), value, _scope, err, _ctx);
   return v
 }
 _string.type = () => 'string';
