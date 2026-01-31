@@ -1,6 +1,7 @@
 // @flow
 import { getType } from '../utils.js'
 import { validatorError } from '../error.js'
+import { assertContext } from './primitives.js'
 
 import type { TypeValidator, TypeArrayValidator, TypeAssertError, AssertionContext } from '..'
 
@@ -18,13 +19,7 @@ export const arrayOf =
   <T>(typeFn: TypeValidator<T>, label?: string = 'Array'): TypeArrayValidator<T> => {
     function array (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}): Array<T> {
       const v = toArray(typeFn, value, _scope, _ctx)
-      if (_ctx.assertion === false) {
-        if (err) {
-          err.push({ expected: array.type(), actual: typeof(value), scope: _scope })
-        } else {
-          throw validatorError(array, value, _scope)
-        }
-      }
+      assertContext(array.name, array.type(), value, _scope, err, _ctx);
       return v
     }
     array.type = () => `Array<${getType(typeFn)}>`

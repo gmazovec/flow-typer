@@ -30,7 +30,7 @@ function convertValue <T> (typeFn: (mixed, AssertionContext) => T, value: mixed,
   return v;
 }
 
-function assertContext (name: string, type: string, value: mixed, scope: string, err: ?TypeAssertError[], ctx: AssertionContext): void {
+export function assertContext (name: string, type: string, value: mixed, scope: string, err: ?TypeAssertError[], ctx: AssertionContext): void {
   if (ctx.assertion === false) {
     if (err) {
       err.push({ expected: type, actual: typeof value, scope: scope })
