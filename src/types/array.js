@@ -1,7 +1,7 @@
 // @flow
 import { getType } from '../utils.js'
 import { validatorError } from '../error.js'
-import { assertContext } from './primitives.js'
+import { assertContext } from '../type.js'
 
 import type { TypeValidator, TypeArrayValidator, TypeAssertError, AssertionContext } from '..'
 
