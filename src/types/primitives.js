@@ -19,7 +19,7 @@ function toNil (value: mixed, ctx: AssertionContext): null {
   return null
 }
 
-function _nil (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): null {
+function _nil (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): null {
   const v = convertValue(toNil, value, _ctx)
   assertContext(nil.name, getType(nil), value, _scope, err, _ctx);
   return v
@@ -35,7 +35,7 @@ function toUndef (value: mixed, ctx: AssertionContext): void {
   }
 }
 
-function _undef (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): void {
+function _undef (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): void {
   convertValue(toUndef, value, _ctx);
   assertContext(undef.name, getType(undef), value, _scope, err, _ctx);
 }
@@ -52,7 +52,7 @@ function toBoolean (value: mixed, ctx: AssertionContext): boolean {
   return Boolean()
 }
 
-function _boolean (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): boolean {
+function _boolean (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): boolean {
   const v = convertValue(toBoolean, value, _ctx)
   assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx);
   return v
@@ -79,7 +79,7 @@ function toNumber (value: mixed, ctx: AssertionContext): number {
   return Number()
 }
 
-function _number (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): number {
+function _number (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): number {
   const v = convertValue(toNumber, value, _ctx);
   assertContext(number.name, getType(number), value, _scope, err, _ctx);
   return v
@@ -100,7 +100,7 @@ function toString (value: mixed, ctx: AssertionContext) {
   return String()
 }
 
-function _string (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx: AssertionContext = {}): string {
+function _string (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): string {
   const v = convertValue(toString, value, _ctx);
   assertContext(string.name, getType(string), value, _scope, err, _ctx);
   return v
@@ -109,3 +109,4 @@ _string.type = () => 'string';
 _string.value = () => '';
 
 export const string = (_string: StringValidator);
+

@@ -18,7 +18,7 @@ export type LiteralValue = boolean | number | string
 export type ObjectRecord<T> = { [key: string]: T }
 /*:: export type TypeValidatorMap<T> = { [key in keyof T]: ReturnType<T[key]> } */
 export type TypeChecker<T> = (mixed, _?:string) => T
-export type TypeValidator<T> = { (mixed, _?:string): T, type: (?{ noVoid: boolean }) => string, value: () => T, ... }
+export type TypeValidator<T> = { (mixed, _?:string, _?: TypeAssertError[], _?: AssertionContext): T, type: (?{ noVoid: boolean }) => string, value: () => T, ... }
 export type TypeMaybeValidator<T> = { (mixed, _?:string): ?T, type: () => string, value: () => ?T, ... }
 export type TypeArrayValidator<T> = { (mixed, _?:string): T[], type: () => string, value: () => T[], ... }
 export type TypeCallbackValidator<T> = { (mixed, _?:string): ReturnType<T>, type: (?{ noVoid: boolean }) => string, ... }

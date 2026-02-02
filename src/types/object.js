@@ -1,17 +1,25 @@
 // @flow
+import { assertContext } from '../type.js'
 import { getType } from '../utils.js'
 import { validatorError } from '../error.js'
-import { isUndef, isObject } from '../is.js'
+import { isUndef, isString, isObject } from '../is.js'
 import { undef } from './primitives.js'
 import { union2 } from './union.js'
 
-import type { ObjectRecord, TypeValidator, TypeValidatorRecord } from '..'
+import type { ObjectRecord, TypeValidator, TypeValidatorRecord, TypeAssertError, AssertionContext } from '..'
 
-function _object (value: mixed, _scope: string = ''): {...} {
+function toObject (value: mixed, ctx: AssertionContext): {...} {
   if (isObject(value) && !Array.isArray(value)) {
     return Object.assign({}, value)
   }
-  throw validatorError(object, value, _scope)
+  ctx.assertion = false
+  return {}
+}
+
+function _object (value: mixed, _scope: string = '', err?: TypeAssertError[], ctx?: AssertionContext = {}): {...} {
+  const v = toObject(value, ctx);
+  assertContext("object", _object.type(), value, _scope, err, ctx);
+  return v;
 }
 _object.type = () => 'Object';
 _object.value = () => ({});
@@ -19,33 +27,33 @@ _object.value = () => ({});
 export const object = (_object: TypeValidator<ObjectRecord<mixed>>);
 
 export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string =  'Object') /*: TypeValidator<{ [key in keyof T]: ReturnType<T[key]> }> */ {
-  function object_ (value: mixed, _scope: string = label) /*: { [key in keyof T]: ReturnType<T[key]> } */ {
-    const o = object(value, _scope)
+  function object_ (value: mixed, _scope: string = label, err?: TypeAssertError[], _ctx: AssertionContext = {}) /*: { [key in keyof T]: ReturnType<T[key]> } */ {
+    const o = object(value, _scope, err, _ctx);
+    assertContext(object.name, object_.type(), value, _scope, err, _ctx);
     const typeAttrs = Object.keys(typeObj)
     const unknownAttr = Object.keys(o).find(attr => !typeAttrs.includes(attr))
-    if (typeof unknownAttr === "string") {
-      throw validatorError(
-        object,
-        value,
-        _scope,
-        `missing object property '${unknownAttr}' in ${_scope} type`
-      )
+    let ctx;
+    assertContext(object.name, object_.type(), value, _scope, err, ctx = { assertion: !isString(unknownAttr) }, `missing object property '${unknownAttr || ""}' in ${_scope} type`)
+    if (ctx.assertion === false) {
+      _ctx.assertion = false;
     }
+
     const undefAttr = typeAttrs.find(property => {
       const propertyTypeFn = typeObj[property]
       return (propertyTypeFn.name === 'maybe' && !o.hasOwnProperty(property))
     })
-    if (typeof undefAttr === "string") {
-      throw validatorError(
-        object,
-        o[undefAttr],
-        `${_scope}.${undefAttr}`,
-        `empty object property '${undefAttr}' for ${_scope} type`,
-        `void | null | ${getType(typeObj[undefAttr]).substr(1)}`,
-        '-'
-      )
+    assertContext(
+      object.name,
+      `void | null${undefAttr === undefined ? '' : ' | ' + getType(typeObj[undefAttr]).substr(1)}`,
+      value,
+      undefAttr === undefined ? _scope : `${_scope}.${undefAttr}`,
+      err,
+      ctx = { assertion: !isString(undefAttr) },
+      `empty object property '${undefAttr || ""}' for ${_scope} type`,
+    )
+    if (ctx.assertion === false) {
+      _ctx.assertion = false
     }
-
     const obj = {...typeObj};
 
     for (const key of typeAttrs) {

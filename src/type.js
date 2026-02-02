@@ -22,12 +22,12 @@ export function convertValue <T> (typeFn: (mixed, AssertionContext) => T, value:
   return v;
 }
 
-export function assertContext (name: string, type: string, value: mixed, scope: string, err: ?TypeAssertError[], ctx: AssertionContext): void {
+export function assertContext (name: string, type: string, value: mixed, scope: string, err: ?TypeAssertError[], ctx: AssertionContext, msg?: string = ""): void {
   if (ctx.assertion === false) {
     if (err) {
       err.push({ expected: type, actual: typeof value, scope: scope })
     } else {
-      throw validatorTypeError(name, type, value, scope)
+      throw validatorTypeError(name, type, value, scope, msg)
     }
   }
 }
