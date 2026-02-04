@@ -1,9 +1,10 @@
 // @flow
+import { assertContext } from '../type.js'
 import { getType } from '../utils.js'
 import { validatorError, validatorTypeError } from '../error.js'
 import { deprwarn, string, number } from '../index.js'
 
-import type { TypeValidator } from '..'
+import type { TypeValidator, TypeAssertError, AssertionContext } from '..'
 
 export const unionOf: Union2TypeValidator = function unionOf_ (va, vb) {
   deprwarn('calling unionOf is deprecated; fallback to unionOf2; use validators with arity, ex. unionOf2, ... unionOf6', 'FT003')
@@ -14,19 +15,31 @@ type Union2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>) => TypeVa
 
 export const union2: Union2TypeValidator = function (va, vb) {
   const type = () => `(${getType(va)} | ${getType(vb)})`;
-  function union (value: mixed, _scope: string = '') {
+  const union_value = () => va.value() ?? vb.value();
+  function union (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx: AssertionContext = {}) {
+    debugger;
     try {
-      return va(value, _scope)
+      const v = va(value, _scope, err, _ctx);
+      assertContext("union", type(), value, _scope, err, _ctx);
+      return v;
     } catch (_) {
+      const ctx = { assertion: true };
       try {
-        return vb(value, _scope)
+        const v = vb(value, _scope, err, ctx);
+        if (ctx.assertion === false) {
+          _ctx.assertion = false;
+        }
+        assertContext("union", type(), value, _scope, err, _ctx);
+        return v;
       } catch (_) {
-        throw validatorTypeError('union', type(), value, _scope)
+        _ctx.assertion = false;
+        assertContext("union", type(), value, _scope, err, _ctx);
+        return union_value();
       }
     }
   }
   union.type = type;
-  union.value = () => va.value() ?? vb.value();
+  union.value = union_value;
   return union
 }
 
