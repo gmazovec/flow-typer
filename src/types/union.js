@@ -17,19 +17,20 @@ export const union2: Union2TypeValidator = function (va, vb) {
   const type = () => `(${getType(va)} | ${getType(vb)})`;
   const union_value = () => va.value() ?? vb.value();
   function union (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx: AssertionContext = {}) {
-    debugger;
     try {
-      const v = va(value, _scope, err, _ctx);
-      assertContext("union", type(), value, _scope, err, _ctx);
+      const ctx = { assertion: true };
+      const v = va(value, _scope, err, ctx);
+      if (ctx.assertion === false) {
+        throw {};
+      }
       return v;
     } catch (_) {
-      const ctx = { assertion: true };
       try {
+        const ctx = { assertion: true };
         const v = vb(value, _scope, err, ctx);
         if (ctx.assertion === false) {
-          _ctx.assertion = false;
+          throw {};
         }
-        assertContext("union", type(), value, _scope, err, _ctx);
         return v;
       } catch (_) {
         _ctx.assertion = false;
