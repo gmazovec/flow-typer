@@ -62,7 +62,7 @@ export const validatorError = <T>(
       message,
       expectedType,
       valueType,
-      typeof value === 'string' ? JSON.stringify(value) : '',
+      JSON.stringify(value) || "",
       typeFn.name,
       scope
     )
@@ -84,7 +84,7 @@ export const validatorTypeError = <T>(
       message,
       expectedType,
       valueType,
-      typeof value === 'string' ? JSON.stringify(value) : '',
+      JSON.stringify(value) || "",
       name,
       scope
     )
