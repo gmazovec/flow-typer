@@ -11,6 +11,15 @@ export const unionOf: Union2TypeValidator = function unionOf_ (va, vb) {
   return union2(va, vb)
 }
 
+function assertUnion <T> (vx: TypeValidator<T>, value: mixed, _scope: string, err?: TypeAssertError[]): T {
+ const ctx = { assertion: true }
+ const v = vx(value, _scope, err, ctx)
+ if (ctx.assertion === false) {
+   throw {}
+ }
+ return v
+}
+
 type Union2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>) => TypeValidator<A | B>
 
 export const union2: Union2TypeValidator = function (va, vb) {
