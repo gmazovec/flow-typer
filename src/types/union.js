@@ -57,23 +57,26 @@ type Union3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeVa
 
 export const union3: Union3TypeValidator = function (va, vb, vc) {
   const type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)}`
-  function union (value: mixed, _scope: string = '') {
+  const union_value = () => va.value() ?? vb.value() ?? vc.value()
+  function union (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx: AssertionContext = {}) {
     try {
-      return va(value, _scope)
+      return assertUnion(va, value, _scope, err)
     } catch (_) {
       try {
-        return vb(value, _scope)
+        return assertUnion(vb, value, _scope, err)
       } catch (_) {
         try {
-          return vc(value, _scope)
+          return assertUnion(vc, value, _scope, err)
         } catch (_) {
-          throw validatorTypeError('union', type(), value, _scope)
+          _ctx.assertion = false;
+          assertContext("union", type(), value, _scope, err, _ctx);
+          return union_value()
         }
       }
     }
   }
   union.type = type
-  union.value = () => va.value() ?? vb.value() ?? vc.value();
+  union.value = union_value
   return union
 }
 
@@ -81,27 +84,30 @@ type Union4TypeValidator = <A, B, C, D> (TypeValidator<A>, TypeValidator<B>, Typ
 
 export const union4: Union4TypeValidator = function (va, vb, vc, vd) {
   const type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)}`
-  function union (value: mixed, _scope: string = '') {
+  const union_value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value()
+  function union (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx: AssertionContext = {}) {
     try {
-      return va(value, _scope)
+      return assertUnion(va, value, _scope, err)
     } catch (_) {
       try {
-        return vb(value, _scope)
+        return assertUnion(vb, value, _scope, err)
       } catch (_) {
         try {
-          return vc(value, _scope)
+          return assertUnion(vc, value, _scope, err)
         } catch (_) {
           try {
-            return vd(value, _scope)
+            return assertUnion(vd, value, _scope, err)
           } catch (_) {
-            throw validatorTypeError('union', type(), value, _scope)
+            _ctx.assertion = false
+            assertContext('union', type(), value, _scope, err, _ctx)
+            return union_value()
           }
         }
       }
     }
   }
   union.type = type
-  union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value();
+  union.value = union_value 
   return union
 }
 
@@ -109,23 +115,26 @@ type Union5TypeValidator = <A, B, C, D, E> (TypeValidator<A>, TypeValidator<B>, 
 
 export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve) {
   const type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)} | ${getType(ve)}`
-  function union (value: mixed, _scope: string = '') {
+  const union_value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value()
+  function union (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx: AssertionContext = {}) {
     try {
-      return va(value, _scope)
+      return assertUnion(va, value, _scope, err)
     } catch (_) {
       try {
-        return vb(value, _scope)
+        return assertUnion(vb, value, _scope, err)
       } catch (_) {
         try {
-          return vc(value, _scope)
+          return assertUnion(vc, value, _scope, err)
         } catch (_) {
           try {
-            return vd(value, _scope)
+            return assertUnion(vd, value, _scope, err)
           } catch (_) {
             try {
-              return ve(value, _scope)
+              return assertUnion(ve, value, _scope, err)
             } catch (_) {
-              throw validatorTypeError('union', type(), value, _scope)
+              _ctx.assertion = false
+              assertContext('union', type(), value, _scope, err, _ctx)
+              return union_value()
             }
           }
         }
@@ -133,7 +142,7 @@ export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve) {
     }
   }
   union.type = type
-  union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value();
+  union.value = union_value 
   return union
 }
 
@@ -141,26 +150,29 @@ type Union6TypeValidator = <A, B, C, D, E, F> (TypeValidator<A>, TypeValidator<B
 
 export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf) {
   const type = () => `(${getType(va)} | ${getType(vb)}) | ${getType(vc)} | ${getType(vd)} | ${getType(ve)} | ${getType(vf)}`
-  function union (value: mixed, _scope: string = '') {
+  const union_value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value() ?? vf.value()
+  function union (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx: AssertionContext = {}) {
     try {
-      return va(value, _scope)
+      return assertUnion(va, value, _scope, err)
     } catch (_) {
       try {
-        return vb(value, _scope)
+        return assertUnion(vb, value, _scope, err)
       } catch (_) {
         try {
-          return vc(value, _scope)
+          return assertUnion(vc ,value, _scope, err)
         } catch (_) {
           try {
-            return vd(value, _scope)
+            return assertUnion(vd, value, _scope, err)
           } catch (_) {
             try {
-              return ve(value, _scope)
+              return assertUnion(ve ,value, _scope, err)
             } catch (_) {
               try {
-                return vf(value, _scope)
+                return assertUnion(vf, value, _scope, err)
               } catch (_) {
-                throw validatorTypeError('union', type(), value, _scope)
+                _ctx.assertion = false
+                assertContext('union', type(), value, _scope, err, _ctx)
+                return union_value()
               }
             }
           }
@@ -169,7 +181,7 @@ export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf) {
     }
   }
   union.type = type
-  union.value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value() ?? vf.value();
+  union.value = union_value
   return union
 }
 
