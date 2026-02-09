@@ -4,17 +4,17 @@ import { isObject } from './is.js'
 
 import type { TypeAssertError, AssertionContext } from '.'
 
-export function convertValue <T> (typeFn: (mixed, AssertionContext) => T, value: mixed, ctx: AssertionContext): T {
-  const v = typeFn(value, ctx);
+export function convertValue <T> (typeFn: (mixed, AssertionContext, boolean) => T, value: mixed, ctx: AssertionContext, convert: boolean): T {
+  const v = typeFn(value, ctx, convert);
   if (ctx.assertion === false) {
     ctx.assertion = true;
     if (Array.isArray(value) && value.length === 1) {
-      return typeFn(value[0], ctx);
+      return typeFn(value[0], ctx, convert);
     }
     if (isObject(value)) {
       const keys = Object.keys(value);
       if (keys.length === 1) {
-        return typeFn(value[keys[0]], ctx);
+        return typeFn(value[keys[0]], ctx, convert);
       }
     }
     ctx.assertion = false;

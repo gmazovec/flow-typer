@@ -11,7 +11,7 @@ import {
 
 import type { NullValidator, VoidValidator, BooleanValidator, NumberValidator, StringValidator, TypeAssertError, AssertionContext } from '..'
 
-function toNil (value: mixed, ctx: AssertionContext): null {
+function toNil (value: mixed, ctx: AssertionContext, convert: boolean): null {
   if (isNull(value)) {
     return null
   }
@@ -20,7 +20,7 @@ function toNil (value: mixed, ctx: AssertionContext): null {
 }
 
 function _nil (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): null {
-  const v = convertValue(toNil, value, _ctx)
+  const v = convertValue(toNil, value, _ctx, false)
   assertContext(nil.name, getType(nil), value, _scope, err, _ctx);
   return v
 }
@@ -29,14 +29,14 @@ _nil.value = () => null;
 
 export const nil = (_nil: NullValidator);
 
-function toUndef (value: mixed, ctx: AssertionContext): void {
+function toUndef (value: mixed, ctx: AssertionContext, convert: boolean): void {
   if (!isUndef(value)) {
     ctx.assertion = false
   }
 }
 
 function _undef (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): void {
-  convertValue(toUndef, value, _ctx);
+  convertValue(toUndef, value, _ctx, false);
   assertContext(undef.name, getType(undef), value, _scope, err, _ctx);
 }
 _undef.type = () => 'void'
@@ -44,7 +44,7 @@ _undef.value = () => undefined;
 
 export const undef = (_undef: VoidValidator);
 
-function toBoolean (value: mixed, ctx: AssertionContext): boolean {
+function toBoolean (value: mixed, ctx: AssertionContext, convert: boolean): boolean {
   if (isBoolean(value)) {
     return value
   }
@@ -53,7 +53,7 @@ function toBoolean (value: mixed, ctx: AssertionContext): boolean {
 }
 
 function _boolean (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): boolean {
-  const v = convertValue(toBoolean, value, _ctx)
+  const v = convertValue(toBoolean, value, _ctx, false)
   assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx);
   return v
 }
@@ -62,25 +62,27 @@ _boolean.value = () => false;
 
 export const boolean = (_boolean: BooleanValidator);
 
-function toNumber (value: mixed, ctx: AssertionContext): number {
+function toNumber (value: mixed, ctx: AssertionContext, convert: boolean): number {
   if (isNumber(value)) {
     return value
   }
-  if (isString(value)) {
-    const v = Number.parseFloat(value)
-    if (!Number.isNaN(v)) {
-      return v
+  if (convert) {
+    if (isString(value)) {
+      const v = Number.parseFloat(value)
+      if (!Number.isNaN(v)) {
+        return v
+      }
     }
-  }
-  if (isNull(value)) {
-    return NaN
+    if (isNull(value)) {
+      return NaN
+    }
   }
   ctx.assertion = false
   return Number()
 }
 
-function _number (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): number {
-  const v = convertValue(toNumber, value, _ctx);
+function _number (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+  const v = convertValue(toNumber, value, _ctx, _convert);
   assertContext(number.name, getType(number), value, _scope, err, _ctx);
   return v
 }
@@ -89,19 +91,21 @@ _number.value = () => 0;
 
 export const number = (_number: NumberValidator);
 
-function toString (value: mixed, ctx: AssertionContext) {
+function toString (value: mixed, ctx: AssertionContext, convert: boolean) {
   if (isString(value)) {
     return value
   }
-  if (isNumber(value)) {
-    return String(value)
+  if (convert) {
+    if (isNumber(value)) {
+      return String(value)
+    }
   }
   ctx.assertion = false
   return String()
 }
 
-function _string (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): string {
-  const v = convertValue(toString, value, _ctx);
+function _string (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
+  const v = convertValue(toString, value, _ctx, _convert);
   assertContext(string.name, getType(string), value, _scope, err, _ctx);
   return v
 }
