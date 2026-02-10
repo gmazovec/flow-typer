@@ -123,6 +123,20 @@ type TypeValidatorError {
 }
 ```
 
+## Type Conversions
+
+Primitive types _number_ and _string_ have builtin automatic type conversion. The
+conversion is extended to array and object values with one element. The coversion
+is disabled by default and it needs to be enabled for each type validator.
+
+- number type from string value, ex. `"45.61"`, `"1e-23"`
+- number type from `null` to `NaN`
+- string type from number value
+
+- primitive type from array values with one element, ex. `["ada"]` to `"ada"`
+- primitive type from object with one key, ex. `{ name: "ada" }` to `"ada"`
+
+
 ## API
 
 These functions will check for specific JavaScript type with correct _Flow_ type
@@ -226,4 +240,4 @@ const date = type((value) => {
   if (value instanceof Date) return value
   throw new Error
 })
-````
+```
