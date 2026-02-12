@@ -1,42 +1,27 @@
-src/is.js
-Covered: 100.00% (45 of 45 expressions)
 
-src/types/primitives.js
-Covered: 100.00% (135 of 135 expressions)
+Coverage results from 14 file(s):
 
-src/types/literals.js
-Covered: 100.00% (74 of 74 expressions)
+/Users/gregor/~Source/github/flow-typer/src/utils.js: 96.77% (60 of 62 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/union.js: 96.39% (534 of 554 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/tuple.js: 100.00% (594 of 594 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/primitives.js: 99.69% (321 of 322 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/object.js: 87.43% (320 of 366 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/mixed.js: 100.00% (17 of 17 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/maybe.js: 100.00% (63 of 63 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/map.js: 100.00% (66 of 66 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/literals.js: 100.00% (70 of 70 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/array.js: 100.00% (83 of 83 expressions)
+/Users/gregor/~Source/github/flow-typer/src/type.js: 97.87% (92 of 94 expressions)
+/Users/gregor/~Source/github/flow-typer/src/is.js: 100.00% (56 of 56 expressions)
+/Users/gregor/~Source/github/flow-typer/src/index.js: 98.40% (184 of 187 expressions)
+/Users/gregor/~Source/github/flow-typer/src/error.js: 100.00% (249 of 249 expressions)
 
-src/types/maybe.js
-Covered: 100.00% (56 of 56 expressions)
-
-src/types/tuple.js
-Covered: 99.16% (587 of 592 expressions)
-
-src/types/object.js
-Covered: 81.95% (218 of 266 expressions)
-
-src/types/array.js
-Covered: 100.00% (56 of 56 expressions)
-
-src/types/union.js
-Covered: 97.91% (281 of 287 expressions)
-
-src/types/mixed.js
-Covered: 100.00% (12 of 12 expressions)
-
-src/types/map.js
-Covered: 100.00% (66 of 66 expressions)
-
-src/index.js
-Covered: 97.71% (171 of 175 expressions)
-
-src/error.js
-Covered: 100.00% (257 of 257 expressions)
-
-src/const.js
-Covered: 100.00% (5 of 5 expressions)
-
-src/utils.js
-Covered: 96.88% (62 of 64 expressions)
+-----------------------------------
+Aggregate coverage statistics
+-----------------------------------
+Files                : 14
+Expressions          :
+  Covered            : 2709
+  Total              : 2783
+  Covered Percentage : 97.34%
 
