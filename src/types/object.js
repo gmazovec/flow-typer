@@ -32,27 +32,25 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
     assertContext(object.name, object_.type(), value, _scope, err, _ctx);
     const typeAttrs = Object.keys(typeObj)
     const unknownAttr = Object.keys(o).find(attr => !typeAttrs.includes(attr))
-    let ctx;
-    assertContext(object.name, object_.type(), value, _scope, err, ctx = { assertion: !isString(unknownAttr) }, `missing object property '${unknownAttr || ""}' in ${_scope} type`)
-    if (ctx.assertion === false) {
-      _ctx.assertion = false;
+    if (isString(unknownAttr)) {
+      _ctx.assertion = false
+      assertContext(object.name, object_.type(), value, _scope, err, _ctx, `missing object property '${unknownAttr || ""}' in ${_scope} type`)
     }
-
     const undefAttr = typeAttrs.find(property => {
       const propertyTypeFn = typeObj[property]
       return (propertyTypeFn.name === 'maybe' && !o.hasOwnProperty(property))
     })
-    assertContext(
-      object.name,
-      `void | null${undefAttr === undefined ? '' : ' | ' + getType(typeObj[undefAttr]).substr(1)}`,
-      value,
-      undefAttr === undefined ? _scope : `${_scope}.${undefAttr}`,
-      err,
-      ctx = { assertion: !isString(undefAttr) },
-      `empty object property '${undefAttr || ""}' for ${_scope} type`,
-    )
-    if (ctx.assertion === false) {
+    if (isString(undefAttr)) {
       _ctx.assertion = false
+      assertContext(
+        object.name,
+        `void | null${undefAttr === undefined ? '' : ' | ' + getType(typeObj[undefAttr]).substr(1)}`,
+        value,
+        undefAttr === undefined ? _scope : `${_scope}.${undefAttr}`,
+        err,
+        _ctx,
+        `empty object property '${undefAttr || ""}' for ${_scope} type`,
+      )
     }
     const obj = {...typeObj};
 
