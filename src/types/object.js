@@ -1,6 +1,7 @@
 // @flow
 import { assertContext } from '../type.js'
 import { getType } from '../utils.js'
+import { getProperty } from '../helpers.js'
 import { validatorError } from '../error.js'
 import { isUndef, isString, isObject } from '../is.js'
 import { undef } from './primitives.js'
@@ -36,30 +37,39 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
       _ctx.assertion = false
       assertContext(object.name, object_.type(), value, _scope, err, _ctx, `missing object property '${unknownAttr || ""}' in ${_scope} type`)
     }
-    const undefAttr = typeAttrs.find(property => {
-      const propertyTypeFn = typeObj[property]
-      return (propertyTypeFn.name === 'maybe' && !o.hasOwnProperty(property))
+    const undefAttr: ?string = typeAttrs.find((property: string) => {
+      const propertyTypeFn = getProperty(typeObj, property);
+      return (typeof propertyTypeFn === "function" && propertyTypeFn.name === 'maybe' && !o.hasOwnProperty(property))
     })
     if (isString(undefAttr)) {
       _ctx.assertion = false
+      const d = Object.getOwnPropertyDescriptor(typeObj, undefAttr)
+      const undefAttrType = d !== undefined ? d.value : d;
+      // $FlowExpectedError[incompatible-call]
+      const type = undefAttrType !== undefined ? getType(undefAttrType).substr(1) : "mixed"
       assertContext(
         object.name,
-        `void | null${undefAttr === undefined ? '' : ' | ' + getType(typeObj[undefAttr]).substr(1)}`,
+        `void | null | ${type}`,
         value,
         undefAttr === undefined ? _scope : `${_scope}.${undefAttr}`,
         err,
         _ctx,
-        `empty object property '${undefAttr || ""}' for ${_scope} type`,
+        `empty object property '${undefAttr}' for ${_scope} type`,
       )
     }
     const obj = {...typeObj};
 
-    for (const key of typeAttrs) {
-      const typeFn = typeObj[key]
+    for (const key: string of typeAttrs) {
+      const typeFn = getProperty(typeObj, key)
+      if (typeFn !== undefined && typeof typeFn === "function") {
       if (typeFn.name === 'optional' && !o.hasOwnProperty(key)) {
+        // $FlowExpectedError[prop-missing]
         delete obj[key]
       } else {
+        // $FlowExpectedError[prop-missing]
+        // $FlowExpectedError[incompatible-use]
         obj[key] = typeFn(o[key], `${_scope}.${key}`)
+      }
       }
     }
 
