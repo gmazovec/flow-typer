@@ -76,11 +76,18 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
     return obj;
   }
   object_.type = () => {
-    const props = Object.keys(typeObj).map(
-      (key) => typeObj[key].name === 'optional'
-        ? `${key}?: ${getType(typeObj[key], { noVoid: true })}`
-        : `${key}: ${getType(typeObj[key])}`
-    )
+    const props = Object.keys(typeObj).map((key: string) => {
+      const typeFn = getProperty(typeObj, key);
+      if (typeFn !== undefined && typeof typeFn === "function") {
+        return typeFn.name === 'optional'
+          // $FlowExpectedError[incompatible-call]
+          ? `${key}?: ${getType(typeFn, { noVoid: true })}`
+          // $FlowExpectedError[incompatible-call]
+          : `${key}: ${getType(typeFn)}`
+      } else {
+        return ""
+      }
+    })
     return `{\n ${props.join(',\n  ')} \n}`
   }
   object_.value = () => {
