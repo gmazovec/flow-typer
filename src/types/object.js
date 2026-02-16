@@ -92,9 +92,11 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
   }
   object_.value = () => {
     const obj = {...typeObj};
-    for (const key of Object.keys(typeObj)) {
-      if (typeof typeObj[key] === "function") {
-        obj[key] = typeObj[key].value();
+    for (const key: string of Object.keys(typeObj)) {
+      const typeFn = getProperty(typeObj, key)
+      if (typeFn !== undefined && typeof typeFn === "function") {
+        // $FlowExpectedError[prop-missing]
+        obj[key] = typeFn.value();
       }
     }
     return obj;
