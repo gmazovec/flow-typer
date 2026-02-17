@@ -15,6 +15,11 @@ function toNil (value: mixed, ctx: AssertionContext, convert: boolean): null {
   if (isNull(value)) {
     return null
   }
+  if (convert) {
+    if (value === "null") {
+      return null;
+    }
+  }
   ctx.assertion = false
   return null
 }
