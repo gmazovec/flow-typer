@@ -4,9 +4,12 @@ import * as typer from '../src/index.js'
 
 const { nil, undef, boolean, number, string, literal } = typer
 
+const null_t = (v) => nil(v, "", [], {}, true)
+
 test('nil type', async (t) => {
   await t.test('should return an nil value', () => {
     assert.equal((nil(null): null), null)
+    assert.equal(null_t("null"), null)
   })
 
   await t.test('should throw an error', () => {
