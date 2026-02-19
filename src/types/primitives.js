@@ -35,6 +35,11 @@ _nil.value = () => null;
 export const nil = (_nil: NullValidator);
 
 function toUndef (value: mixed, ctx: AssertionContext, convert: boolean): void {
+  if (convert) {
+    if (value === "undefined") {
+      return undefined;
+    }
+  }
   if (!isUndef(value)) {
     ctx.assertion = false
   }
