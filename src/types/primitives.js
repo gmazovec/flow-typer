@@ -45,8 +45,8 @@ function toUndef (value: mixed, ctx: AssertionContext, convert: boolean): void {
   }
 }
 
-function _undef (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): void {
-  convertValue(toUndef, value, _ctx, false);
+function _undef (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): void {
+  convertValue(toUndef, value, _ctx, convert);
   assertContext(undef.name, getType(undef), value, _scope, err, _ctx);
 }
 _undef.type = () => 'void'

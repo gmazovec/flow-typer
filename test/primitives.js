@@ -25,6 +25,7 @@ test('nil type', async (t) => {
 test('void type', async (t) => {
   await t.test('should return an undefined value', () => {
     assert.equal((undef(undefined): void), undefined)
+    assert.equal(undef("undefined", "", [], {}, true), undefined)
   })
 
   await t.test('should throw an error', () => {
@@ -34,6 +35,7 @@ test('void type', async (t) => {
     assert.throws(() => { undef('foo') })
     assert.throws(() => { undef({}) })
     assert.throws(() => { undef([]) })
+    assert.throws(() => { undef("undefined") })
   })
 })
 
