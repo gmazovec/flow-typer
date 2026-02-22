@@ -24,8 +24,8 @@ function toNil (value: mixed, ctx: AssertionContext, convert: boolean): null {
   return null
 }
 
-function _nil (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): null {
-  const v = convertValue(toNil, value, _ctx, false)
+function _nil (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): null {
+  const v = convertValue(toNil, value, _ctx, convert)
   assertContext(nil.name, getType(nil), value, _scope, err, _ctx);
   return v
 }
