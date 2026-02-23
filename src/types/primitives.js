@@ -67,8 +67,8 @@ function toBoolean (value: mixed, ctx: AssertionContext, convert: boolean): bool
   return Boolean()
 }
 
-function _boolean (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}): boolean {
-  const v = convertValue(toBoolean, value, _ctx, false)
+function _boolean (value: mixed, _scope: string = '', err?: TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): boolean {
+  const v = convertValue(toBoolean, value, _ctx, convert)
   assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx);
   return v
 }
