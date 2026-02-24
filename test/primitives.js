@@ -43,6 +43,8 @@ test('boolean type', async (t) => {
     assert.equal(boolean(false), false)
     assert.equal(boolean([true]), true)
     assert.equal(boolean({ flag: false }), false)
+    assert.equal(boolean("true", "", [], {}, true), true)
+    assert.equal(boolean("false", "", [], {}, true), false)
   })
 
   await t.test('should throw an error', () => {
