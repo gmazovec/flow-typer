@@ -2,13 +2,19 @@
 import { getType } from '../utils.js'
 import { validatorError } from '../error.js'
 import { assertContext } from '../type.js'
+import { isObject } from '../is.js';
 
 import type { TypeValidator, TypeArrayValidator, TypeAssertError, AssertionContext } from '..'
 
 const toArray = (
-  function <T>(typeFn: TypeValidator<T>, value: mixed, _scope: string, ctx: AssertionContext): Array<T> {
+  function <T>(typeFn: TypeValidator<T>, value: mixed, _scope: string, ctx: AssertionContext, convert: boolean): Array<T> {
     if (Array.isArray(value)) {
       return value.map((v, i) => typeFn(v, `${_scope}[${i}]`))
+    }
+    if (convert) {
+      if (isObject(value)) {
+        return Object.values(value).map((v, i) => typeFn(v, `${_scope}[${i}]`))
+      }
     }
     ctx.assertion = false
     return Array()
@@ -17,8 +23,8 @@ const toArray = (
 
 export const arrayOf =
   <T>(typeFn: TypeValidator<T>, label?: string = 'Array'): TypeArrayValidator<T> => {
-    function array (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}): Array<T> {
-      const v = toArray(typeFn, value, _scope, _ctx)
+    function array (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false): Array<T> {
+      const v = toArray((v, scope) => typeFn(v, scope, err, _ctx, convert), value, _scope, _ctx, convert)
       assertContext(array.name, array.type(), value, _scope, err, _ctx);
       return v
     }
