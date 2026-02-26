@@ -174,3 +174,10 @@ test('array type', async (t) => {
     assert.throws(() => { arrayOfarrayOfString([{}]) })
   })
 })
+
+test('array convert', async (t) => {
+  await t.test('should convert object to an array', () => {
+    assert.deepEqual(arrayOf(number)({ foo: 1, bar: 2 }, "", [], {}, true), [1, 2])
+  })
+})
+
