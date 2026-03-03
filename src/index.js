@@ -20,7 +20,7 @@ export type ObjectRecord<T> = { [key: string]: T }
 export type TypeChecker<T> = (mixed, _?:string) => T
 export type TypeValidator<T> = { (mixed, _?:string, _?: TypeAssertError[], _?: AssertionContext, _?: boolean): T, type: (?{ noVoid: boolean }) => string, value: () => T, ... }
 export type TypeMaybeValidator<T> = { (mixed, _?:string): ?T, type: () => string, value: () => ?T, ... }
-export type TypeArrayValidator<T> = { (mixed, _?:string): T[], type: () => string, value: () => T[], ... }
+export type TypeArrayValidator<T> = { (mixed, _?:string, _?: TypeAssertError[], _?: AssertionContext, _?:boolean): T[], type: () => string, value: () => T[], ... }
 export type TypeCallbackValidator<T> = { (mixed, _?:string): ReturnType<T>, type: (?{ noVoid: boolean }) => string, ... }
 export type TypeValidatorRecord<T> = ObjectRecord<TypeValidator<T>>
 export type $Literal<T: LiteralValue> = TypeValidator<T>
