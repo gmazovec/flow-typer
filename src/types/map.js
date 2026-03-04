@@ -5,22 +5,22 @@ import { undef } from './primitives.js'
 import { object } from './object.js'
 import { unionOf } from './union.js'
 
-import type { TypeValidator } from '..'
+import type { TypeValidator, TypeAssertError, AssertionContext } from '..'
 
 export const mapOf = <K, V>
   (
     keyTypeFn: TypeValidator<K>,
     typeFn: TypeValidator<V>
   ): TypeValidator<{ [K]: V }> => {
-    function mapOf (value: mixed, _scope: string = 'Map') {
+    function mapOf (value: mixed, _scope: string = 'Map', err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
       const o = object(value, _scope)
       const reducer = (acc: $Exact<{...}>, key: string) =>
         Object.assign(
           acc,
           {
             // $FlowFixMe[invalid-computed-prop]
-            [keyTypeFn(key, `${_scope}[_]`)]
-              :typeFn(o[key], `${_scope}.${key}`)
+            [keyTypeFn(key, `${_scope}[_]`, err, _ctx, convert)]
+              :typeFn(o[key], `${_scope}.${key}`, err, _ctx, convert)
           }
         )
       return Object.keys(o).reduce(reducer, {})
