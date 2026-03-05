@@ -18,7 +18,7 @@ function toObject (value: mixed, ctx: AssertionContext, convert: boolean): {...}
   return {}
 }
 
-function _object (value: mixed, _scope: string = '', err?: TypeAssertError[], ctx?: AssertionContext = {}, convert: boolean = false): {...} {
+function _object (value: mixed, _scope: string = '', err: ?TypeAssertError[], ctx?: AssertionContext = {}, convert: boolean = false): {...} {
   const v = toObject(value, ctx, convert);
   assertContext("object", _object.type(), value, _scope, err, ctx);
   return v;
@@ -29,7 +29,7 @@ _object.value = () => ({});
 export const object = (_object: TypeValidator<ObjectRecord<mixed>>);
 
 export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string =  'Object') /*: TypeValidator<{ [key in keyof T]: ReturnType<T[key]> }> */ {
-  function object_ (value: mixed, _scope: string = label, err?: TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) /*: { [key in keyof T]: ReturnType<T[key]> } */ {
+  function object_ (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) /*: { [key in keyof T]: ReturnType<T[key]> } */ {
     const o = object(value, _scope, err, _ctx);
     assertContext(object.name, object_.type(), value, _scope, err, _ctx);
     const typeAttrs = Object.keys(typeObj)

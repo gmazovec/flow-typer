@@ -7,7 +7,7 @@ import { isObject } from '../is.js';
 import type { TypeValidator, TypeArrayValidator, TypeAssertError, AssertionContext } from '..'
 
 const toArray = (
-  function <T>(typeFn: TypeValidator<T>, value: mixed, _scope: string, err: TypeAssertError[], ctx: AssertionContext, convert: boolean): Array<T> {
+  function <T>(typeFn: TypeValidator<T>, value: mixed, _scope: string, err: ?TypeAssertError[], ctx: AssertionContext, convert: boolean): Array<T> {
     if (Array.isArray(value)) {
       return value.map((v, i) => typeFn(v, `${_scope}[${i}]`))
     }
