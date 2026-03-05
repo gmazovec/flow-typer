@@ -1,27 +1,28 @@
 
-Coverage results from 14 file(s):
+Coverage results from 15 file(s):
 
 /Users/gregor/~Source/github/flow-typer/src/utils.js: 96.77% (60 of 62 expressions)
-/Users/gregor/~Source/github/flow-typer/src/types/union.js: 96.39% (534 of 554 expressions)
-/Users/gregor/~Source/github/flow-typer/src/types/tuple.js: 100.00% (594 of 594 expressions)
-/Users/gregor/~Source/github/flow-typer/src/types/primitives.js: 99.69% (321 of 322 expressions)
-/Users/gregor/~Source/github/flow-typer/src/types/object.js: 87.43% (320 of 366 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/union.js: 96.47% (546 of 566 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/tuple.js: 100.00% (669 of 669 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/primitives.js: 99.70% (332 of 333 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/object.js: 97.74% (389 of 398 expressions)
 /Users/gregor/~Source/github/flow-typer/src/types/mixed.js: 100.00% (17 of 17 expressions)
-/Users/gregor/~Source/github/flow-typer/src/types/maybe.js: 100.00% (63 of 63 expressions)
-/Users/gregor/~Source/github/flow-typer/src/types/map.js: 100.00% (66 of 66 expressions)
-/Users/gregor/~Source/github/flow-typer/src/types/literals.js: 100.00% (70 of 70 expressions)
-/Users/gregor/~Source/github/flow-typer/src/types/array.js: 100.00% (83 of 83 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/maybe.js: 100.00% (73 of 73 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/map.js: 100.00% (79 of 79 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/literals.js: 100.00% (72 of 72 expressions)
+/Users/gregor/~Source/github/flow-typer/src/types/array.js: 100.00% (109 of 109 expressions)
 /Users/gregor/~Source/github/flow-typer/src/type.js: 97.87% (92 of 94 expressions)
 /Users/gregor/~Source/github/flow-typer/src/is.js: 100.00% (56 of 56 expressions)
 /Users/gregor/~Source/github/flow-typer/src/index.js: 98.40% (184 of 187 expressions)
+/Users/gregor/~Source/github/flow-typer/src/helpers.js: 100.00% (16 of 16 expressions)
 /Users/gregor/~Source/github/flow-typer/src/error.js: 100.00% (249 of 249 expressions)
 
 -----------------------------------
 Aggregate coverage statistics
 -----------------------------------
-Files                : 14
+Files                : 15
 Expressions          :
-  Covered            : 2709
-  Total              : 2783
-  Covered Percentage : 97.34%
+  Covered            : 2943
+  Total              : 2980
+  Covered Percentage : 98.76%
 
