@@ -1,13 +1,13 @@
 // @flow
-import { assertContext } from '../type.js'
-import { getType } from '../utils.js'
-import { getProperty } from '../helpers.js'
-import { validatorError } from '../error.js'
-import { isUndef, isString, isObject } from '../is.js'
-import { undef } from './primitives.js'
-import { union2 } from './union.js'
+import { assertContext } from "../type.js"
+import { getType } from "../utils.js"
+import { getProperty } from "../helpers.js"
+import { validatorError } from "../error.js"
+import { isUndef, isString, isObject } from "../is.js"
+import { undef } from "./primitives.js"
+import { union2 } from "./union.js"
 
-import type { ObjectRecord, TypeValidator, TypeValidatorRecord, TypeAssertError, AssertionContext } from '..'
+import type { ObjectRecord, TypeValidator, TypeValidatorRecord, TypeAssertError, AssertionContext } from ".."
 
 function toObject (value: mixed, ctx: AssertionContext, convert: boolean): {...} {
   const isArray = Array.isArray(value)
@@ -18,17 +18,17 @@ function toObject (value: mixed, ctx: AssertionContext, convert: boolean): {...}
   return {}
 }
 
-function _object (value: mixed, _scope: string = '', err: ?TypeAssertError[], ctx?: AssertionContext = {}, convert: boolean = false): {...} {
+function _object (value: mixed, _scope: string = "", err: ?TypeAssertError[], ctx?: AssertionContext = {}, convert: boolean = false): {...} {
   const v = toObject(value, ctx, convert);
   assertContext("object", _object.type(), value, _scope, err, ctx);
   return v;
 }
-_object.type = () => 'Object';
+_object.type = () => "Object";
 _object.value = () => ({});
 
 export const object = (_object: TypeValidator<ObjectRecord<mixed>>);
 
-export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string =  'Object') /*: TypeValidator<{ [key in keyof T]: ReturnType<T[key]> }> */ {
+export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string =  "Object") /*: TypeValidator<{ [key in keyof T]: ReturnType<T[key]> }> */ {
   function object_ (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) /*: { [key in keyof T]: ReturnType<T[key]> } */ {
     const o = object(value, _scope, err, _ctx);
     assertContext(object.name, object_.type(), value, _scope, err, _ctx);
@@ -36,11 +36,11 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
     const unknownAttr = Object.keys(o).find(attr => !typeAttrs.includes(attr))
     if (isString(unknownAttr)) {
       _ctx.assertion = false
-      assertContext(object.name, object_.type(), value, _scope, err, _ctx, `missing object property '${unknownAttr || ""}' in ${_scope} type`)
+      assertContext(object.name, object_.type(), value, _scope, err, _ctx, `missing object property "${unknownAttr || ""}" in ${_scope} type`)
     }
     const undefAttr: ?string = typeAttrs.find((property: string) => {
       const propertyTypeFn = getProperty(typeObj, property);
-      return (typeof propertyTypeFn === "function" && propertyTypeFn.name === 'maybe' && !o.hasOwnProperty(property))
+      return (typeof propertyTypeFn === "function" && propertyTypeFn.name === "maybe" && !o.hasOwnProperty(property))
     })
     if (isString(undefAttr)) {
       _ctx.assertion = false
@@ -55,7 +55,7 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
         undefAttr === undefined ? _scope : `${_scope}.${undefAttr}`,
         err,
         _ctx,
-        `empty object property '${undefAttr}' for ${_scope} type`,
+        `empty object property "${undefAttr}" for ${_scope} type`,
       )
     }
     const obj = {...typeObj};
@@ -63,7 +63,7 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
     for (const key: string of typeAttrs) {
       const typeFn = getProperty(typeObj, key)
       if (typeFn !== undefined && typeof typeFn === "function") {
-      if (typeFn.name === 'optional' && !o.hasOwnProperty(key)) {
+      if (typeFn.name === "optional" && !o.hasOwnProperty(key)) {
         // $FlowExpectedError[prop-missing]
         delete obj[key]
       } else {
@@ -80,7 +80,7 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
     const props = Object.keys(typeObj).map((key: string) => {
       const typeFn = getProperty(typeObj, key);
       if (typeFn !== undefined && typeof typeFn === "function") {
-        return typeFn.name === 'optional'
+        return typeFn.name === "optional"
           // $FlowExpectedError[incompatible-call]
           ? `${key}?: ${getType(typeFn, { noVoid: true })}`
           // $FlowExpectedError[incompatible-call]
@@ -89,7 +89,7 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
         return ""
       }
     })
-    return `{\n ${props.join(',\n  ')} \n}`
+    return `{\n ${props.join(",\n  ")} \n}`
   }
   object_.value = () => {
     const obj = {...typeObj};

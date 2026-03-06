@@ -1,18 +1,18 @@
 // @flow
-import { getType } from '../utils.js'
-import { validatorError } from '../error.js'
-import { undef } from './primitives.js'
-import { object } from './object.js'
-import { unionOf } from './union.js'
+import { getType } from "../utils.js"
+import { validatorError } from "../error.js"
+import { undef } from "./primitives.js"
+import { object } from "./object.js"
+import { unionOf } from "./union.js"
 
-import type { TypeValidator, TypeAssertError, AssertionContext } from '..'
+import type { TypeValidator, TypeAssertError, AssertionContext } from ".."
 
 export const mapOf = <K, V>
   (
     keyTypeFn: TypeValidator<K>,
     typeFn: TypeValidator<V>
   ): TypeValidator<{ [K]: V }> => {
-    function mapOf (value: mixed, _scope: string = 'Map', err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+    function mapOf (value: mixed, _scope: string = "Map", err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
       const o = object(value, _scope)
       const reducer = (acc: $Exact<{...}>, key: string) =>
         Object.assign(

@@ -1,10 +1,10 @@
 // @flow
-import { getType } from '../utils.js'
-import { validatorError } from '../error.js'
-import { assertContext } from '../type.js'
-import { isObject } from '../is.js';
+import { getType } from "../utils.js"
+import { validatorError } from "../error.js"
+import { assertContext } from "../type.js"
+import { isObject } from "../is.js";
 
-import type { TypeValidator, TypeArrayValidator, TypeAssertError, AssertionContext } from '..'
+import type { TypeValidator, TypeArrayValidator, TypeAssertError, AssertionContext } from ".."
 
 const toArray = (
   function <T>(typeFn: TypeValidator<T>, value: mixed, _scope: string, err: ?TypeAssertError[], ctx: AssertionContext, convert: boolean): Array<T> {
@@ -22,7 +22,7 @@ const toArray = (
 )
 
 export const arrayOf =
-  <T>(typeFn: TypeValidator<T>, label?: string = 'Array'): TypeArrayValidator<T> => {
+  <T>(typeFn: TypeValidator<T>, label?: string = "Array"): TypeArrayValidator<T> => {
     function array (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false): Array<T> {
       const v = toArray(typeFn, value, _scope, err, _ctx, convert)
       assertContext(array.name, array.type(), value, _scope, err, _ctx);

@@ -1,18 +1,18 @@
 // @flow
 
-import * as error from './error.js'
-import * as is from './is.js'
-import * as utils from './utils.js'
+import * as error from "./error.js"
+import * as is from "./is.js"
+import * as utils from "./utils.js"
 
-import * as array from './types/array.js'
-import * as literals from './types/literals.js'
-import * as map from './types/map.js'
-import * as _maybe from './types/maybe.js'
-import * as _mixed from './types/mixed.js'
-import * as _object from './types/object.js'
-import * as primitives from './types/primitives.js'
-import * as tuple from './types/tuple.js'
-import * as union from './types/union.js'
+import * as array from "./types/array.js"
+import * as literals from "./types/literals.js"
+import * as map from "./types/map.js"
+import * as _maybe from "./types/maybe.js"
+import * as _mixed from "./types/mixed.js"
+import * as _object from "./types/object.js"
+import * as primitives from "./types/primitives.js"
+import * as tuple from "./types/tuple.js"
+import * as union from "./types/union.js"
 
 export type LiteralValue = boolean | number | string
 export type ObjectRecord<T> = { [key: string]: T }
@@ -126,7 +126,7 @@ class DeprecationWarning extends Error {
   }
 }
 
-export function deprwarn (message: string, code: string = 'FT000') {
+export function deprwarn (message: string, code: string = "FT000") {
   const warn = new DeprecationWarning(message, code)
   // $FlowExpectedError[cannot-resolve-name]
   process.emitWarning(warn)

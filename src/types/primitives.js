@@ -1,15 +1,15 @@
 // @flow
-import { convertValue, assertContext } from '../type.js';
-import { getType } from '../utils.js'
+import { convertValue, assertContext } from "../type.js";
+import { getType } from "../utils.js"
 import {
   isNull,
   isUndef,
   isBoolean,
   isNumber,
   isString,
-} from '../is.js'
+} from "../is.js"
 
-import type { NullValidator, VoidValidator, BooleanValidator, NumberValidator, StringValidator, TypeAssertError, AssertionContext } from '..'
+import type { NullValidator, VoidValidator, BooleanValidator, NumberValidator, StringValidator, TypeAssertError, AssertionContext } from ".."
 
 function toNil (value: mixed, ctx: AssertionContext, convert: boolean): null {
   if (isNull(value)) {
@@ -24,12 +24,12 @@ function toNil (value: mixed, ctx: AssertionContext, convert: boolean): null {
   return null
 }
 
-function _nil (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): null {
+function _nil (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): null {
   const v = convertValue(toNil, value, _ctx, convert)
   assertContext(nil.name, getType(nil), value, _scope, err, _ctx);
   return v
 }
-_nil.type = () => 'null';
+_nil.type = () => "null";
 _nil.value = () => null;
 
 export const nil = (_nil: NullValidator);
@@ -45,11 +45,11 @@ function toUndef (value: mixed, ctx: AssertionContext, convert: boolean): void {
   }
 }
 
-function _undef (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): void {
+function _undef (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): void {
   convertValue(toUndef, value, _ctx, convert);
   assertContext(undef.name, getType(undef), value, _scope, err, _ctx);
 }
-_undef.type = () => 'void'
+_undef.type = () => "void"
 _undef.value = () => undefined;
 
 export const undef = (_undef: VoidValidator);
@@ -67,12 +67,12 @@ function toBoolean (value: mixed, ctx: AssertionContext, convert: boolean): bool
   return Boolean()
 }
 
-function _boolean (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): boolean {
+function _boolean (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): boolean {
   const v = convertValue(toBoolean, value, _ctx, convert)
   assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx);
   return v
 }
-_boolean.type = () => 'boolean';
+_boolean.type = () => "boolean";
 _boolean.value = () => false;
 
 export const boolean = (_boolean: BooleanValidator);
@@ -96,12 +96,12 @@ function toNumber (value: mixed, ctx: AssertionContext, convert: boolean): numbe
   return Number()
 }
 
-function _number (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+function _number (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
   const v = convertValue(toNumber, value, _ctx, _convert);
   assertContext(number.name, getType(number), value, _scope, err, _ctx);
   return v
 }
-_number.type = () => 'number';
+_number.type = () => "number";
 _number.value = () => 0;
 
 export const number = (_number: NumberValidator);
@@ -119,13 +119,13 @@ function toString (value: mixed, ctx: AssertionContext, convert: boolean) {
   return String()
 }
 
-function _string (value: mixed, _scope: string = '', err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
+function _string (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
   const v = convertValue(toString, value, _ctx, _convert);
   assertContext(string.name, getType(string), value, _scope, err, _ctx);
   return v
 }
-_string.type = () => 'string';
-_string.value = () => '';
+_string.type = () => "string";
+_string.value = () => "";
 
 export const string = (_string: StringValidator);
 

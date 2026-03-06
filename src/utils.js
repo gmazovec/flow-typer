@@ -1,12 +1,12 @@
 // @flow
 
-import { validatorTypeError } from './error.js'
+import { validatorTypeError } from "./error.js"
 
-import type { LiteralValue, TypeValidator, TypeChecker, TypeCallbackValidator } from './'
+import type { LiteralValue, TypeValidator, TypeChecker, TypeCallbackValidator } from "./"
 
 export const isType =
   <T, F: TypeValidator<T>>(typeFn: F): TypeChecker<boolean> =>
-    (v: mixed, _scope? = ''): boolean => {
+    (v: mixed, _scope? = ""): boolean => {
       try {
         typeFn(v, _scope)
         return true
@@ -16,7 +16,7 @@ export const isType =
     }
 
 // This function will return value based on schema with inferred types. This
-// value can be used to define type in Flow with 'typeof' utility.
+// value can be used to define type in Flow with "typeof" utility.
 
 export const typeOf =
   <T>(schema: TypeValidator<T>): T =>
@@ -30,8 +30,8 @@ export const getType = (
 )
 
 export const type =
-  <V, T: (mixed) => V> (typeFn: T, name: string = ''): TypeCallbackValidator<T> => {
-    function type (value: mixed, _scope: string = '') {
+  <V, T: (mixed) => V> (typeFn: T, name: string = ""): TypeCallbackValidator<T> => {
+    function type (value: mixed, _scope: string = "") {
         try {
           return typeFn(value)
         } catch (err) {
