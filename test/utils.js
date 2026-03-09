@@ -1,6 +1,6 @@
 // @flow
-import { assert, test } from './index.js'
-import * as typer from '../src/index.js'
+import { assert, test } from "./index.js"
+import * as typer from "../src/index.js"
 
 const {
   objectOf,
@@ -18,17 +18,17 @@ const {
   type,
 } = typer
 
-test('isType', async (t) => {
+test("isType", async (t) => {
   const schema = objectOf({
     type: string,
     name: string,
     disabled: boolean
   })
 
-  await t.test('should check for type', t => {
+  await t.test("should check for type", t => {
     const input = {
-      type: 'text',
-      name: 'username',
+      type: "text",
+      name: "username",
       disabled: false
     }
     const hasTypeOfSchema = isType(schema)
@@ -38,15 +38,15 @@ test('isType', async (t) => {
     assert.ok(!hasTypeOfSchema(null))
     assert.ok(!hasTypeOfSchema(false))
     assert.ok(!hasTypeOfSchema(12345))
-    assert.ok(!hasTypeOfSchema('foo'))
+    assert.ok(!hasTypeOfSchema("foo"))
     assert.ok(!hasTypeOfSchema({}))
     assert.ok(!hasTypeOfSchema([]))
-    assert.ok(!hasTypeOfSchema([], 'personT'))
+    assert.ok(!hasTypeOfSchema([], "personT"))
   })
 })
 
 test("getType", async (t) => {
-  await t.test('should return type', t => {
+  await t.test("should return type", t => {
     assert.deepEqual(getType(number), "number");
     assert.deepEqual(getType(string), "string");
     assert.deepEqual(getType(boolean), "boolean");
@@ -58,7 +58,7 @@ test("getType", async (t) => {
     assert.deepEqual(getType(mapOf(string, boolean)), "{ [_:string]: boolean }");
   });
 
-  await t.test('should return type for user-defined validator', t => {
+  await t.test("should return type for user-defined validator", t => {
     function validator () {}
     validator.type = () => "personT";
     validator.value = () => ({});
@@ -69,7 +69,7 @@ test("getType", async (t) => {
 test("type", async (t) => {
   class Time {}
 
-  await t.test('should return validator', t => {
+  await t.test("should return validator", t => {
     const validator = type((v: mixed) => {
       if (v instanceof Time) return v;
        throw new TypeError();

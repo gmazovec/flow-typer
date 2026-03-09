@@ -1,6 +1,6 @@
 // @flow
-import { assert, test } from './index.js'
-import * as typer from '../src/index.js'
+import { assert, test } from "./index.js"
+import * as typer from "../src/index.js"
 
 const {
   objectOf,
@@ -32,7 +32,7 @@ type HtmlDOMElementT = {|
   body: DOMElementT[]
 |}
 
-test('should infer object type', () => {
+test("should infer object type", () => {
   const DOMElement = objectOf({
     type: string,
     name: string,
@@ -52,7 +52,7 @@ test('should infer object type', () => {
 
 type TypeT = [string]
 
-test('should infer tuple type (cardinality 1)', () => {
+test("should infer tuple type (cardinality 1)", () => {
   const type = tupleOf1(string)
   const typeT: TypeT = typeOf(type)
   assert.ok(Array.isArray(typeT))
@@ -62,7 +62,7 @@ test('should infer tuple type (cardinality 1)', () => {
 
 type CoordinateT = [number, number]
 
-test('should infer tuple type (cardinality 2)', () => {
+test("should infer tuple type (cardinality 2)", () => {
   const coordinate = tupleOf2(number, number)
   const coordinateT: CoordinateT = typeOf(coordinate)
   assert.ok(Array.isArray(coordinateT))
@@ -73,7 +73,7 @@ test('should infer tuple type (cardinality 2)', () => {
 
 type LocationT = [number, number, string]
 
-test('should infer tuple type (cardinality 3)', () => {
+test("should infer tuple type (cardinality 3)", () => {
   const location = tupleOf3(number, number, string)
   const locationT: LocationT = typeOf(location)
   assert.ok(Array.isArray(locationT))
@@ -85,7 +85,7 @@ test('should infer tuple type (cardinality 3)', () => {
 
 type VectorT = [number, number, number, number]
 
-test('should infer tuple type (cardinality 4)', () => {
+test("should infer tuple type (cardinality 4)", () => {
   const vector = tupleOf4(number, number, number, number)
   const vectorT: VectorT = typeOf(vector)
   assert.ok(Array.isArray(vectorT))
@@ -98,7 +98,7 @@ test('should infer tuple type (cardinality 4)', () => {
 
 type ListOfBoolT = [boolean, boolean, boolean, boolean, boolean]
 
-test('should infer tuple type (cardinality 5)', () => {
+test("should infer tuple type (cardinality 5)", () => {
   const listOfBool = tupleOf5(boolean, boolean, boolean, boolean, boolean)
   const listOfBoolT: ListOfBoolT = typeOf(listOfBool)
   assert.ok(Array.isArray(listOfBoolT))

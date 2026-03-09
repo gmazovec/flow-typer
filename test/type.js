@@ -1,6 +1,6 @@
 // @flow
 
-const t = require('../src/index.js');
+const t = require("../src/index.js");
 
 const { objectOf, string, number, maybe, boolean, arrayOf, literal, type } = t;
 const { tupleOf2, tupleOf3, tupleOf4, tupleOf5, tupleOf6 } = t;
@@ -48,7 +48,7 @@ const timeType = type((v /*: mixed */) => {
 	throw new TypeError();
 });
 
-const v2 = timeType(eval('new Time();'));
+const v2 = timeType(eval("new Time();"));
 
 /*::
 
@@ -58,11 +58,11 @@ const v2 = timeType(eval('new Time();'));
 
 */
 
-const u2 = unionOf2(string, number)('');
-const u3 = unionOf3(string, number, boolean)('');
-const u4 = unionOf4(string, number, boolean, arrayOf(string))('');
-const u5 = unionOf5(string, number, boolean, arrayOf(string), arrayOf(number))('');
-const u6 = unionOf6(string, number, boolean, arrayOf(string), arrayOf(number), arrayOf(boolean))('');
+const u2 = unionOf2(string, number)("");
+const u3 = unionOf3(string, number, boolean)("");
+const u4 = unionOf4(string, number, boolean, arrayOf(string))("");
+const u5 = unionOf5(string, number, boolean, arrayOf(string), arrayOf(number))("");
+const u6 = unionOf6(string, number, boolean, arrayOf(string), arrayOf(number), arrayOf(boolean))("");
 
 /*:: (u2: string | number); */
 /*:: (u3: string | number | boolean); */
@@ -74,11 +74,11 @@ const u2t = unionOf2(tupleOf2(string, string), tupleOf2(number, number))([0, 0])
 
 /*:: (u2t : [string, string] | [number, number]); */
 
-const t2 = tupleOf2(number, string)(['1', '1']);
-const t3 = tupleOf3(number, number, number)(['0', '1', '1']);
-const t4 = tupleOf4(number, string, string, string)(['0', '0', '1']);
-const t5 = tupleOf5(string, number, number, number, number)(['0', '1', '1', '0', '0']);
-const t6 = tupleOf6(string, number, number, number, number, boolean)(['1', '1', '1', '0', '0', '0']);
+const t2 = tupleOf2(number, string)(["1", "1"]);
+const t3 = tupleOf3(number, number, number)(["0", "1", "1"]);
+const t4 = tupleOf4(number, string, string, string)(["0", "0", "1"]);
+const t5 = tupleOf5(string, number, number, number, number)(["0", "1", "1", "0", "0"]);
+const t6 = tupleOf6(string, number, number, number, number, boolean)(["1", "1", "1", "0", "0", "0"]);
 
 /*:: (t2 : [number, string]); */
 /*:: (t3: [number, number, number]); */
@@ -86,7 +86,7 @@ const t6 = tupleOf6(string, number, number, number, number, boolean)(['1', '1', 
 /*:: (t5: [string, number, number, number, number]); */
 /*:: (t6: [string, number, number, number, number, boolean]); */
 
-const tt = tupleOf2(string, tupleOf2(number, number))(['']);
+const tt = tupleOf2(string, tupleOf2(number, number))([""]);
 
 /*::
 
