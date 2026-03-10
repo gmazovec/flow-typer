@@ -1,15 +1,15 @@
 // @flow
-import { assertContext } from "../type.js"
-import { validatorError } from "../error.js"
-import { isBoolean, isNull, isUndef, isObject, isString } from "../is.js"
-import { deprwarn } from "../index.js"
+import { assertContext } from "../type.js";
+import { validatorError } from "../error.js";
+import { isBoolean, isNull, isUndef, isObject, isString } from "../is.js";
+import { deprwarn } from "../index.js";
 
-import type { LiteralValue, TypeValidator, TypeAssertError, AssertionContext } from ".."
+import type { LiteralValue, TypeValidator, TypeAssertError, AssertionContext } from "..";
 
 export const literalOf =
   <T: LiteralValue>(primitive: T): TypeValidator<T> => {
-    deprwarn("calling literalOf is deprecated; fallback to literal; replace with literal validator instead; $Literal casting is not required", "FT001")
-    return literal(primitive)
+    deprwarn("calling literalOf is deprecated; fallback to literal; replace with literal validator instead; $Literal casting is not required", "FT001");
+    return literal(primitive);
   }
 
 export const literal =
@@ -21,11 +21,10 @@ export const literal =
     }
     literal.type = () => {
       if (isUndef(primitive)) {
-        return "void"
+        return "void";
       }
-      return JSON.stringify(primitive) || ""
+      return JSON.stringify(primitive) || "";
     }
     literal.value = (): T => primitive;
-    return literal
-}
-
+    return literal;
+};

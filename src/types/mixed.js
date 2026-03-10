@@ -1,5 +1,5 @@
 // @flow
-import type { MixedValidator } from ".."
+import type { MixedValidator } from "..";
 
 function _mixed (value: mixed) {
   return value;

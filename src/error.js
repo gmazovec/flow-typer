@@ -1,6 +1,6 @@
 // @flow
-import { getType } from "./utils.js"
-import type { TypeValidator } from "./"
+import { getType } from "./utils.js";
+import type { TypeValidator } from "./";
 
 export class TypeValidatorError extends Error {
   expectedType: string
@@ -18,20 +18,20 @@ export class TypeValidatorError extends Error {
     typeScope: ?string = "",
   ) {
     super(message)
-    this.expectedType = expectedType
-    this.valueType = valueType
-    this.value = value
-    this.typeScope = typeScope || ""
-    this.sourceFile = this.getSourceFile()
-    this.message = `${message}\n${this.getErrorInfo()}`
+    this.expectedType = expectedType;
+    this.valueType = valueType;
+    this.value = value;
+    this.typeScope = typeScope || "";
+    this.sourceFile = this.getSourceFile();
+    this.message = `${message}\n${this.getErrorInfo()}`;
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, TypeValidatorError)
+      Error.captureStackTrace(this, TypeValidatorError);
     }
   }
 
   getSourceFile (): string {
-    const fileNames = this.stack.match(/(\/[\w_\-.]+)+(\.\w+:\d+:\d+)/g) || []
-    return fileNames.find(fileName => fileName.indexOf("/flow-typer-js/dist/") === -1) || ""
+    const fileNames = this.stack.match(/(\/[\w_\-.]+)+(\.\w+:\d+:\d+)/g) || [];
+    return fileNames.find(fileName => fileName.indexOf("/flow-typer-js/dist/") === -1) || "";
   }
 
   getErrorInfo (): string {
@@ -41,11 +41,11 @@ export class TypeValidatorError extends Error {
     expected ${this.expectedType.replace(/\n/g, "")}
     type     ${this.valueType}
     value    ${this.value}
-`
+`;
   }
 }
 
-TypeValidatorError.prototype.name = "TypeValidatorError"
+TypeValidatorError.prototype.name = "TypeValidatorError";
 
 export const validatorError = <T>(
   typeFn: TypeValidator<T>,
@@ -65,7 +65,7 @@ export const validatorError = <T>(
       JSON.stringify(value) || "",
       typeFn.name,
       scope
-    )
+    );
   }
 
 export const validatorTypeError = <T>(
@@ -87,6 +87,6 @@ export const validatorTypeError = <T>(
       JSON.stringify(value) || "",
       name,
       scope
-    )
+    );
   }
 

@@ -25,9 +25,9 @@ export function convertValue <T> (typeFn: (mixed, AssertionContext, boolean) => 
 export function assertContext (name: string, type: string, value: mixed, scope: string, err: ?TypeAssertError[], ctx: AssertionContext, msg?: string = ""): void {
   if (ctx.assertion === false) {
     if (err) {
-      err.push({ expected: type, actual: typeof value, scope: scope })
+      err.push({ expected: type, actual: typeof value, scope: scope });
     } else {
-      throw validatorTypeError(name, type, value, scope, msg)
+      throw validatorTypeError(name, type, value, scope, msg);
     }
   }
 }
