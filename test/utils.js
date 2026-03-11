@@ -1,6 +1,6 @@
 // @flow
-import { assert, test } from "./index.js"
-import * as typer from "../src/index.js"
+import { assert, test } from "./index.js";
+import * as typer from "../src/index.js";
 
 const {
   objectOf,
@@ -16,34 +16,34 @@ const {
   isType,
   getType,
   type,
-} = typer
+} = typer;
 
 test("isType", async (t) => {
   const schema = objectOf({
     type: string,
     name: string,
     disabled: boolean
-  })
+  });
 
   await t.test("should check for type", t => {
     const input = {
       type: "text",
       name: "username",
       disabled: false
-    }
-    const hasTypeOfSchema = isType(schema)
+    };
+    const hasTypeOfSchema = isType(schema);
 
-    assert.ok(hasTypeOfSchema(input))
-    assert.ok(!hasTypeOfSchema(undefined))
-    assert.ok(!hasTypeOfSchema(null))
-    assert.ok(!hasTypeOfSchema(false))
-    assert.ok(!hasTypeOfSchema(12345))
-    assert.ok(!hasTypeOfSchema("foo"))
-    assert.ok(!hasTypeOfSchema({}))
-    assert.ok(!hasTypeOfSchema([]))
-    assert.ok(!hasTypeOfSchema([], "personT"))
-  })
-})
+    assert.ok(hasTypeOfSchema(input));
+    assert.ok(!hasTypeOfSchema(undefined));
+    assert.ok(!hasTypeOfSchema(null));
+    assert.ok(!hasTypeOfSchema(false));
+    assert.ok(!hasTypeOfSchema(12345));
+    assert.ok(!hasTypeOfSchema("foo"));
+    assert.ok(!hasTypeOfSchema({}));
+    assert.ok(!hasTypeOfSchema([]));
+    assert.ok(!hasTypeOfSchema([], "personT"));
+  });
+});
 
 test("getType", async (t) => {
   await t.test("should return type", t => {
@@ -64,7 +64,7 @@ test("getType", async (t) => {
     validator.value = () => ({});
     assert.deepEqual(getType(validator), "personT");
   });
-})
+});
 
 test("type", async (t) => {
   class Time {}
@@ -73,10 +73,10 @@ test("type", async (t) => {
     const validator = type((v: mixed) => {
       if (v instanceof Time) return v;
        throw new TypeError();
-    })
+    });
     const v = new Time();
 
-    assert.equal(validator(v), v)
-    assert.throws(() => validator(0))
-  })
-})
+    assert.equal(validator(v), v);
+    assert.throws(() => validator(0));
+  });
+});

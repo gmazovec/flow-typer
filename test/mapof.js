@@ -1,40 +1,40 @@
 // @flow
-import { assert, test } from "./index.js"
-import * as typer from "../src/index.js"
+import { assert, test } from "./index.js";
+import * as typer from "../src/index.js";
 
 const {
   mapOf,
   boolean,
   string
-} = typer
+} = typer;
 
 test("map type", async (t) => {
   const schema = mapOf(
     string,
     boolean
-  )
+  );
 
   await t.test("should validate a map", () => {
     const input = {
       featureA: true,
       featureB: false
-    }
-    const value: { [string]: boolean } = schema(input, "FlagMap")
-    assert.deepEqual(value, input)
-  })
+    };
+    const value: { [string]: boolean } = schema(input, "FlagMap");
+    assert.deepEqual(value, input);
+  });
 
   await t.test("should return empty map", () => {
     const value = schema.value();
     assert.deepEqual(value, {});
-  })
+  });
 
   await t.test("should throw an error", () => {
-    assert.throws(() => { schema(null) })
-    assert.throws(() => { schema(undefined) })
-    assert.throws(() => { schema(true) })
-    assert.throws(() => { schema(12345) })
-    assert.throws(() => { schema("foo") })
-    assert.throws(() => { schema([]) })
-    assert.throws(() => { schema({ featureA: "true" }) })
-  })
-})
+    assert.throws(() => { schema(null) });
+    assert.throws(() => { schema(undefined) });
+    assert.throws(() => { schema(true) });
+    assert.throws(() => { schema(12345) });
+    assert.throws(() => { schema("foo") });
+    assert.throws(() => { schema([]) });
+    assert.throws(() => { schema({ featureA: "true" }) });
+  });
+});
