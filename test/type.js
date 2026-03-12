@@ -1,6 +1,6 @@
 // @flow
 
-const t = require("../src/index.js");
+import * as t from "../src/index.js";
 
 const { objectOf, string, number, maybe, boolean, arrayOf, literal, type } = t;
 const { tupleOf2, tupleOf3, tupleOf4, tupleOf5, tupleOf6 } = t;
