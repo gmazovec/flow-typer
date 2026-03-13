@@ -74,19 +74,29 @@ const u2t = unionOf2(tupleOf2(string, string), tupleOf2(number, number))([0, 0])
 
 /*:: (u2t : [string, string] | [number, number]); */
 
-const t2 = tupleOf2(number, string)(["1", "1"]);
-const t3 = tupleOf3(number, number, number)(["0", "1", "1"]);
-const t4 = tupleOf4(number, string, string, string)(["0", "0", "1"]);
-const t5 = tupleOf5(string, number, number, number, number)(["0", "1", "1", "0", "0"]);
-const t6 = tupleOf6(string, number, number, number, number, boolean)(["1", "1", "1", "0", "0", "0"]);
+const t2s = tupleOf2(number, string)([1, "1"]);
+const t2 = tupleOf2(number, string)(["1", "1"], "", [], {}, true);
+const t3s = tupleOf3(number, number, number)([0, 1, 1]);
+const t3 = tupleOf3(number, number, number)(["0", "1", "1"], "", [], {}, true);
+const t4s = tupleOf4(number, string, string, string)([0, "0", "1", "1"]);
+const t4 = tupleOf4(number, string, string, string)(["0", "0", "1", 1], "", [], {}, true);
+const t5s = tupleOf5(string, number, number, number, number)(["0", 1, 1, 0, 0]);
+const t5 = tupleOf5(string, number, number, number, number)(["0", "1", "1", "0", "0"], "", [], {}, true);
+const t6s = tupleOf6(string, number, number, number, number, boolean)(["1", 1, 1, 0, 0, false]);
+const t6 = tupleOf6(string, number, number, number, number, boolean)(["1", "1", "1", "0", "0", "0"], "", [], {}, true);
 
+/*:: (t2s : [number, string]); */
 /*:: (t2 : [number, string]); */
+/*:: (t3s: [number, number, number]); */
 /*:: (t3: [number, number, number]); */
+/*:: (t4s: [number, string, string, string]); */
 /*:: (t4: [number, string, string, string]); */
+/*:: (t5s: [string, number, number, number, number]); */
 /*:: (t5: [string, number, number, number, number]); */
+/*:: (t6s: [string, number, number, number, number, boolean]); */
 /*:: (t6: [string, number, number, number, number, boolean]); */
 
-const tt = tupleOf2(string, tupleOf2(number, number))([""]);
+const tt = tupleOf2(string, tupleOf2(number, number))([""], "", [], {}, true);
 
 /*::
 
