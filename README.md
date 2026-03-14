@@ -132,6 +132,11 @@ is disabled by default and it needs to be enabled for each type validator.
 - number type from string value, ex. `"45.61"`, `"1e-23"`
 - number type from `null` to `NaN`
 - string type from number value
+- boolean string values to boolean type, ex. `"true"`
+- `"null"` string value to `null`
+- `"undefined"` string value to `undefined`
+
+### Object conversions
 
 - primitive type from array values with one element, ex. `["ada"]` to `"ada"`
 - primitive type from object with one key, ex. `{ name: "ada" }` to `"ada"`
