@@ -32,7 +32,7 @@ npm install --save flow-typer-js
 ## Importing
 
 ```js
-import typer from 'flow-typer-js'
+import typer from "flow-typer-js";
 ```
 
 
@@ -56,7 +56,7 @@ import {
   number,
   boolean,
   maybe
-} from 'flow-typer-js'
+} from "flow-typer-js";
 ```
 
 ```js
@@ -65,10 +65,10 @@ const personSchema = objectOf({
   name: string,
   age: maybe(number),
   active: boolean,
-  gender: unionOf2(literal('male'), literal('female')),
+  gender: unionOf2(literal("male"), literal("female")),
   tags: arrayOf(string),
   location: tupleOf2(number, number)
-})
+});
 ```
 
 ```js
@@ -78,15 +78,15 @@ type PersonT = ReturnType<typeof personSchema>
 
 ```js
 // check value of unknown type against type schema
-const person = personSchema(unknownInput)
+const person = personSchema(unknownInput);
 // => person: PersonT
 ```
 
 ```js
 // type schema returns value of specific type
-person.name.toUpperCase() // No error
-person.email // Flow error (unknown attribute)
-person.active = 1 // Flow error (boolean value expected)
+person.name.toUpperCase(); // No error
+person.email; // Flow error (unknown attribute)
+person.active = 1; // Flow error (boolean value expected)
 
 ```
 
@@ -178,14 +178,14 @@ refinement.
 const schema = objectOf({
   username: string,
   nickname: optional(string)
-})
+});
 // => type T = { username: string, nickname: (string | void) }
 ```
 
 - `arrayOf(schema, label)`
 
 ```js
-const schema = arrayOf(number) // => type T = number[]
+const schema = arrayOf(number); // => type T = number[]
 ```
 
 - `tupleOf(...schema[]) [deprecated]`
@@ -193,7 +193,7 @@ const schema = arrayOf(number) // => type T = number[]
 - `tupleOf2(...schema[]) ... tupleOf6`
 
 ```js
-const schema = tupleOf2(string, number) // => type T = [string, number]
+const schema = tupleOf2(string, number); // => type T = [string, number]
 ```
 
 - `unionOf(...schema[]) [deprecated]`
@@ -201,13 +201,13 @@ const schema = tupleOf2(string, number) // => type T = [string, number]
 - `unionOf2(...schema[]) ... unionOf6`
 
 ```js
-const schema = unionOf2(string, number) // => type T = string | number
+const schema = unionOf2(string, number); // => type T = string | number
 ```
 
 - `mapOf(keySchema, valueSchema)`
 
 ```js
-const schema = mapOf(string, boolean) // => type T = { [_string]: boolean }
+const schema = mapOf(string, boolean); // => type T = { [_string]: boolean }
 ```
 
 - `literalOf(...) [deprecated]`
@@ -215,7 +215,7 @@ const schema = mapOf(string, boolean) // => type T = { [_string]: boolean }
 - `literal(...)`
 
 ```js
-const schema = literal('male')
+const schema = literal("male");
 ```
 
 
@@ -231,9 +231,9 @@ const schema = objectOf({
     version: number,
     exact: boolean
   ))
-})
+});
 
-getType(schema)
+getType(schema);
 // => { dependencies: Array<{ name: string, version: number, exact: boolean }> }
 ```
 
@@ -242,7 +242,7 @@ getType(schema)
 
 ```js
 const date = type((value) => {
-  if (value instanceof Date) return value
-  throw new Error
-})
+  if (value instanceof Date) return value;
+  throw new Error();
+});
 ```
