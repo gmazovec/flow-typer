@@ -57,7 +57,7 @@ export const validatorError = <T>(
 ): TypeValidatorError => {
     valueType = valueType !== null && valueType !== undefined && valueType !== "" ? valueType : typeof value;
     expectedType = expectedType !== null && expectedType !== undefined && expectedType !== "" ? expectedType : getType(typeFn);
-    message = message !== null && message !== undefined && message !== "" ? message : `invalid "${valueType}" value type; ${expectedType} type expected`;
+    message = message !== null && message !== undefined ? message : `invalid "${valueType}" value type; ${expectedType} type expected`;
     return new TypeValidatorError(
       message,
       expectedType,
