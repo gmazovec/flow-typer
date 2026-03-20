@@ -2,10 +2,10 @@
 import { assert, test } from "./index.js";
 import * as typer from "../src/index.js";
 
-const { TypeValidatorError } = typer;
+const { boolean, validatorError } = typer;
 
 test("TypeValidatorError", async (t) => {
-  const error = new TypeValidatorError("", "personT", "boolean", "true");
+  const error = validatorError(boolean, true, "", "", "personT", "boolean")
 
   await t.test("should return empty message", () => {
     assert.equal(error.message.split("\n")[0], "");
