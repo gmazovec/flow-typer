@@ -8,6 +8,7 @@ const {
   tupleOf3,
   tupleOf4,
   tupleOf5,
+  tupleOf6,
   boolean,
   number,
   string,
@@ -119,6 +120,16 @@ test("primitive types - cardinality 5", async (t) => {
     assert.throws(() => { tuple({}) });
     assert.throws(() => { tuple([]) });
     assert.throws(() => { tuple(["o", "l", "l", "e", "H", "."]) });
+  });
+});
+
+test("primitive types - cardinality 6", async (t) => {
+  const tuple = tupleOf6(string, string, boolean, number, number, number);
+
+  await t.test("should validate a tuple", () => {
+    const input = ["loc", "addr", true, 35.64, 21.74, 78.62];
+    const value: [string, string, boolean, number, number, number] = tuple(input);
+    assert.deepEqual(value, input);
   });
 });
 
