@@ -8,6 +8,7 @@ const {
   unionOf3,
   unionOf4,
   unionOf5,
+  unionOf6,
   arrayOf,
   objectOf,
   string,
@@ -89,6 +90,27 @@ test("primitive types - cardinality 5", async (t) => {
   await t.test("should throw an error", () => {
     assert.throws(() => { schema({}) }),
     assert.throws(() => { schema([]) })
+  });
+});
+
+test("primitive types - cadinality 6", async (t) => {
+  const schema = unionOf6(
+    nil,
+    undef,
+    boolean,
+    number,
+    literal("female"),
+    literal("ada")
+  );
+
+  await t.test("should validate an union", () => {
+    assert.equal((schema(true): null | void | boolean | number | "female" | "ada"), true);
+    assert.equal(schema(true), true);
+    assert.equal(schema(1), 1);
+    assert.equal(schema(null), null);
+    assert.equal(schema(undefined), undefined);
+    assert.equal(schema("female"), "female");
+    assert.equal(schema("ada"), "ada")
   });
 });
 
