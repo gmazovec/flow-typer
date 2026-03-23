@@ -1,5 +1,5 @@
 
-Coverage results from 15 file(s):
+Coverage results from 16 file(s):
 
 /Users/gregor/~Source/github/flow-typer/src/utils.js: 96.77% (60 of 62 expressions)
 /Users/gregor/~Source/github/flow-typer/src/types/union.js: 96.47% (546 of 566 expressions)
@@ -15,14 +15,15 @@ Coverage results from 15 file(s):
 /Users/gregor/~Source/github/flow-typer/src/is.js: 100.00% (56 of 56 expressions)
 /Users/gregor/~Source/github/flow-typer/src/index.js: 98.40% (184 of 187 expressions)
 /Users/gregor/~Source/github/flow-typer/src/helpers.js: 100.00% (16 of 16 expressions)
-/Users/gregor/~Source/github/flow-typer/src/error.js: 100.00% (249 of 249 expressions)
+/Users/gregor/~Source/github/flow-typer/src/error.js: 100.00% (242 of 242 expressions)
+/Users/gregor/~Source/github/flow-typer/src/annotation.js: 96.49% (55 of 57 expressions)
 
 -----------------------------------
 Aggregate coverage statistics
 -----------------------------------
-Files                : 15
+Files                : 16
 Expressions          :
-  Covered            : 2943
-  Total              : 2980
-  Covered Percentage : 98.76%
+  Covered            : 2991
+  Total              : 3030
+  Covered Percentage : 98.71%
 
