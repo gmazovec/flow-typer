@@ -4,7 +4,7 @@ export { assert, test } from "./_test-util.js";
 
 import "./arrayof.js";
 import "./error.js";
-import "./literals.js";
+import "./literal.js";
 import "./mapof.js";
 import "./maybe.js";
 import "./mixed.js";
