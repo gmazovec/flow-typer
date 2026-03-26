@@ -63,11 +63,11 @@ test("number type", async (t) => {
   await t.test("should return a number value", () => {
     assert.equal((number(12345): number), 12345);
     assert.equal(number(123.45), 123.45);
-    assert.equal(number("123.45", null, null, {}, true), 123.45);
-    assert.equal(number("12345", null, null, {}, true), 12345);
-    assert.equal(number(null, null, null, {}, true), NaN);
-    assert.equal(number([232], null, null, {}, true), 232);
-    assert.equal(number({ total: 561 }, null, null, {}, true), 561);
+    assert.equal(number("123.45", "", null, {}, true), 123.45);
+    assert.equal(number("12345", "", null, {}, true), 12345);
+    assert.equal(number(null, "", null, {}, true), NaN);
+    assert.equal(number([232], "", null, {}, true), 232);
+    assert.equal(number({ total: 561 }, "", null, {}, true), 561);
   });
 
   await t.test("should throw an error", () => {
@@ -86,8 +86,8 @@ test("string type", async (t) => {
   await t.test("should return a string value", () => {
     assert.equal((string("foo"): string), "foo");
     assert.equal(string(163, "", null, {}, true), "163");
-    assert.equal(string(["foo"], null, null, {}, true), "foo");
-    assert.equal(string({ label: "foo" }, null, null, {}, true), "foo");
+    assert.equal(string(["foo"], "", null, {}, true), "foo");
+    assert.equal(string({ label: "foo" }, "", null, {}, true), "foo");
   });
 
   await t.test("should throw an error", () => {
