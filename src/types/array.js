@@ -9,11 +9,11 @@ import type { TypeValidator, TypeArrayValidator, TypeAssertError, AssertionConte
 const toArray = (
   function <T>(typeFn: TypeValidator<T>, value: mixed, _scope: string, err: ?TypeAssertError[], ctx: AssertionContext, convert: boolean): Array<T> {
     if (Array.isArray(value)) {
-      return value.map((v, i) => typeFn(v, `${_scope}[${i}]`));
+      return value.map((v, i) => typeFn(v, `${_scope}[${i}]`, err, ctx, convert));
     }
     if (convert) {
       if (isObject(value)) {
-        return Object.values(value).map((v, i) => typeFn(v, `${_scope}[${i}]`));
+        return Object.values(value).map((v, i) => typeFn(v, `${_scope}[${i}]`, err, ctx, convert));
       }
     }
     ctx.assertion = false;
