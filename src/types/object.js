@@ -28,9 +28,9 @@ _object.value = () => ({});
 
 export const object = (_object: TypeValidator<ObjectRecord<mixed>>);
 
-export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string =  "Object") /*: TypeValidator<{ [key in keyof T]: ReturnType<T[key]> }> */ {
-  function object_ (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) /*: { [key in keyof T]: ReturnType<T[key]> } */ {
-    const o = object(value, _scope, err, _ctx);
+export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string =  "Object", convert?: boolean = false) /*: TypeValidator<{ [key in keyof T]: ReturnType<T[key]> }> */ {
+  function object_ (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) /*: { [key in keyof T]: ReturnType<T[key]> } */ {
+    const o = object(value, _scope, err, _ctx, _convert);
     assertContext(object.name, object_.type(), value, _scope, err, _ctx);
     const typeAttrs = Object.keys(typeObj);
     const unknownAttr = Object.keys(o).find(attr => !typeAttrs.includes(attr));
@@ -69,7 +69,7 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
       } else {
         // $FlowExpectedError[prop-missing]
         // $FlowExpectedError[incompatible-use]
-        obj[key] = typeFn(o[key], `${_scope}.${key}`);
+        obj[key] = typeFn(o[key], `${_scope}.${key}`, err, _ctx, _convert);
       }
       }
     }
