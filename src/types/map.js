@@ -10,9 +10,10 @@ import type { TypeValidator, TypeAssertError, AssertionContext } from "..";
 export const mapOf = <K, V>
   (
     keyTypeFn: TypeValidator<K>,
-    typeFn: TypeValidator<V>
+    typeFn: TypeValidator<V>,
+    label?: string = "Map"
   ): TypeValidator<{ [K]: V }> => {
-    function mapOf (value: mixed, _scope: string = "Map", err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+    function mapOf (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
       const o = object(value, _scope);
       const reducer = (acc: $Exact<{...}>, key: string) =>
         Object.assign(
