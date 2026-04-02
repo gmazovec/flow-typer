@@ -11,17 +11,18 @@ export const mapOf = <K, V>
   (
     keyTypeFn: TypeValidator<K>,
     typeFn: TypeValidator<V>,
-    label?: string = "Map"
+    label?: string = "Map",
+    convert?: boolean = false
   ): TypeValidator<{ [K]: V }> => {
-    function mapOf (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
-      const o = object(value, _scope);
+    function mapOf (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
+      const o = object(value, _scope, err, _ctx, _convert);
       const reducer = (acc: $Exact<{...}>, key: string) =>
         Object.assign(
           acc,
           {
             // $FlowFixMe[invalid-computed-prop]
-            [keyTypeFn(key, `${_scope}[_]`, err, _ctx, convert)]
-              :typeFn(o[key], `${_scope}.${key}`, err, _ctx, convert)
+            [keyTypeFn(key, `${_scope}[_]`, err, _ctx, _convert)]
+              :typeFn(o[key], `${_scope}.${key}`, err, _ctx, _convert)
           }
         );
       return Object.keys(o).reduce(reducer, {});
