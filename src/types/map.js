@@ -1,4 +1,5 @@
 // @flow
+import { assertContext } from "../type.js";
 import { getType } from "../utils.js";
 import { validatorError } from "../error.js";
 import { undef } from "./primitives.js";
@@ -14,8 +15,10 @@ export const mapOf = <K, V>
     label?: string = "Map",
     convert?: boolean = false
   ): TypeValidator<{ [K]: V }> => {
+    const type = () => `{ [_:${getType(keyTypeFn)}]: ${getType(typeFn)} }`;
     function mapOf (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
       const o = object(value, _scope, err, _ctx, _convert);
+      assertContext("mapOf", type(), value, _scope, err, _ctx);
       const reducer = (acc: $Exact<{...}>, key: string) =>
         Object.assign(
           acc,
@@ -27,7 +30,7 @@ export const mapOf = <K, V>
         );
       return Object.keys(o).reduce(reducer, {});
     }
-    mapOf.type = () => `{ [_:${getType(keyTypeFn)}]: ${getType(typeFn)} }`;
+    mapOf.type = type; 
     mapOf.value = (): { [K]: V } => ({});
     return mapOf;
   };
