@@ -11,12 +11,12 @@ export const tupleOf: Tuple2TypeValidator = function tupleOf_ (va, vb) {
   return tuple2(va, vb);
 };
 
-type Tuple1TypeValidator = <A> (TypeValidator<A>) => TypeValidator<[A]>
+type Tuple1TypeValidator = <A> (TypeValidator<A>, label?: string) => TypeValidator<[A]>
 
-export const tuple1: Tuple1TypeValidator = function (va) {
+export const tuple1: Tuple1TypeValidator = function (va, label = "") {
   const tuple_type = () => `[${getType(va)}]`;
   const tuple_value = () => [va.value()];
-  function tuple (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function tuple (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
     if (Array.isArray(value) && value.length === 1) {
       return [va(value[0], _scope, err, _ctx, convert)];
     }
@@ -29,12 +29,12 @@ export const tuple1: Tuple1TypeValidator = function (va) {
   return tuple;
 };
 
-type Tuple2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>) => TypeValidator<[A, B]>;
+type Tuple2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>, label?: string) => TypeValidator<[A, B]>;
 
-export const tuple2: Tuple2TypeValidator = function (va, vb) {
+export const tuple2: Tuple2TypeValidator = function (va, vb, label = "") {
   const tuple_type = () => `[${getType(va)}, ${getType(vb)}]`;
   const tuple_value = () => [va.value(), vb.value()];
-  function tuple (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function tuple (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
     if (Array.isArray(value) && value.length === 2) {
       return [va(value[0], _scope, err, _ctx, convert), vb(value[1], _scope, err, _ctx, convert)];
     }
@@ -47,12 +47,12 @@ export const tuple2: Tuple2TypeValidator = function (va, vb) {
   return tuple;
 };
 
-type Tuple3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>) => TypeValidator<[A, B, C]>;
+type Tuple3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, label?: string) => TypeValidator<[A, B, C]>;
 
-export const tuple3: Tuple3TypeValidator = function (va, vb, vc) {
+export const tuple3: Tuple3TypeValidator = function (va, vb, vc, label = "") {
   const tuple_type = () => `[${getType(va)}, ${getType(vb)}, ${getType(vc)}]`;
   const tuple_value = () => [va.value(), vb.value(), vc.value()];
-  function tuple (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function tuple (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
     if (Array.isArray(value) && value.length === 3) {
       return [va(value[0], _scope, err, _ctx, convert), vb(value[1], _scope, err, _ctx, convert), vc(value[2], _scope, err, _ctx, convert)];
     }
@@ -65,12 +65,12 @@ export const tuple3: Tuple3TypeValidator = function (va, vb, vc) {
   return tuple;
 };
 
-type Tuple4TypeValidator = <A, B, C, D> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>) => TypeValidator<[A, B, C, D]>;
+type Tuple4TypeValidator = <A, B, C, D> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, label?: string) => TypeValidator<[A, B, C, D]>;
 
-export const tuple4: Tuple4TypeValidator = function (va, vb, vc, vd) {
+export const tuple4: Tuple4TypeValidator = function (va, vb, vc, vd, label = "") {
   const tuple_type = () => `[${getType(va)}, ${getType(vb)}, ${getType(vc)}, ${getType(vd)}]`;
   const tuple_value = () => [va.value(), vb.value(), vc.value(), vd.value()];
-  function tuple (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function tuple (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
     if (Array.isArray(value) && value.length === 4) {
       return [
         va(value[0], _scope, err, _ctx, convert), vb(value[1], _scope, err, _ctx, convert),
@@ -86,12 +86,12 @@ export const tuple4: Tuple4TypeValidator = function (va, vb, vc, vd) {
   return tuple;
 };
 
-type Tuple5TypeValidator = <A, B, C, D, E> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>) => TypeValidator<[A, B, C, D, E]>;
+type Tuple5TypeValidator = <A, B, C, D, E> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, label?: string) => TypeValidator<[A, B, C, D, E]>;
 
-export const tuple5: Tuple5TypeValidator = function (va, vb, vc, vd, ve) {
+export const tuple5: Tuple5TypeValidator = function (va, vb, vc, vd, ve, label = "") {
   const tuple_type = () => `[${getType(va)}, ${getType(vb)}, ${getType(vc)}, ${getType(vd)}, ${getType(ve)}]`;
   const tuple_value = () => [va.value(), vb.value(), vc.value(), vd.value(), ve.value()];
-  function tuple (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function tuple (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
     if (Array.isArray(value) && value.length === 5) {
       return [
         va(value[0], _scope, err, _ctx, convert), vb(value[1], _scope, err, _ctx, convert),
@@ -108,12 +108,12 @@ export const tuple5: Tuple5TypeValidator = function (va, vb, vc, vd, ve) {
   return tuple;
 };
 
-type Tuple6TypeValidator = <A, B, C, D, E, F> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, TypeValidator<F>) => TypeValidator<[A, B, C, D, E, F]>;
+type Tuple6TypeValidator = <A, B, C, D, E, F> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, TypeValidator<F>, label?: string) => TypeValidator<[A, B, C, D, E, F]>;
 
-export const tuple6: Tuple6TypeValidator = function (va, vb, vc, vd, ve, vf) {
+export const tuple6: Tuple6TypeValidator = function (va, vb, vc, vd, ve, vf, label = "") {
   const tuple_type = () => `[${getType(va)}, ${getType(vb)}, ${getType(vc)}, ${getType(vd)}, ${getType(ve)}, ${getType(vf)}]`;
   const tuple_value = () => [va.value(), vb.value(), vc.value(), vd.value(), ve.value(), vf.value()];
-  function tuple (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function tuple (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
     if (Array.isArray(value) && value.length === 6) {
       return [
         va(value[0], _scope, err, _ctx, convert), vb(value[1], _scope, err, _ctx, convert),
@@ -129,3 +129,4 @@ export const tuple6: Tuple6TypeValidator = function (va, vb, vc, vd, ve, vf) {
   tuple.value = tuple_value;
   return tuple;
 };
+
