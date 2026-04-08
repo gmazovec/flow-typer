@@ -20,17 +20,17 @@ function assertUnion <T> (vx: TypeValidator<T>, value: mixed, _scope: string, er
  return v;
 }
 
-type Union2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>, label?: string) => TypeValidator<A | B>;
+type Union2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>, label?: string, convert?: boolean) => TypeValidator<A | B>;
 
-export const union2: Union2TypeValidator = function (va, vb, label = "") {
+export const union2: Union2TypeValidator = function (va, vb, label = "", convert = false) {
   const type = () => `(${getType(va)} | ${getType(vb)})`;
   const union_value = () => va.value() ?? vb.value();
-  function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
     try {
-      return assertUnion(va, value, _scope, err, convert);
+      return assertUnion(va, value, _scope, err, _convert);
     } catch (_) {
       try {
-        return assertUnion(vb, value, _scope, err, convert);
+        return assertUnion(vb, value, _scope, err, _convert);
       } catch (_) {
         _ctx.assertion = false;
         assertContext("union", type(), value, _scope, err, _ctx);
@@ -43,20 +43,20 @@ export const union2: Union2TypeValidator = function (va, vb, label = "") {
   return union;
 };
 
-type Union3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, label?: string) => TypeValidator<A | B | C>;
+type Union3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, label?: string, convert?: boolean) => TypeValidator<A | B | C>;
 
-export const union3: Union3TypeValidator = function (va, vb, vc, label = "") {
+export const union3: Union3TypeValidator = function (va, vb, vc, label = "", convert = false) {
   const type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)}`;
   const union_value = () => va.value() ?? vb.value() ?? vc.value();
-  function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
     try {
-      return assertUnion(va, value, _scope, err, convert);
+      return assertUnion(va, value, _scope, err, _convert);
     } catch (_) {
       try {
-        return assertUnion(vb, value, _scope, err, convert);
+        return assertUnion(vb, value, _scope, err, _convert);
       } catch (_) {
         try {
-          return assertUnion(vc, value, _scope, err, convert);
+          return assertUnion(vc, value, _scope, err, _convert);
         } catch (_) {
           _ctx.assertion = false;
           assertContext("union", type(), value, _scope, err, _ctx);
@@ -70,23 +70,23 @@ export const union3: Union3TypeValidator = function (va, vb, vc, label = "") {
   return union;
 };
 
-type Union4TypeValidator = <A, B, C, D> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, label?: string) => TypeValidator<A | B | C | D>;
+type Union4TypeValidator = <A, B, C, D> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, label?: string, convert?: boolean) => TypeValidator<A | B | C | D>;
 
-export const union4: Union4TypeValidator = function (va, vb, vc, vd, label = "") {
+export const union4: Union4TypeValidator = function (va, vb, vc, vd, label = "", convert = false) {
   const type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)}`;
   const union_value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value();
-  function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
     try {
-      return assertUnion(va, value, _scope, err, convert);
+      return assertUnion(va, value, _scope, err, _convert);
     } catch (_) {
       try {
-        return assertUnion(vb, value, _scope, err, convert);
+        return assertUnion(vb, value, _scope, err, _convert);
       } catch (_) {
         try {
-          return assertUnion(vc, value, _scope, err, convert);
+          return assertUnion(vc, value, _scope, err, _convert);
         } catch (_) {
           try {
-            return assertUnion(vd, value, _scope, err, convert);
+            return assertUnion(vd, value, _scope, err, _convert);
           } catch (_) {
             _ctx.assertion = false;
             assertContext("union", type(), value, _scope, err, _ctx);
@@ -101,26 +101,26 @@ export const union4: Union4TypeValidator = function (va, vb, vc, vd, label = "")
   return union;
 };
 
-type Union5TypeValidator = <A, B, C, D, E> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, label?: string) => TypeValidator<A | B | C | D | E>;
+type Union5TypeValidator = <A, B, C, D, E> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, label?: string, convert?: boolean) => TypeValidator<A | B | C | D | E>;
 
-export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve, label = "") {
+export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve, label = "", convert = false) {
   const type = () => `${getType(va)} | ${getType(vb)} | ${getType(vc)} | ${getType(vd)} | ${getType(ve)}`;
   const union_value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value();
-  function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
     try {
-      return assertUnion(va, value, _scope, err, convert);
+      return assertUnion(va, value, _scope, err, _convert);
     } catch (_) {
       try {
-        return assertUnion(vb, value, _scope, err, convert);
+        return assertUnion(vb, value, _scope, err, _convert);
       } catch (_) {
         try {
-          return assertUnion(vc, value, _scope, err, convert);
+          return assertUnion(vc, value, _scope, err, _convert);
         } catch (_) {
           try {
-            return assertUnion(vd, value, _scope, err, convert);
+            return assertUnion(vd, value, _scope, err, _convert);
           } catch (_) {
             try {
-              return assertUnion(ve, value, _scope, err, convert);
+              return assertUnion(ve, value, _scope, err, _convert);
             } catch (_) {
               _ctx.assertion = false;
               assertContext("union", type(), value, _scope, err, _ctx);
@@ -136,29 +136,29 @@ export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve, label =
   return union;
 };
 
-type Union6TypeValidator = <A, B, C, D, E, F> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, TypeValidator<F>, label?: string) => TypeValidator<A | B | C | D | E | F>;
+type Union6TypeValidator = <A, B, C, D, E, F> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, TypeValidator<F>, label?: string, convert?: boolean) => TypeValidator<A | B | C | D | E | F>;
 
-export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf, label = "") {
+export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf, label = "", convert = false) {
   const type = () => `(${getType(va)} | ${getType(vb)}) | ${getType(vc)} | ${getType(vd)} | ${getType(ve)} | ${getType(vf)}`;
   const union_value = () => va.value() ?? vb.value() ?? vc.value() ?? vd.value() ?? ve.value() ?? vf.value();
-  function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
+  function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
     try {
-      return assertUnion(va, value, _scope, err, convert);
+      return assertUnion(va, value, _scope, err, _convert);
     } catch (_) {
       try {
-        return assertUnion(vb, value, _scope, err, convert);
+        return assertUnion(vb, value, _scope, err, _convert);
       } catch (_) {
         try {
-          return assertUnion(vc ,value, _scope, err, convert);
+          return assertUnion(vc ,value, _scope, err, _convert);
         } catch (_) {
           try {
-            return assertUnion(vd, value, _scope, err, convert);
+            return assertUnion(vd, value, _scope, err, _convert);
           } catch (_) {
             try {
-              return assertUnion(ve ,value, _scope, err, convert);
+              return assertUnion(ve ,value, _scope, err, _convert);
             } catch (_) {
               try {
-                return assertUnion(vf, value, _scope, err, convert);
+                return assertUnion(vf, value, _scope, err, _convert);
               } catch (_) {
                 _ctx.assertion = false;
                 assertContext("union", type(), value, _scope, err, _ctx);
