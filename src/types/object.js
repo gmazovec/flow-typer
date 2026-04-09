@@ -106,8 +106,8 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
 };
 
 export const optional =
-  <T>(typeFn: TypeValidator<T>): TypeValidator<T | void> => {
-    const unionFn = union2(typeFn, undef);
+  <T>(typeFn: TypeValidator<T>, label?: string = "", convert?: boolean = false): TypeValidator<T | void> => {
+    const unionFn = union2(typeFn, undef, label, convert);
     function optional (v: mixed) {
       return unionFn(v);
     }

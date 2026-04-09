@@ -8,9 +8,9 @@ const isPrimitiveFn = (typeName: string) =>
   ["undefined", "null", "boolean", "number", "string"].includes(typeName);
 
 export const maybe =
-  <T>(typeFn: TypeValidator<T>): TypeMaybeValidator<T> => {
-    function maybe (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert: boolean = false) {
-      return (isNull(value) || isUndef(value)) ? value : typeFn(value, _scope, err, _ctx, convert);
+  <T>(typeFn: TypeValidator<T>, label?: string = "", convert?: boolean = false): TypeMaybeValidator<T> => {
+    function maybe (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
+      return (isNull(value) || isUndef(value)) ? value : typeFn(value, _scope, err, _ctx, _convert);
     }
     maybe.type = () => !isPrimitiveFn(typeFn.name) ? `?(${getType(typeFn)})` : `?${getType(typeFn)}`;
     maybe.value = () => typeFn.value();
