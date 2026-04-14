@@ -1,8 +1,7 @@
 // @flow
 import { assertContext } from "../type.js";
-import { validatorError } from "../error.js";
+import { deprwarn, validatorError } from "../error.js";
 import { isBoolean, isNull, isUndef, isObject, isString } from "../is.js";
-import { deprwarn } from "../index.js";
 
 import type { LiteralValue, TypeValidator, TypeAssertError, AssertionContext } from "..";
 

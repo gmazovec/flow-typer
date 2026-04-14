@@ -2,7 +2,8 @@
 import { assertContext } from "../type.js";
 import { getType } from "../utils.js";
 import { validatorError, validatorTypeError } from "../error.js";
-import { deprwarn, string, number } from "../index.js";
+import { string, number } from "../index.js";
+import { deprwarn } from "../error.js";
 
 import type { TypeValidator, TypeAssertError, AssertionContext } from "..";
 

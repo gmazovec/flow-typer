@@ -1,6 +1,6 @@
 // @flow
 
-import { deprwarn } from "./index.js"
+import { deprwarn } from "./error.js"
 
 export const isNil =
   (v: mixed) /*: implies v is null */ => {

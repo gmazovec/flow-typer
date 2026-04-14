@@ -115,19 +115,3 @@ export const unionOf5 = union.union5;
 export const unionOf6 = union.union6;
 
 export const mapOf = map.mapOf;
-
-class DeprecationWarning extends Error {
-  code: string
-
-  constructor (message: string, code: string) {
-    super();
-    this.message = message;
-    this.code = code;
-  }
-}
-
-export function deprwarn (message: string, code: string = "FT000") {
-  const warn = new DeprecationWarning(message, code);
-  // $FlowExpectedError[cannot-resolve-name]
-  process.emitWarning(warn);
-}

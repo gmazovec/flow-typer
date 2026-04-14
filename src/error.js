@@ -90,3 +90,18 @@ export const validatorTypeError = <T>(
     );
   }
 
+class DeprecationWarning extends Error {
+  code: string
+
+  constructor (message: string, code: string) {
+    super();
+    this.message = message;
+    this.code = code;
+  }
+}
+
+export function deprwarn (message: string, code: string = "FT000") {
+  const warn = new DeprecationWarning(message, code);
+  // $FlowExpectedError[cannot-resolve-name]
+  process.emitWarning(warn);
+}
