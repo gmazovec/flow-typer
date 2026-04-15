@@ -6,7 +6,7 @@ import type { TypeAssertError, AssertionContext } from "."
 
 export function convertValue <T> (typeFn: (mixed, AssertionContext, boolean) => T, value: mixed, ctx: AssertionContext, convert: boolean): T {
   const v = typeFn(value, ctx, convert);
-  if (ctx.assertion === false) {
+  if (ctx.assertion === false && convert) {
     ctx.assertion = true;
     if (Array.isArray(value) && value.length === 1) {
       return typeFn(value[0], ctx, convert);
