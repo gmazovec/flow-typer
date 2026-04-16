@@ -15,7 +15,7 @@ export const literal =
   <const T> (primitive: T, label?: string = "", convert?: boolean = false): TypeValidator<T> => {
     function literal (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert): T {
       _ctx.assertion = value === primitive;
-      assertContext(literal.name, literal.type(), value, _scope, err, _ctx);
+      assertContext(literal.name, literal.type(), value, _scope, err, _ctx.assertion);
       return primitive;
     }
     literal.type = () => {

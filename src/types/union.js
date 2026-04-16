@@ -33,7 +33,7 @@ export const union2: Union2TypeValidator = function (va, vb, label = "", convert
         return assertUnion(vb, value, _scope, err, _convert);
       } catch (_) {
         _ctx.assertion = false;
-        assertContext("union", type(), value, _scope, err, _ctx);
+        assertContext("union", type(), value, _scope, err, _ctx.assertion);
         return union_value();
       }
     }
@@ -59,7 +59,7 @@ export const union3: Union3TypeValidator = function (va, vb, vc, label = "", con
           return assertUnion(vc, value, _scope, err, _convert);
         } catch (_) {
           _ctx.assertion = false;
-          assertContext("union", type(), value, _scope, err, _ctx);
+          assertContext("union", type(), value, _scope, err, _ctx.assertion);
           return union_value();
         }
       }
@@ -89,7 +89,7 @@ export const union4: Union4TypeValidator = function (va, vb, vc, vd, label = "",
             return assertUnion(vd, value, _scope, err, _convert);
           } catch (_) {
             _ctx.assertion = false;
-            assertContext("union", type(), value, _scope, err, _ctx);
+            assertContext("union", type(), value, _scope, err, _ctx.assertion);
             return union_value();
           }
         }
@@ -123,7 +123,7 @@ export const union5: Union5TypeValidator = function (va, vb, vc, vd, ve, label =
               return assertUnion(ve, value, _scope, err, _convert);
             } catch (_) {
               _ctx.assertion = false;
-              assertContext("union", type(), value, _scope, err, _ctx);
+              assertContext("union", type(), value, _scope, err, _ctx.assertion);
               return union_value();
             }
           }
@@ -161,7 +161,7 @@ export const union6: Union6TypeValidator = function (va, vb, vc, vd, ve, vf, lab
                 return assertUnion(vf, value, _scope, err, _convert);
               } catch (_) {
                 _ctx.assertion = false;
-                assertContext("union", type(), value, _scope, err, _ctx);
+                assertContext("union", type(), value, _scope, err, _ctx.assertion);
                 return union_value();
               }
             }

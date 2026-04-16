@@ -18,7 +18,7 @@ export const mapOf = <K, V>
     const type = () => `{ [_:${getType(keyTypeFn)}]: ${getType(typeFn)} }`;
     function mapOf (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
       const o = object(value, _scope, err, _ctx, _convert);
-      assertContext("mapOf", type(), value, _scope, err, _ctx);
+      assertContext("mapOf", type(), value, _scope, err, _ctx.assertion);
       const reducer = (acc: $Exact<{...}>, key: string) =>
         Object.assign(
           acc,

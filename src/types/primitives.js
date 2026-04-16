@@ -26,7 +26,7 @@ function toNil (value: mixed, ctx: AssertionContext, convert: boolean): null {
 
 function _nil (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): null {
   const v = convertValue(toNil, value, _ctx, convert);
-  assertContext(nil.name, getType(nil), value, _scope, err, _ctx);
+  assertContext(nil.name, getType(nil), value, _scope, err, _ctx.assertion);
   return v;
 }
 _nil.type = () => "null";
@@ -47,7 +47,7 @@ function toUndef (value: mixed, ctx: AssertionContext, convert: boolean): void {
 
 function _undef (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): void {
   convertValue(toUndef, value, _ctx, convert);
-  assertContext(undef.name, getType(undef), value, _scope, err, _ctx);
+  assertContext(undef.name, getType(undef), value, _scope, err, _ctx.assertion);
 }
 _undef.type = () => "void";
 _undef.value = () => undefined;
@@ -69,7 +69,7 @@ function toBoolean (value: mixed, ctx: AssertionContext, convert: boolean): bool
 
 function _boolean (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): boolean {
   const v = convertValue(toBoolean, value, _ctx, convert);
-  assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx);
+  assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx.assertion);
   return v;
 }
 _boolean.type = () => "boolean";
@@ -98,7 +98,7 @@ function toNumber (value: mixed, ctx: AssertionContext, convert: boolean): numbe
 
 function _number (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
   const v = convertValue(toNumber, value, _ctx, _convert);
-  assertContext(number.name, getType(number), value, _scope, err, _ctx);
+  assertContext(number.name, getType(number), value, _scope, err, _ctx.assertion);
   return v;
 }
 _number.type = () => "number";
@@ -121,7 +121,7 @@ function toString (value: mixed, ctx: AssertionContext, convert: boolean) {
 
 function _string (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
   const v = convertValue(toString, value, _ctx, _convert);
-  assertContext(string.name, getType(string), value, _scope, err, _ctx);
+  assertContext(string.name, getType(string), value, _scope, err, _ctx.assertion);
   return v;
 }
 _string.type = () => "string";

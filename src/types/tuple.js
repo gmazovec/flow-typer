@@ -20,7 +20,7 @@ export const tuple1: Tuple1TypeValidator = function (va, label = "", convert = f
       return [va(value[0], _scope, err, _ctx, _convert)];
     }
     _ctx.assertion = false;
-    assertContext("tuple", tuple_type(), value, _scope, err, _ctx);
+    assertContext("tuple", tuple_type(), value, _scope, err, _ctx.assertion);
     return tuple_value();
   }
   tuple.type = tuple_type;
@@ -38,7 +38,7 @@ export const tuple2: Tuple2TypeValidator = function (va, vb, label = "", convert
       return [va(value[0], _scope, err, _ctx, _convert), vb(value[1], _scope, err, _ctx, _convert)];
     }
     _ctx.assertion = false;
-    assertContext("tuple", tuple_type(), value, _scope, err, _ctx);
+    assertContext("tuple", tuple_type(), value, _scope, err, _ctx.assertion);
     return tuple_value();
   }
   tuple.type = tuple_type;
@@ -56,7 +56,7 @@ export const tuple3: Tuple3TypeValidator = function (va, vb, vc, label = "", con
       return [va(value[0], _scope, err, _ctx, _convert), vb(value[1], _scope, err, _ctx, _convert), vc(value[2], _scope, err, _ctx, _convert)];
     }
     _ctx.assertion = false;
-    assertContext("tuple", tuple_type(), value, _scope, err, _ctx);
+    assertContext("tuple", tuple_type(), value, _scope, err, _ctx.assertion);
     return tuple_value();
   }
   tuple.type = tuple_type;
@@ -77,7 +77,7 @@ export const tuple4: Tuple4TypeValidator = function (va, vb, vc, vd, label = "",
       ];
     }
     _ctx.assertion = false;
-    assertContext("tuple", tuple_type(), value, _scope, err, _ctx);
+    assertContext("tuple", tuple_type(), value, _scope, err, _ctx.assertion);
     return tuple_value();
   }
   tuple.type = tuple_type;
@@ -99,7 +99,7 @@ export const tuple5: Tuple5TypeValidator = function (va, vb, vc, vd, ve, label =
       ];
     }
     _ctx.assertion = false;
-    assertContext("tuple", tuple_type(), value, _scope, err, _ctx);
+    assertContext("tuple", tuple_type(), value, _scope, err, _ctx.assertion);
     return tuple_value();
   }
   tuple.type = tuple_type;
@@ -121,7 +121,7 @@ export const tuple6: Tuple6TypeValidator = function (va, vb, vc, vd, ve, vf, lab
       ];
     }
     _ctx.assertion = false;
-    assertContext("tuple", tuple_type(), value, _scope, err, _ctx);
+    assertContext("tuple", tuple_type(), value, _scope, err, _ctx.assertion);
     return tuple_value();
   }
   tuple.type = tuple_type;

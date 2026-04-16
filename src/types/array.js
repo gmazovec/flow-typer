@@ -25,7 +25,7 @@ export const arrayOf =
   <T>(typeFn: TypeValidator<T>, label?: string = "Array", convert?: boolean = false): TypeArrayValidator<T> => {
     function array (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert): Array<T> {
       const v = toArray(typeFn, value, _scope, err, _ctx, _convert);
-      assertContext(array.name, array.type(), value, _scope, err, _ctx);
+      assertContext(array.name, array.type(), value, _scope, err, _ctx.assertion);
       return v;
     }
     array.type = () => `Array<${getType(typeFn)}>`;

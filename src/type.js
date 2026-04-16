@@ -22,8 +22,8 @@ export function convertValue <T> (typeFn: (mixed, AssertionContext, boolean) => 
   return v;
 }
 
-export function assertContext (name: string, type: string, value: mixed, scope: string, err: ?TypeAssertError[], ctx: AssertionContext, msg?: string = ""): void {
-  if (ctx.assertion === false) {
+export function assertContext (name: string, type: string, value: mixed, scope: string, err: ?TypeAssertError[], assertion?: boolean, msg?: string = ""): void {
+  if (assertion === false) {
     if (err) {
       err.push({ expected: type, actual: typeof value, scope: scope });
     } else {
