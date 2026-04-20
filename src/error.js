@@ -2,6 +2,8 @@
 import { getType } from "./utils.js";
 import type { TypeValidator } from "./";
 
+import type { TypeAssertError } from "./index.js";
+
 export class TypeValidatorError extends Error {
   expectedType: string
   valueType: string
@@ -55,7 +57,7 @@ export const validatorError = <T>(
   expectedType?: string,
   valueType?: string
 ): TypeValidatorError => {
-    valueType = valueType !== null && valueType !== undefined && valueType !== "" ? valueType : typeof value;
+    valueType = valueType !== null && valueType !== undefined && valueType !== "" ? valueType : typeAnnotation(value);
     expectedType = expectedType !== null && expectedType !== undefined && expectedType !== "" ? expectedType : getType(typeFn);
     message = message !== null && message !== undefined ? message : `invalid "${valueType}" value type; ${expectedType} type expected`;
     return new TypeValidatorError(
@@ -77,7 +79,7 @@ export const validatorTypeError = <T>(
   expectedType?: string,
   valueType?: string
 ): TypeValidatorError => {
-    valueType = valueType !== null && valueType !== undefined && valueType !== "" ? valueType : typeof value;
+    valueType = valueType !== null && valueType !== undefined && valueType !== "" ? valueType : typeAnnotation(value);
     expectedType = expectedType !== null && expectedType !== undefined && expectedType !== "" ? expectedType : type;
     message = message !== null && message !== undefined && message !== "" ? message : `invalid "${valueType}" value type; ${name || expectedType} type expected`;
     return new TypeValidatorError(
@@ -104,4 +106,16 @@ export function deprwarn (message: string, code: string = "FT000") {
   const warn = new DeprecationWarning(message, code);
   // $FlowExpectedError[cannot-resolve-name]
   process.emitWarning(warn);
+}
+
+function typeAnnotation (value: mixed): string {
+  const type = typeof value;
+  return type === "object"
+    ? Array.isArray(value)
+      ? "Array<mixed>" : value === null
+        ? "null" : type : type;
+}
+
+export function typeAssertError (expected: string, value: mixed, scope: string): TypeAssertError {
+  return { expected: expected, actual: typeAnnotation(value), scope: scope };
 }
