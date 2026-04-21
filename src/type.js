@@ -1,5 +1,5 @@
 // @flow
-import { validatorTypeError } from "./error.js"
+import { typeAssertError, validatorTypeError } from "./error.js"
 import { isObject } from "./is.js"
 
 import type { TypeAssertError, AssertionContext } from "."
@@ -25,7 +25,7 @@ export function convertValue <T> (typeFn: (mixed, AssertionContext, boolean) => 
 export function assertContext (name: string, type: string, value: mixed, scope: string, err: ?TypeAssertError[], assertion?: boolean, msg?: string = ""): void {
   if (assertion === false) {
     if (err) {
-      err.push({ expected: type, actual: typeof value, scope: scope });
+      err.push(typeAssertError(type, value, scope));
     } else {
       throw validatorTypeError(name, type, value, scope, msg);
     }
