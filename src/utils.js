@@ -42,9 +42,7 @@ export const type =
     return type;
   };
 
-export function debugType <T> (typeFn: TypeValidator<T>): (mixed) => [TypeAssertError[], T] {
-  return function validateInDebug (v: mixed): [TypeAssertError[], T] {
-    const err: TypeAssertError[] = [];
-    return [err, typeFn(v, "userType", err)];
-  };
+export function debugType <T> (typeFn: TypeValidator<T>, value: mixed): [TypeAssertError[], T] {
+  const err: TypeAssertError[] = [];
+  return [err, typeFn(value, "userType", err)];
 }
