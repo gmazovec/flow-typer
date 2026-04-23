@@ -1,6 +1,6 @@
 {
   "name": "flow-typer-js",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "type": "module",
   "description": "Declarative static and runtime type checking",
   "main": "dist/index.js",
@@ -20,7 +20,7 @@
     "dist"
   ],
   "scripts": {
-	"prepublishOnly": "node --eval '' --require './dist'"
+    "prepublishOnly": "node --eval '' --require './dist'"
   },
   "peerDependencies": {
     "flow-bin": "^0.269.1"
