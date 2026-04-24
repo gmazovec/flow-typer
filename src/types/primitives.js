@@ -128,3 +128,13 @@ _string.type = () => "string";
 _string.value = () => "";
 
 export const string = (_string: StringValidator);
+
+function _tostring (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = true): string {
+  const v = convertValue(toString, value, _ctx, _convert);
+  assertContext(string.name, getType(string), value, _scope, err, _ctx.assertion);
+  return v;
+}
+_tostring.type = () => "string";
+_tostring.value = () => "";
+
+export const tostring = (_tostring: StringValidator);
