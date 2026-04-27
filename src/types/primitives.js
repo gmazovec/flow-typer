@@ -106,6 +106,16 @@ _number.value = () => 0;
 
 export const number = (_number: NumberValidator);
 
+function _tonumber (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = true): number {
+  const v = convertValue(toNumber, value, _ctx, _convert);
+  assertContext(number.name, getType(number), value, _scope, err, _ctx.assertion);
+  return v;
+}
+_tonumber.type = () => "number";
+_tonumber.value = () => 0;
+
+export const tonumber = (_tonumber: NumberValidator);
+
 function toString (value: mixed, ctx: AssertionContext, convert: boolean) {
   if (isString(value)) {
     return value;
