@@ -129,7 +129,7 @@ function toString (value: mixed, ctx: AssertionContext, convert: boolean) {
   return String();
 }
 
-function _string (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
+const _string = function string (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
   const v = convertValue(toString, value, _ctx, _convert);
   assertContext(string.name, getType(string), value, _scope, err, _ctx.assertion);
   return v;
@@ -139,7 +139,7 @@ _string.value = () => "";
 
 export const string = (_string: StringValidator);
 
-function _tostring (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = true): string {
+const _tostring = function string (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = true): string {
   const v = convertValue(toString, value, _ctx, _convert);
   assertContext(string.name, getType(string), value, _scope, err, _ctx.assertion);
   return v;
