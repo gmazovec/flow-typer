@@ -77,6 +77,16 @@ _boolean.value = () => false;
 
 export const boolean = (_boolean: BooleanValidator);
 
+const _toboolean = function boolean (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): boolean {
+  const v = convertValue(toBoolean, value, _ctx, convert);
+  assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx.assertion);
+  return v;
+}
+_toboolean.type = () => "boolean";
+_toboolean.value = () => false;
+
+export const toboolean = (_toboolean: BooleanValidator);
+
 function toNumber (value: mixed, ctx: AssertionContext, convert: boolean): number {
   if (isNumber(value)) {
     return value;
