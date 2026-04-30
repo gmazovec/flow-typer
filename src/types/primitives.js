@@ -54,6 +54,15 @@ _undef.value = () => undefined;
 
 export const undef = (_undef: VoidValidator);
 
+const _toundefined = function _undefined (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = true): void {
+  convertValue(toUndef, value, _ctx, convert);
+  assertContext(undef.name, getType(undef), value, _scope, err, _ctx.assertion);
+}
+_toundefined.type = () => "void";
+_toundefined.value = () => undefined;
+
+export const toundefined = (_toundefined: VoidValidator);
+
 function toBoolean (value: mixed, ctx: AssertionContext, convert: boolean): boolean {
   if (isBoolean(value)) {
     return value;
