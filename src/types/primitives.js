@@ -34,6 +34,16 @@ _nil.value = () => null;
 
 export const nil = (_nil: NullValidator);
 
+const _tonil = function _nil (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): null {
+  const v = convertValue(toNil, value, _ctx, convert);
+  assertContext(nil.name, getType(nil), value, _scope, err, _ctx.assertion);
+  return v;
+}
+_tonil.type = () => "null";
+_tonil.value = () => null;
+
+export const tonil = (_tonil: NullValidator);
+
 function toUndef (value: mixed, ctx: AssertionContext, convert: boolean): void {
   if (convert) {
     if (value === "undefined") {
