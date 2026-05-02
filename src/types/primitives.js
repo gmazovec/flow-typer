@@ -34,7 +34,7 @@ _nil.value = () => null;
 
 export const nil = (_nil: NullValidator);
 
-const _tonil = function _nil (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): null {
+const _tonil = function _nil (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = true): null {
   const v = convertValue(toNil, value, _ctx, convert);
   assertContext(nil.name, getType(nil), value, _scope, err, _ctx.assertion);
   return v;
