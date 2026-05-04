@@ -3,6 +3,7 @@ import { getType } from "../utils.js";
 import { validatorError } from "../error.js";
 import { assertContext } from "../type.js";
 import { isObject } from "../is.js";
+import { mixed } from "./mixed.js";
 
 import type { TypeValidator, TypeArrayValidator, TypeAssertError, AssertionContext } from "..";
 
@@ -20,6 +21,20 @@ const toArray = (
     return Array();
   }
 );
+
+const _array = function array (value: mixed, _scope?: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, convert?: boolean = false): Array<mixed> {
+  if (Array.isArray(value)) {
+    return value.map((v) => v);
+  }
+  _ctx.assertion = false;
+  assertContext(array.name, array.type(), value, _scope, err, _ctx.assertion);
+  return Array();
+};
+
+_array.type = () => `Array<mixed>`;
+_array.value = () => [mixed(null)];
+
+export const array = (_array: TypeArrayValidator<mixed>);
 
 export const arrayOf =
   <T>(typeFn: TypeValidator<T>, label?: string = "Array", convert?: boolean = false): TypeArrayValidator<T> => {
