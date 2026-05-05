@@ -47,3 +47,14 @@ export const arrayOf =
     array.value = () => [typeFn.value()];
     return array;
   };
+
+const _toarray = function array (value: mixed, _scope?: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert?: boolean = true): Array<mixed> {
+  const v = toArray(mixed, value, _scope, err, _ctx, _convert);
+  assertContext(array.name, array.type(), value, _scope, err, _ctx.assertion);
+  return v;
+};
+
+_toarray.type = () => `Array<mixed>`;
+_toarray.value = () => [mixed(null)];
+
+export const toarray = (_toarray: TypeArrayValidator<mixed>);
