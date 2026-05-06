@@ -1,5 +1,5 @@
 // @flow
-import { assertContext } from "../type.js";
+import { assertContext, convertValue } from "../type.js";
 import { getType } from "../utils.js";
 import { getProperty } from "../helpers.js";
 import { validatorError } from "../error.js";
@@ -104,6 +104,16 @@ export const objectOf = function t_object <T: {...}> (typeObj: T, label?: string
   };
   return object_;
 };
+
+const _toobject = function object (value: mixed, _scope: string = "", err: ?TypeAssertError[], ctx?: AssertionContext = {}, convert: boolean = true): {...} {
+  const v = convertValue(toObject, value, ctx, convert);
+  assertContext(_toobject.name, _toobject.type(), value, _scope, err, ctx.assertion);
+  return v;
+}
+_toobject.type = () => "Object";
+_toobject.value = () => ({});
+
+export const toobject = (_toobject: TypeValidator<ObjectRecord<mixed>>);
 
 export const optional =
   <T>(typeFn: TypeValidator<T>, label?: string = "", convert?: boolean = false): TypeValidator<T | void> => {
