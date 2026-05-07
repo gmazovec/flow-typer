@@ -79,7 +79,7 @@ function toBoolean (value: mixed, ctx: AssertionContext, convert: boolean): bool
   }
   if (convert) {
     if (value === "true" || value === "false") {
-      return JSON.parse(value);
+      return value === "true";
     }
   }
   ctx.assertion = false;
