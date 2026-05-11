@@ -1,4 +1,5 @@
 // @flow
+import { deprwarn } from "../error.js";
 import { convertValue, assertContext } from "../type.js";
 import { getType } from "../utils.js";
 import {
@@ -25,6 +26,7 @@ function toNil (value: mixed, ctx: AssertionContext, convert: boolean): null {
 }
 
 function _nil (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): null {
+  deprwarn("nil() validator is deprecated; use maybe() or optional() instead.", "FT005");
   const v = convertValue(toNil, value, _ctx, convert);
   assertContext(nil.name, getType(nil), value, _scope, err, _ctx.assertion);
   return v;
@@ -35,6 +37,7 @@ _nil.value = () => null;
 export const nil = (_nil: NullValidator);
 
 const _tonil = function _nil (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = true): null {
+  deprwarn("tonil() validator is deprecated; use maybe() or optional() instead.", "FT005");
   const v = convertValue(toNil, value, _ctx, convert);
   assertContext(nil.name, getType(nil), value, _scope, err, _ctx.assertion);
   return v;
@@ -56,6 +59,7 @@ function toUndef (value: mixed, ctx: AssertionContext, convert: boolean): void {
 }
 
 function _undef (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): void {
+  deprwarn("undef() validator is deprecated; use maybe() or optional() instead.", "FT005");
   convertValue(toUndef, value, _ctx, convert);
   assertContext(undef.name, getType(undef), value, _scope, err, _ctx.assertion);
 }
@@ -65,6 +69,7 @@ _undef.value = () => undefined;
 export const undef = (_undef: VoidValidator);
 
 const _toundefined = function _undefined (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = true): void {
+  deprwarn("toundefined() validator is deprecated; use maybe() or optional() instead.", "FT005");
   convertValue(toUndef, value, _ctx, convert);
   assertContext(undef.name, getType(undef), value, _scope, err, _ctx.assertion);
 }
