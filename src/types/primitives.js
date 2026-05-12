@@ -38,7 +38,7 @@ export const nil = (_nil: NullValidator);
 
 const _tonil = function _nil (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = true): null {
   deprwarn("tonil() validator is deprecated; use maybe() or optional() instead.", "FT005");
-  const v = convertValue(toNil, value, _ctx, convert);
+  const v = convertValue(toNil, value, _ctx, true);
   assertContext(nil.name, getType(nil), value, _scope, err, _ctx.assertion);
   return v;
 }
@@ -70,7 +70,7 @@ export const undef = (_undef: VoidValidator);
 
 const _toundefined = function _undefined (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = true): void {
   deprwarn("toundefined() validator is deprecated; use maybe() or optional() instead.", "FT005");
-  convertValue(toUndef, value, _ctx, convert);
+  convertValue(toUndef, value, _ctx, true);
   assertContext(undef.name, getType(undef), value, _scope, err, _ctx.assertion);
 }
 _toundefined.type = () => "void";
@@ -102,7 +102,7 @@ _boolean.value = () => false;
 export const boolean = (_boolean: BooleanValidator);
 
 const _toboolean = function boolean (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): boolean {
-  const v = convertValue(toBoolean, value, _ctx, convert);
+  const v = convertValue(toBoolean, value, _ctx, true);
   assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx.assertion);
   return v;
 }
@@ -141,7 +141,7 @@ _number.value = () => 0;
 export const number = (_number: NumberValidator);
 
 function _tonumber (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = true): number {
-  const v = convertValue(toNumber, value, _ctx, _convert);
+  const v = convertValue(toNumber, value, _ctx, true);
   assertContext(number.name, getType(number), value, _scope, err, _ctx.assertion);
   return v;
 }
@@ -174,7 +174,7 @@ _string.value = () => "";
 export const string = (_string: StringValidator);
 
 const _tostring = function string (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = true): string {
-  const v = convertValue(toString, value, _ctx, _convert);
+  const v = convertValue(toString, value, _ctx, true);
   assertContext(string.name, getType(string), value, _scope, err, _ctx.assertion);
   return v;
 }
