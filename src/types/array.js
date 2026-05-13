@@ -4,6 +4,7 @@ import { validatorError } from "../error.js";
 import { assertContext } from "../type.js";
 import { isObject } from "../is.js";
 import { mixed } from "./mixed.js";
+import * as primitives from "./primitives.js";
 
 import type { TypeValidator, TypeArrayValidator, TypeAssertError, AssertionContext } from "..";
 
@@ -36,8 +37,8 @@ _array.value = () => [mixed(null)];
 
 export const array = (_array: TypeArrayValidator<mixed>);
 
-export const arrayOf =
-  <T>(typeFn: TypeValidator<T>, label?: string = "Array", convert?: boolean = false): TypeArrayValidator<T> => {
+export function arrayOf
+  <T>(typeFn: TypeValidator<T>, label?: string = "Array", convert?: boolean = false): TypeArrayValidator<T> {
     function array (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert): Array<T> {
       const v = toArray(typeFn, value, _scope, err, _ctx, _convert);
       assertContext(array.name, array.type(), value, _scope, err, _ctx.assertion);
@@ -46,7 +47,11 @@ export const arrayOf =
     array.type = () => `Array<${getType(typeFn)}>`;
     array.value = () => [typeFn.value()];
     return array;
-  };
+  }
+
+arrayOf.string = function (value: mixed, _scope: string  = "Array<string>", err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = false): Array<string> {
+  return arrayOf(primitives.string)(value, _scope, err, _ctx, _convert);
+};
 
 const _toarray = function array (value: mixed, _scope?: string = "", err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert?: boolean = true): Array<mixed> {
   const v = toArray(mixed, value, _scope, err, _ctx, _convert);
