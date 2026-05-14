@@ -49,6 +49,10 @@ export function arrayOf
     return array;
   }
 
+arrayOf.boolean = function arrayOfBoolean (value: mixed, _scope: string  = "Array<boolean>", err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = false): Array<boolean> {
+  return arrayOf(primitives.boolean)(value, _scope, err, _ctx, _convert);
+};
+
 arrayOf.string = function (value: mixed, _scope: string  = "Array<string>", err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = false): Array<string> {
   return arrayOf(primitives.string)(value, _scope, err, _ctx, _convert);
 };
