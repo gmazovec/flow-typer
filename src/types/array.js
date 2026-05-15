@@ -53,6 +53,10 @@ arrayOf.boolean = function arrayOfBoolean (value: mixed, _scope: string  = "Arra
   return arrayOf(primitives.boolean)(value, _scope, err, _ctx, _convert);
 };
 
+arrayOf.number = function arrayOfNumber (value: mixed, _scope: string = "Array<number>", err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = false): Array<number> {
+  return arrayOf(primitives.number)(value, _scope, err, _ctx, _convert);
+};
+
 arrayOf.string = function (value: mixed, _scope: string  = "Array<string>", err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = false): Array<string> {
   return arrayOf(primitives.string)(value, _scope, err, _ctx, _convert);
 };
