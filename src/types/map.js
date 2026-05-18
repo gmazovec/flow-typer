@@ -5,6 +5,7 @@ import { validatorError } from "../error.js";
 import { undef } from "./primitives.js";
 import { object } from "./object.js";
 import { unionOf } from "./union.js";
+import { deprwarn } from "../error.js";
 
 import type { TypeValidator, TypeAssertError, AssertionContext } from "..";
 
@@ -15,6 +16,7 @@ export const mapOf = <K, V>
     label?: string = "Map",
     convert?: boolean = false
   ): TypeValidator<{ [K]: V }> => {
+    deprwarn("mapOf() keyTypeFn parameter id deprecated; use entries to build the map of object type keys.");
     const type = () => `{ [_:${getType(keyTypeFn)}]: ${getType(typeFn)} }`;
     function mapOf (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
       const o = object(value, _scope, err, _ctx, _convert);
