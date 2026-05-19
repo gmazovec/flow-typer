@@ -2,7 +2,7 @@
 import { assertContext } from "../type.js";
 import { getType } from "../utils.js";
 import { validatorError } from "../error.js";
-import { undef } from "./primitives.js";
+import { string, undef } from "./primitives.js";
 import { object } from "./object.js";
 import { unionOf } from "./union.js";
 import { deprwarn } from "../error.js";
@@ -36,3 +36,7 @@ export const mapOf = <K, V>
     mapOf.value = (): { [K]: V } => ({});
     return mapOf;
   };
+
+mapOf.string = function mapOfString (value: mixed, _scope: string, err?: TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = false): { [string]: string } {
+  return mapOf(string, string)(value, _scope, err, _ctx, _convert);
+};
