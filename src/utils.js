@@ -2,7 +2,7 @@
 
 import { validatorTypeError } from "./error.js";
 
-import type { TypeAssertError, LiteralValue, TypeValidator, TypeChecker, TypeCallbackValidator } from "./";
+import type { TypeAssertError, LiteralValue, TypeValidator, TypeChecker, TypeCallbackValidator, AssertionContext } from "./";
 
 export const isType =
   <T, F: TypeValidator<T>>(typeFn: F): TypeChecker<boolean> =>
@@ -46,3 +46,10 @@ export function debugType <T> (typeFn: TypeValidator<T>, value: mixed): [TypeAss
   const err: TypeAssertError[] = [];
   return [err, typeFn(value, "userType", err)];
 }
+
+export function to <T> (typeFn: TypeValidator<T>): (mixed) => T {
+  return function totype(value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = true): T {
+    return typeFn(value, _scope, err, _ctx, true);
+  };
+}
+
