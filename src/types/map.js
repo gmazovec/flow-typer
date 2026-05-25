@@ -2,7 +2,7 @@
 import { assertContext } from "../type.js";
 import { getType } from "../utils.js";
 import { validatorError } from "../error.js";
-import { number, string, undef } from "./primitives.js";
+import { boolean, number, string, undef } from "./primitives.js";
 import { object } from "./object.js";
 import { unionOf } from "./union.js";
 import { deprwarn } from "../error.js";
@@ -41,8 +41,11 @@ function createMapValidator <T> (typeFn: TypeValidator<T>, label?: string = "Map
   return mapOf(string, typeFn, label, convert);
 }
 
+mapOf.boolean = (createMapValidator(boolean): TypeMapValidator<boolean>);
+
 mapOf.number = (createMapValidator(number): TypeMapValidator<number>);
 
 mapOf.string = function mapOfString (value: mixed, _scope: string, err?: TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = false): { [string]: string } {
   return mapOf(string, string)(value, _scope, err, _ctx, _convert);
 };
+
