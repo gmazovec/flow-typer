@@ -127,7 +127,8 @@ type TypeValidatorError {
 
 Primitive types _number_ and _string_ have builtin automatic type conversion. The
 conversion is extended to array and object values with one element. The coversion
-is disabled by default and it needs to be enabled for each type validator.
+is disabled by default and it needs to be enabled for each type validator. This
+can be done with `to()` utility.
 
 - number type from string value, ex. `"45.61"`, `"1e-23"`
 - number type from `null` to `NaN`
@@ -246,3 +247,10 @@ const date = type((value) => {
   throw new Error();
 });
 ```
+
+- `to(): schema`
+
+```js
+const tags = to( arrayOf.string )({ tag1: "person" });
+```
+ 
