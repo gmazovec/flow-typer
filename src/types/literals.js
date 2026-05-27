@@ -13,6 +13,9 @@ export const literalOf =
 
 export const literal =
   <const T> (primitive: T, label?: string = "", convert?: boolean = false): TypeValidator<T> => {
+    if (globalThis.TYPE_CHECK_LITERAL !== undefined && globalThis.TYPE_CHECK_LITERAL !== true) {
+      deprwarn("literal() type checking is not supported", "FT006");
+    }
     function literal (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert): T {
       _ctx.assertion = value === primitive;
       assertContext(literal.name, literal.type(), value, _scope, err, _ctx.assertion);
