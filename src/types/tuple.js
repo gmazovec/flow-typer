@@ -1,6 +1,7 @@
 // @flow
 import { assertContext } from "../type.js";
 import { getType } from "../utils.js";
+import { boolean } from "./primitives.js";
 import { deprwarn, validatorError, validatorTypeError } from "../error.js";
 
 import type { TypeValidator, TypeAssertError, AssertionContext } from "../";
@@ -30,7 +31,7 @@ export const tuple1: Tuple1TypeValidator = function (va, label = "", convert = f
 
 type Tuple2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>, label?: string, convert?: boolean) => TypeValidator<[A, B]>;
 
-export const tuple2: Tuple2TypeValidator = function (va, vb, label = "", convert = false) {
+export function tuple2 <A, B> (va: TypeValidator<A>, vb: TypeValidator<B>, label?: string = "", convert?: boolean = false): TypeValidator<[A, B]> {
   const tuple_type = () => `[${getType(va)}, ${getType(vb)}]`;
   const tuple_value = () => [va.value(), vb.value()];
   function tuple (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
@@ -44,6 +45,10 @@ export const tuple2: Tuple2TypeValidator = function (va, vb, label = "", convert
   tuple.type = tuple_type;
   tuple.value = tuple_value;
   return tuple;
+};
+
+tuple2.boolean = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): TypeValidator<[boolean, boolean]> {
+  return tuple2(boolean, boolean)(value, _scope, convert);
 };
 
 type Tuple3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, label?: string, convert?: boolean) => TypeValidator<[A, B, C]>;
