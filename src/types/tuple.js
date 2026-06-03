@@ -1,7 +1,7 @@
 // @flow
 import { assertContext } from "../type.js";
 import { getType } from "../utils.js";
-import { boolean } from "./primitives.js";
+import { boolean, number } from "./primitives.js";
 import { deprwarn, validatorError, validatorTypeError } from "../error.js";
 
 import type { TypeValidator, TypeAssertError, AssertionContext } from "../";
@@ -47,8 +47,12 @@ export function tuple2 <A, B> (va: TypeValidator<A>, vb: TypeValidator<B>, label
   return tuple;
 };
 
-tuple2.boolean = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): TypeValidator<[boolean, boolean]> {
-  return tuple2(boolean, boolean)(value, _scope, convert);
+tuple2.boolean = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [boolean, boolean] {
+  return tuple2(boolean, boolean)(value, _scope, err, _ctx, convert);
+};
+
+tuple2.number = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [number, number] {
+  return tuple2(number, number)(value, _scope, err, _ctx, convert);
 };
 
 type Tuple3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, label?: string, convert?: boolean) => TypeValidator<[A, B, C]>;
