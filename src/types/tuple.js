@@ -1,7 +1,7 @@
 // @flow
 import { assertContext } from "../type.js";
 import { getType } from "../utils.js";
-import { boolean, number } from "./primitives.js";
+import { boolean, number, string } from "./primitives.js";
 import { deprwarn, validatorError, validatorTypeError } from "../error.js";
 
 import type { TypeValidator, TypeAssertError, AssertionContext } from "../";
@@ -52,6 +52,10 @@ tuple2.boolean = function (value: mixed, _scope: string = "", err: ?TypeAssertEr
 };
 
 tuple2.number = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [number, number] {
+  return tuple2(number, number)(value, _scope, err, _ctx, convert);
+};
+
+tuple2.string = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [number, number] {
   return tuple2(number, number)(value, _scope, err, _ctx, convert);
 };
 
