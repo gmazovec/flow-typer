@@ -189,6 +189,8 @@ const schema = objectOf({
 const schema = arrayOf(number); // => type T = number[]
 ```
 
+- `arrayOf.{boolean, number, string}`
+
 - `tupleOf(...schema[]) [deprecated]`
 
 - `tupleOf2(...schema[]) ... tupleOf6`
@@ -196,6 +198,8 @@ const schema = arrayOf(number); // => type T = number[]
 ```js
 const schema = tupleOf2(string, number); // => type T = [string, number]
 ```
+
+- `tupleOf{2, ..., 6}.{boolean, number, string}`
 
 - `unionOf(...schema[]) [deprecated]`
 
@@ -210,6 +214,8 @@ const schema = unionOf2(string, number); // => type T = string | number
 ```js
 const schema = mapOf(string, boolean); // => type T = { [_string]: boolean }
 ```
+
+- `mapOf.{boolean, number, string}`
 
 - `literalOf(...) [deprecated]`
 
@@ -248,7 +254,7 @@ const date = type((value) => {
 });
 ```
 
-- `to(): schema`
+- `to(schema: T): `
 
 ```js
 const tags = to( arrayOf.string )({ tag1: "person" });

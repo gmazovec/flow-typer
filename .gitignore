@@ -62,4 +62,4 @@ dist-test
 test/snapshots
 yarn.lock
 package-lock.json
-
+.flowconfig
