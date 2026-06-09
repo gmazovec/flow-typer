@@ -68,6 +68,7 @@ export const isType = utils.isType;
 export const typeOf = utils.typeOf;
 export const getType = utils.getType;
 export const type = utils.type;
+export const to = utils.to;
 
 export const TypeValidatorError = error.TypeValidatorError;
 export const validatorError = error.validatorError;
