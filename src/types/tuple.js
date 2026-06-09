@@ -56,12 +56,10 @@ tuple2.number = function (value: mixed, _scope: string = "", err: ?TypeAssertErr
 };
 
 tuple2.string = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [number, number] {
-  return tuple2(number, number)(value, _scope, err, _ctx, convert);
+  return tuple2(string, string)(value, _scope, err, _ctx, convert);
 };
 
-type Tuple3TypeValidator = <A, B, C> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, label?: string, convert?: boolean) => TypeValidator<[A, B, C]>;
-
-export const tuple3: Tuple3TypeValidator = function (va, vb, vc, label = "", convert = false) {
+export function tuple3 <A, B, C> (va: TypeValidator<A>, vb: TypeValidator<B>, vc: TypeValidator<C>, label?: string = "", convert?: boolean = false): TypeValidator<[A, B, C]> {
   const tuple_type = () => `[${getType(va)}, ${getType(vb)}, ${getType(vc)}]`;
   const tuple_value = () => [va.value(), vb.value(), vc.value()];
   function tuple (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
@@ -75,6 +73,18 @@ export const tuple3: Tuple3TypeValidator = function (va, vb, vc, label = "", con
   tuple.type = tuple_type;
   tuple.value = tuple_value;
   return tuple;
+};
+
+tuple3.boolean = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [boolean, boolean, boolean] {
+  return tuple3(boolean, boolean, boolean)(value, _scope, err, _ctx, convert);
+};
+
+tuple3.number = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [number, number, number] {
+  return tuple3(number, number, number)(value, _scope, err, _ctx, convert);
+};
+
+tuple3.string = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [string, string, string] {
+  return tuple3(string, string, string)(value, _scope, err, _ctx, convert);
 };
 
 type Tuple4TypeValidator = <A, B, C, D> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, label?: string, convert?: boolean) => TypeValidator<[A, B, C, D]>;
