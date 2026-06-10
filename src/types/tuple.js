@@ -55,7 +55,7 @@ tuple2.number = function (value: mixed, _scope: string = "", err: ?TypeAssertErr
   return tuple2(number, number)(value, _scope, err, _ctx, convert);
 };
 
-tuple2.string = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [number, number] {
+tuple2.string = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [string, string] {
   return tuple2(string, string)(value, _scope, err, _ctx, convert);
 };
 
