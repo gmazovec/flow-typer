@@ -2,6 +2,7 @@
 import { assertContext } from "../type.js";
 import { deprwarn, validatorError } from "../error.js";
 import { isBoolean, isNull, isUndef, isObject, isString } from "../is.js";
+import { versions } from "../versions.js";
 
 import type { LiteralValue, TypeValidator, TypeAssertError, AssertionContext } from "..";
 
@@ -13,8 +14,8 @@ export const literalOf =
 
 export const literal =
   <const T> (primitive: T, label?: string = "", convert?: boolean = false): TypeValidator<T> => {
-    if (global.TYPE_CHECK_LITERAL !== undefined && global.TYPE_CHECK_LITERAL !== true) {
-      deprwarn("literal() type checking is not supported", "FT006");
+    if (versions.flow && versions.flow < "0.269.0") {
+      console.error("literal() type checking is not supported; upgrade to version >= 0.269.0");
     }
     function literal (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert): T {
       _ctx.assertion = value === primitive;
