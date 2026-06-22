@@ -10,5 +10,9 @@ if (import.meta.resolve) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath).toString());
     versions.flow = pkg.version;
   }
+} else {
+  if (process && process.release.name === "node") {
+    console.info("flow-typer: enable feature flag --experimental-import-meta-resolve");
+  }
 }
 
