@@ -108,6 +108,10 @@ export function tuple4 <A, B, C, D> (va: TypeValidator<A>, vb: TypeValidator<B>,
   return tuple;
 }
 
+tuple4.boolean = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [boolean, boolean, boolean, boolean] {
+  return tuple4(boolean, boolean, boolean, boolean)(value, _scope, err, _ctx, convert);
+};
+
 type Tuple5TypeValidator = <A, B, C, D, E> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, label?: string, convert?: boolean) => TypeValidator<[A, B, C, D, E]>;
 
 export const tuple5: Tuple5TypeValidator = function (va, vb, vc, vd, ve, label = "", convert = false) {
