@@ -150,6 +150,10 @@ tuple5.number = function (value: mixed, _scope: string = "", err: ?TypeAssertErr
   return tuple5(number, number, number, number, number)(value, _scope, err, _ctx, convert);
 };
 
+tuple5.string = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [string, string, string, string, string] {
+  return tuple5(string, string, string, string, string)(value, _scope, err, _ctx, convert);
+};
+
 type Tuple6TypeValidator = <A, B, C, D, E, F> (TypeValidator<A>, TypeValidator<B>, TypeValidator<C>, TypeValidator<D>, TypeValidator<E>, TypeValidator<F>, label?: string, convert?: boolean) => TypeValidator<[A, B, C, D, E, F]>;
 
 export const tuple6: Tuple6TypeValidator = function (va, vb, vc, vd, ve, vf, label = "", convert = false) {
