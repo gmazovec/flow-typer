@@ -179,3 +179,7 @@ export function tuple6 <A, B, C, D, E, F> (va: TypeValidator<A>, vb: TypeValidat
 tuple6.boolean = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [boolean, boolean, boolean, boolean, boolean, boolean] {
   return tuple6(boolean, boolean, boolean, boolean, boolean, boolean)(value, _scope, err, _ctx, convert);
 };
+
+tuple6.number = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [number, number, number, number, number, number] {
+  return tuple6(number, number, number, number, number, number)(value, _scope, err, _ctx, convert);
+};
