@@ -183,3 +183,7 @@ tuple6.boolean = function (value: mixed, _scope: string = "", err: ?TypeAssertEr
 tuple6.number = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [number, number, number, number, number, number] {
   return tuple6(number, number, number, number, number, number)(value, _scope, err, _ctx, convert);
 };
+
+tuple6.string = function (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx: AssertionContext, convert?: boolean = false): [string, string, string, string, string, string] {
+  return tuple6(string, string, string, string, string, string)(value, _scope, err, _ctx, convert);
+};
