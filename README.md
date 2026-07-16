@@ -254,7 +254,9 @@ const date = type((value) => {
 });
 ```
 
-- `to(schema: T): `
+- `to(schema): T`
+
+`to()` validates data with type conversion rules.
 
 ```js
 const tags = to( arrayOf.string )({ tag1: "person" });
