@@ -9,6 +9,7 @@ import {
   isNumber,
   isString,
 } from "../is.js";
+import { number as _number } from "./number.js";
 
 import type { NullValidator, VoidValidator, BooleanValidator, NumberValidator, StringValidator, TypeAssertError, AssertionContext } from "..";
 
@@ -111,44 +112,7 @@ _toboolean.value = () => false;
 
 export const toboolean = (_toboolean: BooleanValidator);
 
-function toNumber (value: mixed, ctx: AssertionContext, convert: boolean): number {
-  if (isNumber(value)) {
-    return value;
-  }
-  if (convert) {
-    if (isString(value)) {
-      const v = Number.parseFloat(value)
-      if (!Number.isNaN(v)) {
-        return v;
-      }
-    }
-    if (isNull(value)) {
-      return NaN;
-    }
-  }
-  ctx.assertion = false
-  return Number();
-}
-
-function _number (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
-  const v = convertValue(toNumber, value, _ctx, _convert);
-  assertContext(number.name, getType(number), value, _scope, err, _ctx.assertion);
-  return v;
-}
-_number.type = () => "number";
-_number.value = () => 0;
-
-export const number = (_number: NumberValidator);
-
-function _tonumber (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = true): number {
-  const v = convertValue(toNumber, value, _ctx, true);
-  assertContext(number.name, getType(number), value, _scope, err, _ctx.assertion);
-  return v;
-}
-_tonumber.type = () => "number";
-_tonumber.value = () => 0;
-
-export const tonumber = (_tonumber: NumberValidator);
+export const number = _number;
 
 function toString (value: mixed, ctx: AssertionContext, convert: boolean) {
   if (isString(value)) {
