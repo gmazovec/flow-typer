@@ -48,3 +48,20 @@ _tonumber.type = () => "number";
 _tonumber.value = () => 0;
 
 export const tonumber = (_tonumber: NumberValidator);
+
+function _uint8 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+  const v = _number(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (v < 0 || v > 256) {
+      _ctx.assertion = false;
+      assertContext(_uint8.name, getType(_uint8), v, _scope, err, _ctx.assertion);
+      return Number();
+    }
+  }
+  return v;
+}
+
+_uint8.type = () => "number.uint8";
+_uint8.value = () => 0;
+
+_number.uint8 = (_uint8: NumberValidator);
