@@ -65,3 +65,21 @@ _uint8.type = () => "number.uint8";
 _uint8.value = () => 0;
 
 _number.uint8 = (_uint8: NumberValidator);
+
+function _uint16 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+  const v = _number(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (v < 0 || v > 65536) {
+      _ctx.assertion = false;
+      assertContext(_uint16.name, getType(_uint16), v, _scope, err, _ctx.assertion);
+      return Number();
+    }
+  }
+  return v;
+}
+
+_uint16.type = () => "number.uint16";
+_uint16.value = () => 0;
+
+_number.uint16 = (_uint16: NumberValidator);
+
