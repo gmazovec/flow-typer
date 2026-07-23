@@ -87,4 +87,21 @@ _uint16.value = () => 0;
 
 _number.uint16 = (_uint16: NumberValidator);
 
+const uint32Value = uint16Value * uint16Value;
 
+function _uint32 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+  const v = _number(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (v < 0 || v > uint32Value) {
+      _ctx.assertion = false;
+      assertContext(_uint32.name, getType(_uint32), v, _scope, err, _ctx.assertion);
+      return Number();
+    }
+  }
+  return v;
+}
+
+_uint32.type = () => "number.uint32";
+_uint32.value = () => 0;
+
+_number.uint32 = (_uint32: NumberValidator);
