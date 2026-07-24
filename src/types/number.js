@@ -105,3 +105,23 @@ _uint32.type = () => "number.uint32";
 _uint32.value = () => 0;
 
 _number.uint32 = (_uint32: NumberValidator);
+
+const int8MaxValue = uint8Value / 2;
+const int8MinValue = -int8MaxValue;
+
+function _int8 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+  const v = _number(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (v < int8MinValue || v > int8MaxValue) {
+      _ctx.assertion = false;
+      assertContext(_int8.name, getType(_int8), v, _scope, err, _ctx.assertion);
+      return Number();
+    }
+  }
+  return v;
+}
+
+_int8.type = () => "number.int8";
+_int8.value = () => 0;
+
+_number.int8 = (_int8: NumberValidator);
