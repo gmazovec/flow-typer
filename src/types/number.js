@@ -145,3 +145,23 @@ _int16.type = () => "number.int16";
 _int16.value = () => 0;
 
 _number.int16 = (_int16: NumberValidator);
+
+const int32MaxValue = (uint32Value / 2) - 1;
+const int32MinValue = -(uint32Value / 2);
+
+function _int32 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+  const v = _number(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (v < int32MinValue || v > int32MaxValue) {
+      _ctx.assertion = false;
+      assertContext(_int32.name, getType(_int32), v, _scope, err, _ctx.assertion);
+      return Number();
+    }
+  }
+  return v;
+}
+
+_int32.type = () => "number.int32";
+_int32.value = () => 0;
+
+_number.int32 = (_int32: NumberValidator);
