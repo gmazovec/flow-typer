@@ -225,6 +225,15 @@ const schema = mapOf(string, boolean); // => type T = { [_string]: boolean }
 const schema = literal("male");
 ```
 
+### Type Formats
+
+These are validators that check againts specific format of types. For example,
+`<type>.{format}()` checks for `{format}` and return type `<type>`.
+
+- `number.uint{8, 16, 32}`
+
+- `number.int{8, 16, 32}`
+
 
 ### Utilities
 
