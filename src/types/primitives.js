@@ -10,6 +10,7 @@ import {
   isString,
 } from "../is.js";
 import { number as _number } from "./number.js";
+import { string as _string } from "./string.js";
 
 import type { NullValidator, VoidValidator, BooleanValidator, NumberValidator, StringValidator, TypeAssertError, AssertionContext } from "..";
 
@@ -113,36 +114,5 @@ _toboolean.value = () => false;
 export const toboolean = (_toboolean: BooleanValidator);
 
 export const number = _number;
+export const string = _string;
 
-function toString (value: mixed, ctx: AssertionContext, convert: boolean) {
-  if (isString(value)) {
-    return value;
-  }
-  if (convert) {
-    if (isNumber(value)) {
-      return String(value);
-    }
-  }
-  ctx.assertion = false;
-  return String();
-}
-
-const _string = function string (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
-  const v = convertValue(toString, value, _ctx, _convert);
-  assertContext(string.name, getType(string), value, _scope, err, _ctx.assertion);
-  return v;
-}
-_string.type = () => "string";
-_string.value = () => "";
-
-export const string = (_string: StringValidator);
-
-const _tostring = function string (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = true): string {
-  const v = convertValue(toString, value, _ctx, true);
-  assertContext(string.name, getType(string), value, _scope, err, _ctx.assertion);
-  return v;
-}
-_tostring.type = () => "string";
-_tostring.value = () => "";
-
-export const tostring = (_tostring: StringValidator);
