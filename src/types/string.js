@@ -38,3 +38,20 @@ _tostring.type = () => "string";
 _tostring.value = () => "";
 
 export const tostring = (_tostring: StringValidator);
+
+function _bigint (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
+  const v = _string(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (/^\s*\d*\s*$/.test(v) === false) {
+      _ctx.assertion = false;
+      assertContext(_bigint.name, getType(_bigint), v, _scope, err, _ctx.assertion);
+      return String();
+    }
+  }
+  return v;
+}
+
+_bigint.type = () => "string.bigint";
+_bigint.value = () => "";
+
+_string.bigint = (_bigint: StringValidator);
