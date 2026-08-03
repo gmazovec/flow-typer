@@ -55,3 +55,23 @@ _bigint.type = () => "string.bigint";
 _bigint.value = () => "";
 
 _string.bigint = (_bigint: StringValidator);
+
+function _uri (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
+  const v = _string(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    try {
+      decodeURI(v);
+    } catch (_) {
+      _ctx.assertion = false;
+      assertContext(_uri.name, getType(_uri), v, _scope, err, _ctx.assertion);
+      return String();
+    }
+  }
+  return v;
+}
+
+_uri.type = () => "string.uri";
+_uri.value = () => "";
+
+_string.uri = (_uri: StringValidator);
+
