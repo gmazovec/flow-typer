@@ -56,6 +56,24 @@ _bigint.value = () => "";
 
 _string.bigint = (_bigint: StringValidator);
 
+function _date (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
+  const v = _string(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    const d = Date.parse(v);
+    if (Number.isNaN(d)) {
+      _ctx.assertion = false;
+      assertContext(_date.name, getType(_date), v, _scope, err, _ctx.assertion);
+      return String();
+    }
+  }
+  return v;
+}
+
+_date.type = () => "string.date";
+_date.value = () => "";
+
+_string.date = (_date: StringValidator);
+
 function _uri (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
   const v = _string(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
