@@ -165,3 +165,24 @@ _int32.type = () => "number.int32";
 _int32.value = () => 0;
 
 _number.int32 = (_int32: NumberValidator);
+
+const timeMaxValue = 86.4e14;
+const timeMinValue = -timeMaxValue;
+
+function _time (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+  const v = _number(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (v < timeMinValue || v > timeMaxValue) {
+      _ctx.assertion = false;
+      assertContext(_time.name, getType(_time), v, _scope, err, _ctx.assertion);
+      return Number();
+    }
+  }
+  return v;
+}
+
+_time.type = () => "number.time";
+_time.value = () => 0;
+
+_number.time = (_time: NumberValidator);
+
