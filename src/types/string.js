@@ -111,3 +111,23 @@ _base64.type = () => "string.base64";
 _base64.value = () => "";
 
 _string.base64 = (_base64: StringValidator);
+
+const maxBigIntValue = (Math.pow(2, 64) / 2) - 512;
+
+function _bigint64 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
+  const v = _string(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (!(maxBigIntValue > Math.abs(Number(v)))) {
+      _ctx.assertion = false;
+      assertContext(_bigint64.name, getType(_bigint64), v, _scope, err, _ctx.assertion);
+      return String();
+    }
+  }
+  return v;
+}
+
+_bigint64.type = () => "string.bigint64";
+_bigint64.value = () => "";
+
+_string.bigint64 = (_bigint64: StringValidator);
+
