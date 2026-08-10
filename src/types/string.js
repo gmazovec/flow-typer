@@ -131,3 +131,22 @@ _bigint64.value = () => "";
 
 _string.bigint64 = (_bigint64: StringValidator);
 
+const maxBigUintValue = Math.pow(2, 64) - 1024;
+
+function _biguint64 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): string {
+  const v = _string(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (!(maxBigUintValue > Math.abs(Number(v)))) {
+      _ctx.assertion = false;
+      assertContext(_biguint64.name, getType(_biguint64), v, _scope, err, _ctx.assertion);
+      return String();
+    }
+  }
+  return v;
+}
+
+_biguint64.type = () => "string.biguint64";
+_biguint64.value = () => "";
+
+_string.biguint64 = (_biguint64: StringValidator);
+
