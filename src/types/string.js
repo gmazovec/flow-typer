@@ -78,7 +78,7 @@ function _uri (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?
   const v = _string(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     try {
-      decodeURI(v);
+      return decodeURI(v);
     } catch (_) {
       _ctx.assertion = false;
       assertContext(_uri.name, getType(_uri), v, _scope, err, _ctx.assertion);
@@ -97,7 +97,7 @@ function _base64 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _c
   const v = _string(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     try {
-        atob(v);
+        return atob(v);
     } catch (_) {
       _ctx.assertion = false;
       assertContext(_base64.name, getType(_base64), v, _scope, err, _ctx.assertion);

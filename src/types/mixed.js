@@ -18,7 +18,7 @@ function _json (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx
   const v = string(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     try {
-        JSON.parse(v);
+        return JSON.parse(v);
     } catch (_) {
       _ctx.assertion = false;
       assertContext(_json.name, getType(_json), v, _scope, err, _ctx.assertion);
