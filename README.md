@@ -230,9 +230,34 @@ const schema = literal("male");
 These are validators that check againts specific format of types. For example,
 `<type>.{format}()` checks for `{format}` and return type `<type>`.
 
+
+#### number
+
 - `number.uint{8, 16, 32}`
 
 - `number.int{8, 16, 32}`
+
+- `number.time`
+
+
+#### string
+
+- `string.base64`
+
+- `string.uri`
+
+- `string.date`
+
+- `string.bigint`
+
+- `string.bigint64`
+
+- `string.biguint64`
+
+
+#### mixed
+
+- `mixed.json`
 
 
 ### Utilities
@@ -270,4 +295,4 @@ const date = type((value) => {
 ```js
 const tags = to( arrayOf.string )({ tag1: "person" });
 ```
- 
+
