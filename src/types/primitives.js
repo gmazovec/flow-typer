@@ -9,6 +9,7 @@ import {
   isNumber,
   isString,
 } from "../is.js";
+import { boolean as _boolean } from "./boolean.js";
 import { number as _number } from "./number.js";
 import { string as _string } from "./string.js";
 
@@ -79,40 +80,6 @@ _toundefined.type = () => "void";
 _toundefined.value = () => undefined;
 
 export const toundefined = (_toundefined: VoidValidator);
-
-function toBoolean (value: mixed, ctx: AssertionContext, convert: boolean): boolean {
-  if (isBoolean(value)) {
-    return value;
-  }
-  if (convert) {
-    if (value === "true" || value === "false") {
-      return value === "true";
-    }
-  }
-  ctx.assertion = false;
-  return Boolean();
-}
-
-function _boolean (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): boolean {
-  const v = convertValue(toBoolean, value, _ctx, convert);
-  assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx.assertion);
-  return v;
-}
-_boolean.type = () => "boolean";
-_boolean.value = () => false;
-
-export const boolean = (_boolean: BooleanValidator);
-
-const _toboolean = function boolean (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false): boolean {
-  const v = convertValue(toBoolean, value, _ctx, true);
-  assertContext(boolean.name, getType(boolean), value, _scope, err, _ctx.assertion);
-  return v;
-}
-_toboolean.type = () => "boolean";
-_toboolean.value = () => false;
-
-export const toboolean = (_toboolean: BooleanValidator);
-
+export const boolean = _boolean;
 export const number = _number;
 export const string = _string;
-
