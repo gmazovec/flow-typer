@@ -45,7 +45,4 @@ mapOf.boolean = (createMapValidator(boolean): TypeMapValidator<boolean>);
 
 mapOf.number = (createMapValidator(number): TypeMapValidator<number>);
 
-mapOf.string = function mapOfString (value: mixed, _scope: string, err?: TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = false): { [string]: string } {
-  return mapOf(string, string)(value, _scope, err, _ctx, _convert);
-};
-
+mapOf.string = (createMapValidator(string): TypeMapValidator<string>);
