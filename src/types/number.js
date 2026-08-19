@@ -17,7 +17,7 @@ function toNumber (value: mixed, ctx: AssertionContext, convert: boolean): numbe
   if (convert) {
     if (isString(value)) {
       const v = Number.parseFloat(value)
-      if (!Number.isNaN(v)) {
+      if (!Number.isNaN(v) && v.toString() === value) {
         return v;
       }
     }
