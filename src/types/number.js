@@ -30,6 +30,28 @@ function toNumber (value: mixed, ctx: AssertionContext, convert: boolean): numbe
   return Number();
 }
 
+function toInt (value: mixed, ctx: AssertionContext, convert: boolean): number {
+  if (isNumber(value)) {
+    if (Number.parseInt(value, 10) === value) {
+      return value;
+    }
+  }
+  if (convert) {
+    if (isString(value)) {
+      value = value.trim();
+      const v = Number.parseInt(value, 10);
+      if (v.toString() === value) {
+        return v;
+      }
+    }
+    if (isNull(value)) {
+      return NaN;
+    }
+  }
+  ctx.assertion = false
+  return Number();
+}
+
 function _number (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
   const v = convertValue(toNumber, value, _ctx, _convert);
   assertContext(number.name, getType(number), value, _scope, err, _ctx.assertion);
