@@ -32,7 +32,7 @@ function toNumber (value: mixed, ctx: AssertionContext, convert: boolean): numbe
 
 function toInt (value: mixed, ctx: AssertionContext, convert: boolean): number {
   if (isNumber(value)) {
-    if (Number.parseInt(value, 10) === value) {
+    if (Number.parseInt(value.toString(), 10) === value) {
       return value;
     }
   }
