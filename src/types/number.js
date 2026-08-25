@@ -62,6 +62,14 @@ _number.value = () => 0;
 
 export const number = (_number: NumberValidator);
 
+function _int (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+  const v = convertValue(toInt, value, _ctx, _convert);
+  assertContext(_int.name, getType(_int), value, _scope, err, _ctx.assertion);
+  return v;
+}
+_int.type = () => "number.int";
+_int.value = () => 0;
+
 function _tonumber (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = true): number {
   const v = convertValue(toNumber, value, _ctx, true);
   assertContext(number.name, getType(number), value, _scope, err, _ctx.assertion);
