@@ -83,7 +83,7 @@ export const tonumber = (_tonumber: NumberValidator);
 const uint8Value = 256;
 
 function _uint8 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
-  const v = _number(value, _scope, err, _ctx, _convert);
+  const v = _int(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     if (v < 0 || v > uint8Value) {
       _ctx.assertion = false;
@@ -102,7 +102,7 @@ _number.uint8 = (_uint8: NumberValidator);
 const uint16Value = uint8Value * uint8Value;
 
 function _uint16 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
-  const v = _number(value, _scope, err, _ctx, _convert);
+  const v = _int(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     if (v < 0 || v > uint16Value) {
       _ctx.assertion = false;
@@ -121,7 +121,7 @@ _number.uint16 = (_uint16: NumberValidator);
 const uint32Value = uint16Value * uint16Value;
 
 function _uint32 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
-  const v = _number(value, _scope, err, _ctx, _convert);
+  const v = _int(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     if (v < 0 || v > uint32Value) {
       _ctx.assertion = false;
@@ -141,7 +141,7 @@ const int8MaxValue = uint8Value / 2;
 const int8MinValue = -int8MaxValue;
 
 function _int8 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
-  const v = _number(value, _scope, err, _ctx, _convert);
+  const v = _int(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     if (v < int8MinValue || v > int8MaxValue) {
       _ctx.assertion = false;
@@ -161,7 +161,7 @@ const int16MaxValue = (uint16Value / 2) - 1;
 const int16MinValue = -(uint16Value / 2);
 
 function _int16 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
-  const v = _number(value, _scope, err, _ctx, _convert);
+  const v = _int(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     if (v < int16MinValue || v > int16MaxValue) {
       _ctx.assertion = false;
@@ -181,7 +181,7 @@ const int32MaxValue = (uint32Value / 2) - 1;
 const int32MinValue = -(uint32Value / 2);
 
 function _int32 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
-  const v = _number(value, _scope, err, _ctx, _convert);
+  const v = _int(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     if (v < int32MinValue || v > int32MaxValue) {
       _ctx.assertion = false;
@@ -201,7 +201,7 @@ const timeMaxValue = 86.4e14;
 const timeMinValue = -timeMaxValue;
 
 function _time (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
-  const v = _number(value, _scope, err, _ctx, _convert);
+  const v = _int(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     if (v < timeMinValue || v > timeMaxValue) {
       _ctx.assertion = false;
