@@ -14,10 +14,9 @@ const {
   string,
   number,
   boolean,
-  nil,
-  undef,
   tupleOf3,
   literal,
+  maybe,
 } = typer;
 
 test("primitive types - cardinality 2", async (t) => {
@@ -69,20 +68,18 @@ test("primitive types - cardinality 4", async (t) => {
 
 test("primitive types - cardinality 5", async (t) => {
   const schema = unionOf5(
-    nil,
-    undef,
     boolean,
     number,
     string
   );
 
   await t.test("should validate an union", () => {
-    assert.equal((schema(false): null | void | boolean | number | string), false);
+    assert.equal((schema(false): boolean | number | string), false);
     assert.equal(schema(true), true);
     assert.equal(schema(0), 0);
     assert.equal(schema(9), 9);
-    assert.equal(schema(null), null);
-    assert.equal(schema(undefined), undefined);
+    assert.equal(maybe(schema)(null), null);
+    assert.equal(maybe(schema)(undefined), undefined);
     assert.equal(schema(""), "");
     assert.equal(schema("foo"), "foo");
   });
@@ -95,8 +92,6 @@ test("primitive types - cardinality 5", async (t) => {
 
 test("primitive types - cadinality 6", async (t) => {
   const schema = unionOf6(
-    nil,
-    undef,
     boolean,
     number,
     literal("female"),
@@ -104,11 +99,11 @@ test("primitive types - cadinality 6", async (t) => {
   );
 
   await t.test("should validate an union", () => {
-    assert.equal((schema(true): null | void | boolean | number | "female" | "ada"), true);
+    assert.equal((schema(true): boolean | number | "female" | "ada"), true);
     assert.equal(schema(true), true);
     assert.equal(schema(1), 1);
-    assert.equal(schema(null), null);
-    assert.equal(schema(undefined), undefined);
+    assert.equal(maybe(schema)(null), null);
+    assert.equal(maybe(schema)(undefined), undefined);
     assert.equal(schema("female"), "female");
     assert.equal(schema("ada"), "ada")
   });
