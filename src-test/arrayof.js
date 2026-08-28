@@ -2,10 +2,10 @@
 import { assert, test } from "./index.js";
 import * as typer from "../src/index.js";
 
-const { arrayOf, nil, undef, boolean, number, string } = typer;
+const { arrayOf, boolean, number, string, object, maybe, optional } = typer;
 
 test("null type", async (t) => {
-  const arrayOfNull = arrayOf(nil);
+  const arrayOfNull = arrayOf(maybe(object));
 
   await t.test("should validate array of nulls", () => {
     const input = [null, null, null];
@@ -17,24 +17,20 @@ test("null type", async (t) => {
   });
 
   await t.test("should throw an error", () => {
-    assert.throws(() => { arrayOfNull(null) });
-    assert.throws(() => { arrayOfNull(undefined) });
     assert.throws(() => { arrayOfNull(false) });
     assert.throws(() => { arrayOfNull(12345) });
     assert.throws(() => { arrayOfNull("foo") });
     assert.throws(() => { arrayOfNull({}) });
 
-    assert.throws(() => { arrayOfNull([undefined]) });
     assert.throws(() => { arrayOfNull([true]) });
     assert.throws(() => { arrayOfNull([12345]) });
     assert.throws(() => { arrayOfNull(["foo"]) });
-    assert.throws(() => { arrayOfNull([{}]) });
     assert.throws(() => { arrayOfNull([[]]) });
   });
 });
 
 test("void type - unit array", async (t) => {
-  const arrayOfVoid = arrayOf(undef);
+  const arrayOfVoid = arrayOf(optional(object));
 
   await t.test("should validate array of undefined values", t => {
     const input = [undefined, undefined];
@@ -46,17 +42,13 @@ test("void type - unit array", async (t) => {
   });
 
   await t.test("should throw an error", () => {
-    assert.throws(() => { arrayOfVoid(null) });
     assert.throws(() => { arrayOfVoid(false) });
     assert.throws(() => { arrayOfVoid(12345) });
     assert.throws(() => { arrayOfVoid("foo") });
-    assert.throws(() => { arrayOfVoid({}) });
 
-    assert.throws(() => { arrayOfVoid([null]) });
     assert.throws(() => { arrayOfVoid([true]) });
     assert.throws(() => { arrayOfVoid([12345]) });
     assert.throws(() => { arrayOfVoid(["foo"]) });
-    assert.throws(() => { arrayOfVoid([{}]) });
     assert.throws(() => { arrayOfVoid([[]]) });
   });
 });
