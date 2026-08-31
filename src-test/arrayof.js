@@ -9,7 +9,7 @@ test("null type", async (t) => {
 
   await t.test("should validate array of nulls", () => {
     const input = [null, null, null];
-    const valueA: Array<null> = arrayOfNull([]);
+    const valueA = arrayOfNull([]);
     const valueB = arrayOfNull(input);
     assert.equal(valueA.length, 0);
     assert.equal(valueB.length, 3);
@@ -34,7 +34,7 @@ test("void type - unit array", async (t) => {
 
   await t.test("should validate array of undefined values", t => {
     const input = [undefined, undefined];
-    const valueA: Array<void> = arrayOfVoid([]);
+    const valueA = arrayOfVoid([]);
     const valueB = arrayOfVoid(input);
     assert.equal(valueA.length, 0);
     assert.equal(valueB.length, 2);

@@ -70,11 +70,13 @@ test("primitive types - cardinality 5", async (t) => {
   const schema = unionOf5(
     boolean,
     number,
-    string
+    string,
+    literal("female"),
+    literal("ada"),
   );
 
   await t.test("should validate an union", () => {
-    assert.equal((schema(false): boolean | number | string), false);
+    assert.equal((schema(false): boolean | number | string | "female" | "ada"), false);
     assert.equal(schema(true), true);
     assert.equal(schema(0), 0);
     assert.equal(schema(9), 9);
@@ -94,12 +96,14 @@ test("primitive types - cadinality 6", async (t) => {
   const schema = unionOf6(
     boolean,
     number,
+    string,
+    maybe(boolean),
     literal("female"),
-    literal("ada")
+    literal("ada"),
   );
 
   await t.test("should validate an union", () => {
-    assert.equal((schema(true): boolean | number | "female" | "ada"), true);
+    assert.equal((schema(true): boolean | number | string | ?boolean | "female" | "ada"), true);
     assert.equal(schema(true), true);
     assert.equal(schema(1), 1);
     assert.equal(maybe(schema)(null), null);
