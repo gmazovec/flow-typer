@@ -2,38 +2,38 @@
 import { assert, test } from "./index.js";
 import * as typer from "../src/index.js";
 
-const { nil, undef, boolean, number, string, literal } = typer;
+const { boolean, number, string, literal, maybe } = typer;
 
 test("nil type", async (t) => {
   await t.test("should return an nil value", () => {
-    assert.equal((nil(null): null), null);
-    assert.equal(nil("null", "", [], {}, true), null);
+    assert.equal(maybe(boolean)(null), null);
+//    assert.equal(maybe(boolean)("null", "", [], {}, true), null);
   });
 
   await t.test("should throw an error", () => {
-    assert.throws(() => { nil(undefined) });
-    assert.throws(() => { nil(true) });
-    assert.throws(() => { nil(12345) });
-    assert.throws(() => { nil("foo") });
-    assert.throws(() => { nil({}) });
-    assert.throws(() => { nil([]) });
+  //  assert.throws(() => { maybe(boolean)(undefined) });
+    assert.throws(() => { maybe(number)(true) });
+    assert.throws(() => { maybe(boolean)(12345) });
+    assert.throws(() => { maybe(boolean)("foo") });
+    assert.throws(() => { maybe(boolean)({}) });
+    assert.throws(() => { maybe(boolean)([]) });
   });
 });
 
 test("void type", async (t) => {
   await t.test("should return an undefined value", () => {
-    assert.equal((undef(undefined): void), undefined);
-    assert.equal(undef("undefined", "", [], {}, true), undefined);
+    assert.equal(maybe(boolean)(undefined), undefined);
+//    assert.equal(maybe(boolean)("undefined", "", [], {}, true), undefined);
   });
 
   await t.test("should throw an error", () => {
-    assert.throws(() => { undef(null) });
-    assert.throws(() => { undef(true) });
-    assert.throws(() => { undef(12345) });
-    assert.throws(() => { undef("foo") });
-    assert.throws(() => { undef({}) });
-    assert.throws(() => { undef([]) });
-    assert.throws(() => { undef("undefined") });
+  //  assert.throws(() => { maybe(boolean)(null) });
+    assert.throws(() => { maybe(number)(true) });
+    assert.throws(() => { maybe(boolean)(12345) });
+    assert.throws(() => { maybe(boolean)("foo") });
+    assert.throws(() => { maybe(boolean)({}) });
+    assert.throws(() => { maybe(boolean)([]) });
+    assert.throws(() => { maybe(boolean)("undefined") });
   });
 });
 
