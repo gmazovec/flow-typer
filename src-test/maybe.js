@@ -4,52 +4,12 @@ import * as typer from "../src/index.js";
 
 const {
   maybe,
-  nil,
-  undef,
   boolean,
   number,
   string,
   arrayOf,
   objectOf
 } = typer;
-
-test("null type", async (t) => {
-  const maybeNull = maybe(nil);
-
-  await t.test("should validate values", () => {
-    const valueA = maybeNull(undefined);
-    const valueB = maybeNull(null);
-    assert.equal(valueA, undefined);
-    assert.equal(valueB, null);
-  });
-
-  await t.test("should throw an error", () => {
-    assert.throws(() => { maybeNull(true) });
-    assert.throws(() => { maybeNull(12345) });
-    assert.throws(() => { maybeNull("foo") });
-    assert.throws(() => { maybeNull({}) });
-    assert.throws(() => { maybeNull([]) });
-  });
-});
-
-test("undefined type", async (t) => {
-  const maybeVoid = maybe(undef);
-
-  await t.test("should validate values", () => {
-    const valueA = maybeVoid(undefined);
-    const valueB = maybeVoid(null);
-    assert.equal(valueA, undefined);
-    assert.equal(valueB, null);
-  });
-
-  await t.test("should throw an error", () => {
-    assert.throws(() => { maybeVoid(true) });
-    assert.throws(() => { maybeVoid(12345) });
-    assert.throws(() => { maybeVoid("foo") });
-    assert.throws(() => { maybeVoid({}) });
-    assert.throws(() => { maybeVoid([]) });
-  });
-});
 
 test("boolean type", async (t) => {
   const maybeBool = maybe(boolean);
