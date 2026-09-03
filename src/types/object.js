@@ -4,8 +4,6 @@ import { getType } from "../utils.js";
 import { getProperty } from "../helpers.js";
 import { validatorError } from "../error.js";
 import { isUndef, isString, isObject } from "../is.js";
-import { undef } from "./primitives.js";
-import { union2 } from "./union.js";
 
 import type { ObjectRecord, TypeValidator, TypeValidatorRecord, TypeAssertError, AssertionContext } from "..";
 
@@ -117,11 +115,10 @@ export const toobject = (_toobject: TypeValidator<ObjectRecord<mixed>>);
 
 export const optional =
   <T>(typeFn: TypeValidator<T>, label?: string = "", convert?: boolean = false): TypeValidator<T | void> => {
-    const unionFn = union2(typeFn, undef, label, convert);
     function optional (v: mixed) {
-      return unionFn(v);
+      return isUndef(v) ? v : typeFn(v, label);
     }
-    optional.type = (opts: ?{ noVoid: boolean }) => opts && !opts.noVoid ? getType(unionFn) : getType(typeFn);
-    optional.value = (): T | void => unionFn.value();
+    optional.type = (opts: ?{ noVoid: boolean }) => opts && !opts.noVoid ? `(${getType(typeFn)} | void)` : getType(typeFn);
+    optional.value = (): T | void => typeFn.value();
     return optional;
   };
