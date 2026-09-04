@@ -115,8 +115,8 @@ export const toobject = (_toobject: TypeValidator<ObjectRecord<mixed>>);
 
 export const optional =
   <T>(typeFn: TypeValidator<T>, label?: string = "", convert?: boolean = false): TypeValidator<T | void> => {
-    function optional (v: mixed) {
-      return isUndef(v) ? v : typeFn(v, label);
+    function optional (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx?: AssertionContext = {}, convert: boolean = false) {
+      return isUndef(value) ? value : typeFn(value, _scope, err, _ctx, convert);
     }
     optional.type = (opts: ?{ noVoid: boolean }) => opts && !opts.noVoid ? `(${getType(typeFn)} | void)` : getType(typeFn);
     optional.value = (): T | void => typeFn.value();
