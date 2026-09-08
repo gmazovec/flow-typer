@@ -37,12 +37,12 @@ export const mapOf = <K, V>
     return mapOf;
   };
 
-function createMapValidator <T> (typeFn: TypeValidator<T>, label?: string = "Map", convert?: boolean = false): TypeValidator<{ [string]: T }> {
+function createMapOfValidator <T> (typeFn: TypeValidator<T>, label?: string = "Map", convert?: boolean = false): TypeValidator<{ [string]: T }> {
   return mapOf(string, typeFn, label, convert);
 }
 
-mapOf.boolean = (createMapValidator(boolean): TypeMapValidator<boolean>);
+mapOf.boolean = (createMapOfValidator(boolean): TypeMapValidator<boolean>);
 
-mapOf.number = (createMapValidator(number): TypeMapValidator<number>);
+mapOf.number = (createMapOfValidator(number): TypeMapValidator<number>);
 
-mapOf.string = (createMapValidator(string): TypeMapValidator<string>);
+mapOf.string = (createMapOfValidator(string): TypeMapValidator<string>);
