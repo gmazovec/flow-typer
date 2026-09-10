@@ -2,7 +2,7 @@
 
 import * as array from "./array.js";
 import * as literals from "./literals.js";
-import * as map from "./map.js";
+import * as _map from "./map.js";
 import * as _maybe from "./maybe.js";
 import * as _mixed from "./mixed.js";
 import * as _object from "./object.js";
@@ -46,5 +46,6 @@ export const unionOf4 = union.union4;
 export const unionOf5 = union.union5;
 export const unionOf6 = union.union6;
 
-export const mapOf = map.mapOf;
+export const mapOf = _map.mapOf;
+export const map = _map.map;
 
