@@ -6,7 +6,7 @@ const {
   objectOf,
   tupleOf2,
   arrayOf,
-  mapOf,
+  map,
   number,
   string,
   boolean,
@@ -55,7 +55,7 @@ test("getType", async (t) => {
     assert.deepEqual(getType(tupleOf2(number, number)), "[number, number]");
     assert.deepEqual(getType(arrayOf(string, "Id")), "Array<string>");
     assert.deepEqual(getType(objectOf({ name: string, age: number, active: optional(boolean) }, "personT")), "{\n name: string,\n  age: number,\n  active?: boolean \n}");
-    assert.deepEqual(getType(mapOf(string, boolean)), "{ [_:string]: boolean }");
+    assert.deepEqual(getType(map(boolean)), "{ [string]: boolean }");
   });
 
   await t.test("should return type for user-defined validator", t => {

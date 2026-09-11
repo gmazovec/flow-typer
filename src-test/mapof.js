@@ -3,16 +3,13 @@ import { assert, test } from "./index.js";
 import * as typer from "../src/index.js";
 
 const {
-  mapOf,
+  map,
   boolean,
   string
 } = typer;
 
 test("map type", async (t) => {
-  const schema = mapOf(
-    string,
-    boolean
-  );
+  const schema = map(boolean);
 
   await t.test("should validate a map", () => {
     const input = {
