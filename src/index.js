@@ -24,6 +24,7 @@ export type NumberValidator = TypeValidator<number>;
 export type StringValidator = TypeValidator<string>;
 export type MixedValidator = TypeValidator<mixed>;
 
+export type TypeEntryValidator<K, V> = TypeValidator<Array<[K, V]>>;
 export type TypeMapValidator<T> = TypeValidator<{ [string]: T }>;
 
 export type TypeAssertError = { expected: string, actual: string, scope: string };
