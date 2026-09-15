@@ -16,7 +16,7 @@ export const mapOf = <K, V>
     label?: string = "Map",
     convert?: boolean = false
   ): TypeValidator<{ [K]: V }> => {
-    deprwarn("mapOf() keyTypeFn parameter id deprecated; use entries to build the map of object type keys.", "FT006");
+    deprwarn("mapOf() return type has changed to an array of [key, value] tuple.", "FT007");
     const type = () => `{ [_:${getType(keyTypeFn)}]: ${getType(typeFn)} }`;
     function mapOf (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
       const o = object(value, _scope, err, _ctx, _convert);
