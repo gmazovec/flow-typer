@@ -33,7 +33,7 @@ const _array = function array (value: mixed, _scope?: string = "", err: ?TypeAss
 };
 
 _array.type = () => `Array<mixed>`;
-_array.value = () => [mixed(null)];
+_array.value = (): Array<mixed> => [];
 
 export const array = (_array: TypeArrayValidator<mixed>);
 
@@ -45,7 +45,7 @@ export function arrayOf
       return v;
     }
     array.type = () => `Array<${getType(typeFn)}>`;
-    array.value = () => [typeFn.value()];
+    array.value = (): Array<T> => [];
     return array;
   }
 
@@ -68,6 +68,6 @@ const _toarray = function array (value: mixed, _scope?: string = "", err: ?TypeA
 };
 
 _toarray.type = () => `Array<mixed>`;
-_toarray.value = () => [mixed(null)];
+_toarray.value = (): Array<mixed> => [];
 
 export const toarray = (_toarray: TypeArrayValidator<mixed>);
