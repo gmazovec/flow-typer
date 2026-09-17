@@ -13,6 +13,6 @@ export const maybe =
       return (isNull(value) || isUndef(value)) ? value : typeFn(value, _scope, err, _ctx, _convert);
     }
     maybe.type = () => !isPrimitiveFn(typeFn.name) ? `?(${getType(typeFn)})` : `?${getType(typeFn)}`;
-    maybe.value = () => typeFn.value();
+    maybe.value = () => undefined;
     return maybe;
   };
