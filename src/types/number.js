@@ -58,7 +58,7 @@ function _number (value: mixed, _scope: string = "", err: ?TypeAssertError[], _c
   return v;
 }
 _number.type = () => "number";
-_number.value = () => 0;
+_number.value = () => NaN;
 
 export const number = (_number: NumberValidator);
 
@@ -68,7 +68,7 @@ function _int (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?
   return v;
 }
 _int.type = () => "number.int";
-_int.value = () => 0;
+_int.value = () => NaN;
 
 function _tonumber (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = true): number {
   const v = convertValue(toNumber, value, _ctx, true);
@@ -76,7 +76,7 @@ function _tonumber (value: mixed, _scope: string = "", err: ?TypeAssertError[], 
   return v;
 }
 _tonumber.type = () => "number";
-_tonumber.value = () => 0;
+_tonumber.value = () => NaN;
 
 export const tonumber = (_tonumber: NumberValidator);
 
@@ -95,7 +95,7 @@ function _uint8 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ct
 }
 
 _uint8.type = () => "number.uint8";
-_uint8.value = () => 0;
+_uint8.value = () => NaN;
 
 _number.uint8 = (_uint8: NumberValidator);
 
@@ -114,7 +114,7 @@ function _uint16 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _c
 }
 
 _uint16.type = () => "number.uint16";
-_uint16.value = () => 0;
+_uint16.value = () => NaN;
 
 _number.uint16 = (_uint16: NumberValidator);
 
@@ -133,7 +133,7 @@ function _uint32 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _c
 }
 
 _uint32.type = () => "number.uint32";
-_uint32.value = () => 0;
+_uint32.value = () => NaN;
 
 _number.uint32 = (_uint32: NumberValidator);
 
@@ -153,7 +153,7 @@ function _int8 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx
 }
 
 _int8.type = () => "number.int8";
-_int8.value = () => 0;
+_int8.value = () => NaN;
 
 _number.int8 = (_int8: NumberValidator);
 
@@ -173,7 +173,7 @@ function _int16 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ct
 }
 
 _int16.type = () => "number.int16";
-_int16.value = () => 0;
+_int16.value = () => NaN;
 
 _number.int16 = (_int16: NumberValidator);
 
@@ -193,7 +193,7 @@ function _int32 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ct
 }
 
 _int32.type = () => "number.int32";
-_int32.value = () => 0;
+_int32.value = () => NaN;
 
 _number.int32 = (_int32: NumberValidator);
 
