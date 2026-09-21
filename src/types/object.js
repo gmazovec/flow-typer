@@ -119,6 +119,6 @@ export const optional =
       return isUndef(value) ? value : typeFn(value, _scope, err, _ctx, convert);
     }
     optional.type = (opts: ?{ noVoid: boolean }) => opts && !opts.noVoid ? `(${getType(typeFn)} | void)` : getType(typeFn);
-    optional.value = (): T | void => typeFn.value();
+    optional.value = (): T | void => void typeFn.value();
     return optional;
   };
