@@ -212,10 +212,18 @@ const schema = unionOf2(string, number); // => type T = string | number
 - `mapOf(keySchema, valueSchema)`
 
 ```js
-const schema = mapOf(string, boolean); // => type T = { [_string]: boolean }
+// < 0.25
+const schema = mapOf(string, boolean); // => type T = { [string]: boolean }
+
+// >= 0.25
+const schema = mapOf(string, boolean); // => type T = Array<[string, boolean]> }
 ```
 
 - `mapOf.{boolean, number, string}`
+
+- `map(valueSchema)` [v0.25]
+
+- `map.{boolean, number, string}` [v0.25]
 
 - `literalOf(...) [deprecated]`
 
