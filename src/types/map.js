@@ -41,18 +41,18 @@ function createMapOfValidator <T> (typeFn: TypeValidator<T>, label?: string = "M
   return mapOf(string, typeFn, label, convert);
 }
 
-mapOf.boolean = (createMapOfValidator(boolean): TypeMapValidator<boolean>);
+mapOf.boolean = (createMapValidator(boolean): TypeMapValidator<boolean>);
 
-mapOf.number = (createMapOfValidator(number): TypeMapValidator<number>);
+mapOf.number = (createMapValidator(number): TypeMapValidator<number>);
 
-mapOf.string = (createMapOfValidator(string): TypeMapValidator<string>);
+mapOf.string = (createMapValidator(string): TypeMapValidator<string>);
 
-export const map = <V>
+export function map <V>
   (
     typeFn: TypeValidator<V>,
     label?: string = "Object",
     convert?: boolean = false
-  ): TypeMapValidator<V> => {
+  ): TypeMapValidator<V> {
     const type = () => `{ [string]: ${getType(typeFn)} }`;
     function map (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
       const o = object(value, _scope, err, _ctx, _convert);
@@ -80,4 +80,3 @@ map.boolean = (createMapValidator(boolean): TypeMapValidator<boolean>);
 map.number = (createMapValidator(number): TypeMapValidator<number>);
 
 map.string = (createMapValidator(string): TypeMapValidator<string>);
-
