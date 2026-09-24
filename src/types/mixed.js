@@ -14,7 +14,7 @@ _mixed.value = () => "";
 
 export const mixed = (_mixed: MixedValidator);
 
-function _json (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): mixed {
+function _json (value: mixed, _scope: string = "JSON", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): mixed {
   const v = string(value, _scope, err, _ctx, _convert);
   if (_ctx.assertion !== false) {
     try {
