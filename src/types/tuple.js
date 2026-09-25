@@ -14,6 +14,7 @@ export const tupleOf: Tuple2TypeValidator = function tupleOf_ (va, vb) {
 type Tuple1TypeValidator = <A> (TypeValidator<A>, label?: string, convert?: boolean) => TypeValidator<[A]>
 
 export const tuple1: Tuple1TypeValidator = function (va, label = "", convert = false) {
+  deprwarn("calling tupleOf1 is deprecated;", "FT008");
   const tuple_type = () => `[${getType(va)}]`;
   const tuple_value = () => [va.value()];
   function tuple (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
