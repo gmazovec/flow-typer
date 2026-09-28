@@ -3,7 +3,6 @@ import { assert, test } from "./index.js";
 import * as typer from "../src/index.js";
 
 const {
-  tupleOf1,
   tupleOf2,
   tupleOf3,
   tupleOf4,
@@ -16,26 +15,6 @@ const {
   objectOf,
   arrayOf
 } = typer;
-
-test("primitive types - cardinality 1", async (t) => {
-  const tuple = tupleOf1(boolean);
-
-  await t.test("should validate a tuple", () => {
-    const input = [true];
-    const value: [boolean] = tuple(input);
-    assert.deepEqual(value, input);
-  });
-
-  await t.test("should throw an error", () => {
-    assert.throws(() => { tuple(null) });
-    assert.throws(() => { tuple(undefined) });
-    assert.throws(() => { tuple(true) });
-    assert.throws(() => { tuple(12345) });
-    assert.throws(() => { tuple("foo") });
-    assert.throws(() => { tuple([]) });
-    assert.throws(() => { tuple([true, false]) });
-  });
-});
 
 test("primitive types - cardinality 2", async (t) => {
   const tuple = tupleOf2(number, number);
@@ -140,19 +119,19 @@ test("compoud type", async (t) => {
     active: boolean,
     roles: arrayOf(string)
   });;
-  const tuple = tupleOf1(userSchema);
+  const tuple = tupleOf2(number, userSchema);
   const user = { email: "foo@example.org", age: 33, active: false, roles: ["admin"] };
 
   await t.test("should validate a tuple", () => {
-    const input = [user];
-    const value: [{ email: string, age: number, active: boolean, roles: Array<string> }] = tuple(input);
+    const input = [1, user];
+    const value: [number, { email: string, age: number, active: boolean, roles: Array<string> }] = tuple(input);
     assert.deepEqual(value, input);
   });;
 
   await t.test("should throw an error", () => {
-    assert.throws(() => { tuple([{ user: { ...user }, age: "33" }]) });
-    assert.throws(() => { tuple([{ user: { ...user }, email: true }]) });
-    assert.throws(() => { tuple([{ user: { ...user }, active: 1 }]) });
-    assert.throws(() => { tuple([{ user: { ...user }, roles: [{ admin: true }] }]) });
+    assert.throws(() => { tuple([1, { user: { ...user }, age: "33" }]) });
+    assert.throws(() => { tuple([2, { user: { ...user }, email: true }]) });
+    assert.throws(() => { tuple([3, { user: { ...user }, active: 1 }]) });
+    assert.throws(() => { tuple([4, { user: { ...user }, roles: [{ admin: true }] }]) });
   });
 });
