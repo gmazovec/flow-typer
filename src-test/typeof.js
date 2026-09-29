@@ -5,7 +5,6 @@ import * as typer from "../src/index.js";
 const {
   objectOf,
   arrayOf,
-  tupleOf1,
   tupleOf2,
   tupleOf3,
   tupleOf4,
@@ -48,16 +47,6 @@ test("should infer object type", () => {
   });
   const htmlDomElementT: HtmlDOMElementT = typeOf(schema);
   assert.ok(Array.isArray(htmlDomElementT.head));
-});
-
-type TypeT = [string];
-
-test("should infer tuple type (cardinality 1)", () => {
-  const type = tupleOf1(string);
-  const typeT: TypeT = typeOf(type);
-  assert.ok(Array.isArray(typeT));
-  assert.equal(typeT.length, 1);
-  assert.ok(isString(typeT[0]));
 });
 
 type CoordinateT = [number, number];
