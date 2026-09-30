@@ -3,7 +3,6 @@ import { assert, test } from "./index.js";
 import * as typer from "../src/index.js";
 
 const {
-  unionOf,
   unionOf2,
   unionOf3,
   unionOf4,
