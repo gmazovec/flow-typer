@@ -23,7 +23,7 @@ function assertUnion <T> (vx: TypeValidator<T>, value: mixed, _scope: string, er
 type Union2TypeValidator = <A, B> (TypeValidator<A>, TypeValidator<B>, label?: string, convert?: boolean) => TypeValidator<A | B>;
 
 export const union2: Union2TypeValidator = function (va, vb, label = "", convert = false) {
-  const type = () => `(${getType(va)} | ${getType(vb)})`;
+  const type = () => (`${getType(va)} | ${getType(vb)}`);
   const union_value = () => va.value() ?? vb.value();
   function union (value: mixed, _scope: string = label, err: ?TypeAssertError[], _ctx: AssertionContext = {}, _convert: boolean = convert) {
     try {
