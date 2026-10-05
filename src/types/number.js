@@ -80,6 +80,26 @@ _tonumber.value = () => NaN;
 
 export const tonumber = (_tonumber: NumberValidator);
 
+const intMinValue = Number.MIN_SAFE_INTEGER || -Math.pow(2, 53) + 1;
+const intMaxValue = Number.MAX_SAFE_INTEGER || +Math.pow(2, 53) - 1;
+
+function _safeint (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+  const v = _int(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (v < intMinValue || v > intMaxValue) {
+      _ctx.assertion = false;
+      assertContext("safeint", getType(_safeint), v, _scope, err, _ctx.assertion);
+      return Number();
+    }
+  }
+  return v;
+}
+
+_safeint.type = () => "number.int";
+_safeint.value = () => NaN;
+
+_number.int = (_safeint: NumberValidator);
+
 const uint8Value = 256;
 
 function _uint8 (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
