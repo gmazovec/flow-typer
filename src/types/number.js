@@ -62,6 +62,22 @@ _number.value = () => NaN;
 
 export const number = (_number: NumberValidator);
 
+function _float (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
+  const v = _number(value, _scope, err, _ctx, _convert);
+  if (_ctx.assertion !== false) {
+    if (v.toString().indexOf(".") < 0) {
+      _ctx.assertion = false;
+      assertContext(_float.name, getType(_float), v, _scope, err, _ctx.assertion);
+      return Number();
+    }
+  }
+  return v;
+}
+_float.type = () => "number.float";
+_float.value = () => NaN;
+
+_number.float = (_float: NumberValidator);
+
 function _int (value: mixed, _scope: string = "", err: ?TypeAssertError[], _ctx?: AssertionContext = {}, _convert?: boolean = false): number {
   const v = convertValue(toInt, value, _ctx, _convert);
   assertContext(_int.name, getType(_int), value, _scope, err, _ctx.assertion);
