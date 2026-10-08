@@ -158,10 +158,10 @@ refinement.
 
 ### Primitive types
 
-- `nil`
-- `null_t`
-- `undef`
-- `undefined_t`
+- `nil` [deprecated]
+- `null_t` [deprecated]
+- `undef` [deprecated]
+- `undefined_t` [deprecated]
 - `boolean`
 - `number`
 - `string`
