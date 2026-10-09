@@ -241,6 +241,8 @@ These are validators that check againts specific format of types. For example,
 
 #### number
 
+- `number.{float, int}`
+
 - `number.uint{8, 16, 32}`
 
 - `number.int{8, 16, 32}`
