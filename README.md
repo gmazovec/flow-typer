@@ -148,7 +148,6 @@ can be done with `to()` utility.
 These functions will check for specific JavaScript type with correct _Flow_ type
 refinement.
 
-- `isNil` [deprecated]
 - `isNull`
 - `isUndef`
 - `isBoolean`
@@ -158,10 +157,6 @@ refinement.
 
 ### Primitive types
 
-- `nil` [deprecated]
-- `null_t` [deprecated]
-- `undef` [deprecated]
-- `undefined_t` [deprecated]
 - `boolean`
 - `number`
 - `string`
@@ -191,8 +186,6 @@ const schema = arrayOf(number); // => type T = number[]
 
 - `arrayOf.{boolean, number, string}`
 
-- `tupleOf(...schema[]) [deprecated]`
-
 - `tupleOf2(...schema[]) ... tupleOf6`
 
 ```js
@@ -200,8 +193,6 @@ const schema = tupleOf2(string, number); // => type T = [string, number]
 ```
 
 - `tupleOf{2, ..., 6}.{boolean, number, string}`
-
-- `unionOf(...schema[]) [deprecated]`
 
 - `unionOf2(...schema[]) ... unionOf6`
 
@@ -224,8 +215,6 @@ const schema = mapOf(string, boolean); // => type T = Array<[string, boolean]> }
 - `map(valueSchema)` [v0.25]
 
 - `map.{boolean, number, string}` [v0.25]
-
-- `literalOf(...) [deprecated]`
 
 - `literal(...)`
 
