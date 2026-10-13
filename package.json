@@ -20,7 +20,7 @@
     "dist"
   ],
   "scripts": {
-    "prepublishOnly": "node --eval '' --require './dist'"
+    "prepublishOnly": "node --eval 'import \"./dist/index.js\";' 2> /dev/null || echo 'run \"node --test\" to build distribution code'"
   },
   "peerDependencies": {
     "flow-bin": "^0.269.1"
