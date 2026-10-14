@@ -2,6 +2,7 @@ import fs from "node:fs";
 
 export const versions = { flow: "" };
 
+(async function () {
 if (import.meta.resolve) {
   const pkgUri = [import.meta.resolve('flow-bin/package.json')];
   if (pkgUri[0]) {
@@ -15,4 +16,5 @@ if (import.meta.resolve) {
     console.info("flow-typer: enable feature flag --experimental-import-meta-resolve");
   }
 }
+})();
 
