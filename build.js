@@ -25,7 +25,7 @@ export function build (src /*: string */, dest /*: string */, copySrcFile /*: bo
 }
 
 export function buildDist () {
-  ["/", "/types"].forEach((sub) => build("src" + sub, "dist" + sub, true, ".flow"));
+  ["/", "/types", "/types/0.269.1"].forEach((sub) => build("src" + sub, "dist" + sub, true, ".flow"));
 }
 
 let logI = 0;
