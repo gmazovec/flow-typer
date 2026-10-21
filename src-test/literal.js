@@ -1,7 +1,7 @@
 // @flow
 
 import { assert, test } from "./index.js";
-import * as typer from "../src/index.js";
+import * as typer from "../dist/types/latest.js";
 
 const { literal } =  typer;
 
